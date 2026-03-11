@@ -15,3 +15,4 @@
     { "src": "/contact", "dest": "/contact.html" }
   ]
 }
+{ "src": "/register", "dest": "/register.html" },
