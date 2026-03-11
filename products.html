@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:34px;height:34px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;}
+.nav-links a:hover{color:var(--g2);}
+.nav-btns{display:flex;gap:10px;}
+.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+
+/* HERO */
+.page-hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:40px 5%;color:white;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:8px;}
+.page-hero p{font-size:14px;color:#a0c8a0;margin-bottom:20px;}
+.search-big{display:flex;background:white;border-radius:12px;overflow:hidden;max-width:700px;}
+.search-big input{flex:1;padding:14px 18px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
+.search-big select{padding:0 14px;border:none;border-left:1px solid #e0e8e0;outline:none;background:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--mid);}
+.search-big button{padding:0 24px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:24px 5%;max-width:1400px;margin:0 auto;}
+
+/* FILTERS */
+.filters{background:white;border-radius:16px;padding:20px;height:fit-content;box-shadow:0 2px 12px #00000008;position:sticky;top:80px;}
+.filter-title{font-size:14px;font-weight:700;color:var(--g1);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.filter-title button{font-size:11px;color:var(--g3);background:none;border:none;cursor:pointer;font-weight:600;}
+.filter-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--g5);}
+.filter-section:last-child{border-bottom:none;margin-bottom:0;}
+.filter-section h4{font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.filter-option{display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;}
+.filter-option input[type="checkbox"]{accent-color:var(--g3);width:14px;height:14px;}
+.filter-option label{font-size:13px;color:var(--dark);cursor:pointer;flex:1;}
+.filter-option span{font-size:11px;color:var(--light);}
+.price-range{display:flex;gap:8px;margin-top:8px;}
+.price-range input{flex:1;padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;font-family:'DM Sans',sans-serif;}
+.filter-btn{width:100%;padding:10px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;}
+
+/* PRODUCTS */
+.products-main{}
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.results-count{font-size:14px;color:var(--mid);}
+.results-count strong{color:var(--g1);}
+.sort-bar{display:flex;align-items:center;gap:10px;}
+.sort-bar label{font-size:13px;color:var(--mid);}
+.sort-bar select{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;background:white;}
+.view-btns{display:flex;gap:4px;}
+.view-btn{width:32px;height:32px;border:1.5px solid #d4e8cc;border-radius:6px;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.view-btn.active{background:var(--g5);border-color:var(--g3);}
+
+/* ACTIVE FILTERS */
+.active-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.filter-tag{display:flex;align-items:center;gap:6px;padding:4px 12px;background:var(--g5);border:1px solid var(--g4);border-radius:20px;font-size:12px;color:var(--g2);font-weight:500;}
+.filter-tag button{background:none;border:none;cursor:pointer;color:var(--g2);font-size:14px;line-height:1;}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.prod-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px #00000008;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px #2d7a3a14;border-color:var(--g4);}
+.prod-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;}
+.prod-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+.badge-new{background:#e3f2fd;color:#1565c0;}
+.badge-hot{background:#fce4ec;color:#c62828;}
+.badge-eco{background:var(--g5);color:var(--g2);}
+.prod-body{padding:16px;}
+.prod-cat{font-size:11px;color:var(--g3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.prod-body h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;line-height:1.4;}
+.prod-supplier{font-size:11px;color:var(--light);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.verified-dot{width:6px;height:6px;background:var(--g3);border-radius:50%;display:inline-block;}
+.prod-price{font-size:18px;font-weight:700;color:var(--g2);}
+.prod-unit{font-size:11px;color:var(--light);}
+.prod-moq{font-size:11px;color:var(--earth);font-weight:500;margin-top:2px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--g5);}
+.prod-rating{font-size:12px;color:#e0a020;font-weight:600;}
+.prod-reviews{font-size:11px;color:var(--light);}
+.enquire-btn{padding:6px 14px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.enquire-btn:hover{background:var(--g1);}
+
+/* LOAD MORE */
+.load-more{text-align:center;margin:32px 0;}
+.load-more button{padding:12px 40px;background:white;border:2px solid var(--g3);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;}
+.load-more button:hover{background:var(--g5);}
+
+/* ENQUIRY MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:20px;padding:32px;width:90%;max-width:480px;position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--g5);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;}
+.modal h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:6px;}
+.modal p{font-size:13px;color:var(--mid);margin-bottom:20px;}
+.modal-field{margin-bottom:14px;}
+.modal-field label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
+.modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:10px 14px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
+.modal-field textarea{height:80px;resize:vertical;}
+.modal-submit{width:100%;padding:12px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <svg class="logo-icon" viewBox="0 0 34 34" fill="none">
+      <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
+      <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
+      <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html" style="color:var(--g2);font-weight:600;">Products</a></li>
+    <li><a href="category.html">Categories</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="login.html" class="btn-out">Login</a>
+    <a href="login.html" class="btn-pri">List Business</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🌿 Browse Green Products</h1>
+  <p>86,000+ eco-friendly products from 12,400+ verified Indian suppliers</p>
+  <div class="search-big">
+    <input type="text" placeholder="Search solar panels, organic seeds, eco packaging..."/>
+    <select>
+      <option>All Categories</option>
+      <option>☀️ Solar Energy</option>
+      <option>🌾 Organic Farming</option>
+      <option>📦 Eco Packaging</option>
+      <option>♻️ Waste Management</option>
+    </select>
+    <button>Search 🔍</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-title">
+      Filters
+      <button onclick="clearFilters()">Clear All</button>
+    </div>
+
+    <div class="filter-section">
+      <h4>Category</h4>
+      <div class="filter-option"><input type="checkbox" id="f1" checked/><label for="f1">☀️ Solar Energy</label><span>(2,400)</span></div>
+      <div class="filter-option"><input type="checkbox" id="f2"/><label for="f2">🌾 Organic Farming</label><span>(1,800)</span></div>
+      <div class="filter-option"><input type="checkbox" id="f3"/><label for="f3">📦 Eco Packaging</label><span>(1,200)</span></div>
+      <div class="filter-option"><input type="checkbox" id="f4"/><label for="f4">♻️ Waste Mgmt</label><span>(760)</span></div>
+      <div class="filter-option"><input type="checkbox" id="f5"/><label for="f5">💧 Water Tech</label><span>(640)</span></div>
+      <div class="filter-option"><input type="checkbox" id="f6"/><label for="f6">🔋 Energy Storage</label><span>(340)</span></div>
+    </div>
+
+    <div class="filter-section">
+      <h4>Price Range (₹)</h4>
+      <div class="price-range">
+        <input type="number" placeholder="Min"/>
+        <input type="number" placeholder="Max"/>
+      </div>
+      <button class="filter-btn">Apply Price</button>
+    </div>
+
+    <div class="filter-section">
+      <h4>Location</h4>
+      <div class="filter-option"><input type="checkbox" id="l1"/><label for="l1">Maharashtra</label></div>
+      <div class="filter-option"><input type="checkbox" id="l2"/><label for="l2">Gujarat</label></div>
+      <div class="filter-option"><input type="checkbox" id="l3"/><label for="l3">Tamil Nadu</label></div>
+      <div class="filter-option"><input type="checkbox" id="l4"/><label for="l4">Delhi NCR</label></div>
+      <div class="filter-option"><input type="checkbox" id="l5"/><label for="l5">Karnataka</label></div>
+    </div>
+
+    <div class="filter-section">
+      <h4>Supplier Rating</h4>
+      <div class="filter-option"><input type="checkbox" id="r1"/><label for="r1">⭐⭐⭐⭐⭐ 5 Star</label></div>
+      <div class="filter-option"><input type="checkbox" id="r2" checked/><label for="r2">⭐⭐⭐⭐ 4+ Star</label></div>
+      <div class="filter-option"><input type="checkbox" id="r3"/><label for="r3">⭐⭐⭐ 3+ Star</label></div>
+    </div>
+
+    <div class="filter-section">
+      <h4>Certifications</h4>
+      <div class="filter-option"><input type="checkbox" id="c1"/><label for="c1">✅ Verified Supplier</label></div>
+      <div class="filter-option"><input type="checkbox" id="c2"/><label for="c2">🌿 Organic Certified</label></div>
+      <div class="filter-option"><input type="checkbox" id="c3"/><label for="c3">🏆 ISO Certified</label></div>
+      <div class="filter-option"><input type="checkbox" id="c4"/><label for="c4">🌍 Export Ready</label></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products-main">
+    <div class="results-bar">
+      <div class="results-count">Showing <strong>86,420</strong> products</div>
+      <div class="sort-bar">
+        <label>Sort by:</label>
+        <select>
+          <option>Most Relevant</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Top Rated</option>
+          <option>Newest First</option>
+        </select>
+        <div class="view-btns">
+          <button class="view-btn active">⊞</button>
+          <button class="view-btn">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="active-filters">
+      <div class="filter-tag">☀️ Solar Energy <button>×</button></div>
+      <div class="filter-tag">⭐ 4+ Rating <button>×</button></div>
+      <div class="filter-tag">🌍 All India <button>×</button></div>
+    </div>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#e8f5e2,#c8e6c0)">
+          ☀️<span class="prod-badge badge-hot">🔥 Hot</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Solar Energy</div>
+          <h3>Monocrystalline Solar Panel 400W</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> SunGrow Solar · Pune</div>
+          <div class="prod-price">₹8,200 <span class="prod-unit">/unit</span></div>
+          <div class="prod-moq">MOQ: 10 units</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.8</div><div class="prod-reviews">(120 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Solar Panel 400W')">Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">
+          🌾<span class="prod-badge badge-eco">🌿 Eco</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Organic Farming</div>
+          <h3>Bio Compost Fertiliser 50kg</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> OrganiFarm · Nashik</div>
+          <div class="prod-price">₹340 <span class="prod-unit">/bag</span></div>
+          <div class="prod-moq">MOQ: 50 bags</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.6</div><div class="prod-reviews">(88 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Bio Compost Fertiliser')">Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2)">
+          📦<span class="prod-badge badge-new">✨ New</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Eco Packaging</div>
+          <h3>Kraft Paper Boxes Biodegradable</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> EcoPack · Ahmedabad</div>
+          <div class="prod-price">₹12 <span class="prod-unit">/piece</span></div>
+          <div class="prod-moq">MOQ: 500 pieces</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.9</div><div class="prod-reviews">(204 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Kraft Paper Boxes')">Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">
+          🔋<span class="prod-badge badge-hot">🔥 Hot</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Energy Storage</div>
+          <h3>Lithium Battery 100Ah Deep Cycle</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> PowerGreen · Delhi</div>
+          <div class="prod-price">₹22,000 <span class="prod-unit">/unit</span></div>
+          <div class="prod-moq">MOQ: 5 units</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.7</div><div class="prod-reviews">(56 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Lithium Battery 100Ah')">Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#e8f5e2,#dcedc8)">
+          🌿<span class="prod-badge badge-eco">🌿 Eco</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Herbal Products</div>
+          <h3>Organic Neem Extract 5L</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> HerbalIndia · Chennai</div>
+          <div class="prod-price">₹1,200 <span class="prod-unit">/can</span></div>
+          <div class="prod-moq">MOQ: 20 cans</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.5</div><div class="prod-reviews">(42 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Organic Neem Extract')">Enquire</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">
+          💧<span class="prod-badge badge-new">✨ New</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Water Technology</div>
+          <h3>Industrial RO Water System 500LPH</h3>
+          <div class="prod-supplier"><span class="verified-dot"></span> AquaGreen · Bangalore</div>
+          <div class="prod-price">₹45,000 <span class="prod-unit">/unit</span></div>
+          <div class="prod-moq">MOQ: 1 unit</div>
+          <div class="prod-footer">
+            <div><div class="prod-rating">⭐ 4.8</div><div class="prod-reviews">(31 reviews)</div></div>
+            <button class="enquire-btn" onclick="openModal('Industrial RO System')">Enquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="load-more">
+      <button onclick="alert('Loading more products...')">Load More Products ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Send Enquiry 📩</h3>
+    <p id="modalProduct">Get best price for your requirement</p>
+    <div class="modal-field">
+      <label>Your Name</label>
+      <input type="text" placeholder="Dinesh Kumar"/>
+    </div>
+    <div class="modal-field">
+      <label>Mobile / WhatsApp</label>
+      <input type="tel" placeholder="+91 98765 43210"/>
+    </div>
+    <div class="modal-field">
+      <label>Quantity Required</label>
+      <input type="text" placeholder="e.g. 50 units"/>
+    </div>
+    <div class="modal-field">
+      <label>Message</label>
+      <textarea placeholder="Tell supplier your exact requirement..."></textarea>
+    </div>
+    <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry to Supplier 🌿</button>
+  </div>
+</div>
+
+<script>
+function openModal(product){
+  document.getElementById('modalProduct').textContent = '📦 ' + product;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+function submitEnquiry(){
+  alert('✅ Enquiry sent successfully!\nSupplier will contact you within 2 hours.');
+  closeModal();
+}
+function clearFilters(){
+  document.querySelectorAll('.filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+}
+document.getElementById('modalOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+</script>
+</body>
+</html>

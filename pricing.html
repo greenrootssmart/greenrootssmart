@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pricing Plans — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--gold:#f59e0b;--red:#c62828;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+.nav-btns{display:flex;gap:10px;}
+.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--g1),var(--g2));padding:56px 6%;text-align:center;color:white;position:relative;overflow:hidden;}
+.hero::before{content:'💰';position:absolute;left:5%;top:10%;font-size:100px;opacity:0.06;}
+.hero::after{content:'🌿';position:absolute;right:5%;bottom:0;font-size:120px;opacity:0.06;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:12px;color:var(--g4);font-weight:600;margin-bottom:16px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;margin-bottom:12px;line-height:1.2;}
+.hero h1 span{color:var(--g3);}
+.hero p{font-size:16px;color:#a0c8a0;max-width:520px;margin:0 auto 28px;line-height:1.7;}
+
+/* TOGGLE */
+.billing-toggle{display:inline-flex;background:rgba(255,255,255,0.1);border-radius:12px;padding:4px;margin-bottom:8px;}
+.toggle-btn{padding:8px 24px;border-radius:10px;border:none;background:transparent;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.toggle-btn.active{background:white;color:var(--g1);}
+.save-badge{display:inline-block;background:var(--gold);color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;}
+
+/* PLANS */
+.plans-section{padding:60px 5%;}
+.plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto;}
+
+.plan-card{background:white;border-radius:22px;padding:28px 24px;border:2px solid #e0e8e0;position:relative;transition:all 0.3s;display:flex;flex-direction:column;}
+.plan-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px #2d7a3a14;}
+.plan-card.popular{border-color:var(--g3);box-shadow:0 8px 32px #2d7a3a20;}
+.plan-card.premium{border-color:var(--gold);box-shadow:0 8px 32px #f59e0b20;}
+
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--g3),var(--g2));color:white;padding:5px 18px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;}
+.premium-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#d97706);color:white;padding:5px 18px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;}
+
+.plan-icon{font-size:36px;margin-bottom:14px;}
+.plan-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);margin-bottom:4px;}
+.plan-tagline{font-size:12px;color:var(--light);margin-bottom:20px;}
+
+.plan-price{margin-bottom:6px;}
+.price-amount{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:var(--g1);}
+.price-period{font-size:13px;color:var(--light);}
+.price-annual{font-size:11px;color:var(--g3);font-weight:600;margin-bottom:20px;}
+.price-free{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:var(--g3);}
+
+.plan-divider{height:1px;background:#f0f4f0;margin:16px 0;}
+
+.features-list{list-style:none;flex:1;margin-bottom:24px;}
+.features-list li{display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:13px;color:var(--mid);border-bottom:1px solid #f8f8f8;}
+.features-list li:last-child{border-bottom:none;}
+.feat-check{color:var(--g3);font-size:14px;flex-shrink:0;margin-top:1px;}
+.feat-cross{color:#ccc;font-size:14px;flex-shrink:0;margin-top:1px;}
+.feat-text{line-height:1.4;}
+.feat-highlight{font-weight:700;color:var(--g1);}
+
+.plan-btn{width:100%;padding:13px;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;}
+.btn-free{background:var(--g5);color:var(--g2);border:2px solid var(--g4);}
+.btn-free:hover{background:var(--g4);}
+.btn-basic{background:var(--g5);color:var(--g2);border:2px solid var(--g3);}
+.btn-basic:hover{background:var(--g2);color:white;}
+.btn-popular{background:linear-gradient(135deg,var(--g3),var(--g2));color:white;}
+.btn-popular:hover{transform:translateY(-2px);box-shadow:0 6px 20px #2d7a3a30;}
+.btn-premium{background:linear-gradient(135deg,var(--gold),#d97706);color:white;}
+.btn-premium:hover{transform:translateY(-2px);box-shadow:0 6px 20px #f59e0b30;}
+
+/* COMPARISON TABLE */
+.compare-section{padding:0 5% 60px;}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--g3);text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.sec-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--g1);margin-bottom:8px;text-align:center;}
+.sec-sub{font-size:14px;color:var(--mid);text-align:center;margin-bottom:40px;}
+
+.compare-table{width:100%;max-width:1000px;margin:0 auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px #00000010;}
+.compare-table table{width:100%;border-collapse:collapse;}
+.compare-table th{padding:16px 20px;font-size:13px;font-weight:700;color:white;text-align:center;}
+.compare-table th:first-child{text-align:left;background:var(--g1);}
+.compare-table th.th-free{background:#4a6645;}
+.compare-table th.th-basic{background:var(--g2);}
+.compare-table th.th-pro{background:var(--g3);}
+.compare-table th.th-premium{background:var(--gold);}
+.compare-table td{padding:13px 20px;font-size:13px;border-bottom:1px solid #f0f4f0;text-align:center;color:var(--mid);}
+.compare-table td:first-child{text-align:left;font-weight:600;color:var(--dark);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:hover td{background:#fafcfa;}
+.check{color:var(--g3);font-size:16px;}
+.cross{color:#ddd;font-size:16px;}
+.val{font-weight:700;color:var(--g1);}
+
+/* FAQ */
+.faq-section{padding:0 5% 60px;max-width:800px;margin:0 auto;}
+.faq-item{background:white;border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px #00000006;}
+.faq-q{padding:18px 20px;font-size:14px;font-weight:600;color:var(--g1);cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.faq-q:hover{background:var(--g5);}
+.faq-icon{font-size:18px;color:var(--g3);transition:transform 0.3s;}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:all 0.3s;font-size:13px;color:var(--mid);line-height:1.7;}
+.faq-a.open{padding:0 20px 16px;max-height:200px;}
+
+/* TRUST */
+.trust-section{background:var(--g1);padding:48px 5%;text-align:center;color:white;}
+.trust-section h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:8px;}
+.trust-section p{color:#a0c8a0;font-size:14px;margin-bottom:32px;}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:900px;margin:0 auto 40px;}
+.trust-item{text-align:center;}
+.trust-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:white;}
+.trust-lbl{font-size:12px;color:#80b080;margin-top:4px;}
+.trust-btn{padding:14px 40px;background:var(--g3);color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.trust-btn:hover{background:white;color:var(--g1);}
+
+footer{background:#0f1f10;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:12px;color:#4a6a4a;}
+footer a{color:var(--g4);text-decoration:none;font-size:12px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
+      <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
+      <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+  <div class="nav-btns">
+    <a href="index.html" class="btn-out">← Home</a>
+    <a href="login.html" class="btn-pri">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">💰 Simple & Transparent Pricing</div>
+  <h1>Grow Your Green Business<br/><span>With the Right Plan</span></h1>
+  <p>Start free — upgrade anytime. No hidden charges. Cancel whenever you want.</p>
+  <div class="billing-toggle">
+    <button class="toggle-btn active" onclick="setMonthly()">Monthly</button>
+    <button class="toggle-btn" onclick="setAnnual()">Annual <span class="save-badge">Save 20%</span></button>
+  </div>
+</div>
+
+<!-- PLANS -->
+<div class="plans-section">
+  <div class="plans-grid">
+
+    <!-- FREE -->
+    <div class="plan-card">
+      <div class="plan-icon">🌱</div>
+      <div class="plan-name">Starter</div>
+      <div class="plan-tagline">Perfect to begin your journey</div>
+      <div class="plan-price">
+        <span class="price-free">Free</span>
+      </div>
+      <div class="price-annual">Forever free · No credit card</div>
+      <div class="plan-divider"></div>
+      <ul class="features-list">
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">10 Products</span> listing</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">5 Enquiries</span> per month</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Basic business profile</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Listed in search results</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">2 Photos</span> per product</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Featured listing</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Priority support</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Analytics dashboard</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Export leads</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Verified badge</span></li>
+      </ul>
+      <button class="plan-btn btn-free" onclick="window.location.href='login.html'">Start Free 🌱</button>
+    </div>
+
+    <!-- BASIC -->
+    <div class="plan-card">
+      <div class="plan-icon">🌿</div>
+      <div class="plan-name">Basic</div>
+      <div class="plan-tagline">For growing eco businesses</div>
+      <div class="plan-price">
+        <span class="price-amount" id="basic-price">₹999</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-annual" id="basic-annual">Billed monthly</div>
+      <div class="plan-divider"></div>
+      <ul class="features-list">
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">50 Products</span> listing</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">50 Enquiries</span> per month</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Enhanced business profile</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Listed in search results</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">5 Photos</span> per product</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Basic analytics</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Email support</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Featured listing</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Export leads</span></li>
+        <li><span class="feat-cross">✗</span><span class="feat-text" style="color:#bbb">Verified badge</span></li>
+      </ul>
+      <button class="plan-btn btn-basic" onclick="window.location.href='login.html'">Start Basic 🌿</button>
+    </div>
+
+    <!-- PRO — POPULAR -->
+    <div class="plan-card popular">
+      <div class="popular-badge">🔥 Most Popular</div>
+      <div class="plan-icon">🌳</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-tagline">Best for serious sellers</div>
+      <div class="plan-price">
+        <span class="price-amount" id="pro-price">₹2,499</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-annual" id="pro-annual">Billed monthly</div>
+      <div class="plan-divider"></div>
+      <ul class="features-list">
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">200 Products</span> listing</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Unlimited Enquiries</span></span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Premium business profile</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Featured</span> in search results</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">10 Photos</span> per product</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Full analytics dashboard</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Priority email & chat support</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Export</span> leads to Excel</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">✅ Verified</span> seller badge</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">WhatsApp enquiry alerts</span></li>
+      </ul>
+      <button class="plan-btn btn-popular" onclick="window.location.href='login.html'">Start Pro 🌳</button>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="plan-card premium">
+      <div class="premium-badge">💎 Best Value</div>
+      <div class="plan-icon">🏆</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-tagline">For large eco enterprises</div>
+      <div class="plan-price">
+        <span class="price-amount" id="premium-price">₹4,999</span>
+        <span class="price-period">/month</span>
+      </div>
+      <div class="price-annual" id="premium-annual">Billed monthly</div>
+      <div class="plan-divider"></div>
+      <ul class="features-list">
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Unlimited Products</span></span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Unlimited Enquiries</span></span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Custom branded profile page</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Top Featured</span> placement</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">20 Photos</span> + video upload</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Advanced analytics & reports</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">Dedicated</span> account manager</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Export leads anytime</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text"><span class="feat-highlight">💎 Premium</span> verified badge</span></li>
+        <li><span class="feat-check">✓</span><span class="feat-text">Global buyer introductions</span></li>
+      </ul>
+      <button class="plan-btn btn-premium" onclick="window.location.href='login.html'">Start Premium 🏆</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPARE TABLE -->
+<div class="compare-section">
+  <div class="sec-label">Full Comparison</div>
+  <h2 class="sec-title">Compare All Plans</h2>
+  <p class="sec-sub">See exactly what you get in each plan</p>
+
+  <div class="compare-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="th-free">🌱 Starter<br/><small>Free</small></th>
+          <th class="th-basic">🌿 Basic<br/><small>₹999/mo</small></th>
+          <th class="th-pro">🌳 Pro<br/><small>₹2,499/mo</small></th>
+          <th class="th-premium">🏆 Premium<br/><small>₹4,999/mo</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Products Listing</td><td class="val">10</td><td class="val">50</td><td class="val">200</td><td class="val">Unlimited</td></tr>
+        <tr><td>Monthly Enquiries</td><td class="val">5</td><td class="val">50</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>Photos per Product</td><td class="val">2</td><td class="val">5</td><td class="val">10</td><td class="val">20 + Video</td></tr>
+        <tr><td>Featured in Search</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓ Top</span></td></tr>
+        <tr><td>Verified Seller Badge</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓ Premium</span></td></tr>
+        <tr><td>Analytics Dashboard</td><td><span class="cross">✗</span></td><td><span class="check">Basic</span></td><td><span class="check">Full</span></td><td><span class="check">Advanced</span></td></tr>
+        <tr><td>Export Leads</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>WhatsApp Alerts</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Support</td><td class="val">Community</td><td class="val">Email</td><td class="val">Priority</td><td class="val">Dedicated</td></tr>
+        <tr><td>Account Manager</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Global Introductions</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Certificate Upload</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="sec-label" style="text-align:center">Common Questions</div>
+  <h2 class="sec-title">Frequently Asked Questions</h2>
+  <p class="sec-sub">Everything you need to know about our plans</p>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can I start free and upgrade later? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Yes! Start with our free Starter plan anytime. Upgrade to Basic, Pro or Premium whenever your business grows. No pressure!</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">What payment methods are accepted? <span class="faq-icon">+</span></div>
+    <div class="faq-a">We accept all UPI payments (GPay, PhonePe, Paytm), all Indian debit & credit cards, net banking, and EMI options via Razorpay.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can I cancel my subscription anytime? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Yes! Cancel anytime from your dashboard with zero cancellation fee. Your plan continues until the end of the billing period.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Is GST invoice provided? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Yes! GST invoice is automatically generated for every payment. You can download it from your dashboard anytime for accounting purposes.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">What is the difference between Basic and Pro? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Pro gives you Featured listing in search (huge visibility boost!), Verified badge, unlimited enquiries, WhatsApp alerts, and lead export. Most serious sellers choose Pro!</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Do you offer discounts for annual plans? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Yes! Pay annually and save 20% on all paid plans. Switch to annual billing from the toggle above to see discounted prices.</div>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust-section">
+  <h2>Trusted by Green Businesses Across India 🌿</h2>
+  <p>Join thousands of eco suppliers already growing with Green Roots Smart</p>
+  <div class="trust-grid">
+    <div class="trust-item"><div class="trust-num">12,400+</div><div class="trust-lbl">Active Sellers</div></div>
+    <div class="trust-item"><div class="trust-num">₹2.4Cr+</div><div class="trust-lbl">Deals Closed</div></div>
+    <div class="trust-item"><div class="trust-num">4.8 ⭐</div><div class="trust-lbl">Seller Rating</div></div>
+    <div class="trust-item"><div class="trust-num">50+</div><div class="trust-lbl">Countries Reached</div></div>
+  </div>
+  <button class="trust-btn" onclick="window.location.href='login.html'">🌿 Start Free Today — No Card Needed</button>
+</div>
+
+<footer>
+  <p>© 2026 Green Roots Smart · All rights reserved 🌿</p>
+  <a href="index.html">← Back to Home</a>
+</footer>
+
+<script>
+let isAnnual = false;
+
+function setMonthly(){
+  isAnnual = false;
+  document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+  document.querySelectorAll('.toggle-btn')[1].classList.remove('active');
+  document.getElementById('basic-price').textContent = '₹999';
+  document.getElementById('pro-price').textContent = '₹2,499';
+  document.getElementById('premium-price').textContent = '₹4,999';
+  document.getElementById('basic-annual').textContent = 'Billed monthly';
+  document.getElementById('pro-annual').textContent = 'Billed monthly';
+  document.getElementById('premium-annual').textContent = 'Billed monthly';
+}
+
+function setAnnual(){
+  isAnnual = true;
+  document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+  document.querySelectorAll('.toggle-btn')[0].classList.remove('active');
+  document.getElementById('basic-price').textContent = '₹799';
+  document.getElementById('pro-price').textContent = '₹1,999';
+  document.getElementById('premium-price').textContent = '₹3,999';
+  document.getElementById('basic-annual').textContent = '₹9,588/year · Save ₹2,400!';
+  document.getElementById('pro-annual').textContent = '₹23,988/year · Save ₹6,000!';
+  document.getElementById('premium-annual').textContent = '₹47,988/year · Save ₹12,000!';
+}
+
+function toggleFaq(el){
+  const ans = el.nextElementSibling;
+  const icon = el.querySelector('.faq-icon');
+  const isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+  if(!isOpen){ ans.classList.add('open'); icon.textContent = '−'; }
+}
+</script>
+</body>
+</html>

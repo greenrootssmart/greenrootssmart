@@ -1,0 +1,535 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seller Dashboard — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
+.logo-text span{color:var(--g3);}
+.logo-sub{font-size:10px;color:#80b080;margin-top:2px;}
+.sidebar-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
+.user-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.user-name{font-size:13px;font-weight:600;color:white;}
+.user-plan{font-size:10px;color:var(--g4);margin-top:1px;}
+.sidebar-nav{flex:1;padding:12px 0;}
+.nav-section{padding:8px 20px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
+.nav-item.active{background:rgba(82,176,67,0.2);color:white;border-right:3px solid var(--g3);}
+.nav-item .nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-item .nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.1);}
+.upgrade-card{background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.3);border-radius:10px;padding:12px;text-align:center;}
+.upgrade-card p{font-size:11px;color:#a0c8a0;margin-bottom:8px;}
+.upgrade-btn{width:100%;padding:7px;background:var(--g3);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
+
+/* TOPBAR */
+.topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
+.topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
+.topbar-left p{font-size:12px;color:var(--light);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;position:relative;}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
+.topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;cursor:pointer;}
+
+/* CONTENT */
+.content{padding:24px 28px;flex:1;}
+
+/* STATS CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:white;border-radius:14px;padding:20px;display:flex;flex-direction:column;box-shadow:0 2px 8px #00000008;}
+.stat-card .s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.stat-card .s-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--dark);}
+.stat-card .s-lbl{font-size:12px;color:var(--light);margin-top:2px;}
+.stat-card .s-change{font-size:11px;font-weight:600;margin-top:8px;display:flex;align-items:center;gap:4px;}
+.s-change.up{color:#2e7d32;}
+.s-change.down{color:var(--red);}
+
+/* GRID 2 COL */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px;}
+
+/* CARDS */
+.card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-title{font-size:14px;font-weight:700;color:var(--g1);}
+.card-action{font-size:12px;color:var(--g2);font-weight:600;cursor:pointer;text-decoration:none;border:none;background:none;}
+
+/* ENQUIRIES */
+.enquiry-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f4f0;}
+.enquiry-item:last-child{border-bottom:none;}
+.enq-av{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+.enq-name{font-size:13px;font-weight:600;color:var(--dark);}
+.enq-product{font-size:11px;color:var(--light);margin-top:1px;}
+.enq-time{font-size:10px;color:var(--light);margin-left:auto;white-space:nowrap;}
+.enq-badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;}
+.badge-new{background:#e3f2fd;color:var(--blue);}
+.badge-replied{background:var(--g5);color:var(--g2);}
+.badge-pending{background:#fff3e0;color:var(--orange);}
+
+/* PRODUCTS TABLE */
+.prod-table{width:100%;border-collapse:collapse;}
+.prod-table th{font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:0.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #f0f4f0;}
+.prod-table td{padding:12px;border-bottom:1px solid #f8f8f8;font-size:13px;}
+.prod-table tr:last-child td{border-bottom:none;}
+.prod-table tr:hover td{background:#fafcfa;}
+.prod-name{font-weight:600;color:var(--dark);}
+.prod-status{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.status-active{background:var(--g5);color:var(--g2);}
+.status-pending{background:#fff3e0;color:var(--orange);}
+.status-inactive{background:#f5f5f5;color:#888;}
+.prod-actions{display:flex;gap:6px;}
+.action-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.btn-edit{background:var(--g5);color:var(--g2);}
+.btn-del{background:#fce4ec;color:var(--red);}
+
+/* CHART PLACEHOLDER */
+.chart-area{height:160px;background:linear-gradient(180deg,var(--g5) 0%,white 100%);border-radius:10px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 16px 16px;gap:8px;}
+.bar{border-radius:6px 6px 0 0;background:var(--g3);transition:height 0.3s;min-width:28px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;}
+.bar span{font-size:9px;color:white;font-weight:700;}
+.bar-label{text-align:center;font-size:10px;color:var(--light);margin-top:4px;}
+.chart-wrap{display:flex;flex-direction:column;}
+.bars-row{display:flex;align-items:flex-end;justify-content:space-around;height:140px;padding:0 8px;gap:6px;}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+
+/* QUICK ACTIONS */
+.quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.qa-btn{padding:12px;border-radius:10px;border:1.5px solid #e0e8e0;background:white;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);transition:all 0.2s;}
+.qa-btn:hover{border-color:var(--g4);background:var(--g5);}
+.qa-icon{font-size:20px;}
+
+/* PERFORMANCE */
+.perf-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f4f0;}
+.perf-item:last-child{border-bottom:none;}
+.perf-label{font-size:13px;color:var(--mid);}
+.perf-bar-wrap{flex:1;margin:0 12px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;}
+.perf-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g3),var(--g2));}
+.perf-val{font-size:12px;font-weight:700;color:var(--g1);white-space:nowrap;}
+
+/* ADD PRODUCT FORM */
+.add-form{display:none;}
+.add-form.show{display:block;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{margin-bottom:0;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--g3);}
+.form-group textarea{height:70px;resize:vertical;}
+.form-submit{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:14px;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Green Roots <span>Smart</span></div>
+    <div class="logo-sub">Seller Dashboard</div>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="user-av">DK</div>
+    <div>
+      <div class="user-name">Dinesh Kumar</div>
+      <div class="user-plan">🌿 Free Plan</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showSection('overview')">
+      <span class="nav-icon">📊</span> Overview
+    </button>
+    <button class="nav-item" onclick="showSection('enquiries')">
+      <span class="nav-icon">📩</span> Enquiries
+      <span class="nav-badge">5</span>
+    </button>
+    <button class="nav-item" onclick="showSection('products')">
+      <span class="nav-icon">📦</span> My Products
+    </button>
+    <button class="nav-item" onclick="showSection('add-product')">
+      <span class="nav-icon">➕</span> Add Product
+    </button>
+
+    <div class="nav-section">Business</div>
+    <button class="nav-item" onclick="showSection('analytics')">
+      <span class="nav-icon">📈</span> Analytics
+    </button>
+    <button class="nav-item" onclick="showSection('profile')">
+      <span class="nav-icon">🏢</span> Business Profile
+    </button>
+    <button class="nav-item" onclick="showSection('reviews')">
+      <span class="nav-icon">⭐</span> Reviews
+    </button>
+
+    <div class="nav-section">Account</div>
+    <button class="nav-item" onclick="showSection('settings')">
+      <span class="nav-icon">⚙️</span> Settings
+    </button>
+    <button class="nav-item" onclick="window.location.href='index.html'">
+      <span class="nav-icon">🚪</span> Logout
+    </button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="upgrade-card">
+      <p>Upgrade to Pro — get 10x more leads!</p>
+      <button class="upgrade-btn">⬆️ Upgrade Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 id="pageTitle">Dashboard Overview</h2>
+      <p id="pageSubtitle">Welcome back, Dinesh! Here's your business summary.</p>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn">🔔<span class="notif-dot"></span></button>
+      <div class="topbar-avatar">DK</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- OVERVIEW SECTION -->
+    <div id="section-overview">
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e8f5e2">📩</div>
+          <div class="s-val">24</div>
+          <div class="s-lbl">Total Enquiries</div>
+          <div class="s-change up">↑ 12% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e3f2fd">📦</div>
+          <div class="s-val">8</div>
+          <div class="s-lbl">Active Products</div>
+          <div class="s-change up">↑ 2 new this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fff3e0">👀</div>
+          <div class="s-val">1,240</div>
+          <div class="s-lbl">Profile Views</div>
+          <div class="s-change up">↑ 28% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fce4ec">⭐</div>
+          <div class="s-val">4.8</div>
+          <div class="s-lbl">Average Rating</div>
+          <div class="s-change up">↑ 0.2 this month</div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- ENQUIRIES -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📩 Recent Enquiries</div>
+            <a class="card-action">View All →</a>
+          </div>
+          <div class="enquiry-item">
+            <div class="enq-av" style="background:#1565c0">RK</div>
+            <div>
+              <div class="enq-name">Rajesh Kumar</div>
+              <div class="enq-product">Solar Panel 400W · 50 units</div>
+            </div>
+            <div style="text-align:right">
+              <span class="enq-badge badge-new">New</span>
+              <div class="enq-time">2 hrs ago</div>
+            </div>
+          </div>
+          <div class="enquiry-item">
+            <div class="enq-av" style="background:#6a1b9a">PM</div>
+            <div>
+              <div class="enq-name">Priya Mehta</div>
+              <div class="enq-product">Solar Panel 400W · 100 units</div>
+            </div>
+            <div style="text-align:right">
+              <span class="enq-badge badge-replied">Replied</span>
+              <div class="enq-time">5 hrs ago</div>
+            </div>
+          </div>
+          <div class="enquiry-item">
+            <div class="enq-av" style="background:#e65100">AS</div>
+            <div>
+              <div class="enq-name">Ahmed Sultan</div>
+              <div class="enq-product">Solar Inverter 5kW · 20 units</div>
+            </div>
+            <div style="text-align:right">
+              <span class="enq-badge badge-new">New</span>
+              <div class="enq-time">1 day ago</div>
+            </div>
+          </div>
+          <div class="enquiry-item">
+            <div class="enq-av" style="background:#2d7a3a">SG</div>
+            <div>
+              <div class="enq-name">Suresh Gupta</div>
+              <div class="enq-product">Solar Panel 400W · 200 units</div>
+            </div>
+            <div style="text-align:right">
+              <span class="enq-badge badge-pending">Pending</span>
+              <div class="enq-time">2 days ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ Quick Actions</div>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" onclick="showSection('add-product')"><span class="qa-icon">➕</span> Add Product</button>
+            <button class="qa-btn"><span class="qa-icon">📸</span> Upload Photos</button>
+            <button class="qa-btn"><span class="qa-icon">🏢</span> Edit Profile</button>
+            <button class="qa-btn"><span class="qa-icon">📊</span> View Reports</button>
+            <button class="qa-btn"><span class="qa-icon">💬</span> Messages</button>
+            <button class="qa-btn"><span class="qa-icon">⬆️</span> Upgrade Plan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFORMANCE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📈 Business Performance</div>
+          <span style="font-size:11px;color:var(--light)">Last 30 days</span>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Profile Completeness</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:75%"></div></div>
+          <div class="perf-val">75%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Response Rate</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:88%"></div></div>
+          <div class="perf-val">88%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Enquiry Conversion</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:42%"></div></div>
+          <div class="perf-val">42%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Buyer Satisfaction</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:96%"></div></div>
+          <div class="perf-val">96%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS SECTION -->
+    <div id="section-products" style="display:none">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 My Products (8 Active)</div>
+          <button class="card-action" onclick="showSection('add-product')">+ Add New Product</button>
+        </div>
+        <table class="prod-table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>MOQ</th>
+              <th>Views</th>
+              <th>Enquiries</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="prod-name">Solar Panel 400W Mono</div></td>
+              <td>☀️ Solar</td>
+              <td>₹8,200</td>
+              <td>10 units</td>
+              <td>420</td>
+              <td>12</td>
+              <td><span class="prod-status status-active">Active</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Inverter 5kW</div></td>
+              <td>☀️ Solar</td>
+              <td>₹14,500</td>
+              <td>5 units</td>
+              <td>280</td>
+              <td>8</td>
+              <td><span class="prod-status status-active">Active</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Mounting Structure</div></td>
+              <td>☀️ Solar</td>
+              <td>₹3,400</td>
+              <td>20 units</td>
+              <td>180</td>
+              <td>4</td>
+              <td><span class="prod-status status-pending">Pending</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Street Light 40W</div></td>
+              <td>☀️ Solar</td>
+              <td>₹4,800</td>
+              <td>10 units</td>
+              <td>95</td>
+              <td>2</td>
+              <td><span class="prod-status status-inactive">Inactive</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ADD PRODUCT SECTION -->
+    <div id="section-add-product" style="display:none">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">➕ Add New Product</div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" placeholder="e.g. Solar Panel 400W Monocrystalline"/>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select>
+              <option>☀️ Solar Energy</option>
+              <option>🌾 Organic Farming</option>
+              <option>📦 Eco Packaging</option>
+              <option>♻️ Waste Management</option>
+              <option>💧 Water Technology</option>
+              <option>🌿 Herbal Products</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" placeholder="e.g. 8200"/>
+          </div>
+          <div class="form-group">
+            <label>Unit *</label>
+            <select>
+              <option>Per Unit</option>
+              <option>Per Kg</option>
+              <option>Per Piece</option>
+              <option>Per Set</option>
+              <option>Per Litre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Minimum Order Quantity *</label>
+            <input type="number" placeholder="e.g. 10"/>
+          </div>
+          <div class="form-group">
+            <label>Stock Available</label>
+            <input type="number" placeholder="e.g. 500"/>
+          </div>
+          <div class="form-group" style="grid-column:span 2">
+            <label>Product Description *</label>
+            <textarea placeholder="Describe your product — specifications, features, certifications..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>GST Rate</label>
+            <select>
+              <option>5%</option>
+              <option>12%</option>
+              <option>18%</option>
+              <option>28%</option>
+              <option>0% (Exempt)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Delivery Time</label>
+            <input type="text" placeholder="e.g. 7-10 business days"/>
+          </div>
+        </div>
+        <button class="form-submit" onclick="alert('✅ Product added successfully! Under review.')">Submit Product for Review 🌿</button>
+      </div>
+    </div>
+
+    <!-- OTHER SECTIONS -->
+    <div id="section-enquiries" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📩 All Enquiries</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">All your buyer enquiries will appear here. Reply within 2 hours for best results!</p>
+      </div>
+    </div>
+    <div id="section-analytics" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📈 Analytics</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Detailed analytics coming soon in next update!</p>
+      </div>
+    </div>
+    <div id="section-profile" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🏢 Business Profile</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Edit your business details, add photos, certificates and more!</p>
+      </div>
+    </div>
+    <div id="section-reviews" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⭐ Reviews</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Your buyer reviews and ratings will appear here!</p>
+      </div>
+    </div>
+    <div id="section-settings" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⚙️ Settings</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Account settings, notifications and preferences!</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const sections = ['overview','enquiries','products','add-product','analytics','profile','reviews','settings'];
+const titles = {
+  'overview': ['Dashboard Overview', 'Welcome back, Dinesh! Here\'s your business summary.'],
+  'enquiries': ['My Enquiries', 'Manage all buyer enquiries from here.'],
+  'products': ['My Products', 'Manage your product listings.'],
+  'add-product': ['Add New Product', 'Add a new eco product to your listing.'],
+  'analytics': ['Analytics', 'Track your business performance.'],
+  'profile': ['Business Profile', 'Manage your business details.'],
+  'reviews': ['Reviews & Ratings', 'See what buyers say about you.'],
+  'settings': ['Settings', 'Manage your account settings.'],
+};
+
+function showSection(name){
+  sections.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    if(el) el.style.display = 'none';
+  });
+  const el = document.getElementById('section-' + name);
+  if(el) el.style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('pageTitle').textContent = titles[name][0];
+  document.getElementById('pageSubtitle').textContent = titles[name][1];
+}
+</script>
+</body>
+</html>
