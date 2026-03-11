@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/login", "dest": "/login.html" },
+    { "src": "/products", "dest": "/products.html" },
+    { "src": "/dashboard", "dest": "/dashboard.html" },
+    { "src": "/category", "dest": "/category.html" },
+    { "src": "/pricing", "dest": "/pricing.html" },
+    { "src": "/supplier-profile", "dest": "/Supplierprifile.html" },
+    { "src": "/product-detail", "dest": "/productdetail.html" },
+    { "src": "/buyer-dashboard", "dest": "/buyerdashboard.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/contact", "dest": "/contact.html" }
+  ]
+}
