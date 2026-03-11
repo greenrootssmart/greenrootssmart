@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Supplier Registration — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+
+.page{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);}
+
+/* LEFT PANEL */
+.left{background:linear-gradient(160deg,var(--g1),var(--g2));padding:56px 48px;display:flex;flex-direction:column;justify-content:center;}
+.left h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:white;line-height:1.3;margin-bottom:16px;}
+.left h1 span{color:var(--g3);}
+.left p{font-size:15px;color:#a0c8a0;line-height:1.8;margin-bottom:32px;}
+.benefit-list{display:flex;flex-direction:column;gap:14px;}
+.benefit{display:flex;align-items:center;gap:12px;color:white;font-size:14px;}
+.benefit-icon{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.stats-row{display:flex;gap:24px;margin-top:40px;}
+.stat{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:white;}
+.stat-lbl{font-size:11px;color:#80b080;margin-top:2px;}
+
+/* RIGHT PANEL — FORM */
+.right{padding:40px 48px;overflow-y:auto;}
+.form-header{margin-bottom:28px;}
+.form-header h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.form-header p{font-size:13px;color:var(--light);}
+.step-bar{display:flex;gap:0;margin-bottom:28px;}
+.step{flex:1;height:4px;background:#e0e8e0;border-radius:2px;margin-right:4px;transition:background 0.3s;}
+.step.active{background:var(--g3);}
+.step.done{background:var(--g2);}
+.step-label{display:flex;justify-content:space-between;margin-bottom:20px;}
+.step-lbl{font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:0.5px;}
+.step-lbl.active{color:var(--g2);}
+
+/* FORM SECTIONS */
+.form-section{display:none;}
+.form-section.active{display:block;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.input-wrap{position:relative;}
+.input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 12px 11px 36px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;transition:border 0.2s;background:white;}
+.form-group textarea{padding:11px 12px;height:90px;resize:vertical;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
+.form-group input.error{border-color:#c62828;}
+.error-msg{font-size:11px;color:#c62828;margin-top:4px;display:none;}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:12px;margin-top:20px;}
+.btn-next{flex:1;padding:13px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-next:hover{background:var(--g1);}
+.btn-back{padding:13px 20px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.btn-submit{flex:1;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:40px 20px;}
+.success-icon{font-size:72px;margin-bottom:16px;}
+.success-screen h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);margin-bottom:10px;}
+.success-screen p{font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:24px;}
+.success-details{background:var(--g5);border-radius:14px;padding:20px;margin-bottom:24px;text-align:left;}
+.success-detail-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #d4e8cc;font-size:13px;}
+.success-detail-row:last-child{border-bottom:none;}
+.success-detail-row span:first-child{color:var(--mid);font-weight:600;}
+.success-detail-row span:last-child{color:var(--dark);font-weight:700;}
+.btn-home{padding:12px 32px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+
+/* LOADING */
+.loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
+.alert-error{background:#fce4ec;color:#c62828;border:1px solid #f48fb1;}
+.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+
+@media(max-width:768px){
+  .page{grid-template-columns:1fr;}
+  .left{display:none;}
+  .right{padding:28px 24px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
+      <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
+      <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+  <a href="/login" style="font-size:13px;color:var(--g2);text-decoration:none;">Already registered? Login →</a>
+</nav>
+
+<div class="page">
+  <!-- LEFT PANEL -->
+  <div class="left">
+    <h1>Join India's <span>Green</span> B2B Revolution! 🌿</h1>
+    <p>List your eco-friendly products and connect with thousands of buyers across India and 50+ countries worldwide.</p>
+    <div class="benefit-list">
+      <div class="benefit"><div class="benefit-icon">🌍</div>Reach buyers across India & 50+ countries</div>
+      <div class="benefit"><div class="benefit-icon">📦</div>List unlimited eco products</div>
+      <div class="benefit"><div class="benefit-icon">📩</div>Receive direct buyer enquiries</div>
+      <div class="benefit"><div class="benefit-icon">✅</div>Get verified supplier badge</div>
+      <div class="benefit"><div class="benefit-icon">📊</div>Real-time analytics dashboard</div>
+      <div class="benefit"><div class="benefit-icon">💰</div>Start FREE — no credit card needed</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">12,400+</div><div class="stat-lbl">Suppliers</div></div>
+      <div class="stat"><div class="stat-num">86,000+</div><div class="stat-lbl">Products</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Countries</div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+    <div class="form-header">
+      <h2>Create Supplier Account</h2>
+      <p>Fill in your business details — takes less than 2 minutes!</p>
+    </div>
+
+    <!-- STEP BAR -->
+    <div class="step-bar">
+      <div class="step active" id="step-bar-1"></div>
+      <div class="step" id="step-bar-2"></div>
+      <div class="step" id="step-bar-3"></div>
+    </div>
+    <div class="step-label">
+      <span class="step-lbl active" id="step-lbl-1">Business Info</span>
+      <span class="step-lbl" id="step-lbl-2">Contact Details</span>
+      <span class="step-lbl" id="step-lbl-3">Products & Submit</span>
+    </div>
+
+    <!-- ALERT -->
+    <div class="alert alert-error" id="alertBox"></div>
+
+    <!-- STEP 1 — BUSINESS INFO -->
+    <div class="form-section active" id="section-1">
+      <div class="form-group">
+        <label>Business Name *</label>
+        <div class="input-wrap">
+          <span class="input-icon">🏢</span>
+          <input type="text" id="business_name" placeholder="e.g. SunGrow Solar Pvt Ltd"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Owner / Contact Name *</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="owner_name" placeholder="e.g. Rajesh Kumar"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>City *</label>
+          <div class="input-wrap">
+            <span class="input-icon">📍</span>
+            <input type="text" id="city" placeholder="e.g. Mumbai"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>State *</label>
+          <div class="input-wrap">
+            <span class="input-icon">🗺️</span>
+            <select id="state">
+              <option value="">Select State</option>
+              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+              <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
+              <option>Goa</option><option>Gujarat</option><option>Haryana</option>
+              <option>Himachal Pradesh</option><option>Jharkhand</option>
+              <option>Karnataka</option><option>Kerala</option>
+              <option>Madhya Pradesh</option><option>Maharashtra</option>
+              <option>Manipur</option><option>Meghalaya</option><option>Mizoram</option>
+              <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+              <option>Rajasthan</option><option>Sikkim</option>
+              <option>Tamil Nadu</option><option>Telangana</option>
+              <option>Tripura</option><option>Uttar Pradesh</option>
+              <option>Uttarakhand</option><option>West Bengal</option>
+              <option>Delhi</option><option>Jammu & Kashmir</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Business Description *</label>
+        <textarea id="description" placeholder="Tell buyers about your business, products and what makes you eco-friendly..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-next" onclick="goStep(2)">Next — Contact Details →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — CONTACT -->
+    <div class="form-section" id="section-2">
+      <div class="form-group">
+        <label>Email Address *</label>
+        <div class="input-wrap">
+          <span class="input-icon">📧</span>
+          <input type="email" id="email" placeholder="you@business.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mobile / WhatsApp *</label>
+        <div class="input-wrap">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="mobile" placeholder="+91 98765 43210"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password *</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" placeholder="Min 8 characters"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>GST Number</label>
+        <div class="input-wrap">
+          <span class="input-icon">📋</span>
+          <input type="text" id="gst_number" placeholder="Optional — e.g. 27AAPFU0939F1ZV"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Website</label>
+        <div class="input-wrap">
+          <span class="input-icon">🌐</span>
+          <input type="text" id="website" placeholder="Optional — e.g. www.yourbusiness.com"/>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)">← Back</button>
+        <button class="btn-next" onclick="goStep(3)">Next — Products →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — PRODUCTS & SUBMIT -->
+    <div class="form-section" id="section-3">
+      <div class="form-group">
+        <label>Main Product Category *</label>
+        <div class="input-wrap">
+          <span class="input-icon">📦</span>
+          <select id="category">
+            <option value="">Select Category</option>
+            <option>☀️ Solar Energy</option>
+            <option>🌾 Organic Farming</option>
+            <option>📦 Eco Packaging</option>
+            <option>♻️ Waste Management</option>
+            <option>💧 Water Technology</option>
+            <option>🌬️ Wind Energy</option>
+            <option>🔋 Energy Storage</option>
+            <option>🏗️ Green Building</option>
+            <option>🌿 Herbal & Natural</option>
+            <option>🚗 Electric Vehicles</option>
+            <option>🌱 Sustainable Agriculture</option>
+            <option>♻️ Recycled Products</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Years in Business</label>
+        <div class="input-wrap">
+          <span class="input-icon">📅</span>
+          <select id="years">
+            <option value="">Select</option>
+            <option>Less than 1 year</option>
+            <option>1-3 years</option>
+            <option>3-5 years</option>
+            <option>5-10 years</option>
+            <option>10+ years</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Select Plan</label>
+        <div class="input-wrap">
+          <span class="input-icon">⭐</span>
+          <select id="plan">
+            <option value="free">🌱 Starter — FREE (10 products)</option>
+            <option value="basic">🌿 Basic — ₹999/mo (50 products)</option>
+            <option value="pro">🌳 Pro — ₹2,499/mo (200 products)</option>
+            <option value="premium">🏆 Premium — ₹4,999/mo (Unlimited)</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:var(--g5);border-radius:12px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--mid);line-height:1.7;">
+        ✅ By registering you agree to our Terms & Conditions and Privacy Policy.<br/>
+        🌿 Your business will be reviewed and verified within 24 hours.<br/>
+        📧 A confirmation email will be sent to your registered email.
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(2)">← Back</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitRegistration()">🌿 Register My Business</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h2>Welcome to Green Roots Smart!</h2>
+      <p>Your supplier account has been created successfully! Our team will verify your business within 24 hours and you will receive a confirmation email.</p>
+      <div class="success-details" id="successDetails"></div>
+      <button class="btn-home" onclick="window.location.href='/'">← Back to Home</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Supabase setup
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentStep = 1;
+
+function showAlert(msg, type='error'){
+  const box = document.getElementById('alertBox');
+  box.textContent = msg;
+  box.className = 'alert alert-' + type;
+  box.style.display = 'block';
+  setTimeout(()=>box.style.display='none', 5000);
+}
+
+function goStep(step){
+  // Validate current step
+  if(step > currentStep){
+    if(currentStep === 1){
+      if(!document.getElementById('business_name').value.trim()){return showAlert('Please enter your Business Name!');}
+      if(!document.getElementById('owner_name').value.trim()){return showAlert('Please enter Owner Name!');}
+      if(!document.getElementById('city').value.trim()){return showAlert('Please enter your City!');}
+      if(!document.getElementById('state').value){return showAlert('Please select your State!');}
+      if(!document.getElementById('description').value.trim()){return showAlert('Please enter Business Description!');}
+    }
+    if(currentStep === 2){
+      if(!document.getElementById('email').value.trim()){return showAlert('Please enter Email Address!');}
+      if(!document.getElementById('mobile').value.trim()){return showAlert('Please enter Mobile Number!');}
+      if(!document.getElementById('password').value || document.getElementById('password').value.length < 8){return showAlert('Password must be at least 8 characters!');}
+    }
+    if(currentStep === 3){
+      if(!document.getElementById('category').value){return showAlert('Please select Product Category!');}
+    }
+  }
+
+  // Hide current
+  document.getElementById('section-'+currentStep).classList.remove('active');
+  document.getElementById('step-bar-'+currentStep).classList.remove('active');
+  document.getElementById('step-bar-'+currentStep).classList.add('done');
+  document.getElementById('step-lbl-'+currentStep).classList.remove('active');
+
+  // Show new
+  currentStep = step;
+  document.getElementById('section-'+currentStep).classList.add('active');
+  document.getElementById('step-bar-'+currentStep).classList.add('active');
+  document.getElementById('step-lbl-'+currentStep).classList.add('active');
+
+  window.scrollTo(0,0);
+}
+
+async function submitRegistration(){
+  if(!document.getElementById('category').value){
+    return showAlert('Please select Product Category!');
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span>Registering...';
+
+  const data = {
+    business_name: document.getElementById('business_name').value.trim(),
+    owner_name: document.getElementById('owner_name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    mobile: document.getElementById('mobile').value.trim(),
+    city: document.getElementById('city').value.trim(),
+    state: document.getElementById('state').value,
+    category: document.getElementById('category').value,
+    description: document.getElementById('description').value.trim(),
+    gst_number: document.getElementById('gst_number').value.trim(),
+    website: document.getElementById('website').value.trim(),
+    plan: document.getElementById('plan').value,
+    status: 'pending'
+  };
+
+  try {
+    const { error } = await supabaseClient.from('suppliers').insert([data]);
+
+    if(error){
+      console.error(error);
+      showAlert('Registration failed: ' + error.message);
+      btn.disabled = false;
+      btn.innerHTML = '🌿 Register My Business';
+      return;
+    }
+
+    // SUCCESS!
+    document.getElementById('section-3').style.display = 'none';
+    document.querySelector('.step-bar').style.display = 'none';
+    document.querySelector('.step-label').style.display = 'none';
+    document.querySelector('.form-header').style.display = 'none';
+
+    document.getElementById('successDetails').innerHTML = `
+      <div class="success-detail-row"><span>Business</span><span>${data.business_name}</span></div>
+      <div class="success-detail-row"><span>Owner</span><span>${data.owner_name}</span></div>
+      <div class="success-detail-row"><span>Email</span><span>${data.email}</span></div>
+      <div class="success-detail-row"><span>Location</span><span>${data.city}, ${data.state}</span></div>
+      <div class="success-detail-row"><span>Category</span><span>${data.category}</span></div>
+      <div class="success-detail-row"><span>Plan</span><span>${data.plan.toUpperCase()}</span></div>
+      <div class="success-detail-row"><span>Status</span><span>⏳ Pending Verification</span></div>
+    `;
+
+    document.getElementById('successScreen').style.display = 'block';
+
+  } catch(err){
+    console.error(err);
+    showAlert('Something went wrong. Please try again!');
+    btn.disabled = false;
+    btn.innerHTML = '🌿 Register My Business';
+  }
+}
+</script>
+</body>
+</html>
