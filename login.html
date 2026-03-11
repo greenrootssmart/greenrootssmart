@@ -3,426 +3,225 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Login / Register — Green Roots Smart</title>
+<title>Login — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;
-  --g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;
-  --cream:#f7f9f2;--white:#ffffff;--dark:#1a2e1a;
-  --mid:#4a6645;--light:#7a9a74;--red:#c62828;
-}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;display:flex;flex-direction:column;}
-
-/* NAV */
-nav{background:var(--g1);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:34px;height:34px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
 .logo-text span{color:var(--g3);}
-.back-link{color:var(--g4);font-size:14px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
-.back-link:hover{color:white;}
-
-/* MAIN */
-.main{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);}
-
-/* LEFT PANEL */
-.left-panel{background:linear-gradient(160deg,var(--g1) 0%,var(--g2) 100%);padding:60px 50px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
-.left-panel::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(82,176,67,0.15) 0%,transparent 70%);border-radius:50%;}
-.left-panel::after{content:'🌿';position:absolute;bottom:40px;right:40px;font-size:120px;opacity:0.08;}
-.panel-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--g4);font-weight:600;margin-bottom:28px;width:fit-content;}
-.panel-title{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:white;line-height:1.2;margin-bottom:16px;}
-.panel-title span{color:var(--g3);}
-.panel-sub{font-size:15px;color:#a0c8a0;line-height:1.7;margin-bottom:40px;max-width:360px;}
-.features{display:flex;flex-direction:column;gap:16px;}
-.feature{display:flex;align-items:center;gap:14px;}
-.feat-icon{width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.feat-text h4{font-size:14px;font-weight:600;color:white;margin-bottom:2px;}
-.feat-text p{font-size:12px;color:#80b080;}
-.stats-row{display:flex;gap:24px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);}
-.stat-box{text-align:center;}
-.stat-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:white;}
-.stat-lbl{font-size:11px;color:#80b080;margin-top:2px;}
-
-/* RIGHT PANEL — FORM */
-.right-panel{background:white;padding:60px 50px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
-.form-container{max-width:420px;margin:0 auto;width:100%;}
-
-/* TABS */
-.tabs{display:flex;background:var(--g5);border-radius:12px;padding:4px;margin-bottom:32px;}
-.tab{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--mid);cursor:pointer;border-radius:10px;transition:all 0.2s;}
-.tab.active{background:white;color:var(--g1);box-shadow:0 2px 8px #00000012;}
-
-/* FORM */
-.form-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);margin-bottom:6px;}
-.form-sub{font-size:14px;color:var(--light);margin-bottom:28px;}
-
-.user-type{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
-.type-card{padding:14px;border:2px solid #e0e8e0;border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:center;}
-.type-card:hover{border-color:var(--g4);}
-.type-card.active{border-color:var(--g3);background:var(--g5);}
-.type-card .type-icon{font-size:24px;margin-bottom:6px;}
-.type-card h4{font-size:13px;font-weight:700;color:var(--dark);}
-.type-card p{font-size:11px;color:var(--light);margin-top:2px;}
-
-.form-group{margin-bottom:18px;}
-.form-group label{display:block;font-size:13px;font-weight:600;color:var(--dark);margin-bottom:6px;}
-.form-group label span{color:var(--red);}
+.page{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);}
+.left{background:linear-gradient(160deg,var(--g1),var(--g2));padding:56px 48px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+.left-logo{font-size:80px;margin-bottom:24px;}
+.left h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:white;line-height:1.3;margin-bottom:14px;}
+.left h1 span{color:var(--g3);}
+.left p{font-size:14px;color:#a0c8a0;line-height:1.8;margin-bottom:32px;max-width:340px;}
+.feature-list{display:flex;flex-direction:column;gap:12px;text-align:left;width:100%;max-width:320px;}
+.feature{display:flex;align-items:center;gap:12px;color:white;font-size:13px;}
+.f-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.right{padding:48px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto;width:100%;}
+.tabs{display:flex;background:#f0f4f0;border-radius:12px;padding:4px;margin-bottom:28px;}
+.tab{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--light);cursor:pointer;border-radius:9px;transition:all 0.2s;}
+.tab.active{background:white;color:var(--g2);box-shadow:0 2px 8px #00000010;}
+.form-section{display:none;}
+.form-section.active{display:block;}
+.form-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.form-sub{font-size:13px;color:var(--light);margin-bottom:24px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
 .input-wrap{position:relative;}
-.input-wrap .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;}
-.form-group input,.form-group select{width:100%;padding:12px 14px 12px 42px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);background:white;outline:none;transition:all 0.2s;}
-.form-group input:focus,.form-group select:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.12);}
-.form-group input::placeholder{color:#b0c8b0;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
-.password-wrap{position:relative;}
-.password-wrap input{padding-right:44px;}
-.show-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--light);}
-
-.form-hint{font-size:11px;color:var(--light);margin-top:4px;}
-.form-error{font-size:11px;color:var(--red);margin-top:4px;display:none;}
-
-.checkbox-wrap{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;}
-.checkbox-wrap input[type="checkbox"]{width:16px;height:16px;accent-color:var(--g3);margin-top:2px;flex-shrink:0;}
-.checkbox-wrap label{font-size:13px;color:var(--mid);line-height:1.5;}
-.checkbox-wrap a{color:var(--g2);text-decoration:none;font-weight:600;}
-
-.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
+.input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;}
+.toggle-pass{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:15px;border:none;background:none;}
+.form-group input{width:100%;padding:12px 12px 12px 38px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;transition:border 0.2s;background:white;}
+.form-group input:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
+.alert-error{background:#fce4ec;color:var(--red);border:1px solid #f48fb1;}
+.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:16px;}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
-.btn-submit:active{transform:translateY(0);}
-
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0;}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e0e8e0;}
-.divider span{font-size:12px;color:var(--light);}
-
-.social-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-.social-btn{padding:11px;border:1.5px solid #e0e8e0;border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;}
-.social-btn:hover{border-color:var(--g4);background:var(--g5);}
-
-.switch-text{text-align:center;font-size:13px;color:var(--mid);}
-.switch-text a{color:var(--g2);font-weight:700;text-decoration:none;}
-.switch-text a:hover{text-decoration:underline;}
-
-/* Forgot password */
-.forgot-link{text-align:right;margin-top:-10px;margin-bottom:16px;}
-.forgot-link a{font-size:12px;color:var(--g2);text-decoration:none;font-weight:600;}
-
-/* Success message */
-.success-msg{display:none;background:var(--g5);border:1px solid var(--g4);border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;}
-.success-msg .s-icon{font-size:32px;margin-bottom:8px;}
-.success-msg h4{font-size:15px;font-weight:700;color:var(--g1);}
-.success-msg p{font-size:13px;color:var(--mid);margin-top:4px;}
-
-/* MOBILE */
-@media(max-width:768px){
-  .main{grid-template-columns:1fr;}
-  .left-panel{display:none;}
-  .right-panel{padding:40px 24px;}
-}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;}
+.divider-line{flex:1;height:1px;background:#e0e8e0;}
+.divider-text{font-size:12px;color:var(--light);}
+.btn-google{width:100%;padding:12px;background:white;color:var(--dark);border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;margin-bottom:10px;}
+.btn-google:hover{border-color:var(--g4);background:var(--g5);}
+.forgot-link{text-align:center;font-size:12px;color:var(--light);margin-top:8px;}
+.forgot-link a{color:var(--g2);text-decoration:none;font-weight:600;}
+.switch-text{text-align:center;font-size:13px;color:var(--light);margin-top:16px;}
+.switch-text a{color:var(--g2);text-decoration:none;font-weight:700;cursor:pointer;}
+.user-type-row{display:flex;gap:10px;margin-bottom:20px;}
+.user-type-btn{flex:1;padding:12px;border:2px solid #d4e8cc;border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;transition:all 0.2s;text-align:center;}
+.user-type-btn.active{border-color:var(--g3);background:var(--g5);color:var(--g2);}
+.loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(max-width:768px){.page{grid-template-columns:1fr;}.left{display:none;}.right{padding:28px 24px;}}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
   <a href="/" class="logo">
-    <svg class="logo-icon" viewBox="0 0 34 34" fill="none">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
       <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
       <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
       <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <span class="logo-text">Green Roots <span>Smart</span></span>
   </a>
-  <a href="/" class="back-link">← Back to Homepage</a>
+  <a href="/" style="font-size:13px;color:var(--g2);text-decoration:none;">← Back to Home</a>
 </nav>
 
-<!-- MAIN -->
-<div class="main">
-
-  <!-- LEFT PANEL -->
-  <div class="left-panel">
-    <div class="panel-badge">🌿 Join India's Green B2B Revolution</div>
-    <h2 class="panel-title">Grow Your Green<br/><span>Business Together</span></h2>
-    <p class="panel-sub">Connect with thousands of verified eco-friendly suppliers and buyers across India and the world.</p>
-
-    <div class="features">
-      <div class="feature">
-        <div class="feat-icon">✅</div>
-        <div class="feat-text">
-          <h4>Verified Suppliers Only</h4>
-          <p>Every supplier is eco-audited & certified</p>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feat-icon">🌍</div>
-        <div class="feat-text">
-          <h4>Global Reach</h4>
-          <p>Connect with buyers from 50+ countries</p>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feat-icon">🔒</div>
-        <div class="feat-text">
-          <h4>100% Secure</h4>
-          <p>Your data is encrypted & safe with us</p>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feat-icon">💰</div>
-        <div class="feat-text">
-          <h4>Free to Start</h4>
-          <p>List your first 10 products absolutely free</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-num">12,400+</div>
-        <div class="stat-lbl">Suppliers</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">86,000+</div>
-        <div class="stat-lbl">Products</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">50+</div>
-        <div class="stat-lbl">Countries</div>
-      </div>
+<div class="page">
+  <div class="left">
+    <div class="left-logo">🌿</div>
+    <h1>Welcome Back to <span>Green Roots Smart</span></h1>
+    <p>India's First Eco B2B Marketplace. Connect with thousands of green suppliers and buyers.</p>
+    <div class="feature-list">
+      <div class="feature"><div class="f-icon">📊</div>Access your full dashboard</div>
+      <div class="feature"><div class="f-icon">📩</div>Manage enquiries & leads</div>
+      <div class="feature"><div class="f-icon">📦</div>Upload & manage products</div>
+      <div class="feature"><div class="f-icon">📈</div>View analytics & performance</div>
+      <div class="feature"><div class="f-icon">🌍</div>Connect with global buyers</div>
     </div>
   </div>
 
-  <!-- RIGHT PANEL -->
-  <div class="right-panel">
-    <div class="form-container">
+  <div class="right">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login',this)">Login</button>
+      <button class="tab" onclick="switchTab('register',this)">Register</button>
+    </div>
 
-      <!-- TABS -->
-      <div class="tabs">
-        <button class="tab active" onclick="showLogin()">Login</button>
-        <button class="tab" onclick="showRegister()">Register Free</button>
+    <div class="alert" id="alertBox"></div>
+
+    <div class="form-section active" id="loginForm">
+      <div class="form-title">Welcome Back! 👋</div>
+      <div class="form-sub">Login to your Green Roots Smart account</div>
+      <div class="user-type-row">
+        <button class="user-type-btn active" id="type-supplier" onclick="setUserType('supplier')">🏪 Supplier</button>
+        <button class="user-type-btn" id="type-buyer" onclick="setUserType('buyer')">🛒 Buyer</button>
       </div>
-
-      <!-- LOGIN FORM -->
-      <div id="loginForm">
-        <h2 class="form-title">Welcome Back! 👋</h2>
-        <p class="form-sub">Login to your Green Roots Smart account</p>
-
-        <div class="success-msg" id="loginSuccess">
-          <div class="s-icon">🎉</div>
-          <h4>Login Successful!</h4>
-          <p>Redirecting to your dashboard...</p>
+      <div class="form-group">
+        <label>Email Address *</label>
+        <div class="input-wrap">
+          <span class="input-icon">📧</span>
+          <input type="email" id="login-email" placeholder="you@business.com"/>
         </div>
-
-        <div class="form-group">
-          <label>Email Address <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">📧</span>
-            <input type="email" id="loginEmail" placeholder="you@example.com"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Password <span>*</span></label>
-          <div class="input-wrap password-wrap">
-            <span class="input-icon">🔒</span>
-            <input type="password" id="loginPassword" placeholder="Enter your password"/>
-            <button class="show-pass" onclick="togglePass('loginPassword', this)">👁️</button>
-          </div>
-        </div>
-
-        <div class="forgot-link">
-          <a href="#">Forgot Password?</a>
-        </div>
-
-        <div class="checkbox-wrap">
-          <input type="checkbox" id="rememberMe" checked/>
-          <label for="rememberMe">Remember me for 30 days</label>
-        </div>
-
-        <button class="btn-submit" onclick="handleLogin()">Login to Green Roots Smart 🌿</button>
-
-        <div class="divider"><span>or continue with</span></div>
-
-        <div class="social-btns">
-          <button class="social-btn">🌐 Google</button>
-          <button class="social-btn">💼 LinkedIn</button>
-        </div>
-
-        <p class="switch-text">Don't have an account? <a href="#" onclick="showRegister()">Register Free →</a></p>
       </div>
-
-      <!-- REGISTER FORM -->
-      <div id="registerForm" style="display:none;">
-        <h2 class="form-title">Join Green Roots Smart 🌿</h2>
-        <p class="form-sub">Create your free account in 2 minutes</p>
-
-        <div class="success-msg" id="registerSuccess">
-          <div class="s-icon">🎉</div>
-          <h4>Account Created Successfully!</h4>
-          <p>Welcome to Green Roots Smart! Check your email to verify.</p>
+      <div class="form-group">
+        <label>Password *</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="login-password" placeholder="Enter your password"/>
+          <button class="toggle-pass" onclick="togglePass('login-password',this)">👁️</button>
         </div>
-
-        <!-- User Type -->
-        <div class="user-type">
-          <div class="type-card active" id="buyerCard" onclick="selectType('buyer')">
-            <div class="type-icon">🛒</div>
-            <h4>I'm a Buyer</h4>
-            <p>Find eco suppliers</p>
-          </div>
-          <div class="type-card" id="sellerCard" onclick="selectType('seller')">
-            <div class="type-icon">🏪</div>
-            <h4>I'm a Seller</h4>
-            <p>List my products</p>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name <span>*</span></label>
-            <div class="input-wrap">
-              <span class="input-icon">👤</span>
-              <input type="text" placeholder="Dinesh"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Last Name <span>*</span></label>
-            <div class="input-wrap">
-              <span class="input-icon">👤</span>
-              <input type="text" placeholder="Kumar"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Business Name <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">🏢</span>
-            <input type="text" placeholder="Your Company Name"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Email Address <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">📧</span>
-            <input type="email" placeholder="you@company.com"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Mobile Number <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">📱</span>
-            <input type="tel" placeholder="+91 98765 43210"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Business Category <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">🌿</span>
-            <select>
-              <option value="">Select your category</option>
-              <option>☀️ Solar Energy</option>
-              <option>🌾 Organic Farming</option>
-              <option>📦 Eco Packaging</option>
-              <option>♻️ Waste Management</option>
-              <option>💧 Water Technology</option>
-              <option>🏗️ Green Building</option>
-              <option>🚗 Electric Vehicles</option>
-              <option>🔋 Energy Storage</option>
-              <option>👗 Eco Textiles</option>
-              <option>🌿 Herbal Products</option>
-              <option>🌍 Other Green Business</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>City & State <span>*</span></label>
-          <div class="input-wrap">
-            <span class="input-icon">📍</span>
-            <input type="text" placeholder="Chennai, Tamil Nadu"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Password <span>*</span></label>
-          <div class="input-wrap password-wrap">
-            <span class="input-icon">🔒</span>
-            <input type="password" id="regPassword" placeholder="Min 8 characters"/>
-            <button class="show-pass" onclick="togglePass('regPassword', this)">👁️</button>
-          </div>
-          <div class="form-hint">Min 8 characters with numbers & letters</div>
-        </div>
-
-        <div class="checkbox-wrap">
-          <input type="checkbox" id="terms" checked/>
-          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> of Green Roots Smart</label>
-        </div>
-
-        <div class="checkbox-wrap">
-          <input type="checkbox" id="newsletter" checked/>
-          <label for="newsletter">Send me green business tips & platform updates</label>
-        </div>
-
-        <button class="btn-submit" onclick="handleRegister()">Create Free Account 🌿</button>
-
-        <div class="divider"><span>or register with</span></div>
-
-        <div class="social-btns">
-          <button class="social-btn">🌐 Google</button>
-          <button class="social-btn">💼 LinkedIn</button>
-        </div>
-
-        <p class="switch-text">Already have an account? <a href="#" onclick="showLogin()">Login →</a></p>
       </div>
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">🌿 Login to Dashboard</button>
+      <div class="forgot-link"><a href="#">Forgot Password? Contact support@greenrootssmart.com</a></div>
+      <div class="divider"><div class="divider-line"></div><span class="divider-text">or</span><div class="divider-line"></div></div>
+      <button class="btn-google" onclick="showAlert('Google login coming soon!','error')">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="switch-text">Don't have an account? <a onclick="window.location.href='/register'">Register Free →</a></div>
+    </div>
 
+    <div class="form-section" id="registerForm">
+      <div class="form-title">Create Account 🌿</div>
+      <div class="form-sub">Join India's green B2B revolution!</div>
+      <div style="background:var(--g5);border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;">
+        <div style="font-size:48px;margin-bottom:12px;">🌱</div>
+        <div style="font-size:15px;font-weight:700;color:var(--g1);margin-bottom:8px;">Ready to go green?</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.7;">Create your free supplier account and start connecting with India's eco community!</div>
+      </div>
+      <button class="btn-submit" onclick="window.location.href='/register'">🏪 Register as Supplier</button>
+      <div class="switch-text">Already have an account? <a onclick="switchTab('login',document.querySelectorAll('.tab')[0])">Login →</a></div>
     </div>
   </div>
 </div>
 
 <script>
-function showLogin(){
-  document.getElementById('loginForm').style.display='block';
-  document.getElementById('registerForm').style.display='none';
-  document.querySelectorAll('.tab')[0].classList.add('active');
-  document.querySelectorAll('.tab')[1].classList.remove('active');
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let userType = 'supplier';
+
+function setUserType(type){
+  userType = type;
+  document.getElementById('type-supplier').classList.toggle('active', type==='supplier');
+  document.getElementById('type-buyer').classList.toggle('active', type==='buyer');
 }
 
-function showRegister(){
-  document.getElementById('loginForm').style.display='none';
-  document.getElementById('registerForm').style.display='block';
-  document.querySelectorAll('.tab')[0].classList.remove('active');
-  document.querySelectorAll('.tab')[1].classList.add('active');
-}
-
-function selectType(type){
-  document.getElementById('buyerCard').classList.toggle('active', type==='buyer');
-  document.getElementById('sellerCard').classList.toggle('active', type==='seller');
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.form-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(tab+'Form').classList.add('active');
 }
 
 function togglePass(id, btn){
   const input = document.getElementById(id);
-  if(input.type==='password'){input.type='text'; btn.textContent='🙈';}
-  else{input.type='password'; btn.textContent='👁️';}
+  if(input.type==='password'){input.type='text';btn.textContent='🙈';}
+  else{input.type='password';btn.textContent='👁️';}
 }
 
-function handleLogin(){
-  const email = document.getElementById('loginEmail').value;
-  const pass = document.getElementById('loginPassword').value;
-  if(!email || !pass){
-    alert('Please enter your email and password!');
-    return;
+function showAlert(msg, type='error'){
+  const box = document.getElementById('alertBox');
+  box.textContent = msg;
+  box.className = 'alert alert-' + type;
+  box.style.display = 'block';
+  setTimeout(()=>box.style.display='none', 5000);
+}
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if(!email) return showAlert('Please enter your email!');
+  if(!password) return showAlert('Please enter your password!');
+
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span>Logging in...';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('suppliers')
+      .select('*')
+      .eq('email', email)
+      .single();
+
+    if(error || !data){
+      showAlert('No account found with this email. Please register first!');
+      btn.disabled = false;
+      btn.innerHTML = '🌿 Login to Dashboard';
+      return;
+    }
+
+    localStorage.setItem('grs_user', JSON.stringify({
+      id: data.id,
+      name: data.owner_name,
+      business: data.business_name,
+      email: data.email,
+      plan: data.plan,
+      status: data.status,
+      city: data.city,
+      state: data.state,
+      category: data.category,
+      type: 'supplier'
+    }));
+
+    showAlert('✅ Login successful! Redirecting to dashboard...', 'success');
+    btn.innerHTML = '✅ Logged In!';
+    setTimeout(()=>{ window.location.href = '/dashboard'; }, 1500);
+
+  } catch(err){
+    showAlert('Login failed. Please try again!');
+    btn.disabled = false;
+    btn.innerHTML = '🌿 Login to Dashboard';
   }
-  document.getElementById('loginSuccess').style.display='block';
-  setTimeout(()=>{ window.location.href="/"; }, 2000);
-}
-
-function handleRegister(){
-  document.getElementById('registerSuccess').style.display='block';
-  setTimeout(()=>{ window.location.href="/"; }, 2500);
 }
 </script>
 </body>
