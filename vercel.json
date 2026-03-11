@@ -4,6 +4,7 @@
   "routes": [
     { "src": "/", "dest": "/index.html" },
     { "src": "/login", "dest": "/login.html" },
+    { "src": "/register", "dest": "/register.html" },
     { "src": "/products", "dest": "/products.html" },
     { "src": "/dashboard", "dest": "/dashboard.html" },
     { "src": "/category", "dest": "/category.html" },
@@ -15,4 +16,3 @@
     { "src": "/contact", "dest": "/contact.html" }
   ]
 }
-{ "src": "/register", "dest": "/register.html" },
