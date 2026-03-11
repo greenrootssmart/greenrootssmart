@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Buyer Dashboard — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--gold:#f59e0b;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
+.sidebar{width:240px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
+.logo-text span{color:var(--g3);}
+.logo-sub{font-size:10px;color:#80b080;margin-top:2px;}
+.sidebar-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
+.user-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.user-name{font-size:13px;font-weight:600;color:white;}
+.user-type{font-size:10px;color:var(--g4);margin-top:1px;}
+.sidebar-nav{flex:1;padding:12px 0;}
+.nav-section{padding:8px 20px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
+.nav-item.active{background:rgba(82,176,67,0.2);color:white;border-right:3px solid var(--g3);}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
+.topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
+.topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
+.topbar-left p{font-size:12px;color:var(--light);}
+.topbar-right{display:flex;align-items:center;gap:14px;}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;position:relative;}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
+.topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;}
+.content{padding:24px 28px;flex:1;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
+.s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.s-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--dark);}
+.s-lbl{font-size:12px;color:var(--light);margin-top:2px;}
+.s-change{font-size:11px;font-weight:600;margin-top:8px;}
+.s-change.up{color:#2e7d32;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-title{font-size:14px;font-weight:700;color:var(--g1);}
+.card-action{font-size:12px;color:var(--g2);font-weight:600;cursor:pointer;border:none;background:none;}
+.enq-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f4f0;}
+.enq-item:last-child{border-bottom:none;}
+.enq-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.enq-name{font-size:13px;font-weight:600;color:var(--dark);}
+.enq-sup{font-size:11px;color:var(--light);margin-top:1px;}
+.enq-time{font-size:10px;color:var(--light);margin-left:auto;text-align:right;}
+.status-badge{display:block;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;margin-top:3px;text-align:center;}
+.status-replied{background:var(--g5);color:var(--g2);}
+.status-pending{background:#fff3e0;color:var(--orange);}
+.status-new{background:#e3f2fd;color:var(--blue);}
+.saved-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f4f0;cursor:pointer;}
+.saved-item:last-child{border-bottom:none;}
+.saved-img{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.saved-name{font-size:13px;font-weight:600;color:var(--dark);}
+.saved-price{font-size:12px;color:var(--g2);font-weight:700;}
+.saved-sup{font-size:10px;color:var(--light);}
+.remove-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#ccc;}
+.remove-btn:hover{color:var(--red);}
+.rfq-form input,.rfq-form select,.rfq-form textarea{width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
+.rfq-form textarea{height:70px;resize:vertical;}
+.rfq-submit{width:100%;padding:11px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.rec-card{background:var(--cream);border-radius:12px;overflow:hidden;cursor:pointer;border:1.5px solid transparent;transition:all 0.2s;}
+.rec-card:hover{border-color:var(--g4);}
+.rec-img{height:80px;display:flex;align-items:center;justify-content:center;font-size:36px;}
+.rec-body{padding:10px;}
+.rec-name{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:3px;}
+.rec-price{font-size:13px;font-weight:700;color:var(--g2);}
+.rec-sup{font-size:10px;color:var(--light);}
+.profile-form input,.profile-form select{width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.save-profile-btn{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Green Roots <span>Smart</span></div>
+    <div class="logo-sub">Buyer Dashboard</div>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-av">AK</div>
+    <div>
+      <div class="user-name">Arjun Kapoor</div>
+      <div class="user-type">🛒 Buyer Account</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span>Overview</button>
+    <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span>My Enquiries<span class="nav-badge">3</span></button>
+    <button class="nav-item" onclick="showSection('saved',this)"><span class="nav-icon">🔖</span>Saved Products</button>
+    <button class="nav-item" onclick="showSection('rfq',this)"><span class="nav-icon">📋</span>Post RFQ</button>
+    <div class="nav-section">Discover</div>
+    <button class="nav-item" onclick="window.location.href='/products'"><span class="nav-icon">🔍</span>Browse Products</button>
+    <button class="nav-item" onclick="window.location.href='/category'"><span class="nav-icon">📂</span>Categories</button>
+    <div class="nav-section">Account</div>
+    <button class="nav-item" onclick="showSection('profile',this)"><span class="nav-icon">👤</span>My Profile</button>
+    <button class="nav-item" onclick="window.location.href="/""><span class="nav-icon">🚪</span>Logout</button>
+  </nav>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 id="pageTitle">Buyer Overview</h2>
+      <p id="pageSubtitle">Welcome back, Arjun! Find your perfect green suppliers.</p>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn">🔔<span class="notif-dot"></span></button>
+      <div class="topbar-avatar">AK</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div id="section-overview">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="s-icon" style="background:#e3f2fd">📩</div><div class="s-val">12</div><div class="s-lbl">Enquiries Sent</div><div class="s-change up">↑ 4 this week</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#e8f5e2">🔖</div><div class="s-val">28</div><div class="s-lbl">Saved Products</div><div class="s-change up">↑ 6 new</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#fff3e0">💬</div><div class="s-val">8</div><div class="s-lbl">Replies Received</div><div class="s-change up">↑ 2 today</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#fce4ec">✅</div><div class="s-val">3</div><div class="s-lbl">Deals Closed</div><div class="s-change up">↑ 1 this month</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">📩 Recent Enquiries</div><button class="card-action" onclick="showSection('enquiries',document.querySelectorAll('.nav-item')[1])">View All →</button></div>
+          <div class="enq-item">
+            <div class="enq-icon" style="background:#e8f5e2">☀️</div>
+            <div><div class="enq-name">Solar Panel 400W</div><div class="enq-sup">SunGrow Solar · Pune</div></div>
+            <div class="enq-time">2 hrs ago<span class="status-badge status-replied">Replied</span></div>
+          </div>
+          <div class="enq-item">
+            <div class="enq-icon" style="background:#fff3e0">🌾</div>
+            <div><div class="enq-name">Bio Compost Fertiliser</div><div class="enq-sup">OrganiFarm · Nashik</div></div>
+            <div class="enq-time">1 day ago<span class="status-badge status-pending">Pending</span></div>
+          </div>
+          <div class="enq-item">
+            <div class="enq-icon" style="background:#e0f7fa">📦</div>
+            <div><div class="enq-name">Kraft Paper Boxes</div><div class="enq-sup">EcoPack · Ahmedabad</div></div>
+            <div class="enq-time">2 days ago<span class="status-badge status-replied">Replied</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">🔖 Recently Saved</div><button class="card-action" onclick="showSection('saved',document.querySelectorAll('.nav-item')[2])">View All →</button></div>
+          <div class="saved-item">
+            <div class="saved-img" style="background:#e8f5e2">☀️</div>
+            <div><div class="saved-name">Solar Panel 400W</div><div class="saved-price">₹8,200/unit</div><div class="saved-sup">SunGrow Solar</div></div>
+            <button class="remove-btn">🗑️</button>
+          </div>
+          <div class="saved-item">
+            <div class="saved-img" style="background:#e0f7fa">📦</div>
+            <div><div class="saved-name">Kraft Paper Boxes</div><div class="saved-price">₹12/piece</div><div class="saved-sup">EcoPack Industries</div></div>
+            <button class="remove-btn">🗑️</button>
+          </div>
+          <div class="saved-item">
+            <div class="saved-img" style="background:#f3e5f5">🔋</div>
+            <div><div class="saved-name">Lithium Battery 100Ah</div><div class="saved-price">₹22,000/unit</div><div class="saved-sup">PowerGreen Delhi</div></div>
+            <button class="remove-btn">🗑️</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">💡 Recommended For You</div></div>
+        <div class="rec-grid">
+          <div class="rec-card" onclick="window.location.href='/product-detail'">
+            <div class="rec-img" style="background:linear-gradient(135deg,#e8f5e2,#c8e6c0)">☀️</div>
+            <div class="rec-body"><div class="rec-name">Solar Inverter 5kW</div><div class="rec-price">₹14,500</div><div class="rec-sup">SunGrow Solar</div></div>
+          </div>
+          <div class="rec-card" onclick="window.location.href='/product-detail'">
+            <div class="rec-img" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🌿</div>
+            <div class="rec-body"><div class="rec-name">Neem Extract 5L</div><div class="rec-price">₹1,200</div><div class="rec-sup">HerbalIndia</div></div>
+          </div>
+          <div class="rec-card" onclick="window.location.href='/product-detail'">
+            <div class="rec-img" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">💧</div>
+            <div class="rec-body"><div class="rec-name">RO System 500LPH</div><div class="rec-price">₹45,000</div><div class="rec-sup">AquaGreen</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENQUIRIES -->
+    <div id="section-enquiries" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📩 All My Enquiries (12)</div></div>
+        <div class="enq-item"><div class="enq-icon" style="background:#e8f5e2">☀️</div><div><div class="enq-name">Solar Panel 400W Monocrystalline</div><div class="enq-sup">SunGrow Solar · Pune · 50 units</div></div><div class="enq-time">2 hrs ago<span class="status-badge status-replied">Replied ✓</span></div></div>
+        <div class="enq-item"><div class="enq-icon" style="background:#fff3e0">🌾</div><div><div class="enq-name">Bio Compost Fertiliser 50kg</div><div class="enq-sup">OrganiFarm · Nashik · 100 bags</div></div><div class="enq-time">1 day ago<span class="status-badge status-pending">Pending</span></div></div>
+        <div class="enq-item"><div class="enq-icon" style="background:#e0f7fa">📦</div><div><div class="enq-name">Kraft Paper Boxes Biodegradable</div><div class="enq-sup">EcoPack · Ahmedabad · 1000 pcs</div></div><div class="enq-time">2 days ago<span class="status-badge status-replied">Replied ✓</span></div></div>
+        <div class="enq-item"><div class="enq-icon" style="background:#f3e5f5">🔋</div><div><div class="enq-name">Lithium Battery 100Ah</div><div class="enq-sup">PowerGreen · Delhi · 10 units</div></div><div class="enq-time">3 days ago<span class="status-badge status-new">New Reply!</span></div></div>
+        <div class="enq-item"><div class="enq-icon" style="background:#e8eaf6">🌬️</div><div><div class="enq-name">Wind Turbine 1kW</div><div class="enq-sup">WindPower India · Rajasthan · 2 units</div></div><div class="enq-time">5 days ago<span class="status-badge status-pending">Pending</span></div></div>
+      </div>
+    </div>
+
+    <!-- SAVED -->
+    <div id="section-saved" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🔖 Saved Products (28)</div></div>
+        <div class="saved-item"><div class="saved-img" style="background:#e8f5e2">☀️</div><div><div class="saved-name">Solar Panel 400W Monocrystalline</div><div class="saved-price">₹8,200/unit</div><div class="saved-sup">SunGrow Solar · Pune</div></div><button class="remove-btn">🗑️</button></div>
+        <div class="saved-item"><div class="saved-img" style="background:#e0f7fa">📦</div><div><div class="saved-name">Kraft Paper Boxes Biodegradable</div><div class="saved-price">₹12/piece</div><div class="saved-sup">EcoPack · Ahmedabad</div></div><button class="remove-btn">🗑️</button></div>
+        <div class="saved-item"><div class="saved-img" style="background:#f3e5f5">🔋</div><div><div class="saved-name">Lithium Battery 100Ah Deep Cycle</div><div class="saved-price">₹22,000/unit</div><div class="saved-sup">PowerGreen · Delhi</div></div><button class="remove-btn">🗑️</button></div>
+        <div class="saved-item"><div class="saved-img" style="background:#fff3e0">🌾</div><div><div class="saved-name">Bio Compost Fertiliser 50kg</div><div class="saved-price">₹340/bag</div><div class="saved-sup">OrganiFarm · Nashik</div></div><button class="remove-btn">🗑️</button></div>
+        <div class="saved-item"><div class="saved-img" style="background:#e8f5e2">🌿</div><div><div class="saved-name">Organic Neem Extract 5L</div><div class="saved-price">₹1,200/can</div><div class="saved-sup">HerbalIndia · Chennai</div></div><button class="remove-btn">🗑️</button></div>
+      </div>
+    </div>
+
+    <!-- POST RFQ -->
+    <div id="section-rfq" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 Post a Request for Quote (RFQ)</div></div>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">Post your requirement once — get quotes from multiple verified suppliers automatically!</p>
+        <div class="rfq-form">
+          <div class="profile-grid">
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Product Name *</label><input type="text" placeholder="e.g. Solar Panel 400W"/></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Category *</label>
+            <select><option>Select Category</option><option>☀️ Solar Energy</option><option>🌾 Organic Farming</option><option>📦 Eco Packaging</option><option>♻️ Waste Management</option><option>💧 Water Technology</option></select></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Quantity Required *</label><input type="text" placeholder="e.g. 100 units"/></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Target Price (₹)</label><input type="text" placeholder="e.g. ₹8,000/unit"/></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Delivery Location *</label><input type="text" placeholder="e.g. Mumbai, Maharashtra"/></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Required By Date</label><input type="date"/></div>
+          </div>
+          <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;margin-top:4px;">Detailed Requirements</label>
+          <textarea placeholder="Describe exactly what you need — specifications, certifications, packaging, shipping terms..."></textarea>
+          <button class="rfq-submit" onclick="alert('✅ RFQ posted! You will receive quotes from suppliers within 24 hours.')">Post RFQ to All Suppliers 🌿</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="section-profile" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">👤 My Profile</div></div>
+        <div class="profile-form">
+          <div class="profile-grid">
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">First Name</label><input type="text" value="Arjun"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Last Name</label><input type="text" value="Kapoor"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Email</label><input type="email" value="arjun@company.com"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Mobile</label><input type="tel" value="+91 98765 43210"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Company Name</label><input type="text" value="Kapoor Industries"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">City & State</label><input type="text" value="Mumbai, Maharashtra"/></div>
+          </div>
+          <button class="save-profile-btn" onclick="alert('✅ Profile updated successfully!')">Save Changes 🌿</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const sections=['overview','enquiries','saved','rfq','profile'];
+const titles={
+  'overview':['Buyer Overview','Welcome back, Arjun! Find your perfect green suppliers.'],
+  'enquiries':['My Enquiries','Track all your supplier enquiries here.'],
+  'saved':['Saved Products','Your saved products and suppliers.'],
+  'rfq':['Post RFQ','Post your requirement and get quotes from multiple suppliers.'],
+  'profile':['My Profile','Manage your account details.'],
+};
+function showSection(name,btn){
+  sections.forEach(s=>{
+    const el=document.getElementById('section-'+s);
+    if(el)el.style.display='none';
+  });
+  const el=document.getElementById('section-'+name);
+  if(el)el.style.display='block';
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('pageTitle').textContent=titles[name][0];
+  document.getElementById('pageSubtitle').textContent=titles[name][1];
+}
+</script>
+</body>
+</html>
