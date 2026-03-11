@@ -14,5 +14,6 @@
     { "src": "/buyer-dashboard", "dest": "/buyer-dashboard.html" },
     { "src": "/about", "dest": "/about.html" },
     { "src": "/contact", "dest": "/contact.html" }
+    { "src": "/add-product", "dest": "/add-product.html" },
   ]
 }
