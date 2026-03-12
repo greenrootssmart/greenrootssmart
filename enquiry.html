@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Send Enquiry — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+
+.page{max-width:1100px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 380px;gap:24px;}
+
+/* PRODUCT CARD */
+.product-card{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 10px #00000008;height:fit-content;position:sticky;top:84px;}
+.product-emoji{font-size:64px;margin-bottom:14px;text-align:center;}
+.product-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.product-supplier{font-size:12px;color:var(--light);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.verified-badge{background:var(--g5);color:var(--g2);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;border:1px solid var(--g4);}
+.product-price{font-size:24px;font-weight:700;color:var(--g2);margin-bottom:4px;}
+.product-moq{font-size:12px;color:var(--light);margin-bottom:14px;}
+.product-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.tag{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+.divider{height:1px;background:#e8f0e8;margin:14px 0;}
+.supplier-info{display:flex;align-items:center;gap:10px;}
+.supplier-av{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.supplier-name{font-size:13px;font-weight:700;color:var(--dark);}
+.supplier-loc{font-size:11px;color:var(--light);}
+
+/* ENQUIRY FORM */
+.enq-card{background:white;border-radius:16px;padding:28px;box-shadow:0 2px 10px #00000008;}
+.enq-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);margin-bottom:4px;}
+.enq-sub{font-size:13px;color:var(--light);margin-bottom:24px;}
+
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.input-wrap{position:relative;}
+.input-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 11px 11px 34px;border:1.5px solid #d4e8cc;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;transition:border 0.2s;background:white;}
+.form-group textarea{padding:11px 12px;height:100px;resize:vertical;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
+.alert-error{background:#fce4ec;color:var(--red);border:1px solid #f48fb1;}
+.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+
+.btn-enq{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:12px;}
+.btn-enq:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
+.btn-enq:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.enq-note{font-size:11px;color:var(--light);text-align:center;line-height:1.6;}
+
+.loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:20px;}
+.success-icon{font-size:64px;margin-bottom:14px;}
+.success-screen h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);margin-bottom:8px;}
+.success-screen p{font-size:13px;color:var(--mid);line-height:1.7;margin-bottom:20px;}
+.success-ref{background:var(--g5);border-radius:10px;padding:14px;margin-bottom:20px;font-size:13px;}
+.ref-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #d4e8cc;}
+.ref-row:last-child{border:none;}
+.ref-row span:first-child{color:var(--mid);}
+.ref-row span:last-child{font-weight:700;color:var(--dark);}
+.btn-back{padding:12px 28px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+
+@media(max-width:768px){.page{grid-template-columns:1fr;}.product-card{position:static;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
+      <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
+      <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+  <a href="/products" style="font-size:13px;color:var(--g2);text-decoration:none;">← Back to Products</a>
+</nav>
+
+<div class="page">
+  <!-- PRODUCT INFO CARD -->
+  <div>
+    <div class="enq-card">
+      <div class="enq-title">📩 Send Enquiry</div>
+      <div class="enq-sub">Fill your details and the supplier will contact you within 24 hours</div>
+
+      <div class="alert" id="alertBox"></div>
+
+      <!-- FORM -->
+      <div id="enquiryForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="buyer-name" placeholder="Your full name"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏢</span>
+              <input type="text" id="buyer-company" placeholder="Your company"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email *</label>
+            <div class="input-wrap">
+              <span class="input-icon">📧</span>
+              <input type="email" id="buyer-email" placeholder="you@company.com"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Mobile / WhatsApp *</label>
+            <div class="input-wrap">
+              <span class="input-icon">📱</span>
+              <input type="tel" id="buyer-mobile" placeholder="+91 98765 43210"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Quantity Required *</label>
+            <div class="input-wrap">
+              <span class="input-icon">📊</span>
+              <input type="number" id="enq-qty" placeholder="e.g. 50"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Required By</label>
+            <div class="input-wrap">
+              <span class="input-icon">📅</span>
+              <input type="date" id="enq-date"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Delivery Location *</label>
+          <div class="input-wrap">
+            <span class="input-icon">📍</span>
+            <input type="text" id="buyer-location" placeholder="City, State e.g. Mumbai, Maharashtra"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Purpose / Use Case</label>
+          <div class="input-wrap">
+            <span class="input-icon">🎯</span>
+            <select id="enq-purpose">
+              <option value="">Select purpose</option>
+              <option>Resale / Distribution</option>
+              <option>Manufacturing / Production</option>
+              <option>Personal / Office Use</option>
+              <option>Government / Institutional</option>
+              <option>Export</option>
+              <option>Project / Construction</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Message to Supplier *</label>
+          <textarea id="enq-message" placeholder="Describe your requirements, specifications, delivery preferences, any questions..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Product / Supplier (for reference)</label>
+          <div class="input-wrap">
+            <span class="input-icon">📦</span>
+            <input type="text" id="prod-ref" placeholder="e.g. Solar Panel 400W from SunGrow Solar"/>
+          </div>
+        </div>
+
+        <button class="btn-enq" id="enqBtn" onclick="submitEnquiry()">📩 Send Enquiry Now</button>
+        <div class="enq-note">
+          🔒 Your contact details are shared only with this supplier<br/>
+          ✅ Supplier will respond within 24 hours via email/WhatsApp<br/>
+          🌿 100% Free — No charges for sending enquiries
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">✅</div>
+        <h3>Enquiry Sent Successfully!</h3>
+        <p>Your enquiry has been sent to the supplier. They will contact you within 24 hours on your email and WhatsApp!</p>
+        <div class="success-ref" id="successRef"></div>
+        <button class="btn-back" onclick="window.location.href='/products'">Browse More Products →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT SIDEBAR -->
+  <div>
+    <div class="product-card">
+      <div class="product-emoji" id="prodEmoji">☀️</div>
+      <div class="product-name" id="prodName">Solar Panel 400W Monocrystalline</div>
+      <div class="product-supplier">
+        <span id="supplierName">SunGrow Solar Pvt Ltd</span>
+        <span class="verified-badge">✅ Verified</span>
+      </div>
+      <div class="product-price" id="prodPrice">₹8,200 <span style="font-size:13px;font-weight:400;color:var(--light)">per unit</span></div>
+      <div class="product-moq" id="prodMOQ">Min. Order: 10 units</div>
+      <div class="product-tags">
+        <span class="tag">☀️ Solar Energy</span>
+        <span class="tag">✅ In Stock</span>
+        <span class="tag">🚚 Pan India</span>
+        <span class="tag">⏰ 3-7 days</span>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:10px;">SUPPLIER</div>
+      <div class="supplier-info">
+        <div class="supplier-av" id="suppAv">SG</div>
+        <div>
+          <div class="supplier-name" id="suppName2">SunGrow Solar</div>
+          <div class="supplier-loc" id="suppLoc">Chennai, Tamil Nadu</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--light);line-height:1.8;">
+        📦 Products Listed: <strong>24</strong><br/>
+        ⭐ Rating: <strong>4.8 / 5</strong><br/>
+        📩 Response Rate: <strong>92%</strong><br/>
+        ⏰ Avg Response: <strong>4 hours</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Load product info from URL params if available
+const params = new URLSearchParams(window.location.search);
+if(params.get('product')) document.getElementById('prodName').textContent = params.get('product');
+if(params.get('supplier')) {
+  document.getElementById('supplierName').textContent = params.get('supplier');
+  document.getElementById('suppName2').textContent = params.get('supplier');
+  const initials = params.get('supplier').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('suppAv').textContent = initials;
+}
+if(params.get('price')) document.getElementById('prodPrice').innerHTML = '₹' + params.get('price') + ' <span style="font-size:13px;font-weight:400;color:var(--light)">per unit</span>';
+if(params.get('emoji')) document.getElementById('prodEmoji').textContent = params.get('emoji');
+if(params.get('ref')) document.getElementById('prod-ref').value = params.get('ref');
+
+function showAlert(msg, type='error'){
+  const box = document.getElementById('alertBox');
+  box.textContent = msg;
+  box.className = 'alert alert-' + type;
+  box.style.display = 'block';
+  setTimeout(()=>box.style.display='none', 5000);
+}
+
+async function submitEnquiry(){
+  const name = document.getElementById('buyer-name').value.trim();
+  const email = document.getElementById('buyer-email').value.trim();
+  const mobile = document.getElementById('buyer-mobile').value.trim();
+  const qty = document.getElementById('enq-qty').value;
+  const location = document.getElementById('buyer-location').value.trim();
+  const message = document.getElementById('enq-message').value.trim();
+
+  if(!name) return showAlert('Please enter your Name!');
+  if(!email) return showAlert('Please enter your Email!');
+  if(!mobile) return showAlert('Please enter your Mobile number!');
+  if(!qty) return showAlert('Please enter Quantity required!');
+  if(!location) return showAlert('Please enter Delivery Location!');
+  if(!message) return showAlert('Please enter your Message!');
+
+  const btn = document.getElementById('enqBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span>Sending Enquiry...';
+
+  const enquiryData = {
+    buyer_name: name,
+    buyer_company: document.getElementById('buyer-company').value.trim(),
+    buyer_email: email,
+    buyer_mobile: mobile,
+    buyer_location: location,
+    quantity: parseInt(qty),
+    required_by: document.getElementById('enq-date').value || null,
+    purpose: document.getElementById('enq-purpose').value,
+    message: message,
+    product_ref: document.getElementById('prod-ref').value.trim(),
+    product_name: document.getElementById('prodName').textContent,
+    supplier_name: document.getElementById('supplierName').textContent,
+    status: 'new'
+  };
+
+  try {
+    const { error } = await supabaseClient.from('enquiries').insert([enquiryData]);
+
+    if(error){
+      showAlert('Failed to send: ' + error.message);
+      btn.disabled = false;
+      btn.innerHTML = '📩 Send Enquiry Now';
+      return;
+    }
+
+    // Send email via Resend
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { "Authorization": "Bearer re_Z8S2Xje3_AukBvu1somwqPoQtQU3T6Lt6", "Content-Type": "application/json" },
+        body: JSON.stringify({ from: "Green Roots Smart <onboarding@resend.dev>", to: ["greenrootssmart@gmail.com"], subject: "New Enquiry on Green Roots Smart", html: "<p><b>Buyer:</b> " + name + "<br><b>Email:</b> " + email + "<br><b>Mobile:</b> " + mobile + "<br><b>Location:</b> " + location + "<br><b>Quantity:</b> " + qty + "<br><b>Message:</b> " + message + "</p>" })
+      });
+    } catch(e){ console.log("email error",e); }
+
+    // Show success
+    document.getElementById('enquiryForm').style.display = 'none';
+    document.getElementById('successRef').innerHTML = `
+      <div class="ref-row"><span>Your Name</span><span>${name}</span></div>
+      <div class="ref-row"><span>Email</span><span>${email}</span></div>
+      <div class="ref-row"><span>Mobile</span><span>${mobile}</span></div>
+      <div class="ref-row"><span>Product</span><span>${document.getElementById('prodName').textContent}</span></div>
+      <div class="ref-row"><span>Quantity</span><span>${qty} units</span></div>
+      <div class="ref-row"><span>Supplier</span><span>${document.getElementById('supplierName').textContent}</span></div>
+      <div class="ref-row"><span>Status</span><span>✅ Sent Successfully</span></div>
+    `;
+    document.getElementById('successScreen').style.display = 'block';
+
+  } catch(err){
+    showAlert('Something went wrong. Please try again!');
+    btn.disabled = false;
+    btn.innerHTML = '📩 Send Enquiry Now';
+  }
+}
+</script>
+</body>
+</html>
