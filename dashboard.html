@@ -226,16 +226,16 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
           <div class="s-change up">on your listings</div>
         </div>
         <div class="stat-card">
-          <div class="s-icon" style="background:#fff3e0">👀</div>
-          <div class="s-val">1,240</div>
-          <div class="s-lbl">Profile Views</div>
-          <div class="s-change up">↑ 28% this week</div>
+          <div class="s-icon" style="background:#fff3e0">📅</div>
+          <div class="s-val" id="statPlan">—</div>
+          <div class="s-lbl">Current Plan</div>
+          <div class="s-change up" id="statLocation">loading...</div>
         </div>
         <div class="stat-card">
-          <div class="s-icon" style="background:#fce4ec">⭐</div>
-          <div class="s-val">4.8</div>
-          <div class="s-lbl">Average Rating</div>
-          <div class="s-change up">↑ 0.2 this month</div>
+          <div class="s-icon" style="background:#fce4ec">📩</div>
+          <div class="s-val" id="statNewEnq">0</div>
+          <div class="s-lbl">New Enquiries</div>
+          <div class="s-change up">needs your reply!</div>
         </div>
       </div>
 
@@ -503,7 +503,7 @@ async function loadStats() {
   const { data: products } = await supabaseClient
     .from('products')
     .select('*')
-    .eq('supplier_id', currentUser.id);
+    .eq('supplier_id', parseInt(currentUser.id));
 
   const enquiryCount = enquiries ? enquiries.length : 0;
   const productCount = products ? products.length : 0;
@@ -511,7 +511,22 @@ async function loadStats() {
 
   document.getElementById('statEnquiries').textContent = enquiryCount;
   document.getElementById('statProducts').textContent = productCount;
-  document.getElementById('statNew').textContent = newEnquiries + ' new';
+  document.getElementById('statNew').textContent = newEnquiries > 0 ? newEnquiries + ' new' : 'no new enquiries';
+  document.getElementById('statPlan').textContent = (currentUser.plan || 'Starter');
+  document.getElementById('statLocation').textContent = (currentUser.city || '') + ', ' + (currentUser.state || '');
+  document.getElementById('statNewEnq').textContent = newEnquiries;
+
+  // Update badge
+  if (newEnquiries > 0) {
+    document.getElementById('enquiryBadge').textContent = newEnquiries;
+    document.getElementById('enquiryBadge').style.display = 'inline';
+  }
+
+  // Also update recent enquiries if none
+  if(enquiryCount === 0){
+    const container = document.getElementById('recentEnquiries');
+    if(container) container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">No enquiries yet! Share your profile to get enquiries! 🌿</p>';
+  }
 
   // Update badge
   if (newEnquiries > 0) {
@@ -560,7 +575,7 @@ async function loadMyProducts() {
   const { data: products } = await supabaseClient
     .from('products')
     .select('*')
-    .eq('supplier_id', currentUser.id)
+    .eq('supplier_id', parseInt(currentUser.id))
     .order('created_at', { ascending: false });
 
   const container = document.getElementById('myProductsList');
