@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -483,7 +484,7 @@ async function initDashboard() {
   document.getElementById('sidebarPlan').textContent = (currentUser.plan || 'Starter').toUpperCase() + ' PLAN';
   document.getElementById('sidebarInitial').textContent = (currentUser.name || 'S')[0].toUpperCase();
   document.getElementById('topbarInitial').textContent = (currentUser.name || 'S')[0].toUpperCase();
-  document.getElementById('pageSubtitle').textContent = 'Welcome back, ' + (currentUser.name || currentUser.business) + '! Here\'s your business summary.';
+  document.getElementById('pageSubtitle').textContent = 'Welcome back, ' + (currentUser.name || currentUser.business) + '! | ' + (currentUser.business || '') + ' | ' + (currentUser.plan || 'Starter') + ' Plan';
 
   await loadStats();
   await loadRecentEnquiries();
@@ -492,11 +493,11 @@ async function initDashboard() {
 }
 
 async function loadStats() {
-  // Get enquiries count
+  // Get enquiries count - filter by supplier_name (case insensitive)
   const { data: enquiries } = await supabaseClient
     .from('enquiries')
     .select('*')
-    .eq('supplier_name', currentUser.business);
+    .ilike('supplier_name', currentUser.business);
 
   // Get products count
   const { data: products } = await supabaseClient
@@ -523,7 +524,7 @@ async function loadRecentEnquiries() {
   const { data: enquiries } = await supabaseClient
     .from('enquiries')
     .select('*')
-    .eq('supplier_name', currentUser.business)
+    .ilike('supplier_name', currentUser.business)
     .order('created_at', { ascending: false })
     .limit(4);
 
@@ -596,7 +597,7 @@ async function loadAllEnquiries() {
   const { data: enquiries } = await supabaseClient
     .from('enquiries')
     .select('*')
-    .eq('supplier_name', currentUser.business)
+    .ilike('supplier_name', currentUser.business)
     .order('created_at', { ascending: false });
 
   const container = document.getElementById('allEnquiriesList');
