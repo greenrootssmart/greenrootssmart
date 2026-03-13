@@ -41,15 +41,13 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 .alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
 .alert-error{background:#fce4ec;color:var(--red);border:1px solid #f48fb1;}
 .alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+.alert-warning{background:#fff3e0;color:#e65100;border:1px solid #ffcc02;}
 .btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:16px;}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
 .btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 .user-type-row{display:flex;gap:10px;margin-bottom:20px;}
 .user-type-btn{flex:1;padding:12px;border:2px solid #d4e8cc;border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;transition:all 0.2s;text-align:center;}
 .user-type-btn.active{border-color:var(--g3);background:var(--g5);color:var(--g2);}
-.divider{display:flex;align-items:center;gap:12px;margin:16px 0;}
-.divider-line{flex:1;height:1px;background:#e0e8e0;}
-.divider-text{font-size:12px;color:var(--light);}
 .forgot-link{text-align:center;font-size:12px;color:var(--light);margin-top:8px;}
 .forgot-link a{color:var(--g2);text-decoration:none;font-weight:600;}
 .switch-text{text-align:center;font-size:13px;color:var(--light);margin-top:16px;}
@@ -119,12 +117,13 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
         <label>Password *</label>
         <div class="input-wrap">
           <span class="input-icon">🔒</span>
-          <input type="password" id="login-password" placeholder="Enter your password"/>
+          <input type="password" id="login-password" placeholder="Enter your password"
+            onkeydown="if(event.key==='Enter') doLogin()"/>
           <button class="toggle-pass" onclick="togglePass('login-password',this)">👁️</button>
         </div>
       </div>
       <button class="btn-submit" id="loginBtn" onclick="doLogin()">🌿 Login to Dashboard</button>
-      <div class="forgot-link"><a href="#">Forgot Password? Contact support@greenrootssmart.com</a></div>
+      <div class="forgot-link"><a href="mailto:support@greenrootssmart.com">Forgot Password? Contact support@greenrootssmart.com</a></div>
       <div class="switch-text">Don't have an account? <a onclick="switchTab('register',document.querySelectorAll('.tab')[1])">Register Free →</a></div>
     </div>
 
@@ -180,11 +179,11 @@ function showAlert(msg, type='error'){
   box.textContent = msg;
   box.className = 'alert alert-' + type;
   box.style.display = 'block';
-  setTimeout(()=>box.style.display='none', 5000);
+  setTimeout(()=>box.style.display='none', 6000);
 }
 
 async function doLogin(){
-  const email = document.getElementById('login-email').value.trim();
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const password = document.getElementById('login-password').value;
   if(!email) return showAlert('⚠️ Please enter your email!');
   if(!password) return showAlert('⚠️ Please enter your password!');
@@ -194,42 +193,100 @@ async function doLogin(){
   btn.innerHTML = '<span class="loading"></span>Logging in...';
 
   try {
-    const table = userType === 'buyer' ? 'buyers' : 'suppliers';
-    const { data, error } = await supabaseClient
-      .from(table)
-      .select('*')
-      .eq('email', email)
-      .eq('password', password)
-      .single();
+    if(userType === 'buyer') {
+      // ✅ BUYER LOGIN — check email + password
+      const { data, error } = await supabaseClient
+        .from('buyers')
+        .select('*')
+        .eq('email', email)
+        .eq('password', password)
+        .single();
 
-    if(error || !data){
-      showAlert('❌ No account found. Check your email/password or register first!');
-      btn.disabled = false;
-      btn.innerHTML = '🌿 Login to Dashboard';
-      return;
-    }
+      if(error || !data){
+        showAlert('❌ Wrong email or password! Please try again or register.');
+        btn.disabled = false;
+        btn.innerHTML = '🌿 Login to Dashboard';
+        return;
+      }
 
-    if(userType === 'buyer'){
+      // ✅ Save ALL buyer data including buying_category
       localStorage.setItem('grs_buyer', JSON.stringify({
-        id: data.id, name: data.name, email: data.email,
-        mobile: data.mobile, company: data.company, type: 'buyer'
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        mobile: data.mobile,
+        company: data.company || '',
+        city: data.city || '',
+        state: data.state || '',
+        buying_category: data.buying_category || '',
+        type: 'buyer'
       }));
+
       showAlert('✅ Login successful! Going to Buyer Dashboard...', 'success');
       btn.innerHTML = '✅ Logged In!';
       setTimeout(()=>{ window.location.href = '/buyer-dashboard'; }, 1500);
+
     } else {
+      // ✅ SUPPLIER LOGIN — check email + password + status
+      const { data, error } = await supabaseClient
+        .from('suppliers')
+        .select('*')
+        .eq('email', email)
+        .eq('password', password)
+        .single();
+
+      if(error || !data){
+        showAlert('❌ Wrong email or password! Please try again or register.');
+        btn.disabled = false;
+        btn.innerHTML = '🌿 Login to Dashboard';
+        return;
+      }
+
+      // ✅ SECURITY: Check supplier approval status
+      if(data.status === 'pending'){
+        showAlert('⏳ Your account is pending verification. Our team will approve within 24 hours. Check your email!', 'warning');
+        btn.disabled = false;
+        btn.innerHTML = '🌿 Login to Dashboard';
+        return;
+      }
+
+      if(data.status === 'rejected'){
+        showAlert('❌ Your account was not approved. Contact support@greenrootssmart.com for help.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '🌿 Login to Dashboard';
+        return;
+      }
+
+      if(data.status === 'suspended'){
+        showAlert('🚫 Your account has been suspended. Contact support@greenrootssmart.com', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '🌿 Login to Dashboard';
+        return;
+      }
+
+      // ✅ Save ALL supplier data to localStorage
       localStorage.setItem('grs_user', JSON.stringify({
-        id: data.id, name: data.owner_name, business: data.business_name,
-        email: data.email, plan: data.plan, status: data.status,
-        city: data.city, state: data.state, category: data.category, type: 'supplier'
+        id: data.id,
+        name: data.owner_name,
+        business: data.business_name,
+        email: data.email,
+        mobile: data.mobile || '',
+        plan: data.plan || 'free',
+        status: data.status,
+        city: data.city || '',
+        state: data.state || '',
+        category: data.category || '',
+        type: 'supplier'
       }));
+
       showAlert('✅ Login successful! Going to Supplier Dashboard...', 'success');
       btn.innerHTML = '✅ Logged In!';
       setTimeout(()=>{ window.location.href = '/dashboard'; }, 1500);
     }
 
   } catch(err){
-    showAlert('❌ Login failed. Please try again!');
+    console.error(err);
+    showAlert('❌ Login failed. Please check your connection and try again!');
     btn.disabled = false;
     btn.innerHTML = '🌿 Login to Dashboard';
   }
