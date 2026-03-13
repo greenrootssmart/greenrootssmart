@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Buyer Dashboard — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--gold:#f59e0b;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
 .sidebar{width:240px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
@@ -24,14 +25,13 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
 .nav-item.active{background:rgba(82,176,67,0.2);color:white;border-right:3px solid var(--g3);}
 .nav-icon{font-size:16px;width:20px;text-align:center;}
-.nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;display:none;}
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
 .topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
 .topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
 .topbar-left p{font-size:12px;color:var(--light);}
 .topbar-right{display:flex;align-items:center;gap:14px;}
-.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;position:relative;}
-.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;}
 .topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1565c0,#1976d2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;}
 .content{padding:24px 28px;flex:1;}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
@@ -39,7 +39,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
 .s-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--dark);}
 .s-lbl{font-size:12px;color:var(--light);margin-top:2px;}
-.s-change{font-size:11px;font-weight:600;margin-top:8px;}
+.s-change{font-size:11px;font-weight:600;margin-top:8px;color:var(--light);}
 .s-change.up{color:#2e7d32;}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
 .card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
@@ -56,28 +56,21 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .status-replied{background:var(--g5);color:var(--g2);}
 .status-pending{background:#fff3e0;color:var(--orange);}
 .status-new{background:#e3f2fd;color:var(--blue);}
-.saved-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f4f0;cursor:pointer;}
-.saved-item:last-child{border-bottom:none;}
-.saved-img{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
-.saved-name{font-size:13px;font-weight:600;color:var(--dark);}
-.saved-price{font-size:12px;color:var(--g2);font-weight:700;}
-.saved-sup{font-size:10px;color:var(--light);}
-.remove-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#ccc;}
-.remove-btn:hover{color:var(--red);}
+.empty-state{text-align:center;padding:32px;color:var(--light);font-size:13px;}
+.empty-state .e-icon{font-size:40px;margin-bottom:12px;}
 .rfq-form input,.rfq-form select,.rfq-form textarea{width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
 .rfq-form textarea{height:70px;resize:vertical;}
 .rfq-submit{width:100%;padding:11px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
-.rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.rec-card{background:var(--cream);border-radius:12px;overflow:hidden;cursor:pointer;border:1.5px solid transparent;transition:all 0.2s;}
-.rec-card:hover{border-color:var(--g4);}
-.rec-img{height:80px;display:flex;align-items:center;justify-content:center;font-size:36px;}
-.rec-body{padding:10px;}
-.rec-name{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:3px;}
-.rec-price{font-size:13px;font-weight:700;color:var(--g2);}
-.rec-sup{font-size:10px;color:var(--light);}
-.profile-form input,.profile-form select{width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
+.rfq-submit:disabled{opacity:0.6;cursor:not-allowed;}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.profile-form input,.profile-form select{width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
 .save-profile-btn{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
+.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+.alert-error{background:#fce4ec;color:var(--red);border:1px solid #f48fb1;}
+.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;}.stats-grid{grid-template-columns:1fr 1fr;}.grid-2{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -88,24 +81,23 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     <div class="logo-sub">Buyer Dashboard</div>
   </div>
   <div class="sidebar-user">
-    <div class="user-av">AK</div>
+    <div class="user-av" id="sidebarInitial">?</div>
     <div>
-      <div class="user-name">Arjun Kapoor</div>
+      <div class="user-name" id="sidebarName">Loading...</div>
       <div class="user-type">🛒 Buyer Account</div>
     </div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section">Main</div>
     <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span>Overview</button>
-    <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span>My Enquiries<span class="nav-badge">3</span></button>
-    <button class="nav-item" onclick="showSection('saved',this)"><span class="nav-icon">🔖</span>Saved Products</button>
+    <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span>My Enquiries<span class="nav-badge" id="enqBadge">0</span></button>
     <button class="nav-item" onclick="showSection('rfq',this)"><span class="nav-icon">📋</span>Post RFQ</button>
     <div class="nav-section">Discover</div>
     <button class="nav-item" onclick="window.location.href='/products'"><span class="nav-icon">🔍</span>Browse Products</button>
     <button class="nav-item" onclick="window.location.href='/category'"><span class="nav-icon">📂</span>Categories</button>
     <div class="nav-section">Account</div>
     <button class="nav-item" onclick="showSection('profile',this)"><span class="nav-icon">👤</span>My Profile</button>
-    <button class="nav-item" onclick="window.location.href="/""><span class="nav-icon">🚪</span>Logout</button>
+    <button class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span>Logout</button>
   </nav>
 </div>
 
@@ -113,11 +105,11 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
   <div class="topbar">
     <div class="topbar-left">
       <h2 id="pageTitle">Buyer Overview</h2>
-      <p id="pageSubtitle">Welcome back, Arjun! Find your perfect green suppliers.</p>
+      <p id="pageSubtitle">Welcome! Loading your dashboard...</p>
     </div>
     <div class="topbar-right">
-      <button class="notif-btn">🔔<span class="notif-dot"></span></button>
-      <div class="topbar-avatar">AK</div>
+      <button class="notif-btn">🔔</button>
+      <div class="topbar-avatar" id="topbarInitial">?</div>
     </div>
   </div>
 
@@ -126,92 +118,61 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     <!-- OVERVIEW -->
     <div id="section-overview">
       <div class="stats-grid">
-        <div class="stat-card"><div class="s-icon" style="background:#e3f2fd">📩</div><div class="s-val">12</div><div class="s-lbl">Enquiries Sent</div><div class="s-change up">↑ 4 this week</div></div>
-        <div class="stat-card"><div class="s-icon" style="background:#e8f5e2">🔖</div><div class="s-val">28</div><div class="s-lbl">Saved Products</div><div class="s-change up">↑ 6 new</div></div>
-        <div class="stat-card"><div class="s-icon" style="background:#fff3e0">💬</div><div class="s-val">8</div><div class="s-lbl">Replies Received</div><div class="s-change up">↑ 2 today</div></div>
-        <div class="stat-card"><div class="s-icon" style="background:#fce4ec">✅</div><div class="s-val">3</div><div class="s-lbl">Deals Closed</div><div class="s-change up">↑ 1 this month</div></div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e3f2fd">📩</div>
+          <div class="s-val" id="statEnq">—</div>
+          <div class="s-lbl">Enquiries Sent</div>
+          <div class="s-change" id="statEnqNew">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fff3e0">💬</div>
+          <div class="s-val" id="statReplies">—</div>
+          <div class="s-lbl">Replies Received</div>
+          <div class="s-change up">from suppliers</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e8f5e2">⏳</div>
+          <div class="s-val" id="statPending">—</div>
+          <div class="s-lbl">Pending Replies</div>
+          <div class="s-change">awaiting response</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fce4ec">🌿</div>
+          <div class="s-val" id="statCategory">—</div>
+          <div class="s-lbl">My Category</div>
+          <div class="s-change">buying focus</div>
+        </div>
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-header"><div class="card-title">📩 Recent Enquiries</div><button class="card-action" onclick="showSection('enquiries',document.querySelectorAll('.nav-item')[1])">View All →</button></div>
-          <div class="enq-item">
-            <div class="enq-icon" style="background:#e8f5e2">☀️</div>
-            <div><div class="enq-name">Solar Panel 400W</div><div class="enq-sup">SunGrow Solar · Pune</div></div>
-            <div class="enq-time">2 hrs ago<span class="status-badge status-replied">Replied</span></div>
-          </div>
-          <div class="enq-item">
-            <div class="enq-icon" style="background:#fff3e0">🌾</div>
-            <div><div class="enq-name">Bio Compost Fertiliser</div><div class="enq-sup">OrganiFarm · Nashik</div></div>
-            <div class="enq-time">1 day ago<span class="status-badge status-pending">Pending</span></div>
-          </div>
-          <div class="enq-item">
-            <div class="enq-icon" style="background:#e0f7fa">📦</div>
-            <div><div class="enq-name">Kraft Paper Boxes</div><div class="enq-sup">EcoPack · Ahmedabad</div></div>
-            <div class="enq-time">2 days ago<span class="status-badge status-replied">Replied</span></div>
-          </div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">📩 My Recent Enquiries</div>
+          <button class="card-action" onclick="showSection('enquiries',document.querySelectorAll('.nav-item')[1])">View All →</button>
         </div>
-
-        <div class="card">
-          <div class="card-header"><div class="card-title">🔖 Recently Saved</div><button class="card-action" onclick="showSection('saved',document.querySelectorAll('.nav-item')[2])">View All →</button></div>
-          <div class="saved-item">
-            <div class="saved-img" style="background:#e8f5e2">☀️</div>
-            <div><div class="saved-name">Solar Panel 400W</div><div class="saved-price">₹8,200/unit</div><div class="saved-sup">SunGrow Solar</div></div>
-            <button class="remove-btn">🗑️</button>
-          </div>
-          <div class="saved-item">
-            <div class="saved-img" style="background:#e0f7fa">📦</div>
-            <div><div class="saved-name">Kraft Paper Boxes</div><div class="saved-price">₹12/piece</div><div class="saved-sup">EcoPack Industries</div></div>
-            <button class="remove-btn">🗑️</button>
-          </div>
-          <div class="saved-item">
-            <div class="saved-img" style="background:#f3e5f5">🔋</div>
-            <div><div class="saved-name">Lithium Battery 100Ah</div><div class="saved-price">₹22,000/unit</div><div class="saved-sup">PowerGreen Delhi</div></div>
-            <button class="remove-btn">🗑️</button>
-          </div>
-        </div>
+        <div id="recentEnqList"><div class="empty-state"><div class="e-icon">📩</div>Loading enquiries...</div></div>
       </div>
 
       <div class="card">
-        <div class="card-header"><div class="card-title">💡 Recommended For You</div></div>
-        <div class="rec-grid">
-          <div class="rec-card" onclick="window.location.href='/product-detail'">
-            <div class="rec-img" style="background:linear-gradient(135deg,#e8f5e2,#c8e6c0)">☀️</div>
-            <div class="rec-body"><div class="rec-name">Solar Inverter 5kW</div><div class="rec-price">₹14,500</div><div class="rec-sup">SunGrow Solar</div></div>
-          </div>
-          <div class="rec-card" onclick="window.location.href='/product-detail'">
-            <div class="rec-img" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🌿</div>
-            <div class="rec-body"><div class="rec-name">Neem Extract 5L</div><div class="rec-price">₹1,200</div><div class="rec-sup">HerbalIndia</div></div>
-          </div>
-          <div class="rec-card" onclick="window.location.href='/product-detail'">
-            <div class="rec-img" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">💧</div>
-            <div class="rec-body"><div class="rec-name">RO System 500LPH</div><div class="rec-price">₹45,000</div><div class="rec-sup">AquaGreen</div></div>
-          </div>
+        <div class="card-header"><div class="card-title">💡 Discover Green Products</div></div>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:16px;">Browse verified eco suppliers across India!</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="/products" style="padding:10px 18px;background:var(--g5);color:var(--g2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;">☀️ Solar Energy</a>
+          <a href="/products" style="padding:10px 18px;background:#fff3e0;color:var(--orange);border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;">🌾 Organic Farming</a>
+          <a href="/products" style="padding:10px 18px;background:#e0f7fa;color:#00695c;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;">📦 Eco Packaging</a>
+          <a href="/products" style="padding:10px 18px;background:#e3f2fd;color:var(--blue);border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;">💧 Water Tech</a>
+          <a href="/category" style="padding:10px 18px;background:#f0f4f0;color:var(--mid);border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;">➕ All Categories</a>
         </div>
       </div>
     </div>
 
-    <!-- ENQUIRIES -->
+    <!-- ALL ENQUIRIES -->
     <div id="section-enquiries" style="display:none">
       <div class="card">
-        <div class="card-header"><div class="card-title">📩 All My Enquiries (12)</div></div>
-        <div class="enq-item"><div class="enq-icon" style="background:#e8f5e2">☀️</div><div><div class="enq-name">Solar Panel 400W Monocrystalline</div><div class="enq-sup">SunGrow Solar · Pune · 50 units</div></div><div class="enq-time">2 hrs ago<span class="status-badge status-replied">Replied ✓</span></div></div>
-        <div class="enq-item"><div class="enq-icon" style="background:#fff3e0">🌾</div><div><div class="enq-name">Bio Compost Fertiliser 50kg</div><div class="enq-sup">OrganiFarm · Nashik · 100 bags</div></div><div class="enq-time">1 day ago<span class="status-badge status-pending">Pending</span></div></div>
-        <div class="enq-item"><div class="enq-icon" style="background:#e0f7fa">📦</div><div><div class="enq-name">Kraft Paper Boxes Biodegradable</div><div class="enq-sup">EcoPack · Ahmedabad · 1000 pcs</div></div><div class="enq-time">2 days ago<span class="status-badge status-replied">Replied ✓</span></div></div>
-        <div class="enq-item"><div class="enq-icon" style="background:#f3e5f5">🔋</div><div><div class="enq-name">Lithium Battery 100Ah</div><div class="enq-sup">PowerGreen · Delhi · 10 units</div></div><div class="enq-time">3 days ago<span class="status-badge status-new">New Reply!</span></div></div>
-        <div class="enq-item"><div class="enq-icon" style="background:#e8eaf6">🌬️</div><div><div class="enq-name">Wind Turbine 1kW</div><div class="enq-sup">WindPower India · Rajasthan · 2 units</div></div><div class="enq-time">5 days ago<span class="status-badge status-pending">Pending</span></div></div>
-      </div>
-    </div>
-
-    <!-- SAVED -->
-    <div id="section-saved" style="display:none">
-      <div class="card">
-        <div class="card-header"><div class="card-title">🔖 Saved Products (28)</div></div>
-        <div class="saved-item"><div class="saved-img" style="background:#e8f5e2">☀️</div><div><div class="saved-name">Solar Panel 400W Monocrystalline</div><div class="saved-price">₹8,200/unit</div><div class="saved-sup">SunGrow Solar · Pune</div></div><button class="remove-btn">🗑️</button></div>
-        <div class="saved-item"><div class="saved-img" style="background:#e0f7fa">📦</div><div><div class="saved-name">Kraft Paper Boxes Biodegradable</div><div class="saved-price">₹12/piece</div><div class="saved-sup">EcoPack · Ahmedabad</div></div><button class="remove-btn">🗑️</button></div>
-        <div class="saved-item"><div class="saved-img" style="background:#f3e5f5">🔋</div><div><div class="saved-name">Lithium Battery 100Ah Deep Cycle</div><div class="saved-price">₹22,000/unit</div><div class="saved-sup">PowerGreen · Delhi</div></div><button class="remove-btn">🗑️</button></div>
-        <div class="saved-item"><div class="saved-img" style="background:#fff3e0">🌾</div><div><div class="saved-name">Bio Compost Fertiliser 50kg</div><div class="saved-price">₹340/bag</div><div class="saved-sup">OrganiFarm · Nashik</div></div><button class="remove-btn">🗑️</button></div>
-        <div class="saved-item"><div class="saved-img" style="background:#e8f5e2">🌿</div><div><div class="saved-name">Organic Neem Extract 5L</div><div class="saved-price">₹1,200/can</div><div class="saved-sup">HerbalIndia · Chennai</div></div><button class="remove-btn">🗑️</button></div>
+        <div class="card-header">
+          <div class="card-title">📩 All My Enquiries</div>
+          <span style="font-size:12px;color:var(--light)">Live from database</span>
+        </div>
+        <div id="allEnqList"><div class="empty-state"><div class="e-icon">📩</div>Loading...</div></div>
       </div>
     </div>
 
@@ -219,20 +180,48 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     <div id="section-rfq" style="display:none">
       <div class="card">
         <div class="card-header"><div class="card-title">📋 Post a Request for Quote (RFQ)</div></div>
-        <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">Post your requirement once — get quotes from multiple verified suppliers automatically!</p>
+        <p style="font-size:13px;color:var(--mid);margin-bottom:20px;">Post your requirement — get quotes from multiple verified suppliers!</p>
+        <div class="alert" id="rfqAlert"></div>
         <div class="rfq-form">
           <div class="profile-grid">
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Product Name *</label><input type="text" placeholder="e.g. Solar Panel 400W"/></div>
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Category *</label>
-            <select><option>Select Category</option><option>☀️ Solar Energy</option><option>🌾 Organic Farming</option><option>📦 Eco Packaging</option><option>♻️ Waste Management</option><option>💧 Water Technology</option></select></div>
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Quantity Required *</label><input type="text" placeholder="e.g. 100 units"/></div>
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Target Price (₹)</label><input type="text" placeholder="e.g. ₹8,000/unit"/></div>
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Delivery Location *</label><input type="text" placeholder="e.g. Mumbai, Maharashtra"/></div>
-            <div><label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Required By Date</label><input type="date"/></div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Product Name *</label>
+              <input type="text" id="rfq_product" placeholder="e.g. Solar Panel 400W"/>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Category *</label>
+              <select id="rfq_category">
+                <option value="">Select Category</option>
+                <option>☀️ Solar Energy</option>
+                <option>🌾 Organic Farming</option>
+                <option>📦 Eco Packaging</option>
+                <option>♻️ Waste Management</option>
+                <option>💧 Water Technology</option>
+                <option>🔋 Energy Storage</option>
+                <option>🏗️ Green Building</option>
+                <option>🌿 Herbal Products</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Quantity Required *</label>
+              <input type="text" id="rfq_quantity" placeholder="e.g. 100 units"/>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Target Price (₹)</label>
+              <input type="text" id="rfq_price" placeholder="e.g. ₹8,000/unit"/>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Delivery Location *</label>
+              <input type="text" id="rfq_location" placeholder="e.g. Chennai, Tamil Nadu"/>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;">Required By Date</label>
+              <input type="date" id="rfq_date"/>
+            </div>
           </div>
           <label style="font-size:12px;font-weight:600;color:var(--dark);display:block;margin-bottom:5px;margin-top:4px;">Detailed Requirements</label>
-          <textarea placeholder="Describe exactly what you need — specifications, certifications, packaging, shipping terms..."></textarea>
-          <button class="rfq-submit" onclick="alert('✅ RFQ posted! You will receive quotes from suppliers within 24 hours.')">Post RFQ to All Suppliers 🌿</button>
+          <textarea id="rfq_details" placeholder="Describe exactly what you need — specifications, certifications, packaging, shipping terms..."></textarea>
+          <button class="rfq-submit" id="rfqBtn" onclick="submitRFQ()">Post RFQ to All Suppliers 🌿</button>
         </div>
       </div>
     </div>
@@ -241,16 +230,17 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     <div id="section-profile" style="display:none">
       <div class="card">
         <div class="card-header"><div class="card-title">👤 My Profile</div></div>
+        <div class="alert" id="profileAlert"></div>
         <div class="profile-form">
           <div class="profile-grid">
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">First Name</label><input type="text" value="Arjun"/></div>
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Last Name</label><input type="text" value="Kapoor"/></div>
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Email</label><input type="email" value="arjun@company.com"/></div>
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Mobile</label><input type="tel" value="+91 98765 43210"/></div>
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Company Name</label><input type="text" value="Kapoor Industries"/></div>
-            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">City & State</label><input type="text" value="Mumbai, Maharashtra"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Full Name</label><input type="text" id="prof_name"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Company Name</label><input type="text" id="prof_company"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Email</label><input type="email" id="prof_email" readonly style="background:#f5f5f5;"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">Mobile</label><input type="tel" id="prof_mobile"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">City</label><input type="text" id="prof_city"/></div>
+            <div><label style="font-size:12px;font-weight:600;display:block;margin-bottom:5px;">State</label><input type="text" id="prof_state"/></div>
           </div>
-          <button class="save-profile-btn" onclick="alert('✅ Profile updated successfully!')">Save Changes 🌿</button>
+          <button class="save-profile-btn" onclick="saveProfile()">Save Changes 🌿</button>
         </div>
       </div>
     </div>
@@ -259,26 +249,262 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 </div>
 
 <script>
-const sections=['overview','enquiries','saved','rfq','profile'];
-const titles={
-  'overview':['Buyer Overview','Welcome back, Arjun! Find your perfect green suppliers.'],
-  'enquiries':['My Enquiries','Track all your supplier enquiries here.'],
-  'saved':['Saved Products','Your saved products and suppliers.'],
-  'rfq':['Post RFQ','Post your requirement and get quotes from multiple suppliers.'],
-  'profile':['My Profile','Manage your account details.'],
-};
-function showSection(name,btn){
-  sections.forEach(s=>{
-    const el=document.getElementById('section-'+s);
-    if(el)el.style.display='none';
-  });
-  const el=document.getElementById('section-'+name);
-  if(el)el.style.display='block';
-  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  document.getElementById('pageTitle').textContent=titles[name][0];
-  document.getElementById('pageSubtitle').textContent=titles[name][1];
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentBuyer = null;
+
+// ✅ INIT — Load real buyer from localStorage
+async function initDashboard() {
+  const buyerData = localStorage.getItem('grs_buyer');
+  if (!buyerData) { window.location.href = '/login'; return; }
+  currentBuyer = JSON.parse(buyerData);
+
+  // Set real name in sidebar
+  const initials = currentBuyer.name ? currentBuyer.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) : 'B';
+  document.getElementById('sidebarName').textContent = currentBuyer.name || 'Buyer';
+  document.getElementById('sidebarInitial').textContent = initials;
+  document.getElementById('topbarInitial').textContent = initials;
+  document.getElementById('pageSubtitle').textContent = 'Welcome back, ' + (currentBuyer.name || 'Buyer') + '! Find your perfect green suppliers.';
+
+  // Load real stats
+  await loadStats();
+  await loadRecentEnquiries();
+  loadProfile();
 }
+
+// ✅ LOAD REAL STATS from Supabase
+async function loadStats() {
+  try {
+    const { data: enqs } = await supabaseClient
+      .from('enquiries')
+      .select('*')
+      .eq('buyer_email', currentBuyer.email);
+
+    const total = enqs ? enqs.length : 0;
+    const replied = enqs ? enqs.filter(e => e.status === 'replied').length : 0;
+    const pending = enqs ? enqs.filter(e => e.status !== 'replied').length : 0;
+
+    document.getElementById('statEnq').textContent = total;
+    document.getElementById('statReplies').textContent = replied;
+    document.getElementById('statPending').textContent = pending;
+    document.getElementById('statEnqNew').textContent = total > 0 ? '↑ active' : 'send your first!';
+    if(total > 0) document.getElementById('statEnqNew').classList.add('up');
+
+    // Category shortname
+    const cat = currentBuyer.buying_category || '—';
+    const shortCat = cat.length > 12 ? cat.slice(0,12)+'...' : cat;
+    document.getElementById('statCategory').textContent = shortCat;
+
+    // Badge
+    if(pending > 0){
+      document.getElementById('enqBadge').textContent = pending;
+      document.getElementById('enqBadge').style.display = 'inline';
+    }
+  } catch(e) { console.log('Stats error:', e); }
+}
+
+// ✅ LOAD REAL RECENT ENQUIRIES
+async function loadRecentEnquiries() {
+  try {
+    const { data: enqs } = await supabaseClient
+      .from('enquiries')
+      .select('*')
+      .eq('buyer_email', currentBuyer.email)
+      .order('created_at', { ascending: false })
+      .limit(4);
+
+    const container = document.getElementById('recentEnqList');
+
+    if (!enqs || enqs.length === 0) {
+      container.innerHTML = `<div class="empty-state">
+        <div class="e-icon">📩</div>
+        No enquiries yet! <a href="/products" style="color:var(--g2);font-weight:600;">Browse products</a> and send your first enquiry!
+      </div>`;
+      return;
+    }
+
+    container.innerHTML = enqs.map(e => {
+      const badgeClass = e.status === 'replied' ? 'status-replied' : e.status === 'new' ? 'status-new' : 'status-pending';
+      const badgeText = e.status === 'replied' ? 'Replied ✓' : e.status === 'new' ? 'New' : 'Pending';
+      const timeAgo = getTimeAgo(e.created_at);
+      return `<div class="enq-item">
+        <div class="enq-icon" style="background:#e8f5e2">🌿</div>
+        <div style="flex:1">
+          <div class="enq-name">${e.product_name || 'Product Enquiry'}</div>
+          <div class="enq-sup">${e.supplier_name || 'Supplier'} · ${e.quantity || ''}</div>
+        </div>
+        <div class="enq-time">${timeAgo}<span class="status-badge ${badgeClass}">${badgeText}</span></div>
+      </div>`;
+    }).join('');
+
+    // Also load all enquiries tab
+    loadAllEnquiries(enqs);
+  } catch(e) { console.log('Enquiries error:', e); }
+}
+
+async function loadAllEnquiries(cached) {
+  try {
+    const enqs = cached || (await supabaseClient.from('enquiries').select('*').eq('buyer_email', currentBuyer.email).order('created_at', {ascending:false})).data;
+    const container = document.getElementById('allEnqList');
+
+    if (!enqs || enqs.length === 0) {
+      container.innerHTML = `<div class="empty-state"><div class="e-icon">📩</div>No enquiries yet! Go browse products and send enquiries!</div>`;
+      return;
+    }
+
+    container.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:2px solid var(--g5)">
+        <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Supplier</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Qty</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Date</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+      </tr></thead>
+      <tbody>${enqs.map(e => {
+        const badgeClass = e.status==='replied' ? 'status-replied' : e.status==='new' ? 'status-new' : 'status-pending';
+        const badgeText = e.status==='replied' ? 'Replied ✓' : e.status==='new' ? 'New' : 'Pending';
+        return `<tr style="border-bottom:1px solid var(--g5)">
+          <td style="padding:10px"><b>${e.product_name||'—'}</b></td>
+          <td style="padding:10px;color:var(--mid)">${e.supplier_name||'—'}</td>
+          <td style="padding:10px">${e.quantity||'—'}</td>
+          <td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+          <td style="padding:10px"><span class="status-badge ${badgeClass}">${badgeText}</span></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>`;
+  } catch(e) { console.log('All enq error:', e); }
+}
+
+// ✅ LOAD PROFILE with real data
+function loadProfile() {
+  if (!currentBuyer) return;
+  document.getElementById('prof_name').value = currentBuyer.name || '';
+  document.getElementById('prof_company').value = currentBuyer.company || '';
+  document.getElementById('prof_email').value = currentBuyer.email || '';
+  document.getElementById('prof_mobile').value = currentBuyer.mobile || '';
+  document.getElementById('prof_city').value = currentBuyer.city || '';
+  document.getElementById('prof_state').value = currentBuyer.state || '';
+}
+
+// ✅ SAVE PROFILE
+async function saveProfile() {
+  const updated = {
+    name: document.getElementById('prof_name').value.trim(),
+    company: document.getElementById('prof_company').value.trim(),
+    mobile: document.getElementById('prof_mobile').value.trim(),
+    city: document.getElementById('prof_city').value.trim(),
+    state: document.getElementById('prof_state').value.trim(),
+  };
+  try {
+    const { error } = await supabaseClient.from('buyers').update(updated).eq('email', currentBuyer.email);
+    const box = document.getElementById('profileAlert');
+    if (error) {
+      box.textContent = '❌ Update failed: ' + error.message;
+      box.className = 'alert alert-error';
+    } else {
+      Object.assign(currentBuyer, updated);
+      localStorage.setItem('grs_buyer', JSON.stringify(currentBuyer));
+      box.textContent = '✅ Profile updated successfully!';
+      box.className = 'alert alert-success';
+      document.getElementById('sidebarName').textContent = updated.name;
+    }
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 3000);
+  } catch(e) { console.log(e); }
+}
+
+// ✅ SUBMIT RFQ
+async function submitRFQ() {
+  const product = document.getElementById('rfq_product').value.trim();
+  const category = document.getElementById('rfq_category').value;
+  const quantity = document.getElementById('rfq_quantity').value.trim();
+  const location = document.getElementById('rfq_location').value.trim();
+
+  if (!product) return showRfqAlert('⚠️ Please enter Product Name!');
+  if (!category) return showRfqAlert('⚠️ Please select Category!');
+  if (!quantity) return showRfqAlert('⚠️ Please enter Quantity!');
+  if (!location) return showRfqAlert('⚠️ Please enter Delivery Location!');
+
+  const btn = document.getElementById('rfqBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span>Posting RFQ...';
+
+  try {
+    const { error } = await supabaseClient.from('rfq').insert([{
+      buyer_name: currentBuyer.name,
+      buyer_email: currentBuyer.email,
+      buyer_mobile: currentBuyer.mobile,
+      product_name: product,
+      category: category,
+      quantity: quantity,
+      target_price: document.getElementById('rfq_price').value.trim(),
+      delivery_location: location,
+      required_by: document.getElementById('rfq_date').value,
+      details: document.getElementById('rfq_details').value.trim(),
+      status: 'open'
+    }]);
+
+    if (error) {
+      showRfqAlert('❌ Failed: ' + error.message);
+    } else {
+      showRfqAlert('✅ RFQ posted! Suppliers will contact you within 24 hours.', 'success');
+      document.getElementById('rfq_product').value = '';
+      document.getElementById('rfq_quantity').value = '';
+      document.getElementById('rfq_details').value = '';
+    }
+  } catch(e) {
+    showRfqAlert('❌ Something went wrong. Try again!');
+  }
+  btn.disabled = false;
+  btn.innerHTML = 'Post RFQ to All Suppliers 🌿';
+}
+
+function showRfqAlert(msg, type='error') {
+  const box = document.getElementById('rfqAlert');
+  box.textContent = msg;
+  box.className = 'alert alert-' + type;
+  box.style.display = 'block';
+  setTimeout(() => box.style.display = 'none', 4000);
+}
+
+function getTimeAgo(dateStr) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff/60000);
+  const hrs = Math.floor(mins/60);
+  const days = Math.floor(hrs/24);
+  if (days > 0) return days + 'd ago';
+  if (hrs > 0) return hrs + 'h ago';
+  return mins + 'm ago';
+}
+
+function logout() {
+  localStorage.removeItem('grs_buyer');
+  window.location.href = '/login';
+}
+
+const sections = ['overview','enquiries','rfq','profile'];
+const titles = {
+  'overview': 'Buyer Overview',
+  'enquiries': 'My Enquiries',
+  'rfq': 'Post RFQ',
+  'profile': 'My Profile',
+};
+
+function showSection(name, btn) {
+  sections.forEach(s => {
+    const el = document.getElementById('section-'+s);
+    if(el) el.style.display = 'none';
+  });
+  const el = document.getElementById('section-'+name);
+  if(el) el.style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('pageTitle').textContent = titles[name];
+}
+
+window.onload = initDashboard;
 </script>
 </body>
 </html>
