@@ -44,21 +44,25 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 .btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:16px;}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
 .btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.user-type-row{display:flex;gap:10px;margin-bottom:20px;}
+.user-type-btn{flex:1;padding:12px;border:2px solid #d4e8cc;border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;transition:all 0.2s;text-align:center;}
+.user-type-btn.active{border-color:var(--g3);background:var(--g5);color:var(--g2);}
 .divider{display:flex;align-items:center;gap:12px;margin:16px 0;}
 .divider-line{flex:1;height:1px;background:#e0e8e0;}
 .divider-text{font-size:12px;color:var(--light);}
-.btn-google{width:100%;padding:12px;background:white;color:var(--dark);border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;margin-bottom:10px;}
-.btn-google:hover{border-color:var(--g4);background:var(--g5);}
 .forgot-link{text-align:center;font-size:12px;color:var(--light);margin-top:8px;}
 .forgot-link a{color:var(--g2);text-decoration:none;font-weight:600;}
 .switch-text{text-align:center;font-size:13px;color:var(--light);margin-top:16px;}
 .switch-text a{color:var(--g2);text-decoration:none;font-weight:700;cursor:pointer;}
-.user-type-row{display:flex;gap:10px;margin-bottom:20px;}
-.user-type-btn{flex:1;padding:12px;border:2px solid #d4e8cc;border-radius:10px;background:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--mid);cursor:pointer;transition:all 0.2s;text-align:center;}
-.user-type-btn.active{border-color:var(--g3);background:var(--g5);color:var(--g2);}
+.register-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.reg-card{padding:20px 16px;border:2px solid #d4e8cc;border-radius:14px;background:white;cursor:pointer;text-align:center;transition:all 0.2s;text-decoration:none;display:block;}
+.reg-card:hover{border-color:var(--g3);background:var(--g5);transform:translateY(-2px);}
+.reg-card .rc-icon{font-size:36px;margin-bottom:10px;}
+.reg-card .rc-title{font-size:14px;font-weight:700;color:var(--g1);margin-bottom:4px;}
+.reg-card .rc-sub{font-size:11px;color:var(--light);line-height:1.5;}
 .loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg);}}
-@media(max-width:768px){.page{grid-template-columns:1fr;}.left{display:none;}.right{padding:28px 24px;}}
+@media(max-width:768px){.page{grid-template-columns:1fr;}.left{display:none;}.right{padding:28px 24px;}.register-options{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -96,6 +100,7 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 
     <div class="alert" id="alertBox"></div>
 
+    <!-- LOGIN FORM -->
     <div class="form-section active" id="loginForm">
       <div class="form-title">Welcome Back! 👋</div>
       <div class="form-sub">Login to your Green Roots Smart account</div>
@@ -120,23 +125,25 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
       </div>
       <button class="btn-submit" id="loginBtn" onclick="doLogin()">🌿 Login to Dashboard</button>
       <div class="forgot-link"><a href="#">Forgot Password? Contact support@greenrootssmart.com</a></div>
-      <div class="divider"><div class="divider-line"></div><span class="divider-text">or</span><div class="divider-line"></div></div>
-      <button class="btn-google" onclick="showAlert('Google login coming soon!','error')">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Continue with Google
-      </button>
-      <div class="switch-text">Don't have an account? <a onclick="window.location.href='/register'">Register Free →</a></div>
+      <div class="switch-text">Don't have an account? <a onclick="switchTab('register',document.querySelectorAll('.tab')[1])">Register Free →</a></div>
     </div>
 
+    <!-- REGISTER OPTIONS -->
     <div class="form-section" id="registerForm">
-      <div class="form-title">Create Account 🌿</div>
-      <div class="form-sub">Join India's green B2B revolution!</div>
-      <div style="background:var(--g5);border-radius:14px;padding:24px;text-align:center;margin-bottom:20px;">
-        <div style="font-size:48px;margin-bottom:12px;">🌱</div>
-        <div style="font-size:15px;font-weight:700;color:var(--g1);margin-bottom:8px;">Ready to go green?</div>
-        <div style="font-size:13px;color:var(--mid);line-height:1.7;">Create your free supplier account and start connecting with India's eco community!</div>
+      <div class="form-title">Join Green Roots Smart 🌿</div>
+      <div class="form-sub">Choose how you want to use our platform:</div>
+      <div class="register-options">
+        <a href="/register" class="reg-card">
+          <div class="rc-icon">🏪</div>
+          <div class="rc-title">I'm a Supplier</div>
+          <div class="rc-sub">Sell eco-friendly products to buyers across India & world</div>
+        </a>
+        <a href="/buyer-register" class="reg-card">
+          <div class="rc-icon">🛒</div>
+          <div class="rc-title">I'm a Buyer</div>
+          <div class="rc-sub">Find & buy sustainable products from verified suppliers</div>
+        </a>
       </div>
-      <button class="btn-submit" onclick="window.location.href='/register'">🏪 Register as Supplier</button>
       <div class="switch-text">Already have an account? <a onclick="switchTab('login',document.querySelectorAll('.tab')[0])">Login →</a></div>
     </div>
   </div>
@@ -179,46 +186,50 @@ function showAlert(msg, type='error'){
 async function doLogin(){
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
-  if(!email) return showAlert('Please enter your email!');
-  if(!password) return showAlert('Please enter your password!');
+  if(!email) return showAlert('⚠️ Please enter your email!');
+  if(!password) return showAlert('⚠️ Please enter your password!');
 
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span>Logging in...';
 
   try {
+    const table = userType === 'buyer' ? 'buyers' : 'suppliers';
     const { data, error } = await supabaseClient
-      .from('suppliers')
+      .from(table)
       .select('*')
       .eq('email', email)
+      .eq('password', password)
       .single();
 
     if(error || !data){
-      showAlert('No account found with this email. Please register first!');
+      showAlert('❌ No account found. Check your email/password or register first!');
       btn.disabled = false;
       btn.innerHTML = '🌿 Login to Dashboard';
       return;
     }
 
-    localStorage.setItem('grs_user', JSON.stringify({
-      id: data.id,
-      name: data.owner_name,
-      business: data.business_name,
-      email: data.email,
-      plan: data.plan,
-      status: data.status,
-      city: data.city,
-      state: data.state,
-      category: data.category,
-      type: 'supplier'
-    }));
-
-    showAlert('✅ Login successful! Redirecting to dashboard...', 'success');
-    btn.innerHTML = '✅ Logged In!';
-    setTimeout(()=>{ window.location.href = '/dashboard'; }, 1500);
+    if(userType === 'buyer'){
+      localStorage.setItem('grs_buyer', JSON.stringify({
+        id: data.id, name: data.name, email: data.email,
+        mobile: data.mobile, company: data.company, type: 'buyer'
+      }));
+      showAlert('✅ Login successful! Going to Buyer Dashboard...', 'success');
+      btn.innerHTML = '✅ Logged In!';
+      setTimeout(()=>{ window.location.href = '/buyer-dashboard'; }, 1500);
+    } else {
+      localStorage.setItem('grs_user', JSON.stringify({
+        id: data.id, name: data.owner_name, business: data.business_name,
+        email: data.email, plan: data.plan, status: data.status,
+        city: data.city, state: data.state, category: data.category, type: 'supplier'
+      }));
+      showAlert('✅ Login successful! Going to Supplier Dashboard...', 'success');
+      btn.innerHTML = '✅ Logged In!';
+      setTimeout(()=>{ window.location.href = '/dashboard'; }, 1500);
+    }
 
   } catch(err){
-    showAlert('Login failed. Please try again!');
+    showAlert('❌ Login failed. Please try again!');
     btn.disabled = false;
     btn.innerHTML = '🌿 Login to Dashboard';
   }
