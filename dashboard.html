@@ -142,8 +142,8 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
   <div class="sidebar-user">
     <div class="user-av" id="sidebarInitial">S</div>
     <div>
-      <div class="user-name" id="sidebarName">Loading...</div>
-      <div class="user-plan" id="sidebarPlan">🌿 Starter Plan</div>
+      <div class="user-name">Dinesh Kumar</div>
+      <div class="user-plan">🌿 Free Plan</div>
     </div>
   </div>
 
@@ -154,7 +154,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     </button>
     <button class="nav-item" onclick="showSection('enquiries', this)">
       <span class="nav-icon">📩</span> Enquiries
-      <span class="nav-badge" id="enquiryBadge" style="display:none">0</span>
+      <span class="nav-badge">5</span>
     </button>
     <button class="nav-item" onclick="showSection('products', this)">
       <span class="nav-icon">📦</span> My Products
@@ -226,15 +226,15 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
         </div>
         <div class="stat-card">
           <div class="s-icon" style="background:#fff3e0">👀</div>
-          <div class="s-val" id="statViews">—</div>
+          <div class="s-val">1,240</div>
           <div class="s-lbl">Profile Views</div>
-          <div class="s-change up">coming soon</div>
+          <div class="s-change up">↑ 28% this week</div>
         </div>
         <div class="stat-card">
           <div class="s-icon" style="background:#fce4ec">⭐</div>
-          <div class="s-val" id="statRating">—</div>
+          <div class="s-val">4.8</div>
           <div class="s-lbl">Average Rating</div>
-          <div class="s-change up">based on reviews</div>
+          <div class="s-change up">↑ 0.2 this month</div>
         </div>
       </div>
 
@@ -255,51 +255,84 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
           </div>
           <div class="quick-actions">
             <button class="qa-btn" onclick="showSection('add-product', this)"><span class="qa-icon">➕</span> Add Product</button>
-            <button class="qa-btn"><span class="qa-icon">📸</span> Upload Photos</button>
-            <button class="qa-btn"><span class="qa-icon">🏢</span> Edit Profile</button>
-            <button class="qa-btn"><span class="qa-icon">📊</span> View Reports</button>
-            <button class="qa-btn"><span class="qa-icon">💬</span> Messages</button>
-            <button class="qa-btn"><span class="qa-icon">⬆️</span> Upgrade Plan</button>
+            <button class="qa-btn" onclick="showSection('enquiries', this)"><span class="qa-icon">📩</span> View Enquiries</button>
+            
+            <button class="qa-btn" onclick="showSection('profile', this)"><span class="qa-icon">🏢</span> Edit Profile</button>
+            
+            
+            
           </div>
         </div>
       </div>
 
-      <!-- PERFORMANCE -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">📈 Business Performance</div>
-          <span style="font-size:11px;color:var(--light)">Last 30 days</span>
-        </div>
-        <div class="perf-item">
-          <div class="perf-label">Profile Completeness</div>
-          <div class="perf-bar-wrap"><div class="perf-bar" style="width:75%"></div></div>
-          <div class="perf-val">75%</div>
-        </div>
-        <div class="perf-item">
-          <div class="perf-label">Response Rate</div>
-          <div class="perf-bar-wrap"><div class="perf-bar" style="width:88%"></div></div>
-          <div class="perf-val">88%</div>
-        </div>
-        <div class="perf-item">
-          <div class="perf-label">Enquiry Conversion</div>
-          <div class="perf-bar-wrap"><div class="perf-bar" style="width:42%"></div></div>
-          <div class="perf-val">42%</div>
-        </div>
-        <div class="perf-item">
-          <div class="perf-label">Buyer Satisfaction</div>
-          <div class="perf-bar-wrap"><div class="perf-bar" style="width:96%"></div></div>
-          <div class="perf-val">96%</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRODUCTS SECTION -->
+      <!-- PRODUCTS SECTION -->
     <div id="section-products" style="display:none">
       <div class="card" style="margin-bottom:20px">
         <div class="card-header"><div class="card-title">📦 My Products</div><span style="font-size:12px;color:var(--light)">Live from database</span></div>
         <div id="myProductsList" style="overflow-x:auto"><p style="color:var(--light);font-size:13px;padding:20px;text-align:center">Loading... 🌿</p></div>
       </div>
-
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 My Products (8 Active)</div>
+          <button class="card-action" onclick="showSection('add-product', this)">+ Add New Product</button>
+        </div>
+        <table class="prod-table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>MOQ</th>
+              <th>Views</th>
+              <th>Enquiries</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="prod-name">Solar Panel 400W Mono</div></td>
+              <td>☀️ Solar</td>
+              <td>₹8,200</td>
+              <td>10 units</td>
+              <td>420</td>
+              <td>12</td>
+              <td><span class="prod-status status-active">Active</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Inverter 5kW</div></td>
+              <td>☀️ Solar</td>
+              <td>₹14,500</td>
+              <td>5 units</td>
+              <td>280</td>
+              <td>8</td>
+              <td><span class="prod-status status-active">Active</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Mounting Structure</div></td>
+              <td>☀️ Solar</td>
+              <td>₹3,400</td>
+              <td>20 units</td>
+              <td>180</td>
+              <td>4</td>
+              <td><span class="prod-status status-pending">Pending</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+            <tr>
+              <td><div class="prod-name">Solar Street Light 40W</div></td>
+              <td>☀️ Solar</td>
+              <td>₹4,800</td>
+              <td>10 units</td>
+              <td>95</td>
+              <td>2</td>
+              <td><span class="prod-status status-inactive">Inactive</span></td>
+              <td><div class="prod-actions"><button class="action-btn btn-edit">Edit</button><button class="action-btn btn-del">Delete</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- ADD PRODUCT SECTION -->
