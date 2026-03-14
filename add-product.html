@@ -6,12 +6,11 @@
 <title>Add Product — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 <style>
 :root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--gold:#f59e0b;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
-
-/* LAYOUT */
 .layout{display:flex;min-height:100vh;}
 .sidebar{width:220px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
 .sidebar-logo{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.1);}
@@ -27,21 +26,16 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
 .nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
 .nav-item.active{background:rgba(82,176,67,0.2);color:white;border-right:3px solid var(--g3);}
 .nav-icon{font-size:15px;width:20px;}
-
 .main{margin-left:220px;flex:1;}
 .topbar{background:white;padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
 .topbar h2{font-size:15px;font-weight:700;color:var(--g1);}
 .topbar p{font-size:11px;color:var(--light);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
 .topbar-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;}
-
 .content{padding:24px 28px;}
-
-/* FORM CARD */
 .form-card{background:white;border-radius:16px;padding:28px;box-shadow:0 2px 10px #00000008;margin-bottom:20px;}
 .card-title{font-size:15px;font-weight:700;color:var(--g1);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
 .card-sub{font-size:12px;color:var(--light);margin-bottom:22px;}
-
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .form-group{margin-bottom:0;}
 .form-group.full{grid-column:1/-1;}
@@ -51,8 +45,6 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 10px 10px 34px;border:1.5px solid #d4e8cc;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;transition:border 0.2s;background:white;}
 .form-group textarea{padding:10px 12px;height:90px;resize:vertical;}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
-
-/* PRICE SECTION */
 .price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .bulk-section{background:var(--g5);border-radius:12px;padding:16px;margin-top:14px;}
 .bulk-title{font-size:12px;font-weight:700;color:var(--g1);margin-bottom:12px;}
@@ -60,41 +52,37 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
 .bulk-row input{padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;outline:none;width:100%;}
 .bulk-row input:focus{border-color:var(--g3);}
 
-/* IMAGE UPLOAD */
-.image-upload-area{border:2px dashed #d4e8cc;border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--g5);}
-.image-upload-area:hover{border-color:var(--g3);background:#e0f0dc;}
-.upload-icon{font-size:40px;margin-bottom:10px;}
-.upload-text{font-size:13px;font-weight:600;color:var(--g2);margin-bottom:4px;}
+/* PHOTO UPLOAD */
+.upload-area{border:2px dashed #d4e8cc;border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--g5);position:relative;}
+.upload-area:hover{border-color:var(--g3);background:#e0f0dc;}
+.upload-icon{font-size:44px;margin-bottom:10px;}
+.upload-text{font-size:14px;font-weight:600;color:var(--g2);margin-bottom:4px;}
 .upload-sub{font-size:11px;color:var(--light);}
-.image-preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
-.preview-img{width:80px;height:80px;border-radius:8px;background:var(--g5);border:2px solid var(--g4);display:flex;align-items:center;justify-content:center;font-size:28px;position:relative;}
-.remove-img{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:var(--red);color:white;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
+.upload-btn{margin-top:14px;padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.upload-btn:hover{background:var(--g1);}
+.photos-preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+.photo-thumb{width:90px;height:90px;border-radius:10px;object-fit:cover;border:2px solid var(--g4);position:relative;display:inline-block;}
+.photo-remove{position:absolute;top:-7px;right:-7px;width:20px;height:20px;background:var(--red);color:white;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-weight:700;z-index:10;}
+.photo-wrap{position:relative;display:inline-block;}
+.upload-count{font-size:11px;color:var(--mid);margin-top:8px;}
 
 /* CERTIFICATIONS */
 .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 .cert-item{padding:10px;border:1.5px solid #d4e8cc;border-radius:10px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all 0.2s;font-size:12px;font-weight:500;}
 .cert-item:hover{border-color:var(--g3);}
 .cert-item.selected{border-color:var(--g3);background:var(--g5);color:var(--g2);}
-.cert-check{width:16px;height:16px;border-radius:4px;border:2px solid #d4e8cc;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all 0.2s;}
+.cert-check{width:16px;height:16px;border-radius:4px;border:2px solid #d4e8cc;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all 0.2s;flex-shrink:0;}
 .cert-item.selected .cert-check{background:var(--g3);border-color:var(--g3);color:white;}
-
-/* ALERT */
 .alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
 .alert-error{background:#fce4ec;color:var(--red);border:1px solid #f48fb1;}
 .alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
-
-/* BUTTONS */
 .btn-row{display:flex;gap:12px;margin-top:24px;}
 .btn-save-draft{padding:12px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
 .btn-publish{flex:1;padding:12px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
 .btn-publish:hover{transform:translateY(-2px);box-shadow:0 8px 24px #2d7a3a30;}
 .btn-publish:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-
-/* LOADING */
 .loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
-/* SUCCESS */
 .success-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
 .success-overlay.show{display:flex;}
 .success-box{background:white;border-radius:20px;padding:40px;text-align:center;max-width:420px;width:90%;}
@@ -103,19 +91,19 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
 .success-box p{font-size:13px;color:var(--mid);line-height:1.7;margin-bottom:20px;}
 .btn-ok{padding:12px 32px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-right:10px;}
 .btn-add-more{padding:12px 32px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.whatsapp-note{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:12px 16px;font-size:12px;color:#2e7d32;margin-top:10px;}
 </style>
 </head>
 <body>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sidebar-logo">
       <div class="logo-text">Green Roots <span>Smart</span></div>
       <div class="logo-sub">Seller Dashboard</div>
     </div>
     <div class="sidebar-user">
-      <div class="user-av" id="userAv">DK</div>
+      <div class="user-av" id="userAv">S</div>
       <div>
         <div class="user-name" id="userName">Loading...</div>
         <div class="user-plan" id="userPlan">🌱 Free Plan</div>
@@ -126,14 +114,12 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
       <a class="nav-item" href="/dashboard"><span class="nav-icon">📩</span>Enquiries</a>
       <a class="nav-item" href="/dashboard"><span class="nav-icon">📦</span>My Products</a>
       <a class="nav-item active" href="/add-product"><span class="nav-icon">➕</span>Add Product</a>
-      <a class="nav-item" href="/dashboard"><span class="nav-icon">📈</span>Analytics</a>
       <a class="nav-item" href="/supplier-profile"><span class="nav-icon">🏪</span>My Profile</a>
       <a class="nav-item" href="/pricing"><span class="nav-icon">⭐</span>Upgrade Plan</a>
       <a class="nav-item" href="#" onclick="doLogout()"><span class="nav-icon">🚪</span>Logout</a>
     </nav>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <div>
@@ -141,7 +127,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
         <p>Fill details and publish your product to Green Roots Smart marketplace</p>
       </div>
       <div class="topbar-right">
-        <div class="topbar-avatar" id="topAv">DK</div>
+        <div class="topbar-avatar" id="topAv">S</div>
       </div>
     </div>
 
@@ -190,9 +176,25 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
           </div>
           <div class="form-group full">
             <label>Product Description *</label>
-            <textarea id="prod-desc" placeholder="Describe your product in detail — specifications, features, applications, certifications..."></textarea>
+            <textarea id="prod-desc" placeholder="Describe your product — specifications, features, applications, certifications..."></textarea>
           </div>
         </div>
+      </div>
+
+      <!-- PHOTO UPLOAD -->
+      <div class="form-card">
+        <div class="card-title">📸 Product Photos</div>
+        <div class="card-sub">Upload up to 5 photos of your product (JPG, PNG — max 5MB each)</div>
+
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📸</div>
+          <div class="upload-text">Click to Upload Product Photos</div>
+          <div class="upload-sub">JPG, PNG supported • Max 5 photos • 5MB each</div>
+          <button class="upload-btn" onclick="openUploadWidget()">📤 Upload Photos</button>
+        </div>
+
+        <div class="photos-preview" id="photosPreview"></div>
+        <div class="upload-count" id="uploadCount"></div>
       </div>
 
       <!-- PRICING -->
@@ -256,52 +258,10 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
         </div>
       </div>
 
-      <!-- PRODUCT IMAGE -->
+      <!-- SHIPPING & CONTACT -->
       <div class="form-card">
-        <div class="card-title">📸 Product Images</div>
-        <div class="card-sub">Add emoji icons to represent your product (real image upload coming soon!)</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Product Emoji Icon *</label>
-            <div class="input-wrap">
-              <span class="input-icon">🎨</span>
-              <select id="prod-emoji">
-                <option value="☀️">☀️ Solar Panel</option>
-                <option value="⚡">⚡ Energy</option>
-                <option value="🔋">🔋 Battery</option>
-                <option value="🌾">🌾 Organic Farm</option>
-                <option value="🌿">🌿 Herbal</option>
-                <option value="📦">📦 Packaging</option>
-                <option value="♻️">♻️ Recycled</option>
-                <option value="💧">💧 Water</option>
-                <option value="🌬️">🌬️ Wind Energy</option>
-                <option value="🏗️">🏗️ Construction</option>
-                <option value="🚗">🚗 EV</option>
-                <option value="🌱">🌱 Seeds</option>
-                <option value="🧴">🧴 Natural Products</option>
-                <option value="🪵">🪵 Wood Products</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Availability</label>
-            <div class="input-wrap">
-              <span class="input-icon">✅</span>
-              <select id="prod-availability">
-                <option value="in_stock">✅ In Stock</option>
-                <option value="made_to_order">🏭 Made to Order</option>
-                <option value="pre_order">📋 Pre Order</option>
-                <option value="out_of_stock">❌ Out of Stock</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SHIPPING -->
-      <div class="form-card">
-        <div class="card-title">🚚 Shipping & Delivery</div>
-        <div class="card-sub">Set your delivery options</div>
+        <div class="card-title">🚚 Shipping & Contact</div>
+        <div class="card-sub">Set delivery options and WhatsApp contact</div>
         <div class="form-grid">
           <div class="form-group">
             <label>Delivery Time</label>
@@ -329,7 +289,27 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
               </select>
             </div>
           </div>
+          <div class="form-group">
+            <label>Availability</label>
+            <div class="input-wrap">
+              <span class="input-icon">✅</span>
+              <select id="prod-availability">
+                <option value="in_stock">✅ In Stock</option>
+                <option value="made_to_order">🏭 Made to Order</option>
+                <option value="pre_order">📋 Pre Order</option>
+                <option value="out_of_stock">❌ Out of Stock</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Number *</label>
+            <div class="input-wrap">
+              <span class="input-icon">💬</span>
+              <input type="tel" id="prod-whatsapp" placeholder="e.g. 9876543210"/>
+            </div>
+          </div>
         </div>
+        <div class="whatsapp-note">💬 WhatsApp number will be shown on your product so buyers can contact you directly and instantly!</div>
       </div>
 
       <!-- CERTIFICATIONS -->
@@ -348,8 +328,6 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
         </div>
       </div>
 
-      <!-- BUTTONS -->
-      <div class="alert" id="alertBox2"></div>
       <div class="btn-row">
         <button class="btn-save-draft" onclick="saveProduct('draft')">💾 Save as Draft</button>
         <button class="btn-publish" id="publishBtn" onclick="saveProduct('published')">🌿 Publish Product</button>
@@ -363,9 +341,9 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);}
   <div class="success-box">
     <div class="success-icon">🎉</div>
     <h3>Product Published!</h3>
-    <p>Your product is now live on Green Roots Smart marketplace! Buyers across India and the world can now find and enquire about it.</p>
+    <p>Your product is now live on Green Roots Smart marketplace! Buyers across India can now find and enquire about it.</p>
     <button class="btn-ok" onclick="window.location.href='/dashboard'">View Dashboard</button>
-    <button class="btn-add-more" onclick="resetForm()">Add Another Product</button>
+    <button class="btn-add-more" onclick="resetForm()">Add Another</button>
   </div>
 </div>
 
@@ -374,16 +352,85 @@ const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Cloudinary config
+const CLOUDINARY_CLOUD = 'greenrootssmart';
+const CLOUDINARY_PRESET = 'grs_products';
+
 // Load user
 const grsUser = JSON.parse(localStorage.getItem('grs_user') || '{}');
-if(!grsUser.id){
-  window.location.href = '/login';
-}
-const initials = (grsUser.name||'DK').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+if(!grsUser.id){ window.location.href = '/login'; }
+const initials = (grsUser.name||'S').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
 document.getElementById('userAv').textContent = initials;
 document.getElementById('topAv').textContent = initials;
 document.getElementById('userName').textContent = grsUser.business || grsUser.name || 'Supplier';
-document.getElementById('userPlan').textContent = '🌱 ' + (grsUser.plan||'free').charAt(0).toUpperCase() + (grsUser.plan||'free').slice(1) + ' Plan';
+document.getElementById('userPlan').textContent = '🌱 ' + (grsUser.plan||'Free') + ' Plan';
+
+// Pre-fill WhatsApp from profile
+if(grsUser.mobile){ document.getElementById('prod-whatsapp').value = grsUser.mobile; }
+
+// Photo upload
+let uploadedPhotos = [];
+
+function openUploadWidget(){
+  if(uploadedPhotos.length >= 5){
+    showAlert('Maximum 5 photos allowed!', 'error');
+    return;
+  }
+  cloudinary.openUploadWidget({
+    cloudName: CLOUDINARY_CLOUD,
+    uploadPreset: CLOUDINARY_PRESET,
+    sources: ['local','camera'],
+    multiple: true,
+    maxFiles: 5 - uploadedPhotos.length,
+    maxFileSize: 5000000,
+    resourceType: 'image',
+    clientAllowedFormats: ['jpg','jpeg','png','webp'],
+    styles: {
+      palette: {
+        window: '#FFFFFF',
+        windowBorder: '#52B043',
+        tabIcon: '#1a4a24',
+        menuIcons: '#2d7a3a',
+        textDark: '#1a2e1a',
+        textLight: '#FFFFFF',
+        link: '#52B043',
+        action: '#52B043',
+        inactiveTabIcon: '#7a9a74',
+        error: '#c62828',
+        inProgress: '#52B043',
+        complete: '#2d7a3a',
+        sourceBg: '#e8f5e2'
+      }
+    }
+  }, function(error, result){
+    if(!error && result && result.event === 'success'){
+      const url = result.info.secure_url;
+      uploadedPhotos.push(url);
+      renderPhotos();
+    }
+  });
+}
+
+function renderPhotos(){
+  const preview = document.getElementById('photosPreview');
+  const count = document.getElementById('uploadCount');
+  preview.innerHTML = '';
+  uploadedPhotos.forEach((url, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'photo-wrap';
+    wrap.innerHTML = `
+      <img src="${url}" class="photo-thumb" alt="Product photo ${i+1}"/>
+      <button class="photo-remove" onclick="removePhoto(${i})">✕</button>
+    `;
+    preview.appendChild(wrap);
+  });
+  count.textContent = uploadedPhotos.length > 0 ? `✅ ${uploadedPhotos.length}/5 photos uploaded` : '';
+}
+
+function removePhoto(index){
+  uploadedPhotos.splice(index, 1);
+  renderPhotos();
+}
 
 // Certifications
 let selectedCerts = [];
@@ -401,6 +448,7 @@ function showAlert(msg, type='error'){
   box.textContent = msg;
   box.className = 'alert alert-' + type;
   box.style.display = 'block';
+  box.scrollIntoView({behavior:'smooth'});
   setTimeout(()=>box.style.display='none', 5000);
 }
 
@@ -415,12 +463,14 @@ async function saveProduct(status){
   const desc = document.getElementById('prod-desc').value.trim();
   const price = document.getElementById('prod-price').value;
   const moq = document.getElementById('prod-moq').value;
+  const whatsapp = document.getElementById('prod-whatsapp').value.trim();
 
-  if(!name) return showAlert('Please enter Product Name!');
-  if(!category) return showAlert('Please select Category!');
-  if(!desc) return showAlert('Please enter Product Description!');
-  if(!price) return showAlert('Please enter Price!');
-  if(!moq) return showAlert('Please enter Minimum Order Quantity!');
+  if(!name) return showAlert('⚠️ Please enter Product Name!');
+  if(!category) return showAlert('⚠️ Please select a Category!');
+  if(!desc) return showAlert('⚠️ Please enter Product Description!');
+  if(!price) return showAlert('⚠️ Please enter Price!');
+  if(!moq) return showAlert('⚠️ Please enter Minimum Order Quantity!');
+  if(!whatsapp) return showAlert('⚠️ Please enter WhatsApp number!');
 
   const btn = document.getElementById('publishBtn');
   btn.disabled = true;
@@ -434,7 +484,7 @@ async function saveProduct(status){
 
   const productData = {
     supplier_id: grsUser.id,
-    supplier_name: grsUser.business,
+    supplier_name: grsUser.business || grsUser.name,
     name: name,
     category: category,
     brand: document.getElementById('prod-brand').value.trim(),
@@ -442,31 +492,31 @@ async function saveProduct(status){
     price: parseFloat(price),
     price_unit: document.getElementById('prod-unit').value,
     moq: parseInt(moq),
-    emoji: document.getElementById('prod-emoji').value,
     availability: document.getElementById('prod-availability').value,
     delivery_time: document.getElementById('prod-delivery').value,
     shipping: document.getElementById('prod-shipping').value,
+    whatsapp: whatsapp,
     certifications: selectedCerts.join(', '),
     bulk_pricing: JSON.stringify(bulkPricing),
+    photos: JSON.stringify(uploadedPhotos),
+    image_url: uploadedPhotos.length > 0 ? uploadedPhotos[0] : null,
     status: status,
+    location: grsUser.city || grsUser.state || 'India',
   };
 
   try {
     const { error } = await supabaseClient.from('products').insert([productData]);
-
     if(error){
       console.error(error);
-      showAlert('Failed to publish: ' + error.message);
+      showAlert('❌ Failed: ' + error.message);
       btn.disabled = false;
       btn.innerHTML = '🌿 Publish Product';
       return;
     }
-
     document.getElementById('successOverlay').classList.add('show');
-
   } catch(err){
     console.error(err);
-    showAlert('Something went wrong. Please try again!');
+    showAlert('❌ Something went wrong. Please try again!');
     btn.disabled = false;
     btn.innerHTML = '🌿 Publish Product';
   }
@@ -474,16 +524,17 @@ async function saveProduct(status){
 
 function resetForm(){
   document.getElementById('successOverlay').classList.remove('show');
-  document.getElementById('prod-name').value = '';
-  document.getElementById('prod-category').value = '';
-  document.getElementById('prod-desc').value = '';
-  document.getElementById('prod-price').value = '';
-  document.getElementById('prod-moq').value = '';
-  document.getElementById('prod-brand').value = '';
+  ['prod-name','prod-category','prod-desc','prod-price','prod-moq','prod-brand'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  uploadedPhotos = [];
+  renderPhotos();
   selectedCerts = [];
   document.querySelectorAll('.cert-item').forEach(c=>c.classList.remove('selected'));
   document.getElementById('publishBtn').disabled = false;
   document.getElementById('publishBtn').innerHTML = '🌿 Publish Product';
+  window.scrollTo(0,0);
 }
 </script>
 </body>
