@@ -53,7 +53,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop
 .feat-count{font-size:11px;font-weight:600;margin-top:8px;opacity:0.8;}
 
 .all-cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px;}
-.cat-card{background:white;border-radius:16px;padding:0;cursor:pointer;overflow:hidden;transition:all 0.3s;border:2px solid transparent;box-shadow:0 2px 10px #00000008;display:flex;flex-direction:column;}
+.cat-card{background:white;border-radius:16px;padding:0;cursor:pointer;overflow:hidden;transition:all 0.3s;border:2px solid transparent;box-shadow:0 2px 10px #00000008;display:flex;flex-direction:column;height:100%;}
 .cat-card:hover{border-color:var(--g4);transform:translateY(-4px);box-shadow:0 12px 28px #2d7a3a12;}
 .cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .cat-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;}
@@ -136,7 +136,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
   <p class="sec-sub">Highest demand green product categories on our platform</p>
 
   <div class="featured-grid">
-    <div class="feat-card" style="background:url('https://res.cloudinary.com/dvbaciabk/image/upload/v1773850055/1.solar-energy-india.jpg_asmzyx.png') center/cover;position:relative;" onclick="goToProducts('Solar Energy')">
+    <div class="feat-card" style="background:url('https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1773850055/1.solar-energy-india.jpg_asmzyx.png') center/cover;position:relative;" onclick="goToProducts('Solar Energy')">
       <div style="position:absolute;inset:0;background:rgba(26,74,36,0.6);border-radius:inherit;"></div>
       <span class="feat-emoji" style="position:relative;z-index:1;">☀️</span>
       <div class="feat-content">
@@ -296,7 +296,7 @@ async function loadRealData() {
       card.className = 'cat-card';
       card.onclick = () => goToProducts(cat.name);
       const imgHtml = cat.img
-        ? `<div class="cat-img-wrap" style="height:140px;overflow:hidden;border-radius:12px 12px 0 0;"><img src="${cat.img}" alt="${cat.name}" style="width:100%;height:100%;object-fit:cover;"/></div>`
+        ? `<div class="cat-img-wrap" style="height:160px;overflow:hidden;border-radius:12px 12px 0 0;background:#e8f5e2;"><img src="${cat.img.replace('/upload/','/upload/w_400,h_160,c_fill,q_auto,f_auto/')}" alt="${cat.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>`
         : `<div class="cat-top"><div class="cat-icon-wrap" style="background:${cat.bg}">${cat.emoji}</div><span class="cat-arrow">→</span></div>`;
       card.innerHTML = `
         ${imgHtml}
