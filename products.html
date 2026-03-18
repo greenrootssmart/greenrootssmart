@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:34px;height:34px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;}
+.nav-links a:hover{color:var(--g2);}
+.nav-btns{display:flex;gap:10px;}
+.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+
+.page-hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:40px 5%;color:white;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:8px;}
+.page-hero p{font-size:14px;color:#a0c8a0;margin-bottom:20px;}
+.search-big{display:flex;background:white;border-radius:12px;overflow:hidden;max-width:700px;}
+.search-big input{flex:1;padding:14px 18px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
+.search-big select{padding:0 14px;border:none;border-left:1px solid #e0e8e0;outline:none;background:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--mid);}
+.search-big button{padding:0 24px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;}
+
+.layout{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:24px 5%;max-width:1400px;margin:0 auto;}
+
+.filters{background:white;border-radius:16px;padding:20px;height:fit-content;box-shadow:0 2px 12px #00000008;position:sticky;top:80px;}
+.filter-title{font-size:14px;font-weight:700;color:var(--g1);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.filter-title button{font-size:11px;color:var(--g3);background:none;border:none;cursor:pointer;font-weight:600;}
+.filter-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--g5);}
+.filter-section:last-child{border-bottom:none;margin-bottom:0;}
+.filter-section h4{font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.filter-option{display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;}
+.filter-option input[type="checkbox"]{accent-color:var(--g3);width:14px;height:14px;}
+.filter-option label{font-size:13px;color:var(--dark);cursor:pointer;flex:1;}
+.filter-option span{font-size:11px;color:var(--light);}
+.price-range{display:flex;gap:8px;margin-top:8px;}
+.price-range input{flex:1;padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;font-family:'DM Sans',sans-serif;}
+.filter-btn{width:100%;padding:10px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;}
+
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.results-count{font-size:14px;color:var(--mid);}
+.results-count strong{color:var(--g1);}
+.sort-bar{display:flex;align-items:center;gap:10px;}
+.sort-bar label{font-size:13px;color:var(--mid);}
+.sort-bar select{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;background:white;}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.prod-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px #00000008;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px #2d7a3a14;border-color:var(--g4);}
+.prod-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;}
+.prod-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
+.badge-new{background:#e3f2fd;color:#1565c0;}
+.badge-eco{background:var(--g5);color:var(--g2);}
+.prod-body{padding:16px;}
+.prod-cat{font-size:11px;color:var(--g3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.prod-body h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;line-height:1.4;}
+.prod-supplier{font-size:11px;color:var(--light);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
+.verified-dot{width:6px;height:6px;background:var(--g3);border-radius:50%;display:inline-block;}
+.prod-price{font-size:18px;font-weight:700;color:var(--g2);}
+.prod-unit{font-size:11px;color:var(--light);}
+.prod-moq{font-size:11px;color:var(--earth);font-weight:500;margin-top:2px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--g5);}
+.enquire-btn{padding:6px 14px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.enquire-btn:hover{background:var(--g1);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 20px;color:var(--mid);}
+.empty-state .empty-icon{font-size:64px;margin-bottom:16px;}
+.empty-state h3{font-size:18px;font-weight:600;color:var(--g1);margin-bottom:8px;}
+.empty-state p{font-size:14px;color:var(--light);}
+
+/* LOADING */
+.loading-state{text-align:center;padding:60px 20px;}
+.spinner{width:40px;height:40px;border:3px solid var(--g5);border-top-color:var(--g3);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.load-more{text-align:center;margin:32px 0;}
+.load-more button{padding:12px 40px;background:white;border:2px solid var(--g3);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;}
+.load-more button:hover{background:var(--g5);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:20px;padding:32px;width:90%;max-width:480px;position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--g5);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;}
+.modal h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:6px;}
+.modal p{font-size:13px;color:var(--mid);margin-bottom:20px;}
+.modal-field{margin-bottom:14px;}
+.modal-field label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
+.modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:10px 14px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
+.modal-field textarea{height:80px;resize:vertical;}
+.modal-submit{width:100%;padding:12px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+
+/* toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--g1);color:white;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:9999;display:none;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <svg class="logo-icon" viewBox="0 0 34 34" fill="none">
+      <path d="M17 28 C17 17 25 9 31 7 C27 16 22 22 17 28Z" fill="#52b043"/>
+      <path d="M17 28 C17 17 9 9 3 7 C7 16 12 22 17 28Z" fill="#2d7a3a"/>
+      <line x1="17" y1="28" x2="17" y2="33" stroke="#7a4f2d" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/products" style="color:var(--g2);font-weight:600;">Products</a></li>
+    <li><a href="/category">Categories</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="/login" class="btn-out">Login</a>
+    <a href="/login" class="btn-pri">List Business</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>🌿 Browse Green Products</h1>
+  <p id="heroSubtext">Loading products from verified Indian suppliers...</p>
+  <div class="search-big">
+    <input type="text" id="searchInput" placeholder="Search solar panels, organic seeds, eco packaging..." onkeydown="if(event.key==='Enter')doSearch()"/>
+    <select id="categorySelect" onchange="doSearch()">
+      <option value="">All Categories</option>
+      <option value="Solar Energy">☀️ Solar Energy</option>
+      <option value="Organic Farming">🌾 Organic Farming</option>
+      <option value="Eco Packaging">📦 Eco Packaging</option>
+      <option value="Waste Management">♻️ Waste Management</option>
+      <option value="Water Technology">💧 Water Technology</option>
+      <option value="Energy Storage">🔋 Energy Storage</option>
+      <option value="Green Building">🏗️ Green Building</option>
+      <option value="Herbal Products">🌿 Herbal Products</option>
+      <option value="Eco Textiles">👗 Eco Textiles</option>
+      <option value="Wind Energy">🌬️ Wind Energy</option>
+      <option value="EV Components">🚗 EV Components</option>
+    </select>
+    <button onclick="doSearch()">Search 🔍</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-title">
+      Filters
+      <button onclick="clearFilters()">Clear All</button>
+    </div>
+
+    <div class="filter-section">
+      <h4>Category</h4>
+      <div class="filter-option"><input type="checkbox" id="f1" value="Solar Energy" onchange="doSearch()"/><label for="f1">☀️ Solar Energy</label></div>
+      <div class="filter-option"><input type="checkbox" id="f2" value="Organic Farming" onchange="doSearch()"/><label for="f2">🌾 Organic Farming</label></div>
+      <div class="filter-option"><input type="checkbox" id="f3" value="Eco Packaging" onchange="doSearch()"/><label for="f3">📦 Eco Packaging</label></div>
+      <div class="filter-option"><input type="checkbox" id="f4" value="Waste Management" onchange="doSearch()"/><label for="f4">♻️ Waste Mgmt</label></div>
+      <div class="filter-option"><input type="checkbox" id="f5" value="Water Technology" onchange="doSearch()"/><label for="f5">💧 Water Tech</label></div>
+      <div class="filter-option"><input type="checkbox" id="f6" value="Energy Storage" onchange="doSearch()"/><label for="f6">🔋 Energy Storage</label></div>
+      <div class="filter-option"><input type="checkbox" id="f7" value="Herbal Products" onchange="doSearch()"/><label for="f7">🌿 Herbal Products</label></div>
+      <div class="filter-option"><input type="checkbox" id="f8" value="Green Building" onchange="doSearch()"/><label for="f8">🏗️ Green Building</label></div>
+    </div>
+
+    <div class="filter-section">
+      <h4>Price Range (₹)</h4>
+      <div class="price-range">
+        <input type="number" id="priceMin" placeholder="Min"/>
+        <input type="number" id="priceMax" placeholder="Max"/>
+      </div>
+      <button class="filter-btn" onclick="doSearch()">Apply Price</button>
+    </div>
+
+    <div class="filter-section">
+      <h4>Location</h4>
+      <div class="filter-option"><input type="checkbox" id="l1" value="Maharashtra" onchange="doSearch()"/><label for="l1">Maharashtra</label></div>
+      <div class="filter-option"><input type="checkbox" id="l2" value="Gujarat" onchange="doSearch()"/><label for="l2">Gujarat</label></div>
+      <div class="filter-option"><input type="checkbox" id="l3" value="Tamil Nadu" onchange="doSearch()"/><label for="l3">Tamil Nadu</label></div>
+      <div class="filter-option"><input type="checkbox" id="l4" value="Delhi" onchange="doSearch()"/><label for="l4">Delhi NCR</label></div>
+      <div class="filter-option"><input type="checkbox" id="l5" value="Karnataka" onchange="doSearch()"/><label for="l5">Karnataka</label></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products-main">
+    <div class="results-bar">
+      <div class="results-count" id="resultsCount">Loading...</div>
+      <div class="sort-bar">
+        <label>Sort by:</label>
+        <select id="sortSelect" onchange="doSearch()">
+          <option value="newest">Newest First</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="productsContainer">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p style="color:var(--mid);font-size:14px;">Loading products...</p>
+      </div>
+    </div>
+
+    <div class="load-more" id="loadMoreSection" style="display:none;">
+      <button onclick="loadMore()">Load More Products ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Send Enquiry 📩</h3>
+    <p id="modalProduct">Get best price for your requirement</p>
+    <div class="modal-field">
+      <label>Your Name *</label>
+      <input type="text" id="enqName" placeholder="Your full name"/>
+    </div>
+    <div class="modal-field">
+      <label>Mobile / WhatsApp *</label>
+      <input type="tel" id="enqMobile" placeholder="+91 98765 43210"/>
+    </div>
+    <div class="modal-field">
+      <label>Quantity Required</label>
+      <input type="text" id="enqQty" placeholder="e.g. 50 units"/>
+    </div>
+    <div class="modal-field">
+      <label>Message</label>
+      <textarea id="enqMessage" placeholder="Tell supplier your exact requirement..."></textarea>
+    </div>
+    <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry to Supplier 🌿</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+
+// Category emoji map
+const catEmoji = {
+  'Solar Energy': '☀️', 'Organic Farming': '🌾', 'Eco Packaging': '📦',
+  'Waste Management': '♻️', 'Water Technology': '💧', 'Energy Storage': '🔋',
+  'Green Building': '🏗️', 'Herbal Products': '🌿', 'Eco Textiles': '👗',
+  'Wind Energy': '🌬️', 'EV Components': '🚗', 'Green Chemistry': '🧪'
+};
+
+const catBg = {
+  'Solar Energy': 'linear-gradient(135deg,#e8f5e2,#c8e6c0)',
+  'Organic Farming': 'linear-gradient(135deg,#fff3e0,#ffe0b2)',
+  'Eco Packaging': 'linear-gradient(135deg,#e0f7fa,#b2ebf2)',
+  'Water Technology': 'linear-gradient(135deg,#e3f2fd,#bbdefb)',
+  'Energy Storage': 'linear-gradient(135deg,#f3e5f5,#e1bee7)',
+  'Herbal Products': 'linear-gradient(135deg,#e8f5e2,#dcedc8)',
+  'Green Building': 'linear-gradient(135deg,#fce4ec,#f8bbd0)',
+  'Waste Management': 'linear-gradient(135deg,#f3e5f5,#ce93d8)',
+  'default': 'linear-gradient(135deg,#e8f5e2,#c8e6c0)'
+};
+
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 0;
+const PAGE_SIZE = 9;
+let currentProductName = '';
+let currentProductId = '';
+
+async function fetchProducts() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function getCheckedValues(name) {
+  return [...document.querySelectorAll(`.filters input[type="checkbox"]:checked`)]
+    .filter(cb => ['f1','f2','f3','f4','f5','f6','f7','f8'].includes(cb.id))
+    .map(cb => cb.value);
+}
+
+function getCheckedLocations() {
+  return [...document.querySelectorAll(`.filters input[type="checkbox"]:checked`)]
+    .filter(cb => ['l1','l2','l3','l4','l5'].includes(cb.id))
+    .map(cb => cb.value);
+}
+
+function doSearch() {
+  const query = document.getElementById('searchInput').value.trim().toLowerCase();
+  const catDropdown = document.getElementById('categorySelect').value;
+  const checkedCats = getCheckedValues();
+  const checkedLocs = getCheckedLocations();
+  const priceMin = parseFloat(document.getElementById('priceMin').value) || 0;
+  const priceMax = parseFloat(document.getElementById('priceMax').value) || Infinity;
+  const sort = document.getElementById('sortSelect').value;
+
+  filteredProducts = allProducts.filter(p => {
+    const matchSearch = !query ||
+      (p.name && p.name.toLowerCase().includes(query)) ||
+      (p.description && p.description.toLowerCase().includes(query)) ||
+      (p.category && p.category.toLowerCase().includes(query));
+
+    const matchCatDrop = !catDropdown || (p.category && p.category === catDropdown);
+    const matchCatCheck = checkedCats.length === 0 || checkedCats.includes(p.category);
+    const matchLoc = checkedLocs.length === 0 || checkedLocs.some(l => p.location && p.location.includes(l));
+    const price = parseFloat(p.price) || 0;
+    const matchPrice = price >= priceMin && price <= priceMax;
+
+    return matchSearch && matchCatDrop && matchCatCheck && matchLoc && matchPrice;
+  });
+
+  // Sort
+  if (sort === 'price_asc') filteredProducts.sort((a,b) => (parseFloat(a.price)||0) - (parseFloat(b.price)||0));
+  else if (sort === 'price_desc') filteredProducts.sort((a,b) => (parseFloat(b.price)||0) - (parseFloat(a.price)||0));
+
+  currentPage = 0;
+  renderProducts(true);
+}
+
+function renderProducts(reset) {
+  const container = document.getElementById('productsContainer');
+  const start = currentPage * PAGE_SIZE;
+  const pageItems = filteredProducts.slice(start, start + PAGE_SIZE);
+  const total = filteredProducts.length;
+
+  document.getElementById('resultsCount').innerHTML = `Showing <strong>${total}</strong> product${total !== 1 ? 's' : ''}`;
+
+  if (total === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🌿</div>
+        <h3>No products found</h3>
+        <p>Try a different search or category filter</p>
+      </div>`;
+    document.getElementById('loadMoreSection').style.display = 'none';
+    return;
+  }
+
+  const grid = reset ? document.createElement('div') : container.querySelector('.prod-grid');
+  if (reset) { grid.className = 'prod-grid'; container.innerHTML = ''; container.appendChild(grid); }
+
+  pageItems.forEach(p => {
+    const emoji = catEmoji[p.category] || '🌿';
+    const bg = catBg[p.category] || catBg['default'];
+    const price = p.price ? `₹${Number(p.price).toLocaleString('en-IN')}` : 'Price on request';
+    const unit = p.unit ? `/${p.unit}` : '';
+    const moq = p.moq ? `MOQ: ${p.moq}` : '';
+    const supplier = p.supplier_name || p.business_name || 'Verified Supplier';
+    const location = p.location || p.city || 'India';
+
+    const card = document.createElement('div');
+    card.className = 'prod-card';
+    card.style.cursor = 'pointer';
+
+    const imgSection = p.image_url
+      ? `<div class="prod-img" style="background:${bg};padding:0;overflow:hidden;position:relative;">
+           <img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+           <span class="prod-badge badge-eco" style="position:absolute;top:10px;left:10px;">🌿 Eco</span>
+         </div>`
+      : `<div class="prod-img" style="background:${bg};position:relative;">
+           ${emoji}<span class="prod-badge badge-eco">🌿 Eco</span>
+         </div>`;
+
+    const waNumber = (p.whatsapp || '').replace(/\D/g,'');
+    const waMsg = encodeURIComponent('Hi! I found your product "' + (p.name||'') + '" on Green Roots Smart. I am interested. Please share details.');
+    const waBtn = waNumber
+      ? `<a href="https://wa.me/91${waNumber}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()" style="display:inline-flex;align-items:center;gap:4px;background:#25D366;color:white;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">💬 WhatsApp</a>`
+      : '';
+
+    card.innerHTML = `
+      ${imgSection}
+      <div class="prod-body">
+        <div class="prod-cat">${p.category || 'Green Product'}</div>
+        <h3>${p.name || 'Eco Product'}</h3>
+        <div class="prod-supplier"><span class="verified-dot"></span> ${supplier} · ${location}</div>
+        <div class="prod-price">${price} <span class="prod-unit">${unit}</span></div>
+        ${moq ? `<div class="prod-moq">${moq}</div>` : ''}
+        <div class="prod-footer">
+          ${waBtn}
+          <button class="enquire-btn" onclick="event.stopPropagation();openModal('${(p.name||'').replace(/'/g,"\'")}','${p.id||''}')">Enquire</button>
+        </div>
+      </div>`;
+
+    card.addEventListener('click', () => openModal(p.name||'', p.id||''));
+    grid.appendChild(card);
+  });
+
+  const hasMore = start + PAGE_SIZE < total;
+  document.getElementById('loadMoreSection').style.display = hasMore ? 'block' : 'none';
+}
+
+function loadMore() {
+  currentPage++;
+  renderProducts(false);
+}
+
+function clearFilters() {
+  document.querySelectorAll('.filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.getElementById('searchInput').value = '';
+  document.getElementById('categorySelect').value = '';
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  doSearch();
+}
+
+function openModal(product, productId) {
+  currentProductName = product;
+  currentProductId = productId;
+  document.getElementById('modalProduct').textContent = '📦 ' + product;
+
+  // Pre-fill if logged in as buyer
+  const buyer = JSON.parse(localStorage.getItem('grs_buyer') || '{}');
+  if (buyer.name) document.getElementById('enqName').value = buyer.name;
+  if (buyer.mobile) document.getElementById('enqMobile').value = buyer.mobile;
+
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+async function submitEnquiry() {
+  const name = document.getElementById('enqName').value.trim();
+  const mobile = document.getElementById('enqMobile').value.trim();
+  const qty = document.getElementById('enqQty').value.trim();
+  const message = document.getElementById('enqMessage').value.trim();
+
+  if (!name || !mobile) { showToast('⚠️ Please enter your name and mobile'); return; }
+
+  const btn = document.querySelector('.modal-submit');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/enquiries`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        buyer_name: name,
+        buyer_mobile: mobile,
+        product_name: currentProductName,
+        product_id: currentProductId || null,
+        quantity: qty,
+        message: message,
+        status: 'new'
+      })
+    });
+
+    if (res.ok || res.status === 201) {
+      closeModal();
+      showToast('✅ Enquiry sent! Supplier will contact you soon.');
+      document.getElementById('enqName').value = '';
+      document.getElementById('enqMobile').value = '';
+      document.getElementById('enqQty').value = '';
+      document.getElementById('enqMessage').value = '';
+    } else {
+      showToast('⚠️ Could not send enquiry. Please try again.');
+    }
+  } catch(e) {
+    showToast('⚠️ Network error. Please try again.');
+  }
+
+  btn.textContent = 'Send Enquiry to Supplier 🌿';
+  btn.disabled = false;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3500);
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// INIT
+(async () => {
+  allProducts = await fetchProducts();
+  filteredProducts = [...allProducts];
+
+  // Update hero text with real count
+  const count = allProducts.length;
+  document.getElementById('heroSubtext').textContent =
+    count > 0
+      ? `${count} eco-friendly product${count !== 1 ? 's' : ''} from verified Indian suppliers`
+      : 'Be the first to list your eco products!';
+
+  doSearch();
+})();
+</script>
+</body>
+</html>
