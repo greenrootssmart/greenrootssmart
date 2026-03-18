@@ -171,7 +171,126 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
   <p class="sec-sub">Every eco-friendly product category — all in one place</p>
 
   <div class="all-cats-grid" id="allCatsGrid">
-    <!-- Filled by JS -->
+    <div class="cat-card" onclick="goToProducts('Solar Energy')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/1.solar-energy-india.jpg_asmzyx.png" alt="Solar Energy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>☀️ Solar Energy</h3>
+        <p>Solar panels, inverters, batteries, EPC services</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Solar-Energy">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Organic Farming')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/3.organic-farming-india.jpg_hkk5yw.png" alt="Organic Farming" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🌾 Organic Farming</h3>
+        <p>Bio fertilisers, seeds, natural pesticides</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Organic-Farming">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Eco Packaging')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/4.eco-friendly-packaging.jpg_hdy0cr.png" alt="Eco Packaging" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>📦 Eco Packaging</h3>
+        <p>Biodegradable boxes, kraft paper, compostable</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Eco-Packaging">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Green Building')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/7._green-building-construction.jpg_emnacu.png" alt="Green Building" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🏗️ Green Building</h3>
+        <p>Fly ash bricks, eco cement, bamboo materials</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Green-Building">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Waste Management')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/5._waste-recycling-india.jpg_wnsxry.png" alt="Waste Management" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>♻️ Waste Management</h3>
+        <p>Recycling, composting, biogas, e-waste</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Waste-Management">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Water Technology')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/6._water-technology.jpg_o8at9w.png" alt="Water Technology" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>💧 Water Technology</h3>
+        <p>RO systems, water purifiers, treatment plants</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Water-Technology">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Wind Energy')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/2._wind-energy-india_gjtywg.png" alt="Wind Energy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🌬️ Wind Energy</h3>
+        <p>Wind turbines, generators, hybrid systems</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Wind-Energy">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Eco Textiles')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/10._eco-textiles-fashion.jpg_bhdhc7.png" alt="Eco Textiles" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>👗 Eco Textiles</h3>
+        <p>Organic cotton, bamboo fabric, natural dyes</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Eco-Textiles">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Herbal Products')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/11.herbal-natural-products.jpg_yemvur.png" alt="Herbal Products" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🌿 Herbal Products</h3>
+        <p>Ayurvedic products, essential oils, extracts</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Herbal-Products">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Energy Storage')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/9._energy-storage-battery.jpg_ndhxwk.png" alt="Energy Storage" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🔋 Energy Storage</h3>
+        <p>Lithium batteries, solar batteries, BESS</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Energy-Storage">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('EV Components')">
+      <div style="height:160px;overflow:hidden;"><img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/8._electric-vehicles-india.jpg_ykxtpp.png" alt="EV Components" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+      <div style="padding:14px">
+        <h3>🚗 EV Components</h3>
+        <p>EV batteries, chargers, motors, kits</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-EV-Components">View Products →</span>
+        </div>
+      </div>
+    </div>
+    <div class="cat-card" onclick="goToProducts('Green Chemistry')">
+      <div style="height:160px;background:#e8f5e2;display:flex;align-items:center;justify-content:center;font-size:48px;">🧪</div>
+      <div style="padding:14px">
+        <h3>🧪 Green Chemistry</h3>
+        <p>Bio-based chemicals, eco cleaners, solvents</p>
+        <div class="cat-footer">
+          <span class="cat-count" id="count-Green-Chemistry">View Products →</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="subcats-section">
