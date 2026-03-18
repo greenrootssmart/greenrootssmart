@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Green Roots Smart — India's Sustainable B2B Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --g1: #1a4a24;
+  --g2: #2d7a3a;
+  --g3: #52b043;
+  --g4: #a8d8a0;
+  --g5: #e8f5e2;
+  --earth: #7a4f2d;
+  --cream: #f7f9f2;
+  --white: #ffffff;
+  --dark: #1a2e1a;
+  --mid: #4a6645;
+  --light: #7a9a74;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--g5);}
+::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(247,249,242,0.96);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 4px 24px #2d7a3a15;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:38px;height:38px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);}
+.logo-text span{color:var(--g3);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--g3);transition:width 0.3s;}
+.nav-links a:hover{color:var(--g2);}
+.nav-links a:hover::after{width:100%;}
+.nav-btns{display:flex;gap:10px;}
+.btn-out{padding:8px 20px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;}
+.btn-out:hover{background:var(--g5);}
+.btn-pri{padding:8px 20px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;}
+.btn-pri:hover{background:var(--g1);transform:translateY(-1px);box-shadow:0 4px 16px #2d7a3a30;}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:68px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding-left:6%;padding-right:4%;background:linear-gradient(160deg,#e8f5e2 0%,#f7f9f2 55%,#fff9f0 100%);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-150px;top:-150px;width:700px;height:700px;background:radial-gradient(circle,#a8d8a022 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+.hero::after{content:'';position:absolute;left:-100px;bottom:-100px;width:400px;height:400px;background:radial-gradient(circle,#7a4f2d10 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--g5);border:1px solid var(--g4);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--g2);font-weight:600;letter-spacing:0.5px;margin-bottom:20px;animation:fadeUp 0.6s ease both;}
+.badge-dot{width:8px;height:8px;background:var(--g3);border-radius:50%;animation:pulse 2s infinite;}
+.hero-title{font-family:'Playfair Display',serif;font-size:54px;font-weight:900;line-height:1.1;color:var(--g1);animation:fadeUp 0.6s 0.1s ease both;}
+.hero-title .accent{color:var(--g3);}
+.hero-title .line2{display:block;color:var(--earth);}
+.hero-sub{margin-top:20px;font-size:17px;color:var(--mid);line-height:1.7;max-width:500px;animation:fadeUp 0.6s 0.2s ease both;}
+.search-wrap{margin-top:32px;animation:fadeUp 0.6s 0.3s ease both;}
+.search-box{display:flex;background:white;border:2px solid var(--g4);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px #2d7a3a12;}
+.search-box input{flex:1;padding:16px 20px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--dark);background:transparent;}
+.search-box select{padding:0 14px;border:none;border-left:1px solid #d4e8cc;outline:none;background:var(--g5);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--g2);cursor:pointer;}
+.search-box button{padding:0 28px;background:var(--g2);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;transition:background 0.2s;}
+.search-box button:hover{background:var(--g1);}
+.search-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.stag{padding:4px 12px;background:white;border:1px solid #d4e8cc;border-radius:20px;font-size:12px;color:var(--mid);cursor:pointer;transition:all 0.2s;}
+.stag:hover{background:var(--g5);border-color:var(--g3);color:var(--g2);}
+.hero-stats{display:flex;gap:32px;margin-top:32px;animation:fadeUp 0.6s 0.4s ease both;}
+.stat-item{display:flex;flex-direction:column;}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);}
+.stat-lbl{font-size:12px;color:var(--light);font-weight:500;margin-top:2px;}
+.stat-div{width:1px;background:#d4e8cc;}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;animation:fadeUp 0.6s 0.2s ease both;}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.pcard{background:white;border-radius:18px;padding:20px;box-shadow:0 4px 20px #00000010;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 16px 40px #2d7a3a18;border-color:var(--g4);}
+.pcard:nth-child(2){margin-top:28px;}
+.pcard:nth-child(4){margin-top:-28px;}
+.pcard-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;}
+.pcard h4{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;}
+.pcard p{font-size:12px;color:var(--light);margin-bottom:10px;}
+.pcard-tag{display:inline-block;padding:3px 10px;background:var(--g5);border-radius:20px;font-size:11px;color:var(--g2);font-weight:500;}
+.pcard-price{font-size:13px;font-weight:700;color:var(--g2);margin-top:6px;}
+.floating-badge{position:absolute;top:-16px;right:20px;background:var(--g2);color:white;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:600;box-shadow:0 4px 16px #2d7a3a30;animation:float 3s ease-in-out infinite;}
+
+/* TRUST BAR */
+.trust-bar{background:var(--g1);padding:16px 6%;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;color:white;font-size:13px;font-weight:500;}
+.trust-icon{font-size:18px;}
+.trust-div{width:1px;height:20px;background:rgba(255,255,255,0.2);}
+
+/* CATEGORIES */
+.section{padding:80px 6%;}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--g3);text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--g1);margin-bottom:8px;line-height:1.2;}
+.sec-sub{font-size:16px;color:var(--mid);margin-bottom:48px;max-width:500px;line-height:1.6;}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;}
+.see-all{color:var(--g2);font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap 0.2s;}
+.see-all:hover{gap:8px;}
+.cats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.cat-card{background:white;border-radius:18px;padding:24px 16px;text-align:center;border:1.5px solid transparent;transition:all 0.3s;cursor:pointer;box-shadow:0 2px 12px #00000008;}
+.cat-card:hover{border-color:var(--g4);transform:translateY(-4px);box-shadow:0 10px 28px #2d7a3a14;}
+.cat-card.active{border-color:var(--g3);background:var(--g5);}
+.cat-emoji{font-size:34px;margin-bottom:10px;display:block;}
+.cat-card h3{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:4px;}
+.cat-card span{font-size:11px;color:var(--light);}
+
+/* FEATURED */
+.featured{background:var(--g1);padding:80px 6%;}
+.featured .sec-title{color:white;}
+.featured .sec-sub{color:#a0c8a0;}
+.featured .sec-label{color:var(--g4);}
+.sup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.sup-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:22px;padding:28px;transition:all 0.3s;cursor:pointer;}
+.sup-card:hover{background:rgba(255,255,255,0.13);transform:translateY(-4px);}
+.sup-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.sup-av{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:white;}
+.sup-name{font-size:16px;font-weight:700;color:white;}
+.sup-loc{font-size:12px;color:#80b080;margin-top:2px;}
+.sup-badge{margin-left:auto;background:rgba(82,176,67,0.25);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--g4);font-weight:600;}
+.sup-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.sup-tag{padding:4px 10px;background:rgba(82,176,67,0.15);border-radius:20px;font-size:11px;color:var(--g4);}
+.sup-footer{display:flex;align-items:center;justify-content:space-between;}
+.sup-rating{color:#f0c060;font-size:13px;font-weight:600;}
+.sup-deals{font-size:12px;color:#80b080;}
+
+/* HOW IT WORKS */
+.how{background:white;padding:80px 6%;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative;}
+.steps::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--g3),var(--g4));z-index:0;}
+.step{text-align:center;position:relative;z-index:1;}
+.step-num{width:72px;height:72px;border-radius:50%;background:var(--g5);border:3px solid var(--g3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g2);background:white;box-shadow:0 0 0 6px var(--g5);}
+.step h3{font-size:15px;font-weight:700;color:var(--g1);margin-bottom:8px;}
+.step p{font-size:13px;color:var(--light);line-height:1.6;padding:0 16px;}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.prod-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px #00000008;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px #2d7a3a14;border-color:var(--g4);}
+.prod-img{height:140px;display:flex;align-items:center;justify-content:center;font-size:56px;}
+.prod-body{padding:16px;}
+.prod-body h4{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;}
+.prod-body .supplier{font-size:11px;color:var(--light);margin-bottom:8px;}
+.prod-price{font-size:16px;font-weight:700;color:var(--g2);}
+.prod-moq{font-size:11px;color:var(--light);margin-top:2px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--g5);}
+.prod-rating{font-size:11px;color:#e0a020;font-weight:600;}
+.prod-btn{padding:5px 12px;background:var(--g5);border-radius:8px;font-size:11px;color:var(--g2);font-weight:600;border:none;cursor:pointer;transition:all 0.2s;}
+.prod-btn:hover{background:var(--g2);color:white;}
+
+/* CTA */
+.cta{margin:0 6% 80px;background:linear-gradient(135deg,var(--g2),var(--g1));border-radius:28px;padding:64px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
+.cta::before{content:'🌿';position:absolute;right:60px;top:10px;font-size:160px;opacity:0.08;line-height:1;}
+.cta-left h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:white;margin-bottom:12px;}
+.cta-left p{font-size:16px;color:#b0d8b0;max-width:420px;line-height:1.6;}
+.cta-btns{display:flex;gap:14px;flex-shrink:0;}
+.btn-white{padding:14px 32px;border-radius:12px;background:white;color:var(--g1);border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px #00000030;}
+.btn-ghost{padding:14px 32px;border-radius:12px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-ghost:hover{border-color:white;background:rgba(255,255,255,0.1);}
+
+/* FOOTER */
+footer{background:#0f1f10;padding:60px 6% 28px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.foot-brand{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;margin-bottom:12px;}
+.foot-desc{font-size:13px;color:#6a8a6a;line-height:1.7;max-width:260px;}
+.foot-col h4{font-size:12px;font-weight:700;color:var(--g4);margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;}
+.foot-col ul{list-style:none;}
+.foot-col li{margin-bottom:10px;}
+.foot-col a{text-decoration:none;color:#6a8a6a;font-size:13px;transition:color 0.2s;}
+.foot-col a:hover{color:var(--g4);}
+.foot-bottom{border-top:1px solid #1a2e1a;padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#4a6a4a;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.7;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding:100px 5% 60px;}
+  .hero-visual{display:none;}
+  .hero-title{font-size:36px;}
+  .cats-grid{grid-template-columns:repeat(3,1fr);}
+  .sup-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:repeat(2,1fr);}
+  .steps::before{display:none;}
+  .products-grid{grid-template-columns:repeat(2,1fr);}
+  .cta{flex-direction:column;padding:40px;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 38 38" fill="none">
+      <path d="M19 30 C19 18 28 9 35 7 C30 17 24 24 19 30Z" fill="#52b043"/>
+      <path d="M19 30 C19 18 10 9 3 7 C8 17 14 24 19 30Z" fill="#2d7a3a"/>
+      <line x1="19" y1="30" x2="19" y2="36" stroke="#7a4f2d" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M19 34 Q13 34 9 37" stroke="#7a4f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M19 34 Q25 34 29 37" stroke="#7a4f2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">Green Roots <span>Smart</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="/category">Browse</a></li>
+    <li><a href="#suppliers">Suppliers</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#how">How it Works</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+
+  <div class="nav-btns">
+    <a href="login.html" class="btn-out">Login</a>
+    <a href="register.html" class="btn-pri">List Your Business</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      India's First Green B2B Marketplace
+    </div>
+    <h1 class="hero-title">
+      Trade Green.<br/>
+      <span class="accent">Grow Together.</span>
+      <span class="line2">Go Global.</span>
+    </h1>
+    <p class="hero-sub">Connect with verified eco-friendly suppliers across solar, organic farming, sustainable packaging & more. From India to the world.</p>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <input type="text" placeholder="Search products, suppliers, categories..."/>
+        <select>
+          <option>All Categories</option>
+          <option>☀️ Solar Energy</option>
+          <option>🌾 Organic Farming</option>
+          <option>📦 Eco Packaging</option>
+          <option>♻️ Waste Management</option>
+          <option>💧 Water Technology</option>
+          <option>🏗️ Green Building</option>
+          <option>🚗 Electric Vehicles</option>
+        </select>
+        <button>Search 🔍</button>
+      </div>
+      <div class="search-tags">
+        <span class="stag">☀️ Solar Panels</span>
+        <span class="stag">🌾 Organic Seeds</span>
+        <span class="stag">♻️ Recycled Packaging</span>
+        <span class="stag">🔋 Batteries</span>
+        <span class="stag">🌿 Herbal Products</span>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="statSuppliers">...</span>
+        <span class="stat-lbl">Green Suppliers</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-num" id="statProducts">...</span>
+        <span class="stat-lbl">Products Listed</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-num">28 States</span>
+        <span class="stat-lbl">Pan India</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-num">50+</span>
+        <span class="stat-lbl">Countries</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="floating-badge" id="floatingBadge">🌿 GRS is Live!</div>
+    <div class="cards-grid">
+      <div class="pcard">
+        <div class="pcard-icon" style="background:#e8f5e2">☀️</div>
+        <h4>Solar Panels 400W</h4>
+        <p>Monocrystalline PERC</p>
+        <div class="pcard-price">₹8,200/unit</div>
+        <span class="pcard-tag">Solar Energy</span>
+      </div>
+      <div class="pcard">
+        <div class="pcard-icon" style="background:#fff3e0">🌾</div>
+        <h4>Bio Fertiliser</h4>
+        <p>Organic certified</p>
+        <div class="pcard-price">₹340/bag</div>
+        <span class="pcard-tag">Organic</span>
+      </div>
+      <div class="pcard">
+        <div class="pcard-icon" style="background:#e0f7fa">♻️</div>
+        <h4>Kraft Paper Boxes</h4>
+        <p>100% biodegradable</p>
+        <div class="pcard-price">₹12/piece</div>
+        <span class="pcard-tag">Eco Packaging</span>
+      </div>
+      <div class="pcard">
+        <div class="pcard-icon" style="background:#f3e5f5">🔋</div>
+        <h4>Lithium Battery</h4>
+        <p>100Ah deep cycle</p>
+        <div class="pcard-price">₹22,000/unit</div>
+        <span class="pcard-tag">Energy Storage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✅</span> All Suppliers Verified</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="trust-icon">🌍</span> Ship to 50+ Countries</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="trust-icon">🔒</span> Secure Payments</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="trust-icon">⚡</span> Fast Response Guarantee</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="trust-icon">🌿</span> 100% Eco Verified</div>
+  <div class="trust-div"></div>
+  <div class="trust-item"><span class="trust-icon">♻️</span> 100% Eco Focused</div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="sec-header">
+    <div>
+      <div class="sec-label">Explore</div>
+      <h2 class="sec-title">Browse by Category</h2>
+      <p class="sec-sub">Find verified green suppliers across 50+ sustainable product categories.</p>
+    </div>
+    <a href="/category" class="see-all">View All Categories →</a>
+  </div>
+
+  <div class="cats-grid">
+    <div class="cat-card active">
+      <span class="cat-emoji">☀️</span>
+      <h3>Solar Energy</h3>
+      <span>2,400 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🌾</span>
+      <h3>Organic Farming</h3>
+      <span>1,800 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">📦</span>
+      <h3>Eco Packaging</h3>
+      <span>1,200 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🏗️</span>
+      <h3>Green Building</h3>
+      <span>980 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">♻️</span>
+      <h3>Waste Management</h3>
+      <span>760 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">💧</span>
+      <h3>Water Tech</h3>
+      <span>640 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🌬️</span>
+      <h3>Wind Energy</h3>
+      <span>420 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">👗</span>
+      <h3>Eco Textiles</h3>
+      <span>880 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🌿</span>
+      <h3>Herbal Products</h3>
+      <span>1,100 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🔋</span>
+      <h3>Energy Storage</h3>
+      <span>340 Suppliers</span>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🚗</span>
+      <h3>EV Components</h3>
+      <span>290 Suppliers</span>
+    </div>
+    <div class="cat-card" style="background:var(--g5);border-color:var(--g3);">
+      <span class="cat-emoji">➕</span>
+      <h3>View All</h3>
+      <span>50+ Categories</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED SUPPLIERS -->
+<section class="featured" id="suppliers">
+  <div class="sec-label">Verified Partners</div>
+  <h2 class="sec-title">Featured Suppliers</h2>
+  <p class="sec-sub">All suppliers are verified, eco-certified and audited by our Green Roots team.</p>
+
+  <div class="sup-grid" id="suppliersGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#7a9a74;font-size:14px;">Loading suppliers... 🌿</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="sec-header">
+    <div>
+      <div class="sec-label">Trending Now</div>
+      <h2 class="sec-title">Popular Products</h2>
+      <p class="sec-sub">Most searched eco products this week from verified Indian suppliers.</p>
+    </div>
+    <a href="#" class="see-all">View All Products →</a>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#7a9a74;font-size:14px;">Loading products... 🌿</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div style="text-align:center;margin-bottom:0;">
+    <div class="sec-label" style="text-align:center">Simple Process</div>
+    <h2 class="sec-title" style="text-align:center">How Green Roots Smart Works</h2>
+    <p class="sec-sub" style="max-width:500px;margin:0 auto 0;">From finding suppliers to closing deals — all in one platform.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Register Free</h3>
+      <p>Create your buyer or seller account in under 2 minutes with just email & phone</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Search & Discover</h3>
+      <p>Browse green products from verified eco suppliers across India</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Send Inquiry / RFQ</h3>
+      <p>Contact suppliers directly or send bulk quote requests with one click</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Close the Deal</h3>
+      <p>Negotiate, pay securely and grow your green business globally</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-left">
+    <h2>Ready to Go Green?</h2>
+    <p>Join eco businesses already trading on Green Roots Smart. List your products free for 30 days.</p>
+  </div>
+  <div class="cta-btns">
+    <button class="btn-white" onclick="window.location.href='register.html'">🌿 List Your Business</button>
+    <button class="btn-ghost" onclick="window.location.href='/category'">Browse Suppliers</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">🌿 Green Roots Smart</div>
+      <p class="foot-desc">India's leading B2B marketplace for sustainable and eco-friendly businesses. Rooted in sustainability, growing globally.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Marketplace</h4>
+      <ul>
+        <li><a href="/products">Browse Products</a></li>
+        <li><a href="/supplier-profile">Find Suppliers</a></li>
+        <li><a href="/buyer-dashboard">Post RFQ</a></li>
+        <li><a href="/category">Categories</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>For Sellers</h4>
+      <ul>
+        <li><a href="/login">List Products</a></li>
+        <li><a href="/dashboard">Seller Dashboard</a></li>
+        <li><a href="/pricing">Pricing Plans</a></li>
+        <li><a href="/login">Get Verified</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/about">Blog</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Green Roots Smart. All rights reserved.</span>
+    <span>🌿 Made for a sustainable India & world</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db = supabase.createClient(SURL, SKEY);
+
+const catColors = {
+  '☀️ Solar Energy':'linear-gradient(135deg,#fff9c4,#fff176)',
+  '🌾 Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)',
+  '📦 Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)',
+  '♻️ Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)',
+  '💧 Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)',
+  '🔋 Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)',
+  '🏗️ Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)',
+  '🌿 Herbal & Natural':'linear-gradient(135deg,#e8f5e2,#c8e6c0)',
+};
+
+async function loadHomeData(){
+  try {
+    // Load real supplier count
+    const { data: suppliers } = await db.from('suppliers').select('id', { count: 'exact' }).eq('status','active');
+    const supCount = suppliers ? suppliers.length : 0;
+    const el = document.getElementById('statSuppliers');
+    if(el) el.textContent = supCount > 0 ? supCount + '+' : '🌿';
+
+    // Load real product count
+    const { data: products } = await db.from('products').select('id', { count: 'exact' }).eq('status','published');
+    const prodCount = products ? products.length : 0;
+    const el2 = document.getElementById('statProducts');
+    if(el2) el2.textContent = prodCount > 0 ? prodCount + '+' : '🌿';
+
+    // Update floating badge
+    const badge = document.getElementById('floatingBadge');
+    if(badge && supCount > 0) badge.textContent = '🌿 ' + supCount + ' eco suppliers live!';
+
+    // Load real suppliers for featured section
+    const { data: featuredSups } = await db.from('suppliers').select('*').eq('status','active').limit(3);
+    const supGrid = document.getElementById('suppliersGrid');
+    if(supGrid && featuredSups && featuredSups.length > 0){
+      supGrid.innerHTML = featuredSups.map(s => {
+        const initials = (s.business_name||s.owner_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+        const colors = ['linear-gradient(135deg,#52b043,#2d7a3a)','linear-gradient(135deg,#7a4f2d,#c4956a)','linear-gradient(135deg,#2a7a7a,#4ab0b0)'];
+        const color = colors[featuredSups.indexOf(s) % colors.length];
+        return \`<div class="sup-card">
+          <div class="sup-head">
+            <div class="sup-av" style="background:\${color}">\${initials}</div>
+            <div>
+              <div class="sup-name">\${s.business_name||'Eco Supplier'}</div>
+              <div class="sup-loc">📍 \${s.city||''}\${s.state ? ', '+s.state : ''}</div>
+            </div>
+            <div class="sup-badge">✓ Verified</div>
+          </div>
+          <div class="sup-tags">
+            <span class="sup-tag">\${s.category||'Eco Products'}</span>
+          </div>
+          <div class="sup-footer">
+            <div class="sup-rating">🌿 Active</div>
+            <div class="sup-deals">GRS Verified</div>
+          </div>
+        </div>\`;
+      }).join('');
+    } else if(supGrid){
+      supGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">Register as a supplier to be featured here! 🌿</div>';
+    }
+
+    // Load real products
+    const { data: featuredProds } = await db.from('products').select('*').eq('status','published').order('created_at', { ascending: false }).limit(4);
+    const prodGrid = document.getElementById('productsGrid');
+    if(prodGrid && featuredProds && featuredProds.length > 0){
+      prodGrid.innerHTML = featuredProds.map(p => {
+        const bg = catColors[p.category] || 'linear-gradient(135deg,#e8f5e2,#c8e6c0)';
+        const emoji = p.category ? p.category.split(' ')[0] : '🌿';
+        const imgHtml = p.image_url
+          ? \`<div class="prod-img" style="background:\${bg};padding:0;overflow:hidden"><img src="\${p.image_url}" style="width:100%;height:100%;object-fit:cover"/></div>\`
+          : \`<div class="prod-img" style="background:\${bg}">\${emoji}</div>\`;
+        const waNum = (p.whatsapp||'').replace(/\D/g,'');
+        const waMsg = encodeURIComponent('Hi! I am interested in '+p.name+' from Green Roots Smart.');
+        return \`<div class="prod-card" onclick="window.location.href='/products'">
+          \${imgHtml}
+          <div class="prod-body">
+            <h4>\${p.name}</h4>
+            <div class="supplier">by \${p.supplier_name||'Verified Supplier'} · \${p.location||'India'}</div>
+            <div class="prod-price">₹\${Number(p.price).toLocaleString('en-IN')}/\${p.price_unit||'unit'}</div>
+            <div class="prod-moq">MOQ: \${p.moq||1} units</div>
+            <div class="prod-footer">
+              <span class="prod-rating">🌿 Eco</span>
+              \${waNum ? \`<a href="https://wa.me/91\${waNum}?text=\${waMsg}" target="_blank" onclick="event.stopPropagation()" style="background:#25D366;color:white;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">💬 WA</a>\` : \`<button class="prod-btn" onclick="event.stopPropagation();window.location.href='/products'">Enquire</button>\`}
+            </div>
+          </div>
+        </div>\`;
+      }).join('');
+    } else if(prodGrid){
+      prodGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">Be the first to list a product! 🌿</div>';
+    }
+  } catch(e){ console.error('loadHomeData:', e); }
+}
+
+window.addEventListener('DOMContentLoaded', loadHomeData);
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Category card click
+document.querySelectorAll('.cat-card').forEach(card => {
+  card.addEventListener('click', function(){
+    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Search tags click
+document.querySelectorAll('.stag').forEach(tag => {
+  tag.addEventListener('click', function(){
+    document.querySelector('.search-box input').value = this.textContent.trim();
+  });
+});
+</script>
+</body>
+</html>
