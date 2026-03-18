@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seller Dashboard — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
+.logo-text span{color:var(--g3);}
+.logo-sub{font-size:10px;color:#80b080;margin-top:2px;}
+.sidebar-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
+.user-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.user-name{font-size:13px;font-weight:600;color:white;}
+.user-plan{font-size:10px;color:var(--g4);margin-top:1px;}
+.sidebar-nav{flex:1;padding:12px 0;}
+.nav-section{padding:8px 20px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
+.nav-item.active{background:rgba(82,176,67,0.2);color:white;border-right:3px solid var(--g3);}
+.nav-item .nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-item .nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.1);}
+.upgrade-card{background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.3);border-radius:10px;padding:12px;text-align:center;}
+.upgrade-card p{font-size:11px;color:#a0c8a0;margin-bottom:8px;}
+.upgrade-btn{width:100%;padding:7px;background:var(--g3);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
+
+/* TOPBAR */
+.topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
+.topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
+.topbar-left p{font-size:12px;color:var(--light);}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;position:relative;}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
+.topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;cursor:pointer;}
+
+/* CONTENT */
+.content{padding:24px 28px;flex:1;}
+
+/* STATS CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:white;border-radius:14px;padding:20px;display:flex;flex-direction:column;box-shadow:0 2px 8px #00000008;}
+.stat-card .s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.stat-card .s-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--dark);}
+.stat-card .s-lbl{font-size:12px;color:var(--light);margin-top:2px;}
+.stat-card .s-change{font-size:11px;font-weight:600;margin-top:8px;display:flex;align-items:center;gap:4px;}
+.s-change.up{color:#2e7d32;}
+.s-change.down{color:var(--red);}
+
+/* GRID 2 COL */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px;}
+
+/* CARDS */
+.card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-title{font-size:14px;font-weight:700;color:var(--g1);}
+.card-action{font-size:12px;color:var(--g2);font-weight:600;cursor:pointer;text-decoration:none;border:none;background:none;}
+
+/* ENQUIRIES */
+.enquiry-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f4f0;}
+.enquiry-item:last-child{border-bottom:none;}
+.enq-av{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+.enq-name{font-size:13px;font-weight:600;color:var(--dark);}
+.enq-product{font-size:11px;color:var(--light);margin-top:1px;}
+.enq-time{font-size:10px;color:var(--light);margin-left:auto;white-space:nowrap;}
+.enq-badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;}
+.badge-new{background:#e3f2fd;color:var(--blue);}
+.badge-replied{background:var(--g5);color:var(--g2);}
+.badge-pending{background:#fff3e0;color:var(--orange);}
+
+/* PRODUCTS TABLE */
+.prod-table{width:100%;border-collapse:collapse;}
+.prod-table th{font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:0.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #f0f4f0;}
+.prod-table td{padding:12px;border-bottom:1px solid #f8f8f8;font-size:13px;}
+.prod-table tr:last-child td{border-bottom:none;}
+.prod-table tr:hover td{background:#fafcfa;}
+.prod-name{font-weight:600;color:var(--dark);}
+.prod-status{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.status-active{background:var(--g5);color:var(--g2);}
+.status-pending{background:#fff3e0;color:var(--orange);}
+.status-inactive{background:#f5f5f5;color:#888;}
+.prod-actions{display:flex;gap:6px;}
+.action-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.btn-edit{background:var(--g5);color:var(--g2);}
+.btn-del{background:#fce4ec;color:var(--red);}
+
+/* CHART PLACEHOLDER */
+.chart-area{height:160px;background:linear-gradient(180deg,var(--g5) 0%,white 100%);border-radius:10px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 16px 16px;gap:8px;}
+.bar{border-radius:6px 6px 0 0;background:var(--g3);transition:height 0.3s;min-width:28px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;}
+.bar span{font-size:9px;color:white;font-weight:700;}
+.bar-label{text-align:center;font-size:10px;color:var(--light);margin-top:4px;}
+.chart-wrap{display:flex;flex-direction:column;}
+.bars-row{display:flex;align-items:flex-end;justify-content:space-around;height:140px;padding:0 8px;gap:6px;}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+
+/* QUICK ACTIONS */
+.quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.qa-btn{padding:12px;border-radius:10px;border:1.5px solid #e0e8e0;background:white;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);transition:all 0.2s;}
+.qa-btn:hover{border-color:var(--g4);background:var(--g5);}
+.qa-icon{font-size:20px;}
+
+/* PERFORMANCE */
+.perf-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f4f0;}
+.perf-item:last-child{border-bottom:none;}
+.perf-label{font-size:13px;color:var(--mid);}
+.perf-bar-wrap{flex:1;margin:0 12px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;}
+.perf-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g3),var(--g2));}
+.perf-val{font-size:12px;font-weight:700;color:var(--g1);white-space:nowrap;}
+
+/* ADD PRODUCT FORM */
+.add-form{display:none;}
+.add-form.show{display:block;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{margin-bottom:0;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--g3);}
+.form-group textarea{height:70px;resize:vertical;}
+.form-submit{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:14px;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Green Roots <span>Smart</span></div>
+    <div class="logo-sub">Seller Dashboard</div>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="user-av" id="sidebarInitial">S</div>
+    <div>
+      <div class="user-name">Dinesh Kumar</div>
+      <div class="user-plan" id="sidebarPlan">🌿 Free Plan</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showSection('overview', this)">
+      <span class="nav-icon">📊</span> Overview
+    </button>
+    <button class="nav-item" onclick="showSection('enquiries', this)">
+      <span class="nav-icon">📩</span> Enquiries
+      <span class="nav-badge">5</span>
+    </button>
+    <button class="nav-item" onclick="showSection('products', this)">
+      <span class="nav-icon">📦</span> My Products
+    </button>
+    <button class="nav-item" onclick="showSection('add-product', this)">
+      <span class="nav-icon">➕</span> Add Product
+    </button>
+
+    <div class="nav-section">Business</div>
+    <button class="nav-item" onclick="showSection('analytics', this)">
+      <span class="nav-icon">📈</span> Analytics
+    </button>
+    <button class="nav-item" onclick="showSection('profile', this)">
+      <span class="nav-icon">🏢</span> Business Profile
+    </button>
+    <button class="nav-item" onclick="showSection('reviews', this)">
+      <span class="nav-icon">⭐</span> Reviews
+    </button>
+
+    <div class="nav-section">Account</div>
+    <button class="nav-item" onclick="showSection('settings', this)">
+      <span class="nav-icon">⚙️</span> Settings
+    </button>
+    <button class="nav-item" onclick="doLogout()">
+      <span class="nav-icon">🚪</span> Logout
+    </button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="upgrade-card">
+      <p>Upgrade to Pro — get 10x more leads!</p>
+      <button class="upgrade-btn">⬆️ Upgrade Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 id="pageTitle">Dashboard Overview</h2>
+      <p id="pageSubtitle">Welcome back, Dinesh! Here's your business summary.</p>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn">🔔<span class="notif-dot"></span></button>
+      <div class="topbar-avatar" id="topbarInitial">S</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- OVERVIEW SECTION -->
+    <div id="section-overview">
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e8f5e2">📩</div>
+          <div class="s-val" id="statEnquiries">...</div>
+          <div class="s-lbl">Total Enquiries</div>
+          <div class="s-change up" id="statNew">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e3f2fd">📦</div>
+          <div class="s-val" id="statProducts">...</div>
+          <div class="s-lbl">Active Products</div>
+          <div class="s-change up">on your listings</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fff3e0">👀</div>
+          <div class="s-val">—</div>
+          <div class="s-lbl">Profile Views</div>
+          <div class="s-change" style="color:#7a9a74">coming soon</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fce4ec">⭐</div>
+          <div class="s-val">—</div>
+          <div class="s-lbl">Average Rating</div>
+          <div class="s-change" style="color:#7a9a74">based on reviews</div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <!-- ENQUIRIES -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📩 Recent Enquiries</div>
+            <a class="card-action">View All →</a>
+          </div>
+          <div id="recentEnquiries"><p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">Loading enquiries... 🌿</p></div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ Quick Actions</div>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" onclick="showSection('add-product', this)"><span class="qa-icon">➕</span> Add Product</button>
+            <button class="qa-btn"><span class="qa-icon">📸</span> Upload Photos</button>
+            <button class="qa-btn"><span class="qa-icon">🏢</span> Edit Profile</button>
+            <button class="qa-btn"><span class="qa-icon">📊</span> View Reports</button>
+            <button class="qa-btn"><span class="qa-icon">💬</span> Messages</button>
+            <button class="qa-btn"><span class="qa-icon">⬆️</span> Upgrade Plan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFORMANCE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📈 Business Performance</div>
+          <span style="font-size:11px;color:var(--light)">Last 30 days</span>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Profile Completeness</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:75%"></div></div>
+          <div class="perf-val">75%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Response Rate</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:88%"></div></div>
+          <div class="perf-val">88%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Enquiry Conversion</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:42%"></div></div>
+          <div class="perf-val">42%</div>
+        </div>
+        <div class="perf-item">
+          <div class="perf-label">Buyer Satisfaction</div>
+          <div class="perf-bar-wrap"><div class="perf-bar" style="width:96%"></div></div>
+          <div class="perf-val">96%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS SECTION -->
+    <div id="section-products" style="display:none">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">📦 My Products</div><span style="font-size:12px;color:var(--light)">Live from database</span></div>
+        <div id="myProductsList" style="overflow-x:auto"><p style="color:var(--light);font-size:13px;padding:20px;text-align:center">Loading... 🌿</p></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 My Products</div>
+          <button class="card-action" onclick="showSection('add-product', this)">+ Add New Product</button>
+        </div>
+        <div id="myProductsList2"><p style="color:#7a9a74;font-size:13px;padding:20px;text-align:center">Loading products... 🌿</p></div>
+      </div>
+    </div>
+
+    <!-- ADD PRODUCT SECTION -->
+    <div id="section-add-product" style="display:none">
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><div class="card-title">📦 Basic Product Information</div></div>
+        <div class="form-grid">
+          <div class="form-group" style="grid-column:span 2">
+            <label>Product Name *</label>
+            <input type="text" id="ap-name" placeholder="e.g. Solar Panel 400W Monocrystalline PERC"/>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="ap-category">
+              <option value="">Select Category</option>
+              <option>☀️ Solar Energy</option>
+              <option>🌾 Organic Farming</option>
+              <option>📦 Eco Packaging</option>
+              <option>♻️ Waste Management</option>
+              <option>💧 Water Technology</option>
+              <option>🌬️ Wind Energy</option>
+              <option>🔋 Energy Storage</option>
+              <option>🏗️ Green Building</option>
+              <option>🌿 Herbal & Natural</option>
+              <option>🚗 Electric Vehicles</option>
+              <option>🌱 Sustainable Agriculture</option>
+              <option>♻️ Recycled Products</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Brand / Model</label>
+            <input type="text" id="ap-brand" placeholder="e.g. SunGrow SGS-400M"/>
+          </div>
+          <div class="form-group" style="grid-column:span 2">
+            <label>Product Description *</label>
+            <textarea id="ap-desc" style="height:80px" placeholder="Describe your product details..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><div class="card-title">📸 Product Photos</div></div>
+        <div style="border:2px dashed #d4e8cc;border-radius:12px;padding:24px;text-align:center;background:var(--g5);">
+          <div style="font-size:36px;margin-bottom:8px">📸</div>
+          <div style="font-size:13px;font-weight:600;color:var(--g2);margin-bottom:4px">Upload Product Photos</div>
+          <div style="font-size:11px;color:var(--light)">JPG, PNG • Max 5 photos • 5MB each</div>
+          <button onclick="apOpenUpload()" style="margin-top:12px;padding:8px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">📤 Upload Photos</button>
+        </div>
+        <div id="ap-photos-preview" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;"></div>
+        <div id="ap-photo-count" style="font-size:11px;color:var(--mid);margin-top:6px;"></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><div class="card-title">💰 Pricing & Quantity</div></div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Price (₹) *</label>
+            <input type="number" id="ap-price" placeholder="e.g. 8200"/>
+          </div>
+          <div class="form-group">
+            <label>Price Unit</label>
+            <select id="ap-unit">
+              <option>per unit</option><option>per kg</option><option>per piece</option>
+              <option>per litre</option><option>per set</option><option>per ton</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Min Order Qty *</label>
+            <input type="number" id="ap-moq" placeholder="e.g. 10"/>
+          </div>
+          <div class="form-group">
+            <label>Availability</label>
+            <select id="ap-availability">
+              <option value="in_stock">✅ In Stock</option>
+              <option value="made_to_order">🏭 Made to Order</option>
+              <option value="out_of_stock">❌ Out of Stock</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header"><div class="card-title">🚚 Shipping & WhatsApp</div></div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Delivery Time</label>
+            <select id="ap-delivery">
+              <option>1-3 days</option><option>3-7 days</option>
+              <option>7-15 days</option><option>15-30 days</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Shipping</label>
+            <select id="ap-shipping">
+              <option>Pan India</option><option>Pan India + Export</option>
+              <option>South India only</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column:span 2">
+            <label>WhatsApp Number *</label>
+            <input type="tel" id="ap-whatsapp" placeholder="e.g. 9876543210"/>
+          </div>
+        </div>
+      </div>
+      <div id="ap-alert" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:12px;"></div>
+      <div style="display:flex;gap:12px;margin-bottom:24px;">
+        <button onclick="apSaveProduct('draft')" style="padding:12px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Draft</button>
+        <button id="ap-publish-btn" onclick="apSaveProduct('published')" style="flex:1;padding:12px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">🌿 Publish Product</button>
+      </div>
+    </div>
+
+    <!-- OTHER SECTIONS -->
+    <div id="section-enquiries" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📩 All Enquiries</div><span style="font-size:12px;color:var(--light)">Live from database</span></div>
+        <div id="allEnquiriesList" style="overflow-x:auto"><p style="color:var(--light);font-size:13px;padding:20px;text-align:center">Loading... 🌿</p></div>
+      </div>
+    </div>
+    <div id="section-analytics" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">📈 Analytics</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Detailed analytics coming soon in next update!</p>
+      </div>
+    </div>
+    <div id="section-profile" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🏢 Business Profile</div></div>
+        <div style="padding:20px 0">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Business Name</label>
+              <input type="text" id="bp-business" placeholder="Your business name"/>
+            </div>
+            <div class="form-group">
+              <label>Owner Name</label>
+              <input type="text" id="bp-owner" placeholder="Your name"/>
+            </div>
+            <div class="form-group">
+              <label>Mobile</label>
+              <input type="tel" id="bp-mobile" placeholder="Your mobile"/>
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="bp-city" placeholder="Your city"/>
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="bp-state" placeholder="Your state"/>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <input type="text" id="bp-category" placeholder="Your business category"/>
+            </div>
+          </div>
+          <button onclick="saveProfile()" style="margin-top:16px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Profile</button>
+          <div id="bp-msg" style="display:none;margin-top:12px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        </div>
+      </div>
+    </div>
+    <div id="section-reviews" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⭐ Reviews</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Your buyer reviews and ratings will appear here!</p>
+      </div>
+    </div>
+    <div id="section-settings" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⚙️ Settings</div></div>
+        <p style="color:var(--light);font-size:13px;padding:20px 0">Account settings, notifications and preferences!</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+
+async function initDashboard() {
+  const userData = localStorage.getItem('grs_user');
+  if (!userData) { window.location.href = '/login'; return; }
+  currentUser = JSON.parse(userData);
+
+  // Set user info in sidebar
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('sidebarName', currentUser.name||currentUser.business||'Supplier');
+  setEl('sidebarPlan', ((currentUser.plan||'Free').toUpperCase())+' PLAN');
+  setEl('sidebarInitial', (currentUser.name||currentUser.business||'S')[0].toUpperCase());
+  setEl('topbarInitial', (currentUser.name||currentUser.business||'S')[0].toUpperCase());
+  setEl('pageSubtitle', 'Welcome back, '+(currentUser.name||currentUser.business||'Supplier')+'! Here\'s your business summary.');
+
+  await loadStats();
+  await loadRecentEnquiries();
+  await loadMyProducts();
+  await loadMyProducts2();
+  await loadAllEnquiries();
+  loadProfileForm();
+}
+
+async function loadStats() {
+  try {
+    const { data: products } = await supabaseClient.from('products').select('id').eq('supplier_id', currentUser.id);
+    const productCount = products ? products.length : 0;
+    document.getElementById('statProducts').textContent = productCount;
+    
+    const { data: enquiries } = await supabaseClient.from('enquiries').select('id,status,product_id,supplier_id');
+    const myIds = products ? products.map(p => p.id) : [];
+    const myEnq = enquiries ? enquiries.filter(e => myIds.includes(e.product_id) || String(e.supplier_id) === String(currentUser.id)) : [];
+    const newCount = myEnq.filter(e => e.status === 'new').length;
+    document.getElementById('statEnquiries').textContent = myEnq.length;
+    if(document.getElementById('statNew')) document.getElementById('statNew').textContent = newCount + ' new';
+    if(newCount > 0){ const b = document.getElementById('enquiryBadge'); if(b){ b.textContent = newCount; b.style.display='inline'; }}
+  } catch(e){ console.error('loadStats:', e); }
+}
+
+async function loadRecentEnquiries() {
+  const { data: myProds2 } = await supabaseClient.from('products').select('id').eq('supplier_id', currentUser.id);
+  const myIds2 = myProds2 ? myProds2.map(p => p.id) : [];
+  const { data: allEnq2 } = await supabaseClient.from('enquiries').select('*').order('created_at', { ascending: false }).limit(50);
+  const enquiries = allEnq2 ? allEnq2.filter(e => myIds2.includes(e.product_id) || String(e.supplier_id) === String(currentUser.id)).slice(0,4) : [];
+
+  const container = document.getElementById('recentEnquiries');
+  if (!enquiries || enquiries.length === 0) {
+    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">No enquiries yet! Share your profile to get enquiries! 🌿</p>';
+    return;
+  }
+
+  container.innerHTML = enquiries.map(e => {
+    const initials = e.buyer_name ? e.buyer_name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) : 'B';
+    const colors = ['#1565c0','#6a1b9a','#e65100','#2d7a3a','#c62828','#00695c'];
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    const timeAgo = getTimeAgo(e.created_at);
+    const badgeClass = e.status === 'new' ? 'badge-new' : e.status === 'replied' ? 'badge-replied' : 'badge-pending';
+    const badgeText = e.status === 'new' ? 'New' : e.status === 'replied' ? 'Replied' : 'Pending';
+    return `
+      <div class="enquiry-item">
+        <div class="enq-av" style="background:${color}">${initials}</div>
+        <div style="flex:1">
+          <div class="enq-name">${e.buyer_name}</div>
+          <div class="enq-product">${e.product_name} · ${e.quantity} units</div>
+        </div>
+        <div style="text-align:right">
+          <span class="enq-badge ${badgeClass}">${badgeText}</span>
+          <div class="enq-time">${timeAgo}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function loadMyProducts() {
+  const { data: products } = await supabaseClient
+    .from('products')
+    .select('*')
+    .eq('supplier_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  const container = document.getElementById('myProductsList');
+  if (!products || products.length === 0) {
+    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No products yet! Add your first product! 🌿</p>';
+    return;
+  }
+
+  container.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--g5)">
+          <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Category</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Price</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">MOQ</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${products.map(p => `
+          <tr style="border-bottom:1px solid var(--g5)">
+            <td style="padding:10px"><b>${p.emoji || '🌿'} ${p.name}</b></td>
+            <td style="padding:10px;color:var(--mid)">${p.category}</td>
+            <td style="padding:10px">₹${p.price}/${p.price_unit}</td>
+            <td style="padding:10px">${p.moq} units</td>
+            <td style="padding:10px"><span style="background:${p.status==='active'?'#e8f5e2':'#fff3e0'};color:${p.status==='active'?'#2d7a3a':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${p.status || 'active'}</span></td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+async function loadAllEnquiries() {
+  const { data: enquiries } = await supabaseClient
+    .from('enquiries')
+    .select('*')
+    .eq('supplier_name', currentUser.business)
+    .order('created_at', { ascending: false });
+
+  const container = document.getElementById('allEnquiriesList');
+  if (!enquiries || enquiries.length === 0) {
+    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No enquiries yet! 🌿</p>';
+    return;
+  }
+
+  container.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--g5)">
+          <th style="text-align:left;padding:10px;color:var(--mid)">Buyer</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Qty</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Mobile</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Location</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Date</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${enquiries.map(e => `
+          <tr style="border-bottom:1px solid var(--g5)">
+            <td style="padding:10px"><b>${e.buyer_name}</b><br><span style="color:var(--light);font-size:11px">${e.buyer_email}</span></td>
+            <td style="padding:10px">${e.product_name}</td>
+            <td style="padding:10px">${e.quantity}</td>
+            <td style="padding:10px">${e.buyer_mobile}</td>
+            <td style="padding:10px">${e.buyer_location}</td>
+            <td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+            <td style="padding:10px"><span style="background:${e.status==='new'?'#e8f5e2':e.status==='replied'?'#e3f2fd':'#fff3e0'};color:${e.status==='new'?'#2d7a3a':e.status==='replied'?'#1565c0':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${e.status || 'new'}</span></td>
+            <td style="padding:10px">
+              <a href="tel:${e.buyer_mobile}" style="background:var(--g2);color:white;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:600">📞 Call</a>
+              <a href="https://wa.me/91${e.buyer_mobile}" target="_blank" style="background:#25d366;color:white;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:600;margin-left:4px">💬 WA</a>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function getTimeAgo(dateStr) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff/60000);
+  const hrs = Math.floor(mins/60);
+  const days = Math.floor(hrs/24);
+  if (days > 0) return days + ' day' + (days>1?'s':'') + ' ago';
+  if (hrs > 0) return hrs + ' hr' + (hrs>1?'s':'') + ' ago';
+  return mins + ' min ago';
+}
+
+function logout() {
+  localStorage.removeItem('grs_user');
+  window.location.href = '/login';
+}
+
+const sections = ['overview','enquiries','products','add-product','analytics','profile','reviews','settings'];
+const titles = {
+  'overview': ['Dashboard Overview', ''],
+  'enquiries': ['My Enquiries', 'Manage all buyer enquiries from here.'],
+  'products': ['My Products', 'Manage your product listings.'],
+  'add-product': ['Add New Product', 'Add a new eco product to your listing.'],
+  'analytics': ['Analytics', 'Track your business performance.'],
+  'profile': ['Business Profile', 'Manage your business details.'],
+  'reviews': ['Reviews & Ratings', 'See what buyers say about you.'],
+  'settings': ['Settings', 'Manage your account settings.'],
+};
+
+function showSection(name, el){
+  sections.forEach(s => {
+    const sec = document.getElementById('section-' + s);
+    if(sec) sec.style.display = 'none';
+  });
+  const sec = document.getElementById('section-' + name);
+  if(sec) sec.style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = titles[name][0];
+  if(name !== 'overview') document.getElementById('pageSubtitle').textContent = titles[name][1];
+}
+
+function doLogout(){ localStorage.removeItem('grs_user'); window.location.href = '/'; }
+
+async function loadMyProducts2(){
+  const { data: products } = await supabaseClient.from('products').select('*').eq('supplier_id', currentUser.id).order('created_at', { ascending: false });
+  const container = document.getElementById('myProductsList2');
+  if(!container) return;
+  if(!products || products.length === 0){
+    container.innerHTML = '<p style="color:#7a9a74;font-size:13px;padding:20px;text-align:center">No products yet! Add your first product! 🌿</p>';
+    return;
+  }
+  container.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="border-bottom:2px solid #e8f5e2"><th style="text-align:left;padding:10px;color:#4a6645">Product</th><th style="text-align:left;padding:10px;color:#4a6645">Category</th><th style="text-align:left;padding:10px;color:#4a6645">Price</th><th style="text-align:left;padding:10px;color:#4a6645">MOQ</th><th style="text-align:left;padding:10px;color:#4a6645">Status</th></tr></thead><tbody>' +
+    products.map(p => '<tr style="border-bottom:1px solid #e8f5e2"><td style="padding:10px"><b>🌿 '+p.name+'</b></td><td style="padding:10px;color:#4a6645">'+p.category+'</td><td style="padding:10px">₹'+p.price+'</td><td style="padding:10px">'+(p.moq||'-')+' units</td><td style="padding:10px"><span style="background:'+(p.status==='published'?'#e8f5e2':'#fff3e0')+';color:'+(p.status==='published'?'#2d7a3a':'#e65100')+';padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">'+(p.status||'active')+'</span></td></tr>').join('') +
+    '</tbody></table>';
+}
+
+function loadProfileForm(){
+  const u = currentUser;
+  const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
+  setVal('bp-business', u.business);
+  setVal('bp-owner', u.name);
+  setVal('bp-mobile', u.mobile);
+  setVal('bp-city', u.city);
+  setVal('bp-state', u.state);
+  setVal('bp-category', u.category);
+}
+
+async function saveProfile(){
+  const updates = {
+    business_name: document.getElementById('bp-business').value.trim(),
+    owner_name: document.getElementById('bp-owner').value.trim(),
+    mobile: document.getElementById('bp-mobile').value.trim(),
+    city: document.getElementById('bp-city').value.trim(),
+    state: document.getElementById('bp-state').value.trim(),
+    category: document.getElementById('bp-category').value.trim(),
+  };
+  const { error } = await supabaseClient.from('suppliers').update(updates).eq('id', currentUser.id);
+  const msg = document.getElementById('bp-msg');
+  if(error){
+    msg.style.display='block'; msg.style.background='#fce4ec'; msg.style.color='#c62828'; msg.textContent='Error: '+error.message;
+  } else {
+    msg.style.display='block'; msg.style.background='#e8f5e2'; msg.style.color='#2d7a3a'; msg.textContent='✅ Profile saved!';
+    // Update localStorage
+    currentUser.business = updates.business_name;
+    currentUser.name = updates.owner_name;
+    localStorage.setItem('grs_user', JSON.stringify(currentUser));
+  }
+  setTimeout(()=>msg.style.display='none', 3000);
+}
+
+window.onload = initDashboard;
+</script>
+
+
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<style>.cert-item{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s;text-align:center;}.cert-item:hover{border-color:#52b043;}.cert-item.selected{border-color:#52b043;background:#e8f5e2;color:#2d7a3a;}</style>
+<script>
+const AP_CLOUD = 'dvbaciabk';
+const AP_PRESET = 'grs_products';
+let apPhotos = [];
+let apCerts = [];
+
+function apOpenUpload(){
+  if(apPhotos.length >= 5){ apShowAlert('Max 5 photos!'); return; }
+  cloudinary.openUploadWidget({
+    cloudName: AP_CLOUD, uploadPreset: AP_PRESET,
+    sources: ['local','camera'], multiple: true,
+    maxFiles: 5 - apPhotos.length, maxFileSize: 5000000,
+    clientAllowedFormats: ['jpg','jpeg','png','webp'],
+  }, function(err, result){
+    if(!err && result && result.event === 'success'){
+      apPhotos.push(result.info.secure_url);
+      apRenderPhotos();
+    }
+  });
+}
+
+function apRenderPhotos(){
+  const p = document.getElementById('ap-photos-preview');
+  const c = document.getElementById('ap-photo-count');
+  if(!p) return;
+  p.innerHTML = '';
+  apPhotos.forEach((url, i) => {
+    const w = document.createElement('div');
+    w.style.cssText = 'position:relative;display:inline-block;';
+    w.innerHTML = '<img src="'+url+'" style="width:80px;height:80px;border-radius:8px;object-fit:cover;border:2px solid #a8d8a0;"/><button onclick="apRemovePhoto('+i+')" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#c62828;color:white;border-radius:50%;font-size:10px;border:none;cursor:pointer;font-weight:700;">x</button>';
+    p.appendChild(w);
+  });
+  if(c) c.textContent = apPhotos.length > 0 ? apPhotos.length+'/5 photos uploaded' : '';
+}
+
+function apRemovePhoto(i){ apPhotos.splice(i,1); apRenderPhotos(); }
+
+function apShowAlert(msg, type){
+  const b = document.getElementById('ap-alert');
+  if(!b) return;
+  b.textContent = msg;
+  b.style.display = 'block';
+  b.style.background = type==='success' ? '#e8f5e2' : '#fce4ec';
+  b.style.color = type==='success' ? '#2d7a3a' : '#c62828';
+  b.style.border = type==='success' ? '1px solid #a8d8a0' : '1px solid #f48fb1';
+  setTimeout(()=>b.style.display='none', 5000);
+}
+
+async function apSaveProduct(status){
+  const name = document.getElementById('ap-name').value.trim();
+  const cat = document.getElementById('ap-category').value;
+  const desc = document.getElementById('ap-desc').value.trim();
+  const price = document.getElementById('ap-price').value;
+  const moq = document.getElementById('ap-moq').value;
+  const wa = document.getElementById('ap-whatsapp').value.trim();
+  if(!name) return apShowAlert('Enter Product Name!');
+  if(!cat) return apShowAlert('Select Category!');
+  if(!desc) return apShowAlert('Enter Description!');
+  if(!price) return apShowAlert('Enter Price!');
+  if(!moq) return apShowAlert('Enter MOQ!');
+  if(!wa) return apShowAlert('Enter WhatsApp number!');
+  const btn = document.getElementById('ap-publish-btn');
+  btn.disabled = true; btn.textContent = 'Publishing...';
+  const u = JSON.parse(localStorage.getItem('grs_user')||'{}');
+  const data = {
+    supplier_id: u.id, supplier_name: u.business||u.name,
+    name, category: cat, brand: document.getElementById('ap-brand').value.trim(),
+    description: desc, price: parseFloat(price),
+    price_unit: document.getElementById('ap-unit').value,
+    moq: parseInt(moq), availability: document.getElementById('ap-availability').value,
+    delivery_time: document.getElementById('ap-delivery').value,
+    shipping: document.getElementById('ap-shipping').value,
+    whatsapp: wa, photos: JSON.stringify(apPhotos),
+    image_url: apPhotos.length > 0 ? apPhotos[0] : null,
+    status, location: u.city||u.state||'India',
+  };
+  try {
+    const { error } = await supabaseClient.from('products').insert([data]);
+    if(error){ apShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent='🌿 Publish Product'; return; }
+    apShowAlert('✅ Product published!', 'success');
+    btn.disabled=false; btn.textContent='🌿 Publish Product';
+    ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    apPhotos=[]; apCerts=[]; apRenderPhotos();
+  } catch(e){ apShowAlert('Something went wrong!'); btn.disabled=false; btn.textContent='🌿 Publish Product'; }
+}
+</script>
+</body>
+</html>
