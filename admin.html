@@ -6,6 +6,7 @@
 <title>Admin Control Panel — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 <style>
 :root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--orange:#e65100;--blue:#1565c0;--purple:#6a1b9a;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -117,6 +118,7 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
   </nav>
   <div class="sidebar-bottom">
+    <button class="nav-item" onclick="showSection('blogs',this)"><span class="nav-icon">📝</span> Blog Posts</button>
     <button onclick="adminLogout()" style="width:100%;padding:8px;background:transparent;color:#ff6b6b;border:1px solid rgba(255,107,107,0.4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">🚪 Logout</button>
   </div>
 </div>
@@ -368,6 +370,66 @@ tr:hover td{background:#fafffe;}
 </div>
 
 <!-- SUPPLIER DETAIL MODAL -->
+<!-- BLOG SECTION -->
+    <div id="section-blogs" class="section">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">✍️ Add New Blog Post</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Title *</label>
+            <input type="text" id="blog-title" placeholder="Blog post title" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Category *</label>
+            <select id="blog-cat" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="">Select Category</option>
+              <option>Solar Energy</option><option>Organic Farming</option>
+              <option>Eco Packaging</option><option>Waste Management</option>
+              <option>Water Technology</option><option>Green Business</option>
+              <option>Wind Energy</option><option>Energy Storage</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Excerpt</label>
+          <textarea id="blog-excerpt" placeholder="2-3 line summary..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:70px;resize:vertical;"></textarea>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Full Content (HTML allowed)</label>
+          <textarea id="blog-content" placeholder="Write full article here. Use HTML tags like &lt;h2&gt;, &lt;p&gt;, &lt;strong&gt;" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:200px;resize:vertical;font-family:monospace;"></textarea>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:6px;">Cover Image (Optional)</label>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button type="button" onclick="uploadBlogImage()" style="padding:9px 18px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📸 Upload Cover Image</button>
+            <span id="blog-img-status" style="font-size:12px;color:#7a9a74;">No image selected</span>
+          </div>
+          <input type="hidden" id="blog-cover-url"/>
+          <div id="blog-img-preview" style="margin-top:10px;display:none;">
+            <img id="blog-img-thumb" src="" style="height:120px;border-radius:8px;object-fit:cover;border:2px solid #a8d8a0;"/>
+            <button onclick="removeBlogImage()" style="display:block;margin-top:6px;padding:4px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;cursor:pointer;">✕ Remove</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <input type="text" id="blog-author" placeholder="Author name" style="width:200px;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;cursor:pointer;">
+            <input type="checkbox" id="blog-publish" checked/> Publish immediately
+          </label>
+        </div>
+        <div id="blog-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        <button onclick="saveBlog()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">✍️ Publish Blog Post</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📝 All Blog Posts</div>
+          <span style="font-size:12px;color:#7a9a74" id="blogCount">loading...</span>
+        </div>
+        <div id="blogList"><p style="color:#7a9a74;font-size:13px;padding:16px 0">Loading posts...</p></div>
+      </div>
+    </div>
+
 <div class="modal-overlay" id="supplierModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('supplierModal')">✕</button>
@@ -642,6 +704,108 @@ function adminLogout() {
   window.location.href = '/login';
 }
 
+function uploadBlogImage() {
+  const widget = cloudinary.createUploadWidget({
+    cloudName: 'dvbaciabk',
+    uploadPreset: 'grs_products',
+    sources: ['local','url','camera'],
+    multiple: false,
+    maxFileSize: 5000000,
+    clientAllowedFormats: ['jpg','jpeg','png','webp'],
+    cropping: true,
+    croppingAspectRatio: 16/9,
+    folder: 'grs-blog'
+  }, (error, result) => {
+    if(!error && result.event === 'success') {
+      const url = result.info.secure_url;
+      document.getElementById('blog-cover-url').value = url;
+      document.getElementById('blog-img-status').textContent = '✅ Image uploaded!';
+      document.getElementById('blog-img-status').style.color = '#2d7a3a';
+      document.getElementById('blog-img-thumb').src = url;
+      document.getElementById('blog-img-preview').style.display = 'block';
+    }
+  });
+  widget.open();
+}
+
+function removeBlogImage() {
+  document.getElementById('blog-cover-url').value = '';
+  document.getElementById('blog-img-status').textContent = 'No image selected';
+  document.getElementById('blog-img-status').style.color = '#7a9a74';
+  document.getElementById('blog-img-preview').style.display = 'none';
+}
+
+async function saveBlog() {
+  const title = document.getElementById('blog-title').value.trim();
+  const cat = document.getElementById('blog-cat').value;
+  if(!title || !cat) { showBlogMsg('Please enter title and category!', 'error'); return; }
+
+  // Generate slug
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+  const { error } = await supabaseClient.from('blogs').insert([{
+    title, slug, category: cat,
+    excerpt: document.getElementById('blog-excerpt').value.trim(),
+    content: document.getElementById('blog-content').value.trim(),
+    author: document.getElementById('blog-author').value.trim() || 'Green Roots Smart',
+    published: document.getElementById('blog-publish').checked,
+    cover_image: document.getElementById('blog-cover-url').value || '',
+  }]);
+
+  if(error) { showBlogMsg('Error: ' + error.message, 'error'); return; }
+  showBlogMsg('✅ Blog post published! View at greenrootssmart.com/blog', 'success');
+  ['blog-title','blog-excerpt','blog-content','blog-author'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('blog-cover-url').value = '';
+  document.getElementById('blog-img-status').textContent = 'No image selected';
+  document.getElementById('blog-img-preview').style.display = 'none';
+  document.getElementById('blog-cat').value = '';
+  loadBlogs();
+}
+
+function showBlogMsg(msg, type) {
+  const el = document.getElementById('blog-msg');
+  el.style.display = 'block';
+  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
+  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
+  el.textContent = msg;
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+async function loadBlogs() {
+  const { data } = await supabaseClient.from('blogs').select('*').order('created_at', { ascending: false });
+  const list = document.getElementById('blogList');
+  const count = document.getElementById('blogCount');
+  if(!data || data.length === 0) {
+    list.innerHTML = '<p style="color:#7a9a74;font-size:13px;padding:16px 0">No blog posts yet! Add your first post above.</p>';
+    if(count) count.textContent = '0 posts';
+    return;
+  }
+  if(count) count.textContent = data.length + ' posts';
+  list.innerHTML = data.map(b => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8f5e2;">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a4a24">${b.title}</div>
+        <div style="font-size:12px;color:#7a9a74">${b.category||''} · ${b.published ? '✅ Published' : '⏳ Draft'} · 👁️ ${b.views||0} views</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <a href="/blog-post?slug=${b.slug||b.id}" target="_blank" style="padding:6px 12px;background:#e8f5e2;color:#2d7a3a;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">👁️ View</a>
+        <button onclick="togglePublish('${b.id}',${b.published})" style="padding:6px 12px;background:${b.published ? '#fce4ec' : '#e8f5e2'};color:${b.published ? '#c62828' : '#2d7a3a'};border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">${b.published ? '🚫 Unpublish' : '✅ Publish'}</button>
+        <button onclick="deleteBlog('${b.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+async function togglePublish(id, current) {
+  await supabaseClient.from('blogs').update({ published: !current }).eq('id', id);
+  loadBlogs();
+}
+
+async function deleteBlog(id) {
+  if(!confirm('Delete this blog post?')) return;
+  await supabaseClient.from('blogs').delete().eq('id', id);
+  loadBlogs();
+}
+
 window.onload = initAdmin;
 
 async function addSupplierManually() {
@@ -676,6 +840,7 @@ async function addSupplierManually() {
     document.getElementById('man-category').value = '';
     await loadData();
   await loadClaimRequests();
+  await loadBlogs();
   }
 }
 
