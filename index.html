@@ -212,7 +212,7 @@ footer{background:#0f1f10;padding:60px 6% 28px;}
   </ul>
 
   <div class="nav-btns">
-    <a href="login.html" class="btn-out">Login</a>
+    <a href="/login" class="btn-out">Login</a>
     <a href="/claim-profile" style="font-size:13px;font-weight:600;color:#2d7a3a;text-decoration:none;margin-right:8px;">Claim Profile</a><a href="/register" class="btn-pri">List Your Business</a>
   </div>
 </nav>
@@ -280,16 +280,9 @@ footer{background:#0f1f10;padding:60px 6% 28px;}
 
   <div class="hero-visual">
     <div class="floating-badge" id="floatingBadge">🌿 GRS is Live!</div>
-    <div class="cards-grid">
-      <div class="pcard">
-        <div class="pcard-icon" style="background:#e8f5e2">☀️</div>
-        <h4>Solar Panels 400W</h4>
-        <p>Monocrystalline PERC</p>
-        <div class="pcard-price">₹8,200/unit</div>
-        <span class="pcard-tag">Solar Energy</span>
+    <div class="cards-grid" id="heroProductsGrid">
+        <div style="color:rgba(255,255,255,0.6);font-size:13px;text-align:center;padding:20px;">Loading products... 🌿</div>
       </div>
-      <div class="pcard">
-        <div class="pcard-icon" style="background:#fff3e0">🌾</div>
         <h4>Bio Fertiliser</h4>
         <p>Organic certified</p>
         <div class="pcard-price">₹340/bag</div>
@@ -469,7 +462,7 @@ footer{background:#0f1f10;padding:60px 6% 28px;}
     <p>Join eco businesses already trading on Green Roots Smart. List your products free for 30 days.</p>
   </div>
   <div class="cta-btns">
-    <button class="btn-white" onclick="window.location.href='register.html'">🌿 List Your Business</button>
+    <button class="btn-white" onclick="window.location.href='/register'">🌿 List Your Business</button>
     <button class="btn-ghost" onclick="window.location.href='/category'">Browse Suppliers</button>
   </div>
 </div>
