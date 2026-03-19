@@ -56,7 +56,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop
 .feat-count{font-size:11px;font-weight:600;margin-top:8px;opacity:0.8;}
 
 .all-cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:48px;}@media(max-width:900px){.all-cats-grid{grid-template-columns:repeat(2,1fr);}}@media(max-width:500px){.all-cats-grid{grid-template-columns:1fr;}}
-.cat-card{background:white;border-radius:12px;padding:0;cursor:pointer;overflow:hidden;transition:all 0.25s;border:1.5px solid #e8f0e8;box-shadow:0 2px 8px rgba(0,0,0,0.05);display:flex;flex-direction:column;}
+.cat-card{background:white;border-radius:12px;padding:0;cursor:pointer;overflow:hidden;transition:all 0.25s;border:1.5px solid #e8f0e8;box-shadow:0 2px 8px rgba(0,0,0,0.05);display:flex;flex-direction:column;height:220px;}
 .cat-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.15);}
 .cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .cat-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;}
@@ -168,12 +168,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
 
   <div class="all-cats-grid" id="allCatsGrid">
     <div class="cat-card" onclick="goToProducts('Solar Energy')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#fff8e1;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/1.solar-energy-india.jpg_asmzyx.png" alt="Solar Energy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#fff8e1;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/1.solar-energy-india.jpg_asmzyx.png" alt="Solar Energy" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">☀️</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Solar Energy</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Solar panels, inverters & EPC services</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -183,12 +183,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Organic Farming')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#f1f8e9;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/3.organic-farming-india.jpg_hkk5yw.png" alt="Organic Farming" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#f1f8e9;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/3.organic-farming-india.jpg_hkk5yw.png" alt="Organic Farming" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌾</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Organic Farming</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Bio fertilisers, seeds & tools</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -198,12 +198,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Eco Packaging')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#e0f7fa;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/4.eco-friendly-packaging.jpg_hdy0cr.png" alt="Eco Packaging" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#e0f7fa;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/4.eco-friendly-packaging.jpg_hdy0cr.png" alt="Eco Packaging" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">📦</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Eco Packaging</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Biodegradable & kraft packaging</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -213,12 +213,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Green Building')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#fce4ec;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/7._green-building-construction.jpg_emnacu.png" alt="Green Building" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#fce4ec;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/7._green-building-construction.jpg_emnacu.png" alt="Green Building" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🏗️</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Green Building</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Eco cement & bamboo materials</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -228,12 +228,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Waste Management')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#f3e5f5;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/5._waste-recycling-india.jpg_wnsxry.png" alt="Waste Management" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#f3e5f5;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/5._waste-recycling-india.jpg_wnsxry.png" alt="Waste Management" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">♻️</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Waste Management</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Recycling & composting solutions</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -243,12 +243,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Water Technology')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#e3f2fd;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/6._water-technology.jpg_o8at9w.png" alt="Water Technology" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#e3f2fd;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/6._water-technology.jpg_o8at9w.png" alt="Water Technology" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">💧</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Water Technology</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">RO systems & treatment plants</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -258,12 +258,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Wind Energy')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#e8eaf6;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/2._wind-energy-india_gjtywg.png" alt="Wind Energy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#e8eaf6;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/2._wind-energy-india_gjtywg.png" alt="Wind Energy" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌬️</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Wind Energy</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Wind turbines & hybrid systems</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -273,12 +273,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Eco Textiles')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#fce4ec;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/10._eco-textiles-fashion.jpg_bhdhc7.png" alt="Eco Textiles" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#fce4ec;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/10._eco-textiles-fashion.jpg_bhdhc7.png" alt="Eco Textiles" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">👗</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Eco Textiles</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Organic cotton & bamboo fabric</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -288,12 +288,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Herbal Products')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#e8f5e2;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/11.herbal-natural-products.jpg_yemvur.png" alt="Herbal Products" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#e8f5e2;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/11.herbal-natural-products.jpg_yemvur.png" alt="Herbal Products" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌿</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Herbal Products</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Ayurvedic & essential oils</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -303,12 +303,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('Energy Storage')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#fff8e1;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/9._energy-storage-battery.jpg_ndhxwk.png" alt="Energy Storage" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#fff8e1;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/9._energy-storage-battery.jpg_ndhxwk.png" alt="Energy Storage" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🔋</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Energy Storage</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Lithium & solar batteries</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -318,12 +318,12 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
       </div>
     </div>
     <div class="cat-card" onclick="goToProducts('EV Components')">
-      <div style="height:140px;overflow:hidden;position:relative;background:#e8eaf6;">
-        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/8._electric-vehicles-india.jpg_ykxtpp.png" alt="EV Components" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;"/>
+      <div style="height:140px;overflow:hidden;position:relative;flex-shrink:0;background:#e8eaf6;">
+        <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_160,c_fill,q_auto,f_auto/v1773850055/8._electric-vehicles-india.jpg_ykxtpp.png" alt="EV Components" loading="lazy" style="width:100%;height:140px;object-fit:cover;object-position:center;display:block;"/>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
         <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🚗</div>
       </div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">EV Components</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">EV batteries & chargers</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
@@ -334,7 +334,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:13px;}
     </div>
     <div class="cat-card" onclick="goToProducts('Green Chemistry')">
       <div style="height:140px;background:linear-gradient(135deg,#e0f2f1,#e0f2f1);display:flex;align-items:center;justify-content:center;font-size:56px;">🧪</div>
-      <div style="padding:12px 14px 16px;flex:1;display:flex;flex-direction:column;">
+      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;min-height:0;">
         <div style="font-size:13px;font-weight:700;color:#1a4a24;margin-bottom:4px;">Green Chemistry</div>
         <div style="font-size:11px;color:#7a9a74;line-height:1.5;flex:1;">Bio-based chemicals & cleaners</div>
         <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
