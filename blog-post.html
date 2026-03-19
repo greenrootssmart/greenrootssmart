@@ -98,7 +98,15 @@ async function loadPost() {
   if(!slug) { showError(); return; }
 
   // Update view count
-  const { data } = await db.from('blogs').select('*').or(`slug.eq.${slug},id.eq.${slug}`).single();
+  // Try by slug first, then by id
+  let data = null;
+  const { data: bySlug } = await db.from('blogs').select('*').eq('slug', slug).single();
+  if(bySlug) {
+    data = bySlug;
+  } else {
+    const { data: byId } = await db.from('blogs').select('*').eq('id', slug).single();
+    data = byId;
+  }
 
   if(!data) { showError(); return; }
 
