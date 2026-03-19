@@ -556,30 +556,35 @@ async function loadHomeData(){
     const { data: featuredSups } = await db.from('suppliers').select('*').eq('status','active').limit(3);
     const supGrid = document.getElementById('suppliersGrid');
     if(supGrid && featuredSups && featuredSups.length > 0){
-      supGrid.innerHTML = featuredSups.map(s => {
+      supGrid.innerHTML = featuredSups.map((s,i) => {
         const initials = (s.business_name||s.owner_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
         const colors = ['linear-gradient(135deg,#52b043,#2d7a3a)','linear-gradient(135deg,#7a4f2d,#c4956a)','linear-gradient(135deg,#2a7a7a,#4ab0b0)'];
-        const color = colors[featuredSups.indexOf(s) % colors.length];
-        return \`<div class="sup-card">
+        const color = colors[i % colors.length];
+        const isUnclaimed = s.manually_added && !s.claimed;
+        return \`<div class="sup-card" onclick="window.location.href='/supplier-profile'" style="cursor:pointer">
           <div class="sup-head">
             <div class="sup-av" style="background:\${color}">\${initials}</div>
             <div>
               <div class="sup-name">\${s.business_name||'Eco Supplier'}</div>
               <div class="sup-loc">📍 \${s.city||''}\${s.state ? ', '+s.state : ''}</div>
             </div>
-            <div class="sup-badge">✓ Verified</div>
+            \${isUnclaimed
+              ? '<div class="sup-badge" style="background:#fff3e0;color:#e65100;">Unclaimed</div>'
+              : '<div class="sup-badge">✓ Verified</div>'}
           </div>
           <div class="sup-tags">
             <span class="sup-tag">\${s.category||'Eco Products'}</span>
           </div>
           <div class="sup-footer">
-            <div class="sup-rating">🌿 Active</div>
-            <div class="sup-deals">GRS Verified</div>
+            \${isUnclaimed
+              ? '<a href="/claim-profile" onclick="event.stopPropagation()" style="font-size:11px;font-weight:600;color:#e65100;text-decoration:none;">👆 Is this your business? Claim →</a>'
+              : '<div class="sup-rating">🌿 Active</div>'}
+            <div class="sup-deals">\${isUnclaimed ? '' : 'GRS Listed'}</div>
           </div>
         </div>\`;
       }).join('');
     } else if(supGrid){
-      supGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">Register as a supplier to be featured here! 🌿</div>';
+      supGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">No suppliers yet! <a href="/register" style="color:#2d7a3a;font-weight:600;">Be first to register →</a></div>';
     }
 
     // Load real products
