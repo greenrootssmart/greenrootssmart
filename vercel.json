@@ -21,25 +21,89 @@
     }
   ],
   "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/login", "dest": "/login.html" },
-    { "src": "/register", "dest": "/register.html" },
-    { "src": "/buyer-register", "dest": "/buyer-register.html" },
-    { "src": "/products", "dest": "/products.html" },
-    { "src": "/dashboard", "dest": "/dashboard.html" },
-    { "src": "/buyer-dashboard", "dest": "/buyer-dashboard.html" },
-    { "src": "/admin", "dest": "/admin.html" },
-    { "src": "/admin-login", "dest": "/admin-login.html" },
-    { "src": "/category", "dest": "/category.html" },
-    { "src": "/pricing", "dest": "/pricing.html" },
-    { "src": "/supplier-profile", "dest": "/supplier-profile.html" },
-    { "src": "/product-detail", "dest": "/product-detail.html" },
-    { "src": "/about", "dest": "/about.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/add-product", "dest": "/add-product.html" },
-    { "src": "/enquiry", "dest": "/enquiry.html" },
-    { "src": "/privacy", "dest": "/privacy.html" },
-    { "src": "/terms", "dest": "/terms.html" },
-    { "src": "/services", "dest": "/services.html" }
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/login.html"
+    },
+    {
+      "src": "/register",
+      "dest": "/register.html"
+    },
+    {
+      "src": "/buyer-register",
+      "dest": "/buyer-register.html"
+    },
+    {
+      "src": "/products",
+      "dest": "/products.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/buyer-dashboard",
+      "dest": "/buyer-dashboard.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/admin.html"
+    },
+    {
+      "src": "/admin-login",
+      "dest": "/admin-login.html"
+    },
+    {
+      "src": "/category",
+      "dest": "/category.html"
+    },
+    {
+      "src": "/pricing",
+      "dest": "/pricing.html"
+    },
+    {
+      "src": "/supplier-profile",
+      "dest": "/supplier-profile.html"
+    },
+    {
+      "src": "/product-detail",
+      "dest": "/product-detail.html"
+    },
+    {
+      "src": "/about",
+      "dest": "/about.html"
+    },
+    {
+      "src": "/contact",
+      "dest": "/contact.html"
+    },
+    {
+      "src": "/add-product",
+      "dest": "/add-product.html"
+    },
+    {
+      "src": "/enquiry",
+      "dest": "/enquiry.html"
+    },
+    {
+      "src": "/privacy",
+      "dest": "/privacy.html"
+    },
+    {
+      "src": "/terms",
+      "dest": "/terms.html"
+    },
+    {
+      "src": "/services",
+      "dest": "/services.html"
+    },
+    {
+      "src": "/claim-profile",
+      "dest": "/claim-profile.html"
+    }
   ]
 }
