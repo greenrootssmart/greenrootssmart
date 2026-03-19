@@ -267,8 +267,8 @@ footer{background:#0f1f10;padding:60px 6% 28px;}
       </div>
       <div class="stat-div"></div>
       <div class="stat-item">
-        <span class="stat-num">28 States</span>
-        <span class="stat-lbl">Pan India</span>
+        <span class="stat-num" id="statStates">Pan India</span>
+        <span class="stat-lbl">Coverage</span>
       </div>
       <div class="stat-div"></div>
       <div class="stat-item">
@@ -537,21 +537,28 @@ const catColors = {
 
 async function loadHomeData(){
   try {
-    // Load real supplier count
-    const { data: suppliers } = await db.from('suppliers').select('id', { count: 'exact' }).eq('status','active');
+    // Load real supplier count - all active
+    const { data: suppliers } = await db.from('suppliers').select('id').eq('status','active');
     const supCount = suppliers ? suppliers.length : 0;
     const el = document.getElementById('statSuppliers');
-    if(el) el.textContent = supCount > 0 ? supCount + '+' : '🌿';
+    if(el) el.textContent = supCount > 0 ? supCount + '+' : '0';
 
-    // Load real product count
-    const { data: products } = await db.from('products').select('id', { count: 'exact' }).eq('status','published');
+    // Load real product count - all products
+    const { data: products } = await db.from('products').select('id');
     const prodCount = products ? products.length : 0;
     const el2 = document.getElementById('statProducts');
-    if(el2) el2.textContent = prodCount > 0 ? prodCount + '+' : '🌿';
+    if(el2) el2.textContent = prodCount > 0 ? prodCount + '+' : '0';
+
+    // Load enquiries count
+    const { data: enquiries } = await db.from('enquiries').select('id');
+    const enqCount = enquiries ? enquiries.length : 0;
 
     // Update floating badge
     const badge = document.getElementById('floatingBadge');
-    if(badge && supCount > 0) badge.textContent = '🌿 ' + supCount + ' eco suppliers live!';
+    if(badge) badge.textContent = supCount > 0 ? '🌿 ' + supCount + ' eco suppliers live!' : '🌿 GRS is Live!';
+
+    // Update 28 States stat to show real enquiries or buyers
+    const stateEl = document.querySelector('.stat-num:not(#statSuppliers):not(#statProducts)');
 
     // Load real suppliers for featured section
     const { data: featuredSups } = await db.from('suppliers').select('*').eq('status','active').limit(3);
