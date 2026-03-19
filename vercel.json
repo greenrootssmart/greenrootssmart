@@ -104,6 +104,14 @@
     {
       "src": "/claim-profile",
       "dest": "/claim-profile.html"
+    },
+    {
+      "src": "/blog",
+      "dest": "/blog.html"
+    },
+    {
+      "src": "/blog-post",
+      "dest": "/blog-post.html"
     }
   ]
 }
