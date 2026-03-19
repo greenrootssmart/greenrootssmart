@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Find Suppliers — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+nav{background:white;padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-decoration:none;}
+.logo span{color:var(--g3);}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:13px;font-weight:500;}
+.nav-links a:hover{color:var(--g2);}
+.btn-list{padding:9px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:48px 6%;color:white;}
+.hero h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;margin-bottom:10px;}
+.hero p{font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:28px;max-width:500px;}
+.search-row{display:flex;gap:12px;max-width:600px;}
+.search-row input{flex:1;padding:12px 16px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
+.search-row select{padding:12px 16px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;min-width:160px;}
+.search-row button{padding:12px 24px;background:var(--g3);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+
+/* MAIN */
+.main{padding:40px 6%;}
+.stats-row{display:flex;gap:24px;margin-bottom:32px;}
+.stat{background:white;border-radius:12px;padding:16px 24px;flex:1;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);}
+.stat-lbl{font-size:12px;color:var(--light);margin-top:2px;}
+
+/* GRID */
+.sup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.sup-card{background:white;border-radius:16px;padding:24px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;}
+.sup-card:hover{border-color:var(--g4);box-shadow:0 8px 24px rgba(45,122,58,0.1);transform:translateY(-3px);}
+.sup-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.sup-av{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;flex-shrink:0;}
+.sup-name{font-size:15px;font-weight:700;color:var(--dark);}
+.sup-cat{font-size:12px;color:var(--light);margin-top:2px;}
+.sup-badge{margin-left:auto;padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
+.sup-manual{margin-left:auto;padding:3px 10px;background:#fff3e0;color:#e65100;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
+.sup-loc{font-size:12px;color:var(--light);margin-bottom:10px;}
+.sup-desc{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.sup-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.sup-tag{padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:600;}
+.sup-footer{display:flex;align-items:center;justify-content:space-between;}
+.sup-btns{display:flex;gap:8px;}
+.btn-wa{padding:7px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
+.btn-enquire{padding:7px 14px;background:var(--g2);color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;}
+.btn-claim{padding:7px 14px;background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px;color:var(--light);grid-column:1/-1;}
+.empty .icon{font-size:56px;margin-bottom:16px;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:20px;padding:32px;width:90%;max-width:460px;position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--g5);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px;text-transform:uppercase;}
+.field input,.field textarea{width:100%;padding:10px 14px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
+.modal-submit{width:100%;padding:12px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--g1);color:white;padding:12px 20px;border-radius:12px;font-size:13px;z-index:9999;display:none;}
+footer{background:#0f1f10;color:rgba(255,255,255,0.6);text-align:center;padding:20px;font-size:12px;}
+footer a{color:var(--g4);text-decoration:none;margin:0 8px;}
+@media(max-width:768px){.sup-grid{grid-template-columns:1fr;}.search-row{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Green Roots <span>Smart</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/category">Categories</a>
+    <a href="/services">Services</a>
+    <a href="/supplier-profile" style="color:#2d7a3a;font-weight:700;">Suppliers</a>
+  </div>
+  <a href="/login" class="btn-list">List Your Business</a>
+</nav>
+
+<div class="hero">
+  <h1>🏪 Find Eco Suppliers</h1>
+  <p>Connect with verified eco-friendly suppliers across India. Browse, enquire and trade green!</p>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="Search suppliers by name or category..."/>
+    <select id="catFilter">
+      <option value="">All Categories</option>
+      <option>☀️ Solar Energy</option>
+      <option>🌾 Organic Farming</option>
+      <option>📦 Eco Packaging</option>
+      <option>♻️ Waste Management</option>
+      <option>💧 Water Technology</option>
+      <option>🌬️ Wind Energy</option>
+      <option>🔋 Energy Storage</option>
+      <option>🏗️ Green Building</option>
+      <option>🌿 Herbal & Natural</option>
+      <option>🚗 Electric Vehicles</option>
+    </select>
+    <button onclick="doSearch()">Search 🔍</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="totalSup">...</div><div class="stat-lbl">Total Suppliers</div></div>
+    <div class="stat"><div class="stat-num" id="activeSup">...</div><div class="stat-lbl">Active Suppliers</div></div>
+    <div class="stat"><div class="stat-num" id="totalCats">10+</div><div class="stat-lbl">Categories</div></div>
+    <div class="stat"><div class="stat-num">Pan India</div><div class="stat-lbl">Coverage</div></div>
+  </div>
+
+  <div class="sup-grid" id="suppliersGrid">
+    <div class="empty"><div class="icon">🌿</div><p>Loading suppliers...</p></div>
+  </div>
+</div>
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a4a24;margin-bottom:6px;">Send Enquiry 📩</h3>
+    <p id="modalSupplier" style="font-size:12px;color:#7a9a74;margin-bottom:20px;"></p>
+    <div class="field"><label>Your Name *</label><input type="text" id="enqName" placeholder="Your full name"/></div>
+    <div class="field"><label>Mobile *</label><input type="tel" id="enqMobile" placeholder="+91 98765 43210"/></div>
+    <div class="field"><label>Message</label><textarea id="enqMessage" style="height:70px" placeholder="What are you looking for?"></textarea></div>
+    <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry 🌿</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<footer>
+  © 2026 Green Roots Smart 🌿
+  <a href="/">Home</a><a href="/products">Products</a>
+  <a href="/claim-profile">Claim Profile</a><a href="/login">Register</a>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let allSuppliers = [];
+let currentSupplier = '';
+
+const catColors = ['#e8f5e2','#fff9c4','#e0f7fa','#fce4ec','#e3f2fd','#f3e5f5','#fff8e1','#efebe9','#e8eaf6','#e8f5e9'];
+
+async function loadSuppliers() {
+  const { data } = await db.from('suppliers')
+    .select('*')
+    .eq('status','active')
+    .order('created_at', { ascending: false });
+
+  allSuppliers = data || [];
+  document.getElementById('totalSup').textContent = allSuppliers.length + '+';
+  document.getElementById('activeSup').textContent = allSuppliers.filter(s => !s.manually_added || s.claimed).length + '+';
+  renderSuppliers(allSuppliers);
+}
+
+function renderSuppliers(suppliers) {
+  const grid = document.getElementById('suppliersGrid');
+  if(!suppliers || suppliers.length === 0) {
+    grid.innerHTML = `<div class="empty"><div class="icon">🌿</div><h3>No suppliers yet!</h3><p>Be the first eco supplier on GRS!</p><a href="/register" style="display:inline-block;margin-top:12px;padding:10px 24px;background:#2d7a3a;color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;">Register Free →</a></div>`;
+    return;
+  }
+
+  grid.innerHTML = suppliers.map((s, i) => {
+    const initials = (s.business_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    const color = catColors[i % catColors.length];
+    const waNum = (s.mobile||'').replace(/\D/g,'');
+    const waMsg = encodeURIComponent(`Hi! I found ${s.business_name} on Green Roots Smart. I am interested in your products/services.`);
+    const isManual = s.manually_added && !s.claimed;
+
+    return `<div class="sup-card">
+      <div class="sup-head">
+        <div class="sup-av" style="background:linear-gradient(135deg,#52b043,#1a4a24)">${initials}</div>
+        <div style="flex:1">
+          <div class="sup-name">${s.business_name || 'Eco Supplier'}</div>
+          <div class="sup-cat">${s.category || 'Eco Products'}</div>
+        </div>
+        ${isManual
+          ? '<span class="sup-manual">Unclaimed</span>'
+          : s.verified ? '<span class="sup-badge">✅ Verified</span>' : '<span class="sup-badge">🌿 Listed</span>'}
+      </div>
+      <div class="sup-loc">📍 ${s.city||''} ${s.state ? ', '+s.state : ''}</div>
+      ${s.description ? `<div class="sup-desc">${s.description}</div>` : ''}
+      <div class="sup-tags">
+        <span class="sup-tag">${s.category||'Eco'}</span>
+        ${s.plan === 'pro' ? '<span class="sup-tag">⭐ Pro</span>' : ''}
+      </div>
+      <div class="sup-footer">
+        <div style="font-size:11px;color:#7a9a74">${isManual ? '👆 This your business?' : '🌿 GRS Verified'}</div>
+        <div class="sup-btns">
+          ${isManual
+            ? `<a href="/claim-profile" class="btn-claim">Claim →</a>`
+            : `${waNum ? `<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa">💬 WA</a>` : ''}
+               <button class="btn-enquire" onclick="openModal('${(s.business_name||'').replace(/'/g,"\\'")}')">Enquire</button>`
+          }
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const cat = document.getElementById('catFilter').value;
+  let filtered = allSuppliers;
+  if(q) filtered = filtered.filter(s =>
+    (s.business_name||'').toLowerCase().includes(q) ||
+    (s.category||'').toLowerCase().includes(q) ||
+    (s.city||'').toLowerCase().includes(q)
+  );
+  if(cat) filtered = filtered.filter(s => s.category === cat);
+  renderSuppliers(filtered);
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+document.getElementById('catFilter').addEventListener('change', doSearch);
+
+// Modal
+function openModal(name) {
+  currentSupplier = name;
+  document.getElementById('modalSupplier').textContent = '🏪 ' + name;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+async function submitEnquiry() {
+  const name = document.getElementById('enqName').value.trim();
+  const mobile = document.getElementById('enqMobile').value.trim();
+  if(!name || !mobile) { showToast('⚠️ Please enter name and mobile!'); return; }
+  const btn = document.querySelector('.modal-submit');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/enquiries`, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ buyer_name: name, buyer_mobile: mobile, product_name: currentSupplier, message: document.getElementById('enqMessage').value, status: 'new' })
+    });
+    closeModal();
+    showToast('✅ Enquiry sent successfully!');
+    ['enqName','enqMobile','enqMessage'].forEach(id => document.getElementById(id).value = '');
+  } catch(e) { showToast('⚠️ Something went wrong!'); }
+  btn.textContent = 'Send Enquiry 🌿'; btn.disabled = false;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 4000);
+}
+
+loadSuppliers();
+</script>
+</body>
+</html>
