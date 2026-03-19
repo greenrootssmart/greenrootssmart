@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Claim Your Business Profile — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.container{background:white;border-radius:24px;padding:40px;width:100%;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,0.1);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-align:center;margin-bottom:6px;}
+.logo span{color:var(--g3);}
+.step-label{text-align:center;font-size:12px;color:var(--light);margin-bottom:24px;}
+h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--g1);margin-bottom:8px;text-align:center;}
+.sub{font-size:13px;color:var(--light);text-align:center;margin-bottom:28px;line-height:1.6;}
+
+/* SEARCH STEP */
+.search-box{display:flex;gap:10px;margin-bottom:20px;}
+.search-box input{flex:1;padding:12px 16px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
+.search-box input:focus{border-color:var(--g3);}
+.search-box button{padding:12px 20px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+
+/* RESULTS */
+.results{margin-bottom:20px;}
+.result-card{padding:14px 16px;border:1.5px solid #d4e8cc;border-radius:12px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+.result-card:hover{border-color:var(--g3);background:var(--g5);}
+.result-card.selected{border-color:var(--g3);background:var(--g5);}
+.result-name{font-size:14px;font-weight:700;color:var(--dark);}
+.result-cat{font-size:12px;color:var(--light);}
+.result-loc{font-size:11px;color:var(--light);}
+.result-badge{padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:700;}
+.result-claimed{padding:3px 10px;background:#fce4ec;color:#c62828;border-radius:20px;font-size:10px;font-weight:700;}
+
+/* FORM */
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.form-group input{width:100%;padding:11px 14px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border 0.2s;}
+.form-group input:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:all 0.2s;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,122,58,0.3);}
+.btn-back{width:100%;padding:11px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+
+.alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
+.alert-error{background:#fce4ec;color:#c62828;border:1px solid #f48fb1;}
+.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+
+.step{display:none;}
+.step.active{display:block;}
+
+.success-icon{font-size:64px;text-align:center;margin-bottom:16px;}
+.info-box{background:var(--g5);border-radius:12px;padding:16px;margin-bottom:20px;font-size:13px;color:var(--mid);line-height:1.6;}
+.info-box strong{color:var(--g1);}
+
+.no-results{text-align:center;padding:24px;color:var(--light);font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">Green Roots <span>Smart</span></div>
+  <div class="step-label">🌿 Business Profile Claim</div>
+
+  <!-- STEP 1: Search -->
+  <div class="step active" id="step1">
+    <h2>🔍 Find Your Business</h2>
+    <p class="sub">Search for your business name to see if it's already listed on Green Roots Smart</p>
+    <div class="alert alert-error" id="searchAlert"></div>
+    <div class="search-box">
+      <input type="text" id="searchQuery" placeholder="Enter your business name..." onkeydown="if(event.key==='Enter')searchBusiness()"/>
+      <button onclick="searchBusiness()">Search</button>
+    </div>
+    <div class="results" id="searchResults"></div>
+    <div style="text-align:center;font-size:13px;color:var(--light);margin-top:16px;">
+      Not listed yet? <a href="/register" style="color:var(--g2);font-weight:600;">Register your business →</a>
+    </div>
+  </div>
+
+  <!-- STEP 2: Claim Form -->
+  <div class="step" id="step2">
+    <h2>✅ Claim This Profile</h2>
+    <p class="sub">Verify you are the owner of this business listing</p>
+    <div class="info-box" id="selectedBizInfo">Selected business info here</div>
+    <div class="alert" id="claimAlert"></div>
+    <div class="form-group">
+      <label>Your Full Name *</label>
+      <input type="text" id="claimName" placeholder="Your full name"/>
+    </div>
+    <div class="form-2">
+      <div class="form-group">
+        <label>Your Email *</label>
+        <input type="email" id="claimEmail" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Your Mobile *</label>
+        <input type="tel" id="claimPhone" placeholder="9876543210"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Your Designation</label>
+      <input type="text" id="claimDesignation" placeholder="e.g. Owner, MD, CEO"/>
+    </div>
+    <div class="form-group">
+      <label>GSTIN (Optional)</label>
+      <input type="text" id="claimGstin" placeholder="Your GST number for verification"/>
+    </div>
+    <div class="info-box" style="font-size:12px;">
+      ⚠️ Our team will verify your claim within <strong>24-48 hours</strong>. Once approved you will get full access to your dashboard.
+    </div>
+    <button class="btn-submit" onclick="submitClaim()">🌿 Submit Claim Request</button>
+    <button class="btn-back" onclick="goBack()">← Back to Search</button>
+  </div>
+
+  <!-- STEP 3: Success -->
+  <div class="step" id="step3">
+    <div class="success-icon">🎉</div>
+    <h2>Claim Request Submitted!</h2>
+    <p class="sub">Our team will verify your ownership and approve within 24-48 hours!</p>
+    <div class="info-box">
+      ✅ <strong>What happens next:</strong><br/><br/>
+      1. Our team reviews your claim request<br/>
+      2. We verify you are the business owner<br/>
+      3. You get email with login credentials<br/>
+      4. You can manage your profile & products!
+    </div>
+    <a href="/" style="display:block;text-align:center;padding:12px;background:var(--g2);color:white;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">← Back to Home</a>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let selectedSupplier = null;
+
+async function searchBusiness() {
+  const q = document.getElementById('searchQuery').value.trim();
+  if(!q) return;
+
+  const resultsDiv = document.getElementById('searchResults');
+  resultsDiv.innerHTML = '<p style="color:#7a9a74;font-size:13px;text-align:center;padding:16px;">Searching... 🌿</p>';
+
+  const { data } = await db.from('suppliers').select('*')
+    .ilike('business_name', `%${q}%`).limit(5);
+
+  if(!data || data.length === 0) {
+    resultsDiv.innerHTML = `<div class="no-results">
+      <div style="font-size:36px;margin-bottom:8px">🔍</div>
+      <div style="font-weight:600;margin-bottom:4px">No businesses found for "${q}"</div>
+      <div>Not listed yet? <a href="/register" style="color:#2d7a3a;font-weight:600;">Register here →</a></div>
+    </div>`;
+    return;
+  }
+
+  resultsDiv.innerHTML = data.map(s => {
+    const isClaimed = s.claimed;
+    return `<div class="result-card ${isClaimed ? 'opacity-50' : ''}" onclick="${isClaimed ? '' : `selectBusiness('${s.id}')`}" style="${isClaimed ? 'cursor:default;opacity:0.6' : ''}">
+      <div>
+        <div class="result-name">${s.business_name}</div>
+        <div class="result-cat">${s.category || ''} · ${s.city || ''} ${s.state || ''}</div>
+      </div>
+      ${isClaimed
+        ? '<span class="result-claimed">Already Claimed</span>'
+        : '<span class="result-badge">Claim →</span>'}
+    </div>`;
+  }).join('');
+}
+
+function selectBusiness(id) {
+  db.from('suppliers').select('*').eq('id', id).single().then(({data}) => {
+    if(!data) return;
+    selectedSupplier = data;
+    document.getElementById('selectedBizInfo').innerHTML = `
+      <strong>${data.business_name}</strong><br/>
+      📂 ${data.category || 'N/A'} · 📍 ${data.city || ''} ${data.state || ''}
+      ${data.email && data.email !== 'pending@greenrootssmart.com' ? `<br/>📧 ${data.email}` : ''}
+    `;
+    showStep('step2');
+  });
+}
+
+async function submitClaim() {
+  const name = document.getElementById('claimName').value.trim();
+  const email = document.getElementById('claimEmail').value.trim();
+  const phone = document.getElementById('claimPhone').value.trim();
+
+  if(!name || !email || !phone) {
+    showAlert('claimAlert', 'Please fill all required fields!', 'error');
+    return;
+  }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Submitting...'; btn.disabled = true;
+
+  const { error } = await db.from('suppliers').update({
+    claim_requested: true,
+    claim_name: name,
+    claim_email: email,
+    claim_phone: phone,
+    claim_requested_at: new Date().toISOString(),
+  }).eq('id', selectedSupplier.id);
+
+  if(error) {
+    showAlert('claimAlert', 'Error: ' + error.message, 'error');
+    btn.textContent = '🌿 Submit Claim Request';
+    btn.disabled = false;
+  } else {
+    showStep('step3');
+  }
+}
+
+function showStep(stepId) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(stepId).classList.add('active');
+}
+
+function goBack() { showStep('step1'); }
+
+function showAlert(id, msg, type) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = 'alert alert-' + type;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+</script>
+</body>
+</html>
