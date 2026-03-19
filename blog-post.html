@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog Post — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+nav{background:white;padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-decoration:none;}
+.logo span{color:var(--g3);}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:13px;font-weight:500;}
+.btn-list{padding:9px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;}
+
+.article-wrap{max-width:760px;margin:0 auto;padding:48px 24px;}
+.breadcrumb{font-size:12px;color:var(--light);margin-bottom:24px;}
+.breadcrumb a{color:var(--g2);text-decoration:none;}
+.art-cat{display:inline-block;padding:5px 14px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px;}
+.art-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--dark);line-height:1.25;margin-bottom:16px;}
+.art-meta{display:flex;align-items:center;gap:20px;font-size:13px;color:var(--light);margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #e8f0e8;}
+.art-cover{width:100%;height:300px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:36px;}
+.art-content{font-size:15px;line-height:1.85;color:var(--mid);}
+.art-content h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--dark);margin:32px 0 14px;}
+.art-content p{margin-bottom:18px;}
+.art-content ul,.art-content ol{margin:0 0 18px 24px;}
+.art-content li{margin-bottom:8px;}
+.art-content strong{color:var(--dark);font-weight:700;}
+
+.cta-box{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:16px;padding:32px;text-align:center;color:white;margin:40px 0;}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;}
+.cta-box p{font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:20px;}
+.cta-box a{display:inline-block;padding:11px 28px;background:var(--g3);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;}
+
+.share-row{display:flex;align-items:center;gap:12px;margin-top:40px;padding-top:24px;border-top:2px solid #e8f0e8;}
+.share-lbl{font-size:13px;font-weight:600;color:var(--dark);}
+.share-btn{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;color:white;}
+.share-wa{background:#25D366;}
+.share-li{background:#0077B5;}
+.share-copy{background:var(--g2);}
+
+.related-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);margin:48px 0 20px;}
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.rel-card{background:white;border-radius:12px;padding:16px;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.2s;}
+.rel-card:hover{border-color:var(--g4);transform:translateY(-2px);}
+.rel-cat{font-size:10px;font-weight:700;color:var(--g2);margin-bottom:6px;}
+.rel-title{font-size:14px;font-weight:700;color:var(--dark);line-height:1.4;}
+
+footer{background:#0f1f10;color:rgba(255,255,255,0.6);text-align:center;padding:24px;font-size:12px;margin-top:48px;}
+footer a{color:#a8d8a0;text-decoration:none;margin:0 8px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Green Roots <span>Smart</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/blog">Blog</a>
+  </div>
+  <a href="/login" class="btn-list">List Your Business</a>
+</nav>
+
+<div class="article-wrap" id="articleWrap">
+  <p style="color:#7a9a74;text-align:center;padding:60px 0;">Loading article... 🌿</p>
+</div>
+
+<footer>
+  © 2026 Green Roots Smart 🌿
+  <a href="/">Home</a><a href="/products">Products</a>
+  <a href="/blog">Blog</a><a href="/contact">Contact</a>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const catBgs = {
+  'Solar Energy':'linear-gradient(135deg,#fff9c4,#ffe082)',
+  'Organic Farming':'linear-gradient(135deg,#e8f5e2,#a5d6a7)',
+  'Eco Packaging':'linear-gradient(135deg,#e0f7fa,#80deea)',
+  'Waste Management':'linear-gradient(135deg,#fce4ec,#f48fb1)',
+  'Water Technology':'linear-gradient(135deg,#e3f2fd,#90caf9)',
+  'Green Business':'linear-gradient(135deg,#f3e5f5,#ce93d8)',
+};
+const catEmojis = {'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Green Business':'💼'};
+
+async function loadPost() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+  if(!slug) { showError(); return; }
+
+  // Update view count
+  const { data } = await db.from('blogs').select('*').or(`slug.eq.${slug},id.eq.${slug}`).single();
+
+  if(!data) { showError(); return; }
+
+  // Increment views
+  await db.from('blogs').update({ views: (data.views||0)+1 }).eq('id', data.id);
+
+  // Update page title
+  document.title = data.title + ' — Green Roots Smart';
+
+  const bg = catBgs[data.category] || 'linear-gradient(135deg,#e8f5e2,#2d7a3a)';
+  const emoji = catEmojis[data.category] || '🌿';
+  const coverHtml = data.cover_image
+    ? `<img src="${data.cover_image}" alt="${data.title}" style="width:100%;height:320px;object-fit:cover;border-radius:16px;margin-bottom:36px;"/>`
+    : `<div class="art-cover" style="background:${bg}">${emoji}</div>`;
+  const dateStr = new Date(data.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  document.getElementById('articleWrap').innerHTML = `
+    <div class="breadcrumb">
+      <a href="/">Home</a> › <a href="/blog">Blog</a> › ${data.category||'Articles'}
+    </div>
+    <span class="art-cat">${data.category || 'Eco Tips'}</span>
+    <h1 class="art-title">${data.title}</h1>
+    <div class="art-meta">
+      <span>✍️ ${data.author || 'GRS Team'}</span>
+      <span>📅 ${dateStr}</span>
+      <span>👁️ ${(data.views||0)+1} views</span>
+    </div>
+    ${coverHtml}
+    <div class="art-content">${data.content || '<p>Article content coming soon!</p>'}</div>
+
+    <div class="cta-box">
+      <h3>🌿 Find Eco Suppliers on GRS!</h3>
+      <p>Browse verified ${data.category||'eco'} suppliers and get the best bulk quotes for your business!</p>
+      <a href="/products">Browse Products →</a>
+    </div>
+
+    <div class="share-row">
+      <span class="share-lbl">Share:</span>
+      <button class="share-btn share-wa" onclick="shareWA()">💬 WhatsApp</button>
+      <button class="share-btn share-li" onclick="shareLI()">LinkedIn</button>
+      <button class="share-btn share-copy" onclick="copyLink()">🔗 Copy Link</button>
+    </div>
+
+    <div class="related-title">Related Articles</div>
+    <div class="related-grid" id="relatedGrid">
+      <p style="color:#7a9a74;font-size:13px;">Loading...</p>
+    </div>`;
+
+  // Load related posts
+  const { data: related } = await db.from('blogs').select('*').eq('published',true).eq('category', data.category).neq('id', data.id).limit(2);
+  const rg = document.getElementById('relatedGrid');
+  if(related && related.length > 0) {
+    rg.innerHTML = related.map(r => `
+      <div class="rel-card" onclick="window.location.href='/blog-post?slug=${r.slug||r.id}'">
+        <div class="rel-cat">${r.category||'Eco Tips'}</div>
+        <div class="rel-title">${r.title}</div>
+      </div>`).join('');
+  } else {
+    rg.innerHTML = '<p style="color:#7a9a74;font-size:13px;">No related articles yet!</p>';
+  }
+}
+
+function shareWA() {
+  window.open('https://wa.me/?text=' + encodeURIComponent(document.title + ' - ' + window.location.href));
+}
+function shareLI() {
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href));
+}
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  alert('✅ Link copied!');
+}
+
+function showError() {
+  document.getElementById('articleWrap').innerHTML = `
+    <div style="text-align:center;padding:80px 20px;">
+      <div style="font-size:64px;margin-bottom:16px">🌿</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#1a4a24;margin-bottom:8px">Article not found!</h2>
+      <p style="color:#7a9a74;margin-bottom:24px">This article may have been moved or deleted.</p>
+      <a href="/blog" style="padding:12px 28px;background:#2d7a3a;color:white;border-radius:8px;text-decoration:none;font-weight:600;">← Back to Blog</a>
+    </div>`;
+}
+
+loadPost();
+</script>
+</body>
+</html>
