@@ -227,7 +227,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
         <div>
           <h3>Email Us</h3>
           <p>For general enquiries and support</p>
-          <div class="contact-val"><a href="mailto:greenrootssmart@gmail.com">greenrootssmart@gmail.com</a></div>
+          <div class="contact-val"><a href="/cdn-cgi/l/email-protection#e98e9b8c8c879b86869d9a9a84889b9da98e84888085c78a8684"><span class="__cf_email__" data-cfemail="e5829780808b978a8a91969688849791a58288848c89cb868a88">[email&#160;protected]</span></a></div>
         </div>
       </div>
 
@@ -311,7 +311,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">How do I report a fake or non-eco supplier? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Email us at <a href="mailto:greenrootssmart@gmail.com">greenrootssmart@gmail.com</a> or WhatsApp us at +91 63554 08878. We investigate within 24 hours and take strict action against non-compliant suppliers.</div>
+        <div class="faq-a">Email us at <a href="/cdn-cgi/l/email-protection#5e392c3b3b302c31312a2d2d333f2c2a1e39333f3732703d3133"><span class="__cf_email__" data-cfemail="2f485d4a4a415d40405b5c5c424e5d5b6f48424e4643014c4042">[email&#160;protected]</span></a> or WhatsApp us at +91 63554 08878. We investigate within 24 hours and take strict action against non-compliant suppliers.</div>
       </div>
 
     </div>
@@ -323,7 +323,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
   <a href="/">← Back to Home</a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
 const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
 
@@ -337,7 +337,11 @@ async function submitForm() {
   const message = document.getElementById('fmessage').value.trim();
 
   if(!fname || !email || !mobile) {
-    alert('⚠️ Please fill name, email and mobile!');
+    alert('Please fill name, email and mobile!');
+    return;
+  }
+  if(subject === 'Select subject') {
+    alert('Please select a subject!');
     return;
   }
 
@@ -345,50 +349,65 @@ async function submitForm() {
   btn.textContent = 'Sending... 🌿';
   btn.disabled = true;
 
+  const fullName = fname + ' ' + lname;
+  const fullMsg = 'Email: ' + email + ' | Mobile: ' + mobile + ' | Role: ' + role + ' | ' + message;
+
+  // Step 1: Save to Supabase
   try {
-    await fetch(`${SURL}/rest/v1/enquiries`, {
+    await fetch(SURL + '/rest/v1/enquiries', {
       method: 'POST',
       headers: {
         'apikey': SKEY,
-        'Authorization': `Bearer ${SKEY}`,
+        'Authorization': 'Bearer ' + SKEY,
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify({
-        buyer_name: fname + ' ' + lname,
+        buyer_name: fullName,
         buyer_email: email,
         buyer_mobile: mobile,
-        product_name: subject,
-        message: `Role: ${role}\n\n${message}`,
+        product_name: 'Contact: ' + subject,
+        message: fullMsg,
         status: 'new'
       })
     });
-    // Hide form, show success
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-
-    // Send email notification via EmailJS
-    try {
-      await emailjs.send('service_clis9zo', 'template_7gj9klp', {
-        product_name: '📩 Contact: ' + subject,
-        buyer_name: fname + ' ' + lname,
-        buyer_mobile: mobile,
-        buyer_email: email,
-        quantity: role,
-        message: '📧 ' + email + '
-📱 ' + mobile + '
-👤 ' + role + '
-
-💬 ' + message
-      });
-      console.log('Email sent!');
-    } catch(emailErr){ console.log('EmailJS:', emailErr); }
   } catch(e) {
-    alert('Something went wrong. Please WhatsApp us at +91 63554 08878');
+    console.log('Supabase error:', e);
   }
+
+  // Step 2: Send email via EmailJS
+  try {
+    var result = await emailjs.send('service_clis9zo', 'template_7gj9klp', {
+      product_name: 'Contact Form: ' + subject,
+      buyer_name: fullName,
+      buyer_mobile: mobile,
+      buyer_email: email,
+      quantity: role,
+      message: fullMsg
+    });
+    console.log('Email sent! Status:', result.status, result.text);
+  } catch(emailErr) {
+    console.log('EmailJS error:', JSON.stringify(emailErr));
+  }
+
+  // Step 3: Show success
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
   btn.textContent = 'Send Message to Green Roots Smart 🌿';
   btn.disabled = false;
 }
 
 function toggleFaq(el) {
-  const answer = el.nex
+  const answer = el.nextElementSibling;
+  const icon = el.querySelector('.faq-icon');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(i => i.textContent = '+');
+  if(!isOpen) {
+    answer.classList.add('open');
+    icon.textContent = '−';
+  }
+}
+</script>
+</body>
+</html>
