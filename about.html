@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Us — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-decoration:none;}
+.logo span{color:var(--g3);}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;}
+.nav-links a:hover,.nav-links a.active{color:var(--g2);font-weight:600;}
+.nav-btns{display:flex;gap:10px;}
+.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:none;}
+.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:none;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--g1),var(--g2));padding:64px 6%;color:white;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'🌿';position:absolute;left:5%;top:10%;font-size:120px;opacity:0.06;}
+.hero::after{content:'🌍';position:absolute;right:5%;bottom:5%;font-size:120px;opacity:0.06;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:6px 16px;font-size:12px;color:var(--g4);font-weight:600;margin-bottom:20px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;margin-bottom:16px;line-height:1.2;}
+.hero h1 span{color:#a8e090;}
+.hero p{font-size:16px;color:rgba(255,255,255,0.85);max-width:580px;margin:0 auto 40px;line-height:1.7;}
+
+/* STATS */
+.stats-row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:white;}
+.stat-lbl{font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px;}
+.stat-div{width:1px;height:50px;background:rgba(255,255,255,0.2);}
+
+/* MAIN */
+.main{padding:64px 6%;}
+.section{max-width:1100px;margin:0 auto 64px;}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--g3);text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--g1);margin-bottom:12px;}
+.sec-sub{font-size:15px;color:var(--mid);line-height:1.7;max-width:640px;}
+
+/* MISSION */
+.mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;}
+.mission-card{background:white;border-radius:20px;padding:32px;border:1.5px solid #e8f0e8;box-shadow:0 2px 12px rgba(0,0,0,0.04);transition:all 0.3s;}
+.mission-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,122,58,0.1);border-color:var(--g4);}
+.mission-icon{font-size:40px;margin-bottom:16px;}
+.mission-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);margin-bottom:10px;}
+.mission-card p{font-size:13px;color:var(--mid);line-height:1.7;}
+
+/* FOUNDER */
+.founder-card{background:white;border-radius:24px;padding:48px;border:1.5px solid #e8f0e8;box-shadow:0 4px 20px rgba(0,0,0,0.06);display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;margin-top:36px;}
+.founder-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g1));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:white;flex-shrink:0;}
+.founder-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);margin-bottom:4px;}
+.founder-role{font-size:14px;font-weight:600;color:var(--g3);margin-bottom:16px;}
+.founder-bio{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:20px;}
+.founder-quote{background:var(--g5);border-left:4px solid var(--g3);border-radius:0 12px 12px 0;padding:16px 20px;font-size:14px;color:var(--g1);font-style:italic;line-height:1.7;margin-bottom:20px;}
+.founder-links{display:flex;gap:12px;}
+.founder-link{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.link-li{background:#0077b5;color:white;}
+.link-wa{background:#25D366;color:white;}
+.link-ig{background:linear-gradient(135deg,#f09433,#dc2743);color:white;}
+
+/* GOALS */
+.goals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px;}
+.goal-card{background:white;border-radius:16px;padding:28px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);display:flex;gap:20px;align-items:flex-start;transition:all 0.3s;}
+.goal-card:hover{border-color:var(--g4);transform:translateY(-3px);}
+.goal-icon-wrap{width:56px;height:56px;border-radius:14px;background:var(--g5);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.goal-year{font-size:11px;font-weight:700;color:var(--g3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.goal-title{font-size:16px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.goal-desc{font-size:13px;color:var(--mid);line-height:1.6;}
+.goal-progress{margin-top:12px;background:#e8f0e8;border-radius:10px;height:6px;overflow:hidden;}
+.goal-bar{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--g3),var(--g2));}
+
+/* GREEN REVOLUTION */
+.revolution{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:24px;padding:56px;text-align:center;color:white;margin-top:36px;}
+.revolution h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:16px;}
+.revolution p{font-size:15px;color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto 32px;line-height:1.7;}
+.rev-points{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:36px;}
+.rev-point{text-align:center;}
+.rev-point .icon{font-size:32px;margin-bottom:8px;}
+.rev-point .label{font-size:13px;color:rgba(255,255,255,0.85);font-weight:600;}
+.rev-btns{display:flex;gap:14px;justify-content:center;}
+.btn-white{padding:13px 32px;background:white;color:var(--g1);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;}
+.btn-ghost{padding:13px 32px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;}
+
+footer{background:#0f1f10;padding:28px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+footer p{font-size:12px;color:#4a6a4a;}
+footer a{color:var(--g4);text-decoration:none;font-size:12px;margin-left:12px;}
+
+@media(max-width:768px){
+  .mission-grid{grid-template-columns:1fr;}
+  .founder-card{grid-template-columns:1fr;text-align:center;}
+  .founder-links{justify-content:center;}
+  .goals-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:28px;}
+  .stats-row{gap:20px;}
+  .stat-div{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Green Roots <span>Smart</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/about" class="active">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="/login" class="btn-out">Login</a>
+    <a href="/register" class="btn-pri">List Business</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🌿 India's First Eco B2B Marketplace</div>
+  <h1>Building India's <span>Greenest</span><br/>B2B Marketplace</h1>
+  <p>We believe every business has the power to go green. Green Roots Smart connects eco-friendly suppliers with buyers across India — making sustainable trade simple, trusted and powerful.</p>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">2025</div>
+      <div class="stat-lbl">Founded</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-num" id="statSup">2+</div>
+      <div class="stat-lbl">Eco Suppliers</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-lbl">Categories</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-num">Pan India</div>
+      <div class="stat-lbl">Coverage</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- OUR MISSION -->
+  <div class="section">
+    <div class="sec-label">What We Stand For</div>
+    <h2 class="sec-title">Our Mission & Values</h2>
+    <p class="sec-sub">Every decision we make is guided by these core principles that put the planet and people first.</p>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="mission-icon">🌍</div>
+        <h3>Planet First</h3>
+        <p>Every supplier on our platform is verified for genuine eco practices. We don't compromise on sustainability — ever. The planet's health is our top priority.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-icon">🤝</div>
+        <h3>Trust & Transparency</h3>
+        <p>We verify every supplier before listing them. Buyers can trade with confidence knowing every business on GRS is genuine, verified and eco-committed.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-icon">🚀</div>
+        <h3>Empower Green Business</h3>
+        <p>We give eco suppliers the tools, visibility and connections they need to grow. From free listings to global reach — we help green businesses thrive.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDER -->
+  <div class="section">
+    <div class="sec-label">The Team</div>
+    <h2 class="sec-title">Meet Our Founder</h2>
+    <p class="sec-sub">The person behind India's first eco B2B marketplace.</p>
+    <div class="founder-card">
+      <div class="founder-avatar">D</div>
+      <div>
+        <div class="founder-name">Dinesh Chennamallan</div>
+        <div class="founder-role">Founder & CEO — Green Roots Smart</div>
+        <p class="founder-bio">Born and raised in the beautiful Nilgiris, Ooty, Tamil Nadu — Dinesh has always been passionate about nature and sustainable living. He founded Green Roots Smart with a clear vision: to create India's first dedicated B2B marketplace exclusively for eco-friendly businesses. With zero compromise on sustainability, he is building a platform that connects verified green suppliers with buyers across India and the world.</p>
+        <div class="founder-quote">"Every supplier on our platform is making the world a little greener. Our job is to help them reach more buyers — in India and across the world. Green business is the future of India."</div>
+        <div class="founder-links">
+          <a href="https://www.linkedin.com/in/dinesh-chennamallan-6ba2233b7" target="_blank" class="founder-link link-li">💼 LinkedIn</a>
+          <a href="https://wa.me/916355408878" target="_blank" class="founder-link link-wa">💬 WhatsApp</a>
+          <a href="https://www.instagram.com/greenrootsmart/" target="_blank" class="founder-link link-ig">📸 Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUR GOALS -->
+  <div class="section">
+    <div class="sec-label">Where We're Going</div>
+    <h2 class="sec-title">Our Goals</h2>
+    <p class="sec-sub">We are just getting started. Here is what we are working towards for India's green future.</p>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-icon-wrap">🏪</div>
+        <div>
+          <div class="goal-year">Goal by 2026</div>
+          <div class="goal-title">1,000 Eco Suppliers</div>
+          <div class="goal-desc">Onboard 1,000 verified eco-friendly suppliers across all green categories — from solar to organic farming to eco packaging.</div>
+          <div class="goal-progress"><div class="goal-bar" style="width:0.2%"></div></div>
+        </div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon-wrap">🌍</div>
+        <div>
+          <div class="goal-year">Goal by 2026</div>
+          <div class="goal-title">Pan India Presence</div>
+          <div class="goal-desc">Connect eco suppliers and buyers from all 28 states across India — making green trade accessible to every corner of the country.</div>
+          <div class="goal-progress"><div class="goal-bar" style="width:5%"></div></div>
+        </div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon-wrap">📦</div>
+        <div>
+          <div class="goal-year">Goal by 2026</div>
+          <div class="goal-title">50+ Product Categories</div>
+          <div class="goal-desc">Expand from 10 to 50+ eco product categories — covering every aspect of sustainable business from green chemistry to eco textiles.</div>
+          <div class="goal-progress"><div class="goal-bar" style="width:20%"></div></div>
+        </div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon-wrap">🌐</div>
+        <div>
+          <div class="goal-year">Goal by 2027</div>
+          <div class="goal-title">Global Eco Trade</div>
+          <div class="goal-desc">Help Indian eco suppliers export to 10+ countries — taking India's green products to international buyers who care about sustainability.</div>
+          <div class="goal-progress"><div class="goal-bar" style="width:2%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GREEN REVOLUTION -->
+  <div class="section">
+    <div class="revolution">
+      <h2>🌱 Be Part of India's Green Revolution!</h2>
+      <p>Whether you are an eco supplier, a green buyer, or a sustainability champion — there is a place for you on Green Roots Smart. Join us in building India's most trusted eco B2B marketplace!</p>
+      <div class="rev-points">
+        <div class="rev-point"><div class="icon">🆓</div><div class="label">Free to Join</div></div>
+        <div class="rev-point"><div class="icon">✅</div><div class="label">Verified Suppliers</div></div>
+        <div class="rev-point"><div class="icon">🌿</div><div class="label">100% Eco Focused</div></div>
+        <div class="rev-point"><div class="icon">🇮🇳</div><div class="label">Made in India</div></div>
+      </div>
+      <div class="rev-btns">
+        <a href="/register" class="btn-white">🌿 List Your Business Free</a>
+        <a href="/contact" class="btn-ghost">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Green Roots Smart · Rooted in Sustainability 🌿</p>
+  <div>
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+
+async function loadStats() {
+  try {
+    const r = await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&select=id`, {
+      headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
+    });
+    const data = await r.json();
+    const count = Array.isArray(data) ? data.length : 0;
+    const el = document.getElementById('statSup');
+    if(el) el.textContent = count > 0 ? count + '+' : '2+';
+  } catch(e) {}
+}
+loadStats();
+</script>
+</body>
+</html>
