@@ -106,17 +106,18 @@ async function doLogin() {
 
   try {
     if(userType === 'buyer') {
-      var res = await supabaseClient.from('buyers').select('*').eq('email', email).eq('password', password).single();
-      if(res.error || !res.data){ showAlert('Wrong email or password!', 'error'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
+      var res = await supabaseClient.from('buyers').select('*').eq('email', email).eq('password', password).limit(1);
+      if(res.error || !res.data || res.data.length === 0){ showAlert('Wrong email or password!', 'error'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
+      res.data = res.data[0];
       localStorage.setItem('grs_buyer', JSON.stringify({ id:res.data.id, name:res.data.name, email:res.data.email, mobile:res.data.mobile||'', company:res.data.company||'', city:res.data.city||'', state:res.data.state||'', type:'buyer' }));
       showAlert('Login successful! Going to Buyer Dashboard...', 'success');
       btn.innerHTML = '✅ Logged In!';
       setTimeout(function(){ window.location.href = '/buyer-dashboard'; }, 1500);
 
     } else {
-      var res2 = await supabaseClient.from('suppliers').select('*').eq('email', email).eq('password', password).single();
-      if(res2.error || !res2.data){ showAlert('Wrong email or password!', 'error'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
-      var d = res2.data;
+      var res2 = await supabaseClient.from('suppliers').select('*').eq('email', email).eq('password', password).limit(1);
+      if(res2.error || !res2.data || res2.data.length === 0){ showAlert('Wrong email or password!', 'error'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
+      var d = res2.data[0];
       if(d.status === 'pending'){ showAlert('Account pending verification. Our team will approve within 24 hours!', 'warning'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
       if(d.status === 'rejected'){ showAlert('Account not approved. Contact greenrootssmart@gmail.com', 'error'); btn.disabled=false; btn.innerHTML='🌿 Login to Dashboard'; return; }
       localStorage.setItem('grs_user', JSON.stringify({ id:d.id, name:d.owner_name, business:d.business_name, email:d.email, mobile:d.mobile||'', plan:d.plan||'free', status:d.status, city:d.city||'', state:d.state||'', category:d.category||'', type:'supplier' }));
