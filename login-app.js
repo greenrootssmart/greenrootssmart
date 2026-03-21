@@ -159,41 +159,143 @@ function showForgotAlert(msg, type) {
   el.textContent = msg;
 }
 
+// Step 1: Verify email exists and show mobile hint
 async function sendResetEmail() {
-  var email = document.getElementById('forgot-email').value.trim();
+  var email = document.getElementById('forgot-email').value.trim().toLowerCase();
   if(!email){ showForgotAlert('Please enter your email!', 'error'); return; }
 
   var btn = document.getElementById('forgotBtn');
-  btn.textContent = 'Sending...'; btn.disabled = true;
+  btn.textContent = 'Verifying...'; btn.disabled = true;
 
   try {
-    var r1 = await supabaseClient.from('suppliers').select('id,owner_name,business_name').eq('email', email).single();
-    var name = r1.data ? (r1.data.owner_name || r1.data.business_name || email) : email;
+    // Check suppliers table
+    var r1 = await supabaseClient.from('suppliers').select('id,owner_name,business_name,mobile').eq('email', email).single();
+    var userData = r1.data;
+    var userTable = 'suppliers';
 
-    if(!r1.data) {
-      var r2 = await supabaseClient.from('buyers').select('id,name').eq('email', email).single();
-      if(!r2.data){ showForgotAlert('Email not found! Please check or register.', 'error'); btn.textContent='Send Reset Instructions 🌿'; btn.disabled=false; return; }
-      name = r2.data.name || email;
+    if(!userData) {
+      // Check buyers table
+      var r2 = await supabaseClient.from('buyers').select('id,name,mobile').eq('email', email).single();
+      if(!r2.data){ showForgotAlert('Email not found! Please check or register.', 'error'); btn.textContent='Verify Email'; btn.disabled=false; return; }
+      userData = r2.data;
+      userTable = 'buyers';
     }
 
-    var token = Math.random().toString(36).substring(2) + Date.now().toString(36);
-    var resetLink = 'https://www.greenrootssmart.com/reset-password?token=' + token + '&email=' + encodeURIComponent(email);
+    // Store email and table for next step
+    window._resetEmail = email;
+    window._resetTable = userTable;
+    window._resetUserId = userData.id;
 
-    await supabaseClient.from('password_resets').insert([{ email:email, token:token, expires_at: new Date(Date.now()+3600000).toISOString() }]);
+    // Show mobile hint (last 4 digits only for security)
+    var mobile = userData.mobile || '';
+    var hint = mobile.length >= 4 ? 'XXXXXX' + mobile.slice(-4) : 'your registered number';
 
-    await emailjs.send('service_clis9zo', 'template_7gj9klp', {
-      product_name: 'Password Reset — GRS',
-      buyer_name: name,
-      buyer_mobile: '',
-      buyer_email: email,
-      quantity: '',
-      message: 'Reset your GRS password here (valid 1 hour): ' + resetLink
-    });
+    // Show mobile verification step
+    showMobileVerifyStep(hint);
 
-    showForgotAlert('Reset link sent to ' + email + '! Check inbox and spam folder.', 'success');
+  } catch(e) {
+    console.log('Error:', e);
+    showForgotAlert('Something went wrong. Please try again!', 'error');
+  }
+  btn.textContent = 'Verify Email'; btn.disabled = false;
+}
+
+// Step 2: Show mobile verification form
+function showMobileVerifyStep(hint) {
+  var forgotForm = document.getElementById('forgotForm');
+  if(!forgotForm) return;
+  
+  forgotForm.innerHTML = `
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:40px;margin-bottom:8px;">📱</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:#1a4a24;margin-bottom:6px;">Verify Your Identity</h3>
+      <p style="font-size:13px;color:#7a9a74;line-height:1.6;">Enter your registered mobile number to confirm it's you!</p>
+      <p style="font-size:13px;font-weight:600;color:#2d7a3a;margin-top:8px;">Hint: ${hint}</p>
+    </div>
+    <div id="forgotAlert" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;"></div>
+    <div class="form-group">
+      <label>Your Registered Mobile Number *</label>
+      <div class="input-wrap">
+        <span class="input-icon">📱</span>
+        <input type="tel" id="verify-mobile" placeholder="Enter your full mobile number" style="padding-left:38px;"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>New Password *</label>
+      <div class="input-wrap">
+        <span class="input-icon">🔑</span>
+        <input type="password" id="new-password" placeholder="Enter new password (min 6 chars)" style="padding-left:38px;"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Confirm New Password *</label>
+      <div class="input-wrap">
+        <span class="input-icon">🔑</span>
+        <input type="password" id="confirm-password" placeholder="Confirm new password" style="padding-left:38px;"/>
+      </div>
+    </div>
+    <button class="btn-submit" id="verifyBtn" onclick="verifyAndReset()">Reset My Password 🌿</button>
+    <div style="text-align:center;margin-top:14px;">
+      <a href="#" onclick="location.reload();return false;" style="font-size:13px;color:#2d7a3a;font-weight:600;text-decoration:none;">← Start Over</a>
+    </div>
+  `;
+
+  // Attach event listener for verify button
+  var vBtn = document.getElementById('verifyBtn');
+  if(vBtn) vBtn.addEventListener('click', verifyAndReset);
+}
+
+// Step 3: Verify mobile and reset password
+async function verifyAndReset() {
+  var mobile = document.getElementById('verify-mobile').value.trim().replace(/\D/g,'');
+  var newPass = document.getElementById('new-password').value;
+  var confirmPass = document.getElementById('confirm-password').value;
+
+  if(!mobile){ showForgotAlert('Please enter your mobile number!', 'error'); return; }
+  if(!newPass || newPass.length < 6){ showForgotAlert('Password must be at least 6 characters!', 'error'); return; }
+  if(newPass !== confirmPass){ showForgotAlert('Passwords do not match!', 'error'); return; }
+
+  var btn = document.getElementById('verifyBtn');
+  btn.textContent = 'Verifying...'; btn.disabled = true;
+
+  try {
+    // Verify mobile matches
+    var table = window._resetTable || 'suppliers';
+    var email = window._resetEmail;
+
+    var r = await supabaseClient.from(table).select('mobile').eq('email', email).single();
+    if(!r.data){ showForgotAlert('Verification failed! Please try again.', 'error'); btn.textContent='Reset My Password 🌿'; btn.disabled=false; return; }
+
+    var storedMobile = (r.data.mobile || '').replace(/\D/g,'');
+    var enteredMobile = mobile;
+
+    // Compare last 10 digits
+    var stored10 = storedMobile.slice(-10);
+    var entered10 = enteredMobile.slice(-10);
+
+    if(stored10 !== entered10){
+      showForgotAlert('Mobile number does not match! Please enter your registered number.', 'error');
+      btn.textContent = 'Reset My Password 🌿'; btn.disabled = false;
+      return;
+    }
+
+    // Mobile matches! Update password
+    await supabaseClient.from(table).update({ password: newPass }).eq('email', email);
+
+    // Show success
+    var forgotForm = document.getElementById('forgotForm');
+    if(forgotForm) forgotForm.innerHTML = `
+      <div style="text-align:center;padding:20px 0;">
+        <div style="font-size:56px;margin-bottom:16px;">🎉</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:#1a4a24;margin-bottom:8px;">Password Reset!</h3>
+        <p style="font-size:13px;color:#7a9a74;margin-bottom:24px;">Your password has been updated successfully!</p>
+        <a href="/login" style="display:inline-block;padding:12px 28px;background:#2d7a3a;color:white;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;">Login Now →</a>
+      </div>
+    `;
+
   } catch(e) {
     console.log('Reset error:', e);
     showForgotAlert('Something went wrong. Please try again!', 'error');
+    btn.textContent = 'Reset My Password 🌿'; btn.disabled = false;
   }
-  btn.textContent = 'Send Reset Instructions 🌿'; btn.disabled = false;
 }
