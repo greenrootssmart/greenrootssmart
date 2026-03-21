@@ -451,15 +451,20 @@ let allEnquiries = [];
 
 // ADMIN LOGIN CHECK
 function checkAdminAccess() {
-  const user = localStorage.getItem('grs_user');
-  if (!user) { window.location.href = '/login'; return false; }
-  const parsed = JSON.parse(user);
-  if (parsed.email !== ADMIN_EMAIL) {
-    alert('⚠️ Admin access only!');
-    window.location.href = '/dashboard';
-    return false;
+  // Check grs_admin session first
+  const adminData = localStorage.getItem('grs_admin');
+  if (adminData) {
+    return true; // Valid admin session
   }
-  return true;
+  // Fallback: check grs_user with admin email
+  const user = localStorage.getItem('grs_user');
+  if (user) {
+    const parsed = JSON.parse(user);
+    if (parsed.email === ADMIN_EMAIL) return true;
+  }
+  // No valid admin session
+  window.location.href = '/admin-login';
+  return false;
 }
 
 async function initAdmin() {
@@ -700,8 +705,9 @@ function showSection(name, el) {
 }
 
 function adminLogout() {
+  localStorage.removeItem('grs_admin');
   localStorage.removeItem('grs_user');
-  window.location.href = '/login';
+  window.location.href = '/admin-login';
 }
 
 function uploadBlogImage() {
