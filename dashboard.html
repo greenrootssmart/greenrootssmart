@@ -644,7 +644,39 @@ async function deleteSvc(id) {
 async function initDashboard() {
   const userData = localStorage.getItem('grs_user');
   if (!userData) { window.location.href = '/login'; return; }
-  currentUser = JSON.parse(userData);
+  const localUser = JSON.parse(userData);
+  if(!localUser || !localUser.id) { window.location.href = '/login'; return; }
+
+  // Always fetch FRESH data from Supabase to avoid stale localStorage
+  try {
+    const { data: freshData } = await supabaseClient
+      .from('suppliers')
+      .select('*')
+      .eq('id', localUser.id)
+      .single();
+
+    if(freshData) {
+      // Update localStorage with fresh data
+      currentUser = {
+        id: freshData.id,
+        name: freshData.owner_name || freshData.business_name,
+        business: freshData.business_name,
+        email: freshData.email,
+        mobile: freshData.mobile || '',
+        plan: freshData.plan || 'free',
+        status: freshData.status,
+        city: freshData.city || '',
+        state: freshData.state || '',
+        category: freshData.category || '',
+        type: 'supplier'
+      };
+      localStorage.setItem('grs_user', JSON.stringify(currentUser));
+    } else {
+      currentUser = localUser;
+    }
+  } catch(e) {
+    currentUser = localUser;
+  }
 
   // Set user info in sidebar
   const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
