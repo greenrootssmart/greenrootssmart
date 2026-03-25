@@ -4,6 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Seller Dashboard — Green Roots Smart</title>
+<meta name="description" content="Manage your eco supplier profile, products, services and enquiries on Green Roots Smart — India's first eco B2B marketplace."/>
+<meta name="robots" content="noindex, nofollow"/>
+<meta property="og:title" content="Seller Dashboard — Green Roots Smart"/>
+<meta property="og:site_name" content="Green Roots Smart"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
@@ -128,6 +132,27 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .form-group input:focus,.form-group select:focus{border-color:var(--g3);}
 .form-group textarea{height:70px;resize:vertical;}
 .form-submit{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:14px;}
+/* MOBILE RESPONSIVENESS */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,0.15);}
+  .main{margin-left:0;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .quick-actions{grid-template-columns:1fr;}
+  .topbar{padding:0 16px;}
+  .content{padding:16px;}
+}
+.menu-toggle{display:none;background:none;border:none;font-size:24px;color:var(--g1);cursor:pointer;margin-right:12px;padding:0;}
+@media(max-width:900px){
+  .menu-toggle{display:block;}
+}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+.backdrop.show{display:block;}
 </style>
 </head>
 <body>
@@ -194,13 +219,18 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
   </div>
 </div>
 
+<div class="backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
 <!-- MAIN -->
 <div class="main">
   <!-- TOPBAR -->
   <div class="topbar">
-    <div class="topbar-left">
-      <h2 id="pageTitle">Dashboard Overview</h2>
-      <p id="pageSubtitle">Welcome back, Dinesh! Here's your business summary.</p>
+    <div class="topbar-left" style="display:flex;align-items:center;">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div>
+        <h2 id="pageTitle">Dashboard Overview</h2>
+        <p id="pageSubtitle">Welcome back, Dinesh! Here's your business summary.</p>
+      </div>
     </div>
     <div class="topbar-right">
       <button class="notif-btn">🔔<span class="notif-dot"></span></button>
@@ -839,6 +869,24 @@ function showSection(name, el){
   if(el) el.classList.add('active');
   document.getElementById('pageTitle').textContent = titles[name][0];
   if(name !== 'overview') document.getElementById('pageSubtitle').textContent = titles[name][1];
+  
+  if(window.innerWidth <= 900) {
+    const sb = document.querySelector('.sidebar');
+    const bd = document.getElementById('sidebarBackdrop');
+    if(sb && bd && sb.classList.contains('open')) {
+      sb.classList.remove('open');
+      bd.classList.remove('show');
+    }
+  }
+}
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const bd = document.getElementById('sidebarBackdrop');
+  if(sb && bd) {
+    sb.classList.toggle('open');
+    bd.classList.toggle('show');
+  }
 }
 
 function doLogout(){ localStorage.removeItem('grs_user'); window.location.href = '/'; }
