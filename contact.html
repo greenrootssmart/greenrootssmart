@@ -1,9 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Contact Us — Green Roots Smart</title>
+<title>Contact Us — Green Roots Smart | Eco B2B Marketplace India</title>
+<meta name="description" content="Get in touch with Green Roots Smart — India's first eco B2B marketplace. Contact us for supplier registration, buyer enquiries, partnership opportunities or any support. Based in India."/>
+<meta name="keywords" content="contact Green Roots Smart, eco marketplace support India, green supplier enquiry, B2B marketplace contact, sustainable business India contact"/>
+<meta name="author" content="Green Roots Smart"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.greenrootssmart.com/contact"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Contact Us — Green Roots Smart"/>
+<meta property="og:description" content="Reach out to Green Roots Smart for supplier registration, buyer enquiries or partnership opportunities on India's eco B2B marketplace."/>
+<meta property="og:url" content="https://www.greenrootssmart.com/contact"/>
+<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<meta property="og:site_name" content="Green Roots Smart"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Contact Us — Green Roots Smart"/>
+<meta name="twitter:description" content="Contact India's first eco B2B marketplace for support, partnerships or supplier registration."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -88,24 +104,162 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop
 footer{background:#0f1f10;padding:24px 6%;display:flex;justify-content:space-between;align-items:center;}
 footer p{font-size:12px;color:#4a6a4a;}
 footer a{color:var(--g4);text-decoration:none;font-size:12px;}
-@media(max-width:768px){.layout{grid-template-columns:1fr;}.faq-grid{grid-template-columns:1fr;}.social-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+  .social-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr;}
+  .response-strip{flex-direction:column;gap:16px;padding:24px 16px;}
+  .resp-div{display:none;}
+  .hero h1{font-size:28px;}
+  .social-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Green Roots <span>Smart</span></a>
-  <ul class="nav-links">
+<!-- GRS HEADER — paste this in all pages replacing existing nav -->
+<style>
+.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
+.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.grs-logo img{height:40px;width:auto;object-fit:contain;}
+.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
+.grs-logo-text span{color:#52b043;}
+.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
+.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
+.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
+.grs-dropdown{position:relative;}
+.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
+.grs-dropdown-btn svg{transition:transform 0.2s;}
+.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
+.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
+.grs-dropdown:hover .grs-dropdown-menu{display:block;}
+.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
+.grs-dropdown-item:hover{background:#e8f5e2;}
+.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.grs-dropdown-item .di-text{}
+.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
+.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
+.grs-coming{opacity:0.5;pointer-events:none;}
+.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
+.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
+.grs-btns{display:flex;align-items:center;gap:8px;}
+.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.grs-btn-out:hover{background:#e8f5e2;}
+.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.grs-btn-pri:hover{background:#1a4a24;}
+.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
+.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
+@media(max-width:900px){
+  .grs-links{display:none;}
+  .grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}
+  .grs-mobile-menu{display:block;}
+}
+</style>
+
+<nav class="grs-nav">
+  <!-- LOGO -->
+  <a href="/" class="grs-logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS Logo"/>
+    <div>
+      <div class="grs-logo-text">Green Roots <span>Smart</span></div>
+      <div class="grs-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
+    </div>
+  </a>
+
+  <!-- NAV LINKS -->
+  <ul class="grs-links">
     <li><a href="/">Home</a></li>
+
+    <!-- BROWSE DROPDOWN -->
+    <li class="grs-dropdown">
+      <button class="grs-dropdown-btn">
+        Browse
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="grs-dropdown-menu">
+        <a href="/supplier-profile" class="grs-dropdown-item">
+          <div class="di-icon">🏪</div>
+          <div class="di-text">
+            <div class="di-title">Suppliers</div>
+            <div class="di-sub">Browse verified eco suppliers</div>
+          </div>
+        </a>
+        <a href="/services" class="grs-dropdown-item">
+          <div class="di-icon">🔧</div>
+          <div class="di-text">
+            <div class="di-title">Service Providers</div>
+            <div class="di-sub">Find eco service experts</div>
+          </div>
+        </a>
+        <div class="grs-divider"></div>
+        <div class="grs-dropdown-item grs-coming">
+          <div class="di-icon">💼</div>
+          <div class="di-text">
+            <div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div>
+            <div class="di-sub">Green jobs & careers</div>
+          </div>
+        </div>
+        <div class="grs-dropdown-item grs-coming">
+          <div class="di-icon">🎓</div>
+          <div class="di-text">
+            <div class="di-title">Education <span class="grs-badge">COMING SOON</span></div>
+            <div class="di-sub">Eco learning & courses</div>
+          </div>
+        </div>
+      </div>
+    </li>
+
     <li><a href="/products">Products</a></li>
-    <li><a href="/blog">Blog</a></li>
-    <li><a href="/contact" style="color:var(--g2);font-weight:600;">Contact</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/contact">Contact Us</a></li>
+    <li><a href="/about">About Us</a></li>
   </ul>
-  <div class="nav-btns">
-    <a href="/login" class="btn-out">Login</a>
-    <a href="/register" class="btn-pri">List Business</a>
+
+  <!-- RIGHT BUTTONS -->
+  <div class="grs-btns">
+    <a href="/claim-profile" class="grs-btn-claim">🌿 Claim Profile</a>
+    <a href="/login" class="grs-btn-out">Login</a>
+    <a href="/register" class="grs-btn-pri">List Business</a>
   </div>
+
+  <!-- MOBILE MENU -->
+  <button class="grs-mobile-menu" onclick="toggleMobileMenu()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div id="grs-mobile-nav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;font-family:'DM Sans',sans-serif;">
+  <div style="display:flex;flex-direction:column;gap:4px;">
+    <a href="/" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏠 Home</a>
+    <a href="/supplier-profile" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏪 Suppliers</a>
+    <a href="/services" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🔧 Services</a>
+    <a href="/products" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📦 Products</a>
+    <a href="/contact" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📞 Contact Us</a>
+    <a href="/about" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">ℹ️ About Us</a>
+    <div style="height:1px;background:#e8f0e8;margin:8px 0;"></div>
+    <a href="/claim-profile" style="padding:10px;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;">🌿 Claim Profile</a>
+    <a href="/login" style="padding:10px;background:#e8f5e2;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">Login</a>
+    <a href="/register" style="padding:10px;background:#2d7a3a;color:white;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">List Business</a>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu() {
+  var m = document.getElementById('grs-mobile-nav');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+
 
 <!-- HERO -->
 <div class="hero">
@@ -226,7 +380,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
         <div>
           <h3>Email Us</h3>
           <p>For general enquiries and support</p>
-          <div class="contact-val"><a href="mailto:greenrootssmart@gmail.com">greenrootssmart@gmail.com</a></div>
+          <div class="contact-val"><a href="/cdn-cgi/l/email-protection#81e6f3e4e4eff3eeeef5f2f2ece0f3f5c1e6ece0e8edafe2eeec"><span class="__cf_email__" data-cfemail="83e4f1e6e6edf1ececf7f0f0eee2f1f7c3e4eee2eaefade0ecee">[email&#160;protected]</span></a></div>
         </div>
       </div>
 
@@ -310,7 +464,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
 
       <div class="faq-item">
         <div class="faq-q">How do I report a fake or non-eco supplier? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Email us at <a href="mailto:greenrootssmart@gmail.com">greenrootssmart@gmail.com</a> or WhatsApp us at +91 63554 08878. We investigate within 24 hours and take strict action against non-compliant suppliers.</div>
+        <div class="faq-a">Email us at <a href="/cdn-cgi/l/email-protection#80e7f2e5e5eef2efeff4f3f3ede1f2f4c0e7ede1e9ecaee3efed"><span class="__cf_email__" data-cfemail="c4a3b6a1a1aab6ababb0b7b7a9a5b6b084a3a9a5ada8eaa7aba9">[email&#160;protected]</span></a> or WhatsApp us at +91 63554 08878. We investigate within 24 hours and take strict action against non-compliant suppliers.</div>
       </div>
 
     </div>
@@ -322,7 +476,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
   <a href="/">← Back to Home</a>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script data-cfasync="false">
 emailjs.init('z44cg_jvnLbDjtQzi');
 const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
