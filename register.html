@@ -1,10 +1,26 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Supplier Registration — Green Roots Smart</title>
+<title>Register as Eco Supplier — Green Roots Smart | List Free</title>
+<meta name="description" content="Register your eco-friendly business on Green Roots Smart for free. List your green products, reach buyers across India and grow your sustainable business on India's first eco B2B marketplace."/>
+<meta name="keywords" content="register eco supplier India, list green business free, eco B2B supplier registration, green product listing India, sustainable business registration"/>
+<meta name="author" content="Green Roots Smart"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.greenrootssmart.com/register"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Register as Eco Supplier — Green Roots Smart"/>
+<meta property="og:description" content="Register your eco-friendly business for free on Green Roots Smart. List products and reach verified buyers across India."/>
+<meta property="og:url" content="https://www.greenrootssmart.com/register"/>
+<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<meta property="og:site_name" content="Green Roots Smart"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Register as Eco Supplier — Green Roots Smart"/>
+<meta name="twitter:description" content="Register free and list your eco business on India's first green B2B marketplace."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -92,6 +108,11 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
   .page{grid-template-columns:1fr;}
   .left{display:none;}
   .right{padding:28px 24px;}
+}
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr;}
+  .stats-row{flex-direction:column;}
+  .btn-row{flex-direction:column;}
 }
 </style>
 </head>
@@ -398,6 +419,20 @@ async function submitRegistration(){
   };
 
   try {
+    // Check for duplicate email first
+    const { data: existing } = await supabaseClient
+      .from('suppliers')
+      .select('id,email')
+      .eq('email', data.email)
+      .single();
+    
+    if(existing) {
+      showAlert('⚠️ This email is already registered! Please login or use a different email.');
+      btn.disabled = false;
+      btn.innerHTML = '🌿 Register My Business';
+      return;
+    }
+
     const { error } = await supabaseClient.from('suppliers').insert([data]);
 
     if(error){
