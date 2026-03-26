@@ -95,6 +95,26 @@ tr:hover td{background:#fafffe;}
 /* SECTIONS */
 .section{display:none;}
 .section.active{display:block;}
+/* MOBILE RESPONSIVENESS */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,0.15);}
+  .main{margin-left:0;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr;}
+  .topbar{padding:0 16px;}
+  .content{padding:16px;}
+  .search-bar{flex-direction:column;}
+}
+.menu-toggle{display:none;background:none;border:none;font-size:24px;color:var(--g1);cursor:pointer;margin-right:12px;padding:0;}
+@media(max-width:900px){
+  .menu-toggle{display:block;}
+}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+.backdrop.show{display:block;}
 </style>
 </head>
 <body>
@@ -113,6 +133,8 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('suppliers',this)"><span class="nav-icon">🏪</span> Suppliers <span class="nav-badge" id="pendingSuppliersCount" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('suppliers',this);setTimeout(()=>document.getElementById('man-business').focus(),300)"><span class="nav-icon">➕</span> Add Supplier</button>
     <button class="nav-item" onclick="showSection('products',this)"><span class="nav-icon">📦</span> Products</button>
+    <button class="nav-item" onclick="showSection('service_providers',this)"><span class="nav-icon">🔧</span> Service Providers <span class="nav-badge" id="svcBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
     <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
     <div class="nav-section">System</div>
     <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
@@ -123,12 +145,17 @@ tr:hover td{background:#fafffe;}
   </div>
 </div>
 
+<div class="backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
 <!-- MAIN -->
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left">
-      <h2 id="pageTitle">Platform Overview</h2>
-      <p id="pageSubtitle">Real-time data from Green Roots Smart</p>
+    <div class="topbar-left" style="display:flex;align-items:center;">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div>
+        <h2 id="pageTitle">Platform Overview</h2>
+        <p id="pageSubtitle">Real-time data from Green Roots Smart</p>
+      </div>
     </div>
     <div class="topbar-right">
       <span class="admin-tag">🔐 ADMIN</span>
@@ -358,6 +385,116 @@ tr:hover td{background:#fafffe;}
       </div>
     </div>
 
+    <!-- SERVICE PROVIDERS -->
+    <div id="section-service_providers" class="section">
+
+      <!-- ADD SERVICE PROVIDER -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">➕ Add Service Provider Manually</div>
+          <span style="font-size:12px;color:var(--light)">Admin adds service provider to GRS platform</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:4px 0">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Service Name *</label>
+            <input type="text" id="svc-name" placeholder="e.g. Solar Panel Installation" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Business / Company *</label>
+            <input type="text" id="svc-company" placeholder="e.g. SolarTech India Pvt Ltd" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Category *</label>
+            <select id="svc-category" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="">Select Category</option>
+              <option>Testing & Laboratory</option>
+              <option>Consulting & Advisory</option>
+              <option>Certification & Compliance</option>
+              <option>Waste Management</option>
+              <option>Water & Wastewater</option>
+              <option>Renewable Energy</option>
+              <option>Ecological Services</option>
+              <option>Remediation</option>
+              <option>Reporting & Technology</option>
+              <option>Training & Education</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Contact Person</label>
+            <input type="text" id="svc-person" placeholder="e.g. Ravi Kumar" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Phone / WhatsApp</label>
+            <input type="tel" id="svc-phone" placeholder="9876543210" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">City</label>
+            <input type="text" id="svc-city" placeholder="e.g. Chennai" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">State</label>
+            <input type="text" id="svc-state" placeholder="e.g. Tamil Nadu" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Experience</label>
+            <input type="text" id="svc-exp" placeholder="e.g. 5+ Years" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Availability</label>
+            <select id="svc-avail" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="available">🟢 Available</option>
+              <option value="busy">🟡 Busy</option>
+              <option value="booked">🔴 Booked</option>
+            </select>
+          </div>
+          <div style="grid-column:1/-1">
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Description</label>
+            <textarea id="svc-desc" placeholder="Brief about the service, expertise, coverage area..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:80px;resize:vertical;font-family:'DM Sans',sans-serif;"></textarea>
+          </div>
+        </div>
+        <div id="svc-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        <button onclick="addServiceProvider()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔧 Add Service Provider to GRS</button>
+      </div>
+
+      <!-- ALL SERVICE PROVIDERS TABLE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🔧 All Service Providers</div>
+          <span style="font-size:12px;color:var(--light)" id="svcCount">loading...</span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" placeholder="🔍 Search service providers..." oninput="filterSvcProviders(this.value)"/>
+          <select class="filter-select" onchange="filterSvcByCategory(this.value)">
+            <option value="">All Categories</option>
+            <option>Testing & Laboratory</option>
+            <option>Consulting & Advisory</option>
+            <option>Certification & Compliance</option>
+            <option>Waste Management</option>
+            <option>Water & Wastewater</option>
+            <option>Renewable Energy</option>
+            <option>Ecological Services</option>
+            <option>Training & Education</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Company</th>
+                <th>Category</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Availability</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="svcProvidersTableBody"><tr><td colspan="7" class="loading-row">Loading... 🌿</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div id="section-settings" class="section">
       <div class="card">
@@ -470,6 +607,9 @@ function checkAdminAccess() {
 async function initAdmin() {
   if (!checkAdminAccess()) return;
   await loadAllData();
+  await loadSvcProviders();
+  await loadClaimRequests();
+  await loadBlogs();
 }
 
 async function loadAllData() {
@@ -692,7 +832,9 @@ const pageTitles = {
   suppliers: ['Manage Suppliers', 'Approve, reject and manage all suppliers'],
   products: ['Manage Products', 'Review and control all product listings'],
   enquiries: ['All Enquiries', 'Monitor all buyer-supplier enquiries'],
+  service_providers: ['Service Providers', 'Manage eco service providers on GRS'],
   settings: ['Admin Settings', 'Platform configuration'],
+  blogs: ['Blog Posts', 'Manage blog content'],
 };
 
 function showSection(name, el) {
@@ -702,6 +844,128 @@ function showSection(name, el) {
   if (el) el.classList.add('active');
   document.getElementById('pageTitle').textContent = pageTitles[name][0];
   document.getElementById('pageSubtitle').textContent = pageTitles[name][1];
+  
+  if(window.innerWidth <= 900) {
+    const sb = document.querySelector('.sidebar');
+    const bd = document.getElementById('sidebarBackdrop');
+    if(sb && bd && sb.classList.contains('open')) {
+      sb.classList.remove('open');
+      bd.classList.remove('show');
+    }
+  }
+}
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const bd = document.getElementById('sidebarBackdrop');
+  if(sb && bd) {
+    sb.classList.toggle('open');
+    bd.classList.toggle('show');
+  }
+}
+
+// ── SERVICE PROVIDERS ───────────────────────────────────────────────────────
+let allSvcProviders = [];
+
+async function loadSvcProviders() {
+  const { data } = await supabaseClient.from('service_providers').select('*').order('created_at', { ascending: false });
+  allSvcProviders = data || [];
+  document.getElementById('svcCount').textContent = allSvcProviders.length + ' total';
+  renderSvcTable(allSvcProviders);
+}
+
+function renderSvcTable(data) {
+  const tbody = document.getElementById('svcProvidersTableBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No service providers yet! Add one above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(s => {
+    const availColor = s.availability === 'available' ? 'badge-active' : s.availability === 'busy' ? 'badge-pending' : 'badge-rejected';
+    const availText = s.availability === 'available' ? '🟢 Available' : s.availability === 'busy' ? '🟡 Busy' : '🔴 Booked';
+    return `<tr>
+      <td><b>${s.service_name || s.name || '—'}</b></td>
+      <td>${s.company || s.business_name || '—'}</td>
+      <td><span class="badge badge-verified">${s.category || '—'}</span></td>
+      <td>${s.phone || '—'}</td>
+      <td>${s.city || '—'}</td>
+      <td><span class="badge ${availColor}">${availText}</span></td>
+      <td style="white-space:nowrap">
+        <select onchange="updateSvcAvailability('${s.id}',this.value)" style="padding:4px 8px;border:1px solid #d4e8cc;border-radius:6px;font-size:11px;">
+          <option value="available" ${s.availability==='available'?'selected':''}>🟢 Available</option>
+          <option value="busy" ${s.availability==='busy'?'selected':''}>🟡 Busy</option>
+          <option value="booked" ${s.availability==='booked'?'selected':''}>🔴 Booked</option>
+        </select>
+        <button class="btn btn-reject" onclick="deleteSvcProvider('${s.id}')">🗑️ Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function addServiceProvider() {
+  const name = document.getElementById('svc-name').value.trim();
+  const company = document.getElementById('svc-company').value.trim();
+  const category = document.getElementById('svc-category').value;
+  if (!name) { showSvcMsg('Please enter Service Name!', 'error'); return; }
+  if (!category) { showSvcMsg('Please select Category!', 'error'); return; }
+
+  const data = {
+    service_name: name,
+    company: company,
+    business_name: company,
+    category: category,
+    name: document.getElementById('svc-person').value.trim() || company,
+    phone: document.getElementById('svc-phone').value.trim(),
+    city: document.getElementById('svc-city').value.trim(),
+    state: document.getElementById('svc-state').value.trim(),
+    experience: document.getElementById('svc-exp').value.trim(),
+    availability: document.getElementById('svc-avail').value,
+    description: document.getElementById('svc-desc').value.trim(),
+    verified: true,
+    created_at: new Date().toISOString(),
+  };
+
+  const { error } = await supabaseClient.from('service_providers').insert([data]);
+  if (error) { showSvcMsg('Error: ' + error.message, 'error'); return; }
+
+  showSvcMsg('✅ Service provider added successfully!', 'success');
+  ['svc-name','svc-company','svc-person','svc-phone','svc-city','svc-state','svc-exp','svc-desc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('svc-category').value = '';
+  await loadSvcProviders();
+}
+
+async function updateSvcAvailability(id, status) {
+  await supabaseClient.from('service_providers').update({ availability: status }).eq('id', id);
+  await loadSvcProviders();
+}
+
+async function deleteSvcProvider(id) {
+  if (!confirm('Delete this service provider?')) return;
+  await supabaseClient.from('service_providers').delete().eq('id', id);
+  await loadSvcProviders();
+}
+
+function filterSvcProviders(q) {
+  const filtered = allSvcProviders.filter(s =>
+    (s.service_name || '').toLowerCase().includes(q.toLowerCase()) ||
+    (s.company || '').toLowerCase().includes(q.toLowerCase()) ||
+    (s.city || '').toLowerCase().includes(q.toLowerCase())
+  );
+  renderSvcTable(filtered);
+}
+
+function filterSvcByCategory(cat) {
+  const filtered = cat ? allSvcProviders.filter(s => s.category === cat) : allSvcProviders;
+  renderSvcTable(filtered);
+}
+
+function showSvcMsg(msg, type) {
+  const el = document.getElementById('svc-msg');
+  el.style.display = 'block';
+  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
+  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
+  el.textContent = msg;
+  setTimeout(() => el.style.display = 'none', 4000);
 }
 
 function adminLogout() {
