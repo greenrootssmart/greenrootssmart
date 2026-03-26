@@ -418,16 +418,26 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;}
 
 <!-- TRUST -->
 <div class="trust-section">
-  <h2>Trusted by Green Businesses Across India 🌿</h2>
-  <p>Join thousands of eco suppliers already growing with Green Roots Smart</p>
+  <h2>Built for India's Green Economy 🌿</h2>
+  <p>Join India's first and only dedicated eco B2B marketplace — growing every day</p>
   <div class="trust-grid">
-    <div class="trust-item"><div class="trust-num">12,400+</div><div class="trust-lbl">Active Sellers</div></div>
-    <div class="trust-item"><div class="trust-num">₹2.4Cr+</div><div class="trust-lbl">Deals Closed</div></div>
-    <div class="trust-item"><div class="trust-num">4.8 ⭐</div><div class="trust-lbl">Seller Rating</div></div>
-    <div class="trust-item"><div class="trust-num">50+</div><div class="trust-lbl">Countries Reached</div></div>
+    <div class="trust-item"><div class="trust-num" id="trustSup">8+</div><div class="trust-lbl">Verified Eco Suppliers</div></div>
+    <div class="trust-item"><div class="trust-num">11+</div><div class="trust-lbl">Green Categories</div></div>
+    <div class="trust-item"><div class="trust-num">🇮🇳 #1</div><div class="trust-lbl">India's First Eco B2B</div></div>
+    <div class="trust-item"><div class="trust-num">Free</div><div class="trust-lbl">To Start — Always</div></div>
   </div>
   <button class="trust-btn" onclick="window.location.href='/login'">🌿 Start Free Today — No Card Needed</button>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async()=>{
+  try{
+    const db=supabase.createClient('https://qrwhsygcblgbibogiecm.supabase.co','sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB');
+    const {data}=await db.from('suppliers').select('id',{count:'exact'}).eq('status','active');
+    if(data&&data.length>0){const el=document.getElementById('trustSup');if(el)el.textContent=data.length+'+';}
+  }catch(e){}
+})();
+</script>
 
 <footer>
   <p>© 2026 Green Roots Smart · All rights reserved 🌿</p>
