@@ -549,11 +549,13 @@ function renderProducts(reset) {
         ${moq ? `<div class="prod-moq">${moq}</div>` : ''}
         <div class="prod-footer">
           ${waBtn}
-          <button class="enquire-btn" onclick="event.stopPropagation();openModal('${(p.name||'').replace(/'/g,"\'")}','${p.id||''}')">Enquire</button>
+          <button class="enquire-btn" onclick="event.stopPropagation();openModal('${(p.name||'').replace(/'/g,"\'")}','${p.id||''}','${p.supplier_id||''}')">Enquire</button>
         </div>
       </div>`;
 
-    card.addEventListener('click', () => openModal(p.name||'', p.id||'', p.supplier_id||''));
+    card.addEventListener('click', () => {
+      window.location.href = '/product-detail?id=' + (p.id||'');
+    });
     grid.appendChild(card);
   });
 
