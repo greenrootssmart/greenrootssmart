@@ -64,8 +64,24 @@ nav{background:white;padding:0 6%;height:64px;display:flex;align-items:center;ju
 .search-bar input{flex:1;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
 .search-bar button{padding:10px 20px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
 
-/* MAIN */
-.main{padding:48px 6%;}
+/* LAYOUT WITH SIDEBAR */
+.services-layout{display:grid;grid-template-columns:240px 1fr;gap:24px;padding:32px 6%;max-width:1400px;margin:0 auto;}
+.svc-filters{background:white;border-radius:16px;padding:20px;height:fit-content;box-shadow:0 2px 12px #00000008;position:sticky;top:80px;}
+.filter-title{font-size:14px;font-weight:700;color:var(--g1);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.filter-title button{font-size:11px;color:var(--g3);background:none;border:none;cursor:pointer;font-weight:600;}
+.filter-sec{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--g5);}
+.filter-sec:last-child{border-bottom:none;margin-bottom:0;}
+.filter-sec h4{font-size:11px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.filter-opt{display:flex;align-items:center;gap:8px;margin-bottom:7px;cursor:pointer;}
+.filter-opt input[type="checkbox"]{accent-color:var(--g3);width:14px;height:14px;}
+.filter-opt label{font-size:13px;color:var(--dark);cursor:pointer;}
+.svc-main-area{}
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.results-count{font-size:14px;color:var(--mid);}
+.results-count strong{color:var(--g1);}
+.sort-wrap{display:flex;align-items:center;gap:10px;}
+.sort-wrap label{font-size:13px;color:var(--mid);}
+.sort-wrap select{padding:7px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;background:white;}
 
 /* CATEGORY TABS */
 .cat-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
@@ -134,6 +150,8 @@ footer a{color:var(--g4);text-decoration:none;margin-left:12px;}
 
 @media(max-width:768px){
   .services-grid{grid-template-columns:1fr;}
+  .services-layout{grid-template-columns:1fr;padding:20px 4%;}
+  .svc-filters{position:static;}
   .hero h1{font-size:28px;}
   .hero-stats{gap:20px;flex-wrap:wrap;}
 }
@@ -305,105 +323,80 @@ function toggleMobileMenu() {
     <button onclick="doSearch()">Search</button>
   </div>
   <div class="hero-stats" style="margin-top:32px;">
-    <div class="hero-stat"><div class="num" id="statProviders">🌿</div><div class="lbl">Service Providers</div></div>
+    <div class="hero-stat"><div class="num" id="statProviders">—</div><div class="lbl">Service Providers</div></div>
     <div class="hero-stat"><div class="num">10</div><div class="lbl">Categories</div></div>
-    <div class="hero-stat"><div class="num">58+</div><div class="lbl">Services</div></div>
+    <div class="hero-stat"><div class="num" id="statSvcCount">—</div><div class="lbl">Services Listed</div></div>
     <div class="hero-stat"><div class="num">Pan India</div><div class="lbl">Coverage</div></div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="main" id="services">
+<!-- MAIN LAYOUT -->
+<div class="services-layout" id="services">
 
-  <!-- CATEGORY TABS -->
-  <div class="cat-tabs" id="catTabs">
-    <div class="cat-tab active" onclick="filterCat('all',this)">🌿 All Services</div>
-    <div class="cat-tab" onclick="filterCat('Testing & Laboratory',this)">🔬 Testing & Labs</div>
-    <div class="cat-tab" onclick="filterCat('Consulting & Advisory',this)">📋 Consulting</div>
-    <div class="cat-tab" onclick="filterCat('Certification & Compliance',this)">📜 Certification</div>
-    <div class="cat-tab" onclick="filterCat('Waste Management',this)">♻️ Waste Mgmt</div>
-    <div class="cat-tab" onclick="filterCat('Water & Wastewater',this)">💧 Water</div>
-    <div class="cat-tab" onclick="filterCat('Renewable Energy',this)">⚡ Renewable Energy</div>
-    <div class="cat-tab" onclick="filterCat('Ecological Services',this)">🌱 Ecological</div>
-    <div class="cat-tab" onclick="filterCat('Remediation',this)">🏗️ Remediation</div>
-    <div class="cat-tab" onclick="filterCat('Training & Education',this)">🎓 Training</div>
-  </div>
-
-  <!-- SERVICES GRID -->
-  <div class="sec-title">Environmental Service Providers</div>
-  <div class="sec-sub">Verified providers — check availability and book directly</div>
-
-  <div class="services-grid" id="servicesGrid">
-    <div class="empty-state" style="grid-column:1/-1">
-      <div class="icon">🌿</div>
-      <h3>Be the first service provider!</h3>
-      <p>No service providers yet. Register now and be featured here!</p>
-      <a href="/login" style="display:inline-block;margin-top:16px;padding:10px 24px;background:var(--g2);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;">Register Free →</a>
+  <!-- FILTERS SIDEBAR -->
+  <div class="svc-filters">
+    <div class="filter-title">
+      Filters
+      <button onclick="clearSvcFilters()">Clear All</button>
     </div>
-  </div>
-
-  <!-- REGISTER CTA -->
-  <div class="register-cta">
-    <h2>🌿 Are You an Environmental Service Provider?</h2>
-    <p>List your services on Green Roots Smart — India's First Eco B2B Marketplace. Connect with businesses across India looking for environmental services!</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
-      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">✅ Free listing</div>
-      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">📩 Get direct enquiries</div>
-      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">💬 WhatsApp leads</div>
-      <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">🌍 Pan India visibility</div>
+    <div class="filter-sec">
+      <h4>Category</h4>
+      <div class="filter-opt"><input type="checkbox" id="sf1" value="Testing & Laboratory" onchange="doSearch()"/><label for="sf1">🔬 Testing & Labs</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf2" value="Consulting & Advisory" onchange="doSearch()"/><label for="sf2">📋 Consulting</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf3" value="Certification & Compliance" onchange="doSearch()"/><label for="sf3">📜 Certification</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf4" value="Waste Management" onchange="doSearch()"/><label for="sf4">♻️ Waste Mgmt</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf5" value="Water & Wastewater" onchange="doSearch()"/><label for="sf5">💧 Water</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf6" value="Renewable Energy" onchange="doSearch()"/><label for="sf6">⚡ Renewable Energy</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf7" value="Ecological Services" onchange="doSearch()"/><label for="sf7">🌱 Ecological</label></div>
+      <div class="filter-opt"><input type="checkbox" id="sf8" value="Training & Education" onchange="doSearch()"/><label for="sf8">🎓 Training</label></div>
     </div>
-    <div class="btns">
-      <a href="/register" class="btn-primary">Register Free Today →</a>
-      <a href="/contact" class="btn-secondary">Contact Us</a>
+    <div class="filter-sec">
+      <h4>Availability</h4>
+      <div class="filter-opt"><input type="checkbox" id="av1" value="available" onchange="doSearch()"/><label for="av1">🟢 Available Now</label></div>
+      <div class="filter-opt"><input type="checkbox" id="av2" value="busy" onchange="doSearch()"/><label for="av2">🟡 Busy</label></div>
+    </div>
+    <div class="filter-sec">
+      <h4>Quick Browse</h4>
+      <a href="/register" style="display:block;text-align:center;padding:10px;background:var(--g2);color:white;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;margin-top:4px;">🌿 List Your Service Free</a>
     </div>
   </div>
 
-  <!-- CATEGORIES -->
-  <div class="sec-title">Browse by Service Category</div>
-  <div class="sec-sub">10 categories covering all environmental service needs</div>
-  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:48px;" class="cat-icons-grid">
-    <div onclick="filterCat('Testing & Laboratory',document.querySelector('[onclick*=Testing]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">🔬</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Testing & Labs</div>
+  <!-- SERVICES MAIN -->
+  <div class="svc-main-area">
+    <div class="results-bar">
+      <div class="results-count" id="svcResultsCount">Loading...</div>
+      <div class="sort-wrap">
+        <label>Sort:</label>
+        <select id="svcSort" onchange="doSearch()">
+          <option value="newest">Newest First</option>
+          <option value="available">Available First</option>
+        </select>
+      </div>
     </div>
-    <div onclick="filterCat('Consulting & Advisory',document.querySelector('[onclick*=Consulting]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">📋</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Consulting</div>
+
+    <div class="services-grid" id="servicesGrid">
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="icon">🌿</div>
+        <h3>Loading services...</h3>
+      </div>
     </div>
-    <div onclick="filterCat('Certification & Compliance',document.querySelector('[onclick*=Certification]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">📜</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Certification</div>
-    </div>
-    <div onclick="filterCat('Waste Management',document.querySelector('[onclick*=Waste]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">♻️</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Waste Mgmt</div>
-    </div>
-    <div onclick="filterCat('Water & Wastewater',document.querySelector('[onclick*=Water]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">💧</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Water</div>
-    </div>
-    <div onclick="filterCat('Renewable Energy',document.querySelector('[onclick*=Renewable]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">⚡</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Renewable Energy</div>
-    </div>
-    <div onclick="filterCat('Ecological Services',document.querySelector('[onclick*=Ecological]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">🌱</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Ecological</div>
-    </div>
-    <div onclick="filterCat('Remediation',document.querySelector('[onclick*=Remediation]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">🏗️</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Remediation</div>
-    </div>
-    <div onclick="filterCat('Reporting & Technology',document.querySelector('[onclick*=Reporting]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">📊</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Reporting & Tech</div>
-    </div>
-    <div onclick="filterCat('Training & Education',document.querySelector('[onclick*=Training]'))" style="background:white;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:1.5px solid #e8f0e8;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b043'" onmouseout="this.style.borderColor='#e8f0e8'">
-      <div style="font-size:28px;margin-bottom:6px;">🎓</div>
-      <div style="font-size:12px;font-weight:700;color:#1a4a24;">Training</div>
+
+    <!-- REGISTER CTA -->
+    <div class="register-cta" style="margin-top:32px;">
+      <h2>🌿 Are You an Environmental Service Provider?</h2>
+      <p>List your services on Green Roots Smart — India's First Eco B2B Marketplace. Connect with businesses across India looking for environmental services!</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+        <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">✅ Free listing</div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">📩 Get direct enquiries</div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">💬 WhatsApp leads</div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:12px 20px;font-size:13px;">🌍 Pan India visibility</div>
+      </div>
+      <div class="btns">
+        <a href="/register" class="btn-primary">Register Free Today →</a>
+        <a href="/contact" class="btn-secondary">Contact Us</a>
+      </div>
     </div>
   </div>
-
 </div>
 
 <!-- ENQUIRY MODAL -->
@@ -478,11 +471,45 @@ async function loadProviders() {
     }
 
     allProviders = data;
-    document.getElementById('statProviders').textContent = data.length > 0 ? data.length + '+' : '0';
-    renderProviders(data);
+    document.getElementById('statProviders').textContent = data.length + '+';
+    document.getElementById('statSvcCount').textContent = data.length + '+';
+    doSearch();
   } catch(e) {
     showEmpty();
   }
+}
+
+function clearSvcFilters() {
+  document.querySelectorAll('.svc-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.getElementById('searchInput').value = '';
+  doSearch();
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const checkedCats = [...document.querySelectorAll('.svc-filters input[type="checkbox"]:checked')]
+    .filter(cb => ['sf1','sf2','sf3','sf4','sf5','sf6','sf7','sf8'].includes(cb.id))
+    .map(cb => cb.value);
+  const checkedAvail = [...document.querySelectorAll('.svc-filters input[type="checkbox"]:checked')]
+    .filter(cb => ['av1','av2'].includes(cb.id))
+    .map(cb => cb.value);
+  const sort = document.getElementById('svcSort').value;
+
+  let filtered = allProviders.filter(p => {
+    const matchQ = !q ||
+      (p.service_name||'').toLowerCase().includes(q) ||
+      (p.description||'').toLowerCase().includes(q) ||
+      (p.category||'').toLowerCase().includes(q) ||
+      (p.location||p.city||'').toLowerCase().includes(q);
+    const matchCat = checkedCats.length === 0 || checkedCats.includes(p.category);
+    const matchAvail = checkedAvail.length === 0 || checkedAvail.includes(p.availability);
+    return matchQ && matchCat && matchAvail;
+  });
+
+  if(sort === 'available') filtered.sort((a,b) => a.availability === 'available' ? -1 : 1);
+
+  document.getElementById('svcResultsCount').innerHTML = `Showing <strong>${filtered.length}</strong> service provider${filtered.length !== 1 ? 's' : ''}`;
+  renderProviders(filtered);
 }
 
 function showEmpty(cat) {
