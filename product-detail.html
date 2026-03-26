@@ -245,12 +245,13 @@ async function loadProduct(){
   if(!id){showNotFound();return;}
 
   try{
-    const {data,error}=await db.from('products').select('*').eq('id',id).single();
-    if(error||!data){showNotFound();return;}
-    currentProduct=data;
-    renderProduct(data);
-    loadSimilar(data.category, id);
-  }catch(e){showNotFound();}
+    const {data,error}=await db.from('products').select('*').eq('id',id);
+    if(error){console.error('Supabase error:',error);showNotFound();return;}
+    if(!data||data.length===0){showNotFound();return;}
+    currentProduct=data[0];
+    renderProduct(data[0]);
+    loadSimilar(data[0].category, id);
+  }catch(e){console.error('Error:',e);showNotFound();}
 }
 
 function renderProduct(p){
