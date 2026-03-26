@@ -357,7 +357,7 @@ function renderSuppliers(suppliers) {
     const waMsg = encodeURIComponent(`Hi! I found ${s.business_name} on Green Roots Smart. I am interested in your products/services.`);
     const isManual = s.manually_added && !s.claimed;
 
-    return `<div class="sup-card">
+    return `<div class="sup-card" onclick="window.location.href='/supplier-detail?id=${s.id}'" style="cursor:pointer;">
       <div class="sup-head">
         <div class="sup-av" style="background:linear-gradient(135deg,#52b043,#1a4a24)">${initials}</div>
         <div style="flex:1">
@@ -378,9 +378,9 @@ function renderSuppliers(suppliers) {
         <div style="font-size:11px;color:#7a9a74">${isManual ? '👆 This your business?' : '🌿 GRS Verified'}</div>
         <div class="sup-btns">
           ${isManual
-            ? `<a href="/claim-profile" class="btn-claim">Claim →</a>`
-            : `${waNum ? `<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa">💬 WA</a>` : ''}
-               <button class="btn-enquire" onclick="openModal('${(s.business_name||'').replace(/'/g,"\\'")}')">Enquire</button>`
+            ? `<a href="/claim-profile" onclick="event.stopPropagation()" class="btn-claim">Claim →</a>`
+            : `${waNum ? `<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()" class="btn-wa">💬 WA</a>` : ''}
+               <button class="btn-enquire" onclick="event.stopPropagation();openModal('${(s.business_name||'').replace(/'/g,"\\'")}')">Enquire</button>`
           }
         </div>
       </div>
