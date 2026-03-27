@@ -1,1200 +1,834 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="google-site-verification" content="NkzAv2zIqn0EUtwYB82XA3Vhz1x2tijxuGa5GewM8C0"/>
-<title>Green Roots Smart — India's Sustainable B2B Marketplace</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>Green Roots Smart — India's #1 Eco B2B Marketplace</title>
+<meta name="description" content="Green Roots Smart is India's first eco B2B marketplace connecting verified eco-friendly suppliers with buyers. Find solar energy, organic products, eco packaging, water technology and more."/>
+<meta name="keywords" content="eco B2B marketplace India, green suppliers India, sustainable products wholesale, solar energy suppliers, organic products B2B, eco packaging suppliers"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.greenrootssmart.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Green Roots Smart — India's #1 Eco B2B Marketplace"/>
+<meta property="og:description" content="India's first eco B2B marketplace — solar, organic, packaging, water tech and 11+ green categories."/>
+<meta property="og:url" content="https://www.greenrootssmart.com/"/>
+<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<meta property="og:site_name" content="Green Roots Smart"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Green Roots Smart — India's #1 Eco B2B Marketplace"/>
+<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --g1: #1a4a24;
-  --g2: #2d7a3a;
-  --g3: #52b043;
-  --g4: #a8d8a0;
-  --g5: #e8f5e2;
-  --earth: #7a4f2d;
-  --cream: #f7f9f2;
-  --white: #ffffff;
-  --dark: #1a2e1a;
-  --mid: #4a6645;
-  --light: #7a9a74;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px;}
+a{text-decoration:none;color:inherit;}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--g5);}
-::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px;}
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.97);backdrop-filter:blur(20px);border-bottom:1px solid #d4e8cc;height:64px;display:flex;align-items:center;padding:0 5%;justify-content:space-between;transition:box-shadow 0.3s;}
+.nav.scrolled{box-shadow:0 4px 20px rgba(45,122,58,0.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:40px;width:auto;object-fit:contain;}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--g1);line-height:1.2;}
+.nav-logo-text span{color:var(--g3);}
+.nav-logo-sub{font-size:9px;color:var(--light);font-weight:500;letter-spacing:0.5px;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{color:var(--mid);font-size:13px;font-weight:500;padding:6px 9px;border-radius:8px;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--g2);background:var(--g5);}
+.nav-drop{position:relative;}
+.nav-drop-btn{background:none;border:none;cursor:pointer;color:var(--mid);font-size:13px;font-weight:500;padding:6px 9px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.nav-drop-btn:hover{color:var(--g2);background:var(--g5);}
+.drop-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:100;}
+.nav-drop:hover .drop-menu{display:block;}
+.drop-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:var(--g1);font-size:13px;font-weight:500;transition:all 0.2s;}
+.drop-item:hover{background:var(--g5);}
+.drop-item .di{font-size:18px;width:30px;height:30px;background:var(--g5);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.di-t{font-weight:600;font-size:13px;color:var(--g1);}
+.di-s{font-size:11px;color:var(--light);margin-top:1px;}
+.drop-divider{height:1px;background:#f0f4f0;margin:4px 0;}
+.drop-soon{opacity:0.4;pointer-events:none;}
+.soon-tag{background:var(--g5);color:var(--g2);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;}
+.nav-btns{display:flex;align-items:center;gap:8px;}
+.btn-o{padding:7px 14px;border-radius:8px;border:1.5px solid var(--g2);color:var(--g2);font-size:13px;font-weight:600;transition:all 0.2s;display:inline-flex;align-items:center;}
+.btn-o:hover{background:var(--g5);}
+.btn-p{padding:7px 14px;border-radius:8px;background:var(--g2);color:white;font-size:13px;font-weight:600;transition:all 0.2s;display:inline-flex;align-items:center;border:none;cursor:pointer;}
+.btn-p:hover{background:var(--g1);}
+.btn-claim{padding:7px 12px;border-radius:8px;border:1.5px solid var(--g4);background:var(--g5);color:var(--g2);font-size:12px;font-weight:600;}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:4px;}
+@media(max-width:900px){.nav-links{display:none;}.nav-btns .btn-o,.nav-btns .btn-claim{display:none;}.ham{display:block;}}
+.mob-menu{display:none;background:white;border-bottom:1px solid #d4e8cc;padding:14px 5%;}
+.mob-menu a{display:block;padding:10px;color:var(--g1);font-size:14px;font-weight:500;border-radius:8px;}
+.mob-menu a:hover{background:var(--g5);}
+.mob-div{height:1px;background:#e8f0e8;margin:8px 0;}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(247,249,242,0.96);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
-nav.scrolled{box-shadow:0 4px 24px #2d7a3a15;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:38px;height:38px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);}
-.logo-text span{color:var(--g3);}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;transition:color 0.2s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--g3);transition:width 0.3s;}
-.nav-links a:hover{color:var(--g2);}
-.nav-links a:hover::after{width:100%;}
-.nav-btns{display:flex;gap:10px;}
-.btn-out{padding:8px 20px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;}
-.btn-out:hover{background:var(--g5);}
-.btn-pri{padding:8px 20px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;}
-.btn-pri:hover{background:var(--g1);transform:translateY(-1px);box-shadow:0 4px 16px #2d7a3a30;}
+/* ── HERO ────────────────────────────────────────────────────────────────── */
+.hero{background:linear-gradient(160deg,#071208 0%,#1a4a24 60%,#0f3318 100%);padding:72px 5% 60px;position:relative;overflow:hidden;text-align:center;}
+.hero::after{content:'';position:absolute;right:-150px;top:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(82,176,67,0.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+.hero-inner{max-width:740px;margin:0 auto;position:relative;z-index:1;}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.3);border-radius:30px;padding:6px 16px;font-size:11px;font-weight:700;color:#a8d8a0;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;}
+.hdot{width:6px;height:6px;background:#52b043;border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);opacity:0.6;}}
+.hero-h1{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:white;line-height:1.1;margin-bottom:16px;}
+.hero-h1 .acc{color:#52b043;}.hero-h1 .l2{color:#a8d8a0;}
+.hero-p{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.8;margin-bottom:28px;max-width:600px;margin-left:auto;margin-right:auto;}
+.hero-p strong{color:#a8d8a0;}
+.hero-search{display:flex;background:white;border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.25);max-width:680px;margin:0 auto 14px;}
+.hero-search input{flex:1;padding:15px 18px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
+.hero-search select{padding:0 12px;border:none;border-left:1px solid #e0e8e0;outline:none;background:#f5faf5;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--g2);cursor:pointer;}
+.hero-search button{padding:0 24px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;transition:background 0.2s;white-space:nowrap;}
+.hero-search button:hover{background:var(--g2);}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.htag{padding:5px 13px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:20px;font-size:12px;color:rgba(255,255,255,0.72);cursor:pointer;transition:all 0.2s;}
+.htag:hover{background:rgba(82,176,67,0.2);border-color:#52b043;color:white;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow:hidden;max-width:640px;margin:0 auto;}
+.hs{padding:14px 12px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.hs:last-child{border-right:none;}
+.hs-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;display:block;}
+.hs-l{font-size:10px;color:rgba(255,255,255,0.5);display:block;margin-top:2px;}
 
-/* ══ HERO ══════════════════════════════════════════════════════════════════ */
-.hero{min-height:100vh;padding-top:64px;display:grid;grid-template-columns:1fr 1.2fr;align-items:center;gap:40px;padding-left:6%;padding-right:3%;background:linear-gradient(150deg,#0d2e12 0%,#1a4a24 45%,#0f3318 100%);position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2352b043' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
-.hero::after{content:'';position:absolute;right:-200px;top:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(82,176,67,0.15) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
-.hero-content{position:relative;z-index:1;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.3);border-radius:30px;padding:7px 16px;margin-bottom:24px;animation:fadeUp 0.5s ease both;}
-.eyebrow-dot{width:7px;height:7px;background:#52b043;border-radius:50%;animation:pulse 2s infinite;}
-.eyebrow-text{font-size:12px;font-weight:700;color:#a8d8a0;letter-spacing:1px;text-transform:uppercase;}
-.hero-title{font-family:'Playfair Display',serif;font-size:60px;font-weight:900;line-height:1.05;color:white;animation:fadeUp 0.5s 0.1s ease both;}
-.hero-title .ht-accent{color:#52b043;}
-.hero-title .ht-line2{display:block;color:#a8d8a0;font-size:52px;}
-.hero-sub{margin-top:20px;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.8;max-width:480px;animation:fadeUp 0.5s 0.2s ease both;}
-.hero-sub strong{color:#a8d8a0;}
+/* ── TRUST BAR ───────────────────────────────────────────────────────────── */
+.trust{background:var(--g3);padding:13px 5%;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+.ti{display:flex;align-items:center;gap:6px;color:white;font-size:13px;font-weight:600;}
+.ti span{font-size:16px;}
+.tsep{width:1px;height:16px;background:rgba(255,255,255,0.25);}
 
-/* SEARCH */
-.search-wrap{margin-top:32px;animation:fadeUp 0.5s 0.3s ease both;}
-.search-box{display:flex;background:white;border:2px solid rgba(255,255,255,0.1);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3);}
-.search-box input{flex:1;padding:16px 20px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--dark);background:transparent;}
-.search-box select{padding:0 14px;border:none;border-left:1px solid #d4e8cc;outline:none;background:var(--g5);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--g2);cursor:pointer;}
-.search-box button{padding:0 28px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;transition:background 0.2s;}
-.search-box button:hover{background:var(--g2);}
-.search-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.stag{padding:5px 13px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;font-size:12px;color:rgba(255,255,255,0.75);cursor:pointer;transition:all 0.2s;}
-.stag:hover{background:rgba(82,176,67,0.2);border-color:#52b043;color:white;}
+/* ── SECTIONS ────────────────────────────────────────────────────────────── */
+.sec{padding:56px 5%;}
+.sec.wh{background:white;}
+.sec.dk{background:var(--g1);}
+.sec.cream{background:var(--cream);}
+.sec-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:10px;}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--g3);text-transform:uppercase;margin-bottom:6px;}
+.sec-lbl.w{color:var(--g4);}
+.sec-t{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);margin-bottom:3px;}
+.sec-t.w{color:white;}
+.sec-s{font-size:14px;color:var(--light);line-height:1.5;}
+.sec-s.w{color:rgba(255,255,255,0.5);}
+.sea{color:var(--g2);font-size:13px;font-weight:700;display:flex;align-items:center;gap:4px;transition:gap 0.2s;white-space:nowrap;}
+.sea:hover{gap:8px;}
+.sea.w{color:var(--g4);}
 
-/* HERO STATS */
-.hero-stats{display:flex;gap:0;margin-top:36px;animation:fadeUp 0.5s 0.4s ease both;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;}
-.stat-item{flex:1;padding:18px 20px;display:flex;flex-direction:column;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:white;}
-.stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);font-weight:500;margin-top:3px;}
-.stat-div{display:none;}
+/* ── CATEGORY CARDS (with image) ─────────────────────────────────────────── */
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cat-card{border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.08);position:relative;}
+.cat-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.15);}
+.cat-img-wrap{height:130px;position:relative;overflow:hidden;}
+.cat-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.cat-card:hover .cat-img-wrap img{transform:scale(1.06);}
+.cat-emoji-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.55) 100%);}
+.cat-body{background:white;padding:12px 14px;border-top:3px solid transparent;}
+.cat-name{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:3px;}
+.cat-info{display:flex;align-items:center;justify-content:space-between;}
+.cat-sup-count{font-size:11px;font-weight:700;color:var(--g2);}
+.cat-arrow{font-size:12px;color:var(--light);}
+.cat-card:hover .cat-arrow{color:var(--g2);}
+.cat-va{background:var(--g5);}
+.cat-va .cat-body{background:var(--g5);border-color:var(--g3);}
 
-/* HERO VISUAL */
-.hero-visual{position:relative;z-index:1;animation:fadeUp 0.5s 0.2s ease both;display:flex;flex-direction:column;gap:16px;}
-.hero-visual-top{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;}
+/* ── SERVICE CATEGORY CARDS ──────────────────────────────────────────────── */
+.svc-cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.svc-cat-card{background:white;border-radius:14px;padding:18px 12px;text-align:center;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.svc-cat-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.12);}
+.svc-icon{font-size:28px;margin-bottom:8px;display:block;}
+.svc-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:3px;}
+.svc-count{font-size:10px;color:var(--light);}
 
-/* ECOSYSTEM WHEEL */
-.eco-wheel{width:220px;height:220px;flex-shrink:0;position:relative;}
-.eco-wheel svg{width:100%;height:100%;}
+/* ── CAROUSEL ────────────────────────────────────────────────────────────── */
+.carousel-wrap{position:relative;}
+.carousel-track-outer{overflow:hidden;border-radius:0;}
+.carousel-track{display:flex;gap:18px;transition:transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform;flex-wrap:nowrap;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.2s;box-shadow:0 4px 16px rgba(0,0,0,0.15);}
+.carousel-btn:hover{transform:translateY(-50%) scale(1.1);}
+.carousel-btn.prev{left:-18px;background:white;color:var(--g1);}
+.carousel-btn.next{right:-18px;background:white;color:var(--g1);}
+.carousel-btn.prev.dk{background:rgba(255,255,255,0.15);color:white;}
+.carousel-btn.next.dk{background:rgba(255,255,255,0.15);color:white;}
+.carousel-btn svg{width:18px;height:18px;}
+.carousel-dots{display:flex;gap:6px;justify-content:center;margin-top:20px;}
+.cdot{width:7px;height:7px;border-radius:50%;background:#d4e8cc;cursor:pointer;transition:all 0.2s;}
+.cdot.active{background:var(--g3);width:20px;border-radius:4px;}
+.cdot.dk{background:rgba(255,255,255,0.2);}
+.cdot.active.dk{background:var(--g3);}
 
-/* LIVE PANELS */
-.live-panels{display:flex;flex-direction:column;gap:12px;}
-.live-panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;}
-.live-panel-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;}
-.live-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.live-cat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;}
-.live-cat:hover{background:rgba(82,176,67,0.15);border-color:rgba(82,176,67,0.3);}
-.live-cat-icon{font-size:18px;display:block;margin-bottom:4px;}
-.live-cat-name{font-size:9px;font-weight:600;color:rgba(255,255,255,0.7);display:block;line-height:1.2;}
-.live-cat-count{font-size:10px;font-weight:700;color:#52b043;display:block;margin-top:2px;}
+/* ── SUPPLIER CAROUSEL CARD ──────────────────────────────────────────────── */
+.sup-slide{min-width:calc(33.333% - 12px);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:22px;transition:all 0.3s;cursor:pointer;flex-shrink:0;}
+.sup-slide:hover{background:rgba(255,255,255,0.12);transform:translateY(-3px);border-color:rgba(82,176,67,0.3);}
+.sup-h{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.sup-av{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:white;flex-shrink:0;}
+.sup-nm{font-size:14px;font-weight:700;color:white;}
+.sup-lc{font-size:11px;color:#80b080;margin-top:2px;}
+.sup-bd{margin-left:auto;background:rgba(82,176,67,0.2);border-radius:20px;padding:3px 9px;font-size:10px;color:#a8d8a0;font-weight:700;flex-shrink:0;}
+.sup-bd.un{background:rgba(230,81,0,0.2);color:#ffab40;}
+.sup-tag{display:inline-block;padding:3px 10px;background:rgba(82,176,67,0.12);border-radius:20px;font-size:11px;color:#a8d8a0;margin-bottom:12px;}
+.sup-ft{display:flex;align-items:center;justify-content:space-between;}
+.sup-st{font-size:11px;color:#80b080;}
+.sup-ac{font-size:11px;font-weight:600;color:#f59e0b;}
 
-/* SERVICE ROW */
-.hero-svc-row{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;}
-.live-svcs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+/* ── PRODUCT CAROUSEL CARD ───────────────────────────────────────────────── */
+.prod-slide{min-width:calc(25% - 14px);background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;flex-shrink:0;}
+.prod-slide:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(45,122,58,0.1);border-color:var(--g4);}
+.prod-im{height:148px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden;}
+.prod-im img{width:100%;height:100%;object-fit:cover;}
+.prod-eco{position:absolute;top:8px;left:8px;background:var(--g5);color:var(--g2);font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.prod-b{padding:13px;}
+.prod-cl{font-size:10px;color:var(--g3);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+.prod-nm{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px;line-height:1.4;}
+.prod-sl{font-size:11px;color:var(--light);margin-bottom:7px;display:flex;align-items:center;gap:3px;}
+.vd{width:5px;height:5px;background:var(--g3);border-radius:50%;flex-shrink:0;}
+.prod-pr{font-size:16px;font-weight:700;color:var(--g2);}
+.prod-un{font-size:11px;color:var(--light);font-weight:400;}
+.prod-mq{font-size:10px;color:var(--mid);margin-top:1px;}
+.prod-ft{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--g5);}
+.wa-l{display:inline-flex;align-items:center;gap:3px;background:#25D366;color:white;padding:5px 9px;border-radius:6px;font-size:11px;font-weight:600;}
+.enq-l{padding:5px 11px;background:var(--g5);border-radius:6px;font-size:11px;font-weight:600;color:var(--g2);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.enq-l:hover{background:var(--g2);color:white;}
 
-/* ══ MISSION STRIP ════════════════════════════════════════════════════════ */
-.mission-strip{background:var(--g3);padding:20px 6%;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
-.mission-strip-text{font-size:15px;font-weight:700;color:white;text-align:center;}
-.mission-strip-text span{background:rgba(0,0,0,0.15);padding:2px 10px;border-radius:20px;margin:0 4px;}
-
-/* ══ IMPACT NUMBERS ═══════════════════════════════════════════════════════ */
-.impact{background:white;padding:72px 6%;}
-.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#f0f4f0;border-radius:20px;overflow:hidden;margin-top:48px;}
-.impact-card{background:white;padding:36px 24px;text-align:center;transition:background 0.2s;}
-.impact-card:hover{background:var(--g5);}
-.impact-num{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:var(--g1);line-height:1;}
-.impact-num span{font-size:28px;color:var(--g3);}
-.impact-label{font-size:13px;font-weight:600;color:var(--mid);margin-top:8px;}
-.impact-sub{font-size:11px;color:var(--light);margin-top:4px;}
-
-/* ══ WHO WE SERVE ═════════════════════════════════════════════════════════ */
-.serve{padding:80px 6%;background:var(--cream);}
-.serve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
-.serve-card{border-radius:24px;padding:40px 32px;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.3s;text-decoration:none;display:block;}
-.serve-card:hover{transform:translateY(-6px);}
-.serve-card.suppliers{background:linear-gradient(145deg,#1a4a24,#2d7a3a);}
-.serve-card.buyers{background:linear-gradient(145deg,#0d3d6b,#1565c0);}
-.serve-card.services{background:linear-gradient(145deg,#4a2d0d,#8d5a2b);}
-.serve-card::before{content:'';position:absolute;right:-30px;bottom:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06);}
-.serve-card::after{content:'';position:absolute;right:20px;top:20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.04);}
-.serve-icon{font-size:44px;margin-bottom:20px;display:block;}
-.serve-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;}
-.serve-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:white;margin-bottom:12px;line-height:1.2;}
-.serve-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:24px;}
-.serve-points{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
-.serve-point{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.85);}
-.serve-point::before{content:'✓';width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;text-align:center;line-height:18px;}
-.serve-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:white;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;transition:all 0.2s;}
-.serve-card:hover .serve-cta{background:rgba(255,255,255,0.25);}
-
-/* ══ WHY GRS ══════════════════════════════════════════════════════════════ */
-.why{background:var(--g1);padding:80px 6%;position:relative;overflow:hidden;}
-.why::before{content:'';position:absolute;left:-100px;bottom:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(82,176,67,0.1) 0%,transparent 65%);border-radius:50%;}
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
-.why-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px;transition:all 0.3s;}
-.why-card:hover{background:rgba(255,255,255,0.09);border-color:rgba(82,176,67,0.3);transform:translateY(-4px);}
-.why-icon{width:56px;height:56px;border-radius:16px;background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.2);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;}
-.why-title{font-size:17px;font-weight:700;color:white;margin-bottom:8px;}
-.why-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;}
-.why-tag{display:inline-block;margin-top:16px;padding:4px 12px;background:rgba(82,176,67,0.15);border-radius:20px;font-size:11px;font-weight:700;color:#a8d8a0;letter-spacing:0.5px;}
-
-/* ══ CATEGORIES ═══════════════════════════════════════════════════════════ */
-.section{padding:80px 6%;}
-.sec-label{font-size:11px;font-weight:700;letter-spacing:2.5px;color:var(--g3);text-transform:uppercase;margin-bottom:10px;}
-.sec-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--g1);margin-bottom:8px;line-height:1.2;}
-.sec-sub{font-size:16px;color:var(--mid);margin-bottom:48px;max-width:500px;line-height:1.6;}
-.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;}
-.see-all{color:var(--g2);font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap 0.2s;}
-.see-all:hover{gap:8px;}
-.cats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
-.cat-card{background:white;border-radius:18px;padding:24px 16px;text-align:center;border:1.5px solid transparent;transition:all 0.3s;cursor:pointer;box-shadow:0 2px 12px #00000008;}
-.cat-card:hover{border-color:var(--g4);transform:translateY(-4px);box-shadow:0 10px 28px #2d7a3a14;}
-.cat-card.active{border-color:var(--g3);background:var(--g5);}
-.cat-emoji{font-size:34px;margin-bottom:10px;display:block;}
-.cat-card h3{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:4px;}
-.cat-card span{font-size:11px;color:var(--light);}
-
-/* ══ FEATURED SUPPLIERS ════════════════════════════════════════════════════ */
-.featured{background:var(--g1);padding:80px 6%;}
-.featured .sec-title{color:white;}
-.featured .sec-sub{color:#a0c8a0;}
-.featured .sec-label{color:var(--g4);}
-.sup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.sup-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:22px;padding:28px;transition:all 0.3s;cursor:pointer;}
-.sup-card:hover{background:rgba(255,255,255,0.13);transform:translateY(-4px);}
-.sup-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
-.sup-av{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:white;}
-.sup-name{font-size:16px;font-weight:700;color:white;}
-.sup-loc{font-size:12px;color:#80b080;margin-top:2px;}
-.sup-badge{margin-left:auto;background:rgba(82,176,67,0.25);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--g4);font-weight:600;}
-.sup-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.sup-tag{padding:4px 10px;background:rgba(82,176,67,0.15);border-radius:20px;font-size:11px;color:var(--g4);}
-.sup-footer{display:flex;align-items:center;justify-content:space-between;}
-.sup-rating{color:#f0c060;font-size:13px;font-weight:600;}
-.sup-deals{font-size:12px;color:#80b080;}
-
-/* ══ HOW IT WORKS ══════════════════════════════════════════════════════════ */
-.how{background:white;padding:80px 6%;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative;}
-.steps::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--g3),var(--g4));z-index:0;}
+/* ── HOW IT WORKS ────────────────────────────────────────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;position:relative;}
+.steps::before{content:'';position:absolute;top:30px;left:12%;right:12%;height:2px;background:linear-gradient(90deg,var(--g3),var(--g4));z-index:0;}
 .step{text-align:center;position:relative;z-index:1;}
-.step-num{width:72px;height:72px;border-radius:50%;background:var(--g5);border:3px solid var(--g3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g2);background:white;box-shadow:0 0 0 6px var(--g5);}
-.step h3{font-size:15px;font-weight:700;color:var(--g1);margin-bottom:8px;}
-.step p{font-size:13px;color:var(--light);line-height:1.6;padding:0 16px;}
+.step-n{width:60px;height:60px;border-radius:50%;background:white;border:3px solid var(--g3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g2);box-shadow:0 0 0 6px var(--g5);}
+.step h3{font-size:13px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.step p{font-size:12px;color:var(--light);line-height:1.6;padding:0 10px;}
 
-/* ══ PRODUCTS ══════════════════════════════════════════════════════════════ */
-.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.prod-card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px #00000008;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
-.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px #2d7a3a14;border-color:var(--g4);}
-.prod-img{height:140px;display:flex;align-items:center;justify-content:center;font-size:56px;}
-.prod-body{padding:16px;}
-.prod-body h4{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;}
-.prod-body .supplier{font-size:11px;color:var(--light);margin-bottom:8px;}
-.prod-price{font-size:16px;font-weight:700;color:var(--g2);}
-.prod-moq{font-size:11px;color:var(--light);margin-top:2px;}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--g5);}
-.prod-rating{font-size:11px;color:#e0a020;font-weight:600;}
-.prod-btn{padding:5px 12px;background:var(--g5);border-radius:8px;font-size:11px;color:var(--g2);font-weight:600;border:none;cursor:pointer;transition:all 0.2s;}
-.prod-btn:hover{background:var(--g2);color:white;}
+/* ── WHO WE SERVE ────────────────────────────────────────────────────────── */
+.serve{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.sv-c{border-radius:18px;padding:32px 24px;position:relative;overflow:hidden;transition:transform 0.3s;display:block;}
+.sv-c:hover{transform:translateY(-4px);}
+.sv-c.s{background:linear-gradient(145deg,#1a4a24,#2d7a3a);}
+.sv-c.b{background:linear-gradient(145deg,#0d3d6b,#1565c0);}
+.sv-c.v{background:linear-gradient(145deg,#4a2d0d,#8d5a2b);}
+.sv-c::before{content:'';position:absolute;right:-20px;bottom:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.sv-ico{font-size:38px;margin-bottom:14px;display:block;}
+.sv-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:5px;}
+.sv-t{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:8px;}
+.sv-d{font-size:13px;color:rgba(255,255,255,0.62);line-height:1.7;margin-bottom:18px;}
+.sv-pts{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.sv-pt{font-size:12px;color:rgba(255,255,255,0.78);display:flex;align-items:center;gap:6px;}
+.sv-pt::before{content:'✓';font-size:10px;font-weight:700;width:15px;height:15px;background:rgba(255,255,255,0.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sv-cta{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:white;padding:8px 16px;border-radius:9px;font-size:12px;font-weight:700;transition:all 0.2s;}
+.sv-c:hover .sv-cta{background:rgba(255,255,255,0.22);}
 
-/* ══ MISSION STATEMENT ════════════════════════════════════════════════════ */
-.manifesto{padding:96px 6%;background:linear-gradient(160deg,#0a1f0c,#1a4a24);position:relative;overflow:hidden;text-align:center;}
-.manifesto::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(82,176,67,0.08) 0%,transparent 60%);border-radius:50%;}
-.manifesto-inner{position:relative;z-index:1;max-width:800px;margin:0 auto;}
-.manifesto-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#52b043;margin-bottom:24px;}
-.manifesto-title{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:white;line-height:1.15;margin-bottom:24px;}
-.manifesto-title em{color:#52b043;font-style:normal;}
-.manifesto-body{font-size:17px;color:rgba(255,255,255,0.65);line-height:1.85;max-width:640px;margin:0 auto 40px;}
-.manifesto-pillars{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:40px;}
-.pillar{padding:10px 20px;border:1px solid rgba(82,176,67,0.3);border-radius:30px;font-size:13px;font-weight:600;color:#a8d8a0;background:rgba(82,176,67,0.08);}
-.manifesto-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-.btn-green-solid{padding:15px 36px;background:#52b043;color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-.btn-green-solid:hover{background:#3d9030;transform:translateY(-2px);box-shadow:0 8px 28px rgba(82,176,67,0.35);}
-.btn-outline-white{padding:15px 36px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.25);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-.btn-outline-white:hover{border-color:white;background:rgba(255,255,255,0.08);}
+/* ── MANIFESTO ───────────────────────────────────────────────────────────── */
+.mf{background:linear-gradient(160deg,#071208,#1a4a24);padding:80px 5%;text-align:center;position:relative;overflow:hidden;}
+.mf::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(82,176,67,0.07) 0%,transparent 60%);border-radius:50%;}
+.mf-in{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+.mf-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--g3);text-transform:uppercase;margin-bottom:16px;}
+.mf-t{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:white;line-height:1.2;margin-bottom:16px;}
+.mf-t em{color:var(--g3);font-style:normal;}
+.mf-p{font-size:15px;color:rgba(255,255,255,0.58);line-height:1.9;margin-bottom:28px;}
+.mf-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+.pill{padding:7px 16px;border:1px solid rgba(82,176,67,0.3);border-radius:30px;font-size:12px;font-weight:600;color:#a8d8a0;background:rgba(82,176,67,0.07);}
+.mf-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-gr{padding:13px 30px;background:var(--g3);color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-gr:hover{background:#45a037;transform:translateY(-2px);}
+.btn-ol{padding:13px 30px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.2);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-ol:hover{border-color:white;background:rgba(255,255,255,0.06);}
 
-/* ══ CTA ═══════════════════════════════════════════════════════════════════ */
-.cta{margin:0 6% 80px;background:linear-gradient(135deg,var(--g2),var(--g1));border-radius:28px;padding:64px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
-.cta::before{content:'🌿';position:absolute;right:60px;top:10px;font-size:160px;opacity:0.08;line-height:1;}
-.cta-left h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:white;margin-bottom:12px;}
-.cta-left p{font-size:16px;color:#b0d8b0;max-width:420px;line-height:1.6;}
-.cta-btns{display:flex;gap:14px;flex-shrink:0;}
-.btn-white{padding:14px 32px;border-radius:12px;background:white;color:var(--g1);border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;}
-.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px #00000030;}
-.btn-ghost{padding:14px 32px;border-radius:12px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;}
-.btn-ghost:hover{border-color:white;background:rgba(255,255,255,0.1);}
+/* ── CTA SPLIT ───────────────────────────────────────────────────────────── */
+.cta-sp{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0 5% 60px;border-radius:20px;overflow:hidden;}
+.cta-h{padding:40px 32px;display:flex;flex-direction:column;align-items:flex-start;}
+.cta-h.gr{background:linear-gradient(135deg,var(--g2),var(--g1));}
+.cta-h.or{background:linear-gradient(135deg,#c84b00,#e65100);}
+.cta-ico{font-size:34px;margin-bottom:12px;}
+.cta-t{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:7px;}
+.cta-d{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.6;margin-bottom:18px;flex:1;}
+.cta-btn{padding:11px 22px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px;}
+.cta-btn.w{background:white;color:var(--g1);}
+.cta-btn.wo{background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.2);}
 
-/* FOOTER */
-footer{background:#0f1f10;padding:60px 6% 28px;}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
-.foot-brand{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;margin-bottom:12px;}
-.foot-desc{font-size:13px;color:#6a8a6a;line-height:1.7;max-width:260px;}
-.foot-col h4{font-size:12px;font-weight:700;color:var(--g4);margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;}
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+footer{background:#0f1f10;padding:52px 5% 24px;}
+.foot-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+.foot-img{height:34px;width:auto;filter:brightness(0) invert(1);margin-bottom:10px;display:block;}
+.foot-desc{font-size:12px;color:#5a7a5a;line-height:1.7;max-width:230px;}
+.foot-col h4{font-size:10px;font-weight:700;color:var(--g4);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;}
 .foot-col ul{list-style:none;}
-.foot-col li{margin-bottom:10px;}
-.foot-col a{text-decoration:none;color:#6a8a6a;font-size:13px;transition:color 0.2s;}
+.foot-col li{margin-bottom:8px;}
+.foot-col a{color:#5a7a5a;font-size:12px;transition:color 0.2s;}
 .foot-col a:hover{color:var(--g4);}
-.foot-bottom{border-top:1px solid #1a2e1a;padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#4a6a4a;}
+.foot-bot{border-top:1px solid #1a2e1a;padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#3a5a3a;flex-wrap:wrap;gap:8px;}
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:0.7;}}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+/* ── LOADING ─────────────────────────────────────────────────────────────── */
+.ld{display:flex;align-items:center;justify-content:center;gap:6px;padding:40px;width:100%;}
+.ld span{width:8px;height:8px;border-radius:50%;background:var(--g3);animation:boun 1.2s infinite;}
+.ld span:nth-child(2){animation-delay:0.2s;}
+.ld span:nth-child(3){animation-delay:0.4s;}
+@keyframes boun{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.empty{text-align:center;padding:40px;color:var(--light);font-size:13px;width:100%;}
+.empty a{color:var(--g2);font-weight:600;}
 
-/* MOBILE */
-/* ── TABLET 900px ─────────────────────────────── */
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media(max-width:1100px){
+  .prod-slide{min-width:calc(33.333% - 12px);}
+}
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:88px 5% 48px;gap:28px;min-height:auto;}
-  .hero-visual-top{grid-template-columns:1fr;}
-  .eco-wheel{display:none;}
-  .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);}
-  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
-  .live-cats{grid-template-columns:repeat(4,1fr);}
-  .hero-svc-row .live-cats{grid-template-columns:repeat(5,1fr);}
-  .serve-grid{grid-template-columns:1fr 1fr;}
-  .why-grid{grid-template-columns:1fr 1fr;}
-  .sup-grid{grid-template-columns:1fr;}
-  .products-grid{grid-template-columns:repeat(2,1fr);}
-  .steps{grid-template-columns:repeat(2,1fr);}
-  .steps::before{display:none;}
-  .cta{flex-direction:column;padding:40px;}
-  .cta-btns{flex-direction:column;width:100%;}
-  .foot-grid{grid-template-columns:1fr 1fr;}
-  .manifesto-title{font-size:34px;}
+  .hero-h1{font-size:36px;}
+  .cats-grid{grid-template-columns:repeat(2,1fr);}
+  .svc-cats-grid{grid-template-columns:repeat(3,1fr);}
+  .sup-slide{min-width:calc(50% - 9px);}
+  .prod-slide{min-width:calc(50% - 9px);}
+  .steps{grid-template-columns:repeat(2,1fr);}.steps::before{display:none;}
+  .serve{grid-template-columns:1fr;}
+  .cta-sp{grid-template-columns:1fr;}
+  .foot-g{grid-template-columns:1fr 1fr;}
+  .hero-stats{grid-template-columns:repeat(2,1fr);}
+  .hs:nth-child(2){border-right:none;}
 }
-/* ── MOBILE 600px ─────────────────────────────── */
 @media(max-width:600px){
-  .hero{padding:76px 4% 40px;}
-  .hero-title{font-size:36px;}
-  .hero-title .ht-line2{font-size:30px;}
-  .hero-sub{font-size:14px;}
-  .search-box{flex-direction:column;}
-  .search-box select{border-left:none;border-top:1px solid rgba(255,255,255,0.1);padding:12px 20px;}
-  .search-box button{padding:14px;}
-  .live-cats{grid-template-columns:repeat(2,1fr);}
-  .hero-svc-row .live-cats{grid-template-columns:repeat(3,1fr);}
-  .serve-grid{grid-template-columns:1fr;}
-  .serve-card{padding:28px 20px;}
-  .why-grid{grid-template-columns:1fr;}
-  .products-grid{grid-template-columns:1fr;}
+  .hero{padding:52px 4% 44px;}
+  .hero-h1{font-size:28px;}
+  .hero-search{flex-direction:column;border-radius:12px;}
+  .hero-search select{border-left:none;border-top:1px solid #e0e8e0;padding:11px 14px;}
+  .hero-search button{padding:12px;}
+  .cats-grid{grid-template-columns:repeat(2,1fr);}
+  .svc-cats-grid{grid-template-columns:repeat(2,1fr);}
+  .sup-slide{min-width:calc(100% - 0px);}
+  .prod-slide{min-width:calc(100% - 0px);}
   .steps{grid-template-columns:1fr;}
-  .foot-grid{grid-template-columns:1fr;}
-  .manifesto-title{font-size:26px;}
-  .manifesto-body{font-size:14px;}
-  .manifesto-btns{flex-direction:column;align-items:center;}
-  .manifesto-pillars{gap:8px;}
-  .pillar{font-size:12px;padding:7px 12px;}
-  .mission-strip{flex-direction:column;gap:8px;text-align:center;}
-  .mission-strip-text span{display:inline-block;margin:2px;}
-}
-/* ── SMALL PHONE 400px ────────────────────────── */
-@media(max-width:400px){
-  .hero-title{font-size:30px;}
-  .hero-title .ht-line2{font-size:26px;}
-  .live-cats{grid-template-columns:repeat(2,1fr);}
-  .hero-svc-row .live-cats{grid-template-columns:repeat(2,1fr);}
-  .serve-title{font-size:22px;}
+  .foot-g{grid-template-columns:1fr;}
+  .trust{gap:12px;}.tsep{display:none;}
+  .mf-t{font-size:24px;}
+  .mf-btns{flex-direction:column;align-items:center;}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<!-- GRS HEADER — paste this in all pages replacing existing nav -->
-<style>
-.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
-.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.grs-logo img{height:40px;width:auto;object-fit:contain;}
-.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
-.grs-logo-text span{color:#52b043;}
-.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
-.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
-.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
-.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown{position:relative;}
-.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown-btn svg{transition:transform 0.2s;}
-.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
-.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
-.grs-dropdown:hover .grs-dropdown-menu{display:block;}
-.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
-.grs-dropdown-item:hover{background:#e8f5e2;}
-.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.grs-dropdown-item .di-text{}
-.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
-.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
-.grs-coming{opacity:0.5;pointer-events:none;}
-.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
-.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
-.grs-btns{display:flex;align-items:center;gap:8px;}
-.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-out:hover{background:#e8f5e2;}
-.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-pri:hover{background:#1a4a24;}
-.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
-.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
-@media(max-width:900px){
-  .grs-links{display:none;}
-  .grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}
-  .grs-mobile-menu{display:block;}
-}
-</style>
-
-<nav class="grs-nav">
-  <!-- LOGO -->
-  <a href="/" class="grs-logo">
-    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS Logo"/>
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart"/>
     <div>
-      <div class="grs-logo-text">Green Roots <span>Smart</span></div>
-      <div class="grs-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
+      <div class="nav-logo-text">Green Roots <span>Smart</span></div>
+      <div class="nav-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
     </div>
   </a>
-
-  <!-- NAV LINKS -->
-  <ul class="grs-links">
-    <li><a href="/">Home</a></li>
-
-    <!-- BROWSE DROPDOWN -->
-    <li class="grs-dropdown">
-      <button class="grs-dropdown-btn">
-        Browse
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-      <div class="grs-dropdown-menu">
-        <a href="/supplier-profile" class="grs-dropdown-item">
-          <div class="di-icon">🏪</div>
-          <div class="di-text">
-            <div class="di-title">Suppliers</div>
-            <div class="di-sub">Browse verified eco suppliers</div>
-          </div>
-        </a>
-        <a href="/services" class="grs-dropdown-item">
-          <div class="di-icon">🔧</div>
-          <div class="di-text">
-            <div class="di-title">Service Providers</div>
-            <div class="di-sub">Find eco service experts</div>
-          </div>
-        </a>
-        <div class="grs-divider"></div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">💼</div>
-          <div class="di-text">
-            <div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Green jobs & careers</div>
-          </div>
-        </div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">🎓</div>
-          <div class="di-text">
-            <div class="di-title">Education <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Eco learning & courses</div>
-          </div>
-        </div>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    <li class="nav-drop">
+      <button class="nav-drop-btn">Browse <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <div class="drop-menu">
+        <a href="/supplier-profile" class="drop-item"><div class="di">🏪</div><div><div class="di-t">Suppliers</div><div class="di-s">Verified eco suppliers</div></div></a>
+        <a href="/services" class="drop-item"><div class="di">🔧</div><div><div class="di-t">Services</div><div class="di-s">Eco service providers</div></div></a>
+        <div class="drop-divider"></div>
+        <div class="drop-item drop-soon"><div class="di">💼</div><div><div class="di-t">Jobs <span class="soon-tag">SOON</span></div></div></div>
+        <div class="drop-item drop-soon"><div class="di">🎓</div><div><div class="di-t">Education <span class="soon-tag">SOON</span></div></div></div>
       </div>
     </li>
-
     <li><a href="/products">Products</a></li>
+    <li><a href="/category">Categories</a></li>
     <li><a href="/services">Services</a></li>
-    <li><a href="/contact">Contact Us</a></li>
-    <li><a href="/about">About Us</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
   </ul>
-
-  <!-- RIGHT BUTTONS -->
-  <div class="grs-btns">
-    <a href="/claim-profile" class="grs-btn-claim">🌿 Claim Profile</a>
-    <a href="/login" class="grs-btn-out">Login</a>
-    <a href="/register" class="grs-btn-pri">List Business</a>
+  <div class="nav-btns">
+    <a href="/claim-profile" class="btn-claim">🌿 Claim Profile</a>
+    <a href="/login" class="btn-o">Login</a>
+    <a href="/register" class="btn-p">List Business</a>
   </div>
-
-  <!-- MOBILE MENU -->
-  <button class="grs-mobile-menu" onclick="toggleMobileMenu()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+  <button class="ham" onclick="toggleMob()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div id="grs-mobile-nav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;font-family:'DM Sans',sans-serif;">
-  <div style="display:flex;flex-direction:column;gap:4px;">
-    <a href="/" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏠 Home</a>
-    <a href="/supplier-profile" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏪 Suppliers</a>
-    <a href="/services" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🔧 Services</a>
-    <a href="/products" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📦 Products</a>
-    <a href="/contact" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📞 Contact Us</a>
-    <a href="/about" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">ℹ️ About Us</a>
-    <div style="height:1px;background:#e8f0e8;margin:8px 0;"></div>
-    <a href="/claim-profile" style="padding:10px;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;">🌿 Claim Profile</a>
-    <a href="/login" style="padding:10px;background:#e8f5e2;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">Login</a>
-    <a href="/register" style="padding:10px;background:#2d7a3a;color:white;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">List Business</a>
-  </div>
+<div class="mob-menu" id="mobMenu">
+  <a href="/">🏠 Home</a>
+  <a href="/supplier-profile">🏪 Suppliers</a>
+  <a href="/products">📦 Products</a>
+  <a href="/category">🗂️ Categories</a>
+  <a href="/services">🔧 Services</a>
+  <a href="/about">ℹ️ About</a>
+  <a href="/contact">📞 Contact</a>
+  <div class="mob-div"></div>
+  <a href="/login" style="background:#e8f5e2;color:#2d7a3a;font-weight:600;text-align:center;">Login</a>
+  <a href="/register" style="background:#2d7a3a;color:white;font-weight:600;text-align:center;margin-top:4px;">List Business Free</a>
 </div>
-
-<script>
-function toggleMobileMenu() {
-  var m = document.getElementById('grs-mobile-nav');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-</script>
-
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-dot"></span>
-      <span class="eyebrow-text">India's First Eco B2B Marketplace · Est. 2025</span>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hdot"></span>India's First Eco B2B Marketplace · Est. 2025</div>
+    <h1 class="hero-h1">Where <span class="acc">Green Business</span><br/><span class="l2">Gets Done.</span></h1>
+    <p class="hero-p">Connect with <strong>verified eco-friendly suppliers</strong> across solar energy, organic farming, eco packaging, water technology, <strong>environmental services</strong> and 11+ green categories.</p>
+    <div class="hero-search">
+      <input type="text" id="heroSearch" placeholder="Search products, suppliers, categories..." onkeydown="if(event.key==='Enter')doHeroSearch()"/>
+      <select id="heroCat" onchange="doHeroSearch()">
+        <option value="">All Categories</option>
+        <option value="Solar Energy">☀️ Solar Energy</option>
+        <option value="Organic Farming">🌾 Organic Farming</option>
+        <option value="Eco Packaging">📦 Eco Packaging</option>
+        <option value="Waste Management">♻️ Waste Management</option>
+        <option value="Water Technology">💧 Water Technology</option>
+        <option value="Energy Storage">🔋 Energy Storage</option>
+        <option value="Green Building">🏗️ Green Building</option>
+        <option value="Herbal Products">🌿 Herbal Products</option>
+        <option value="Eco Textiles">👗 Eco Textiles</option>
+        <option value="Wind Energy">🌬️ Wind Energy</option>
+        <option value="EV Components">🚗 EV Components</option>
+      </select>
+      <button onclick="doHeroSearch()">Search 🔍</button>
     </div>
-    <h1 class="hero-title">
-      Where Green<br/>
-      <span class="ht-accent">Business</span>
-      <span class="ht-line2">Gets Done.</span>
-    </h1>
-    <p class="hero-sub">We connect <strong>verified eco-friendly suppliers</strong> with serious buyers across India and the world — across solar, organic, packaging, water technology, <strong>environmental services</strong> and 11+ green categories.</p>
-
-    <div class="search-wrap">
-      <div class="search-box">
-        <input type="text" placeholder="Search products, suppliers, categories..."/>
-        <select>
-          <option>All Categories</option>
-          <option>☀️ Solar Energy</option>
-          <option>🌾 Organic Farming</option>
-          <option>📦 Eco Packaging</option>
-          <option>♻️ Waste Management</option>
-          <option>💧 Water Technology</option>
-          <option>🏗️ Green Building</option>
-          <option>🚗 Electric Vehicles</option>
-        </select>
-        <button>Search 🔍</button>
-      </div>
-      <div class="search-tags">
-        <span class="stag">☀️ Solar Panels</span>
-        <span class="stag">🌾 Organic Seeds</span>
-        <span class="stag">♻️ Recycled Packaging</span>
-        <span class="stag">🔋 Batteries</span>
-        <span class="stag">🌿 Herbal Products</span>
-      </div>
+    <div class="hero-tags">
+      <span class="htag" onclick="doQ('Solar Panels')">☀️ Solar Panels</span>
+      <span class="htag" onclick="doQ('Organic Seeds')">🌾 Organic Seeds</span>
+      <span class="htag" onclick="doQ('Eco Packaging')">📦 Eco Packaging</span>
+      <span class="htag" onclick="doQ('Water Purifier')">💧 Water Purifier</span>
+      <span class="htag" onclick="doQ('Herbal Extract')">🌿 Herbal Extract</span>
     </div>
-
     <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num" id="statSuppliers">2+</span>
-        <span class="stat-lbl">Eco Suppliers</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="statProducts">5+</span>
-        <span class="stat-lbl">Products Listed</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">11+</span>
-        <span class="stat-lbl">Green Categories</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">Pan India</span>
-        <span class="stat-lbl">Coverage</span>
-      </div>
+      <div class="hs"><span class="hs-n" id="statSup">8+</span><span class="hs-l">Eco Suppliers</span></div>
+      <div class="hs"><span class="hs-n" id="statProd">—</span><span class="hs-l">Products Listed</span></div>
+      <div class="hs"><span class="hs-n">11+</span><span class="hs-l">Green Categories</span></div>
+      <div class="hs"><span class="hs-n">Pan India</span><span class="hs-l">Coverage</span></div>
     </div>
-  </div>
-
-  <div class="hero-visual">
-
-    <!-- TOP: Ecosystem Wheel + Live Category Panels -->
-    <div class="hero-visual-top">
-
-      <!-- ECOSYSTEM WHEEL (SVG) -->
-      <div class="eco-wheel">
-        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-          <!-- Center circle -->
-          <circle cx="110" cy="110" r="36" fill="rgba(82,176,67,0.2)" stroke="#52b043" stroke-width="1.5"/>
-          <text x="110" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#a8d8a0" font-family="DM Sans,sans-serif">GREEN</text>
-          <text x="110" y="117" text-anchor="middle" font-size="9" font-weight="700" fill="#a8d8a0" font-family="DM Sans,sans-serif">ROOTS</text>
-          <text x="110" y="129" text-anchor="middle" font-size="8" fill="#52b043" font-family="DM Sans,sans-serif">SMART</text>
-
-          <!-- Connecting lines -->
-          <line x1="110" y1="74" x2="110" y2="30" stroke="rgba(82,176,67,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="110" y1="146" x2="110" y2="190" stroke="rgba(82,176,67,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="74" y1="110" x2="30" y2="110" stroke="rgba(82,176,67,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="146" y1="110" x2="190" y2="110" stroke="rgba(82,176,67,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="84" y1="84" x2="52" y2="52" stroke="rgba(82,176,67,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="136" y1="84" x2="168" y2="52" stroke="rgba(82,176,67,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="84" y1="136" x2="52" y2="168" stroke="rgba(82,176,67,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
-          <line x1="136" y1="136" x2="168" y2="168" stroke="rgba(82,176,67,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
-
-          <!-- Orbit nodes -->
-          <!-- Top: Suppliers -->
-          <circle cx="110" cy="24" r="20" fill="rgba(26,74,36,0.9)" stroke="rgba(82,176,67,0.5)" stroke-width="1.5"/>
-          <text x="110" y="21" text-anchor="middle" font-size="11" fill="white">🏪</text>
-          <text x="110" y="32" text-anchor="middle" font-size="6" fill="#a8d8a0" font-family="DM Sans,sans-serif" font-weight="600">SUPPLIERS</text>
-
-          <!-- Bottom: Buyers -->
-          <circle cx="110" cy="196" r="20" fill="rgba(13,61,107,0.9)" stroke="rgba(82,176,67,0.5)" stroke-width="1.5"/>
-          <text x="110" y="193" text-anchor="middle" font-size="11" fill="white">🛒</text>
-          <text x="110" y="204" text-anchor="middle" font-size="6" fill="#a8d8a0" font-family="DM Sans,sans-serif" font-weight="600">BUYERS</text>
-
-          <!-- Left: Services -->
-          <circle cx="24" cy="110" r="20" fill="rgba(74,45,13,0.9)" stroke="rgba(82,176,67,0.5)" stroke-width="1.5"/>
-          <text x="24" y="107" text-anchor="middle" font-size="11" fill="white">🔧</text>
-          <text x="24" y="118" text-anchor="middle" font-size="5.5" fill="#a8d8a0" font-family="DM Sans,sans-serif" font-weight="600">SERVICES</text>
-
-          <!-- Right: Products -->
-          <circle cx="196" cy="110" r="20" fill="rgba(26,74,36,0.9)" stroke="rgba(82,176,67,0.5)" stroke-width="1.5"/>
-          <text x="196" y="107" text-anchor="middle" font-size="11" fill="white">📦</text>
-          <text x="196" y="118" text-anchor="middle" font-size="6" fill="#a8d8a0" font-family="DM Sans,sans-serif" font-weight="600">PRODUCTS</text>
-
-          <!-- Diagonal: Solar -->
-          <circle cx="46" cy="46" r="17" fill="rgba(26,74,36,0.85)" stroke="rgba(82,176,67,0.4)" stroke-width="1.5"/>
-          <text x="46" y="43" text-anchor="middle" font-size="10" fill="white">☀️</text>
-          <text x="46" y="54" text-anchor="middle" font-size="5.5" fill="#a8d8a0" font-family="DM Sans,sans-serif">SOLAR</text>
-
-          <!-- Diagonal: Organic -->
-          <circle cx="174" cy="46" r="17" fill="rgba(26,74,36,0.85)" stroke="rgba(82,176,67,0.4)" stroke-width="1.5"/>
-          <text x="174" y="43" text-anchor="middle" font-size="10" fill="white">🌾</text>
-          <text x="174" y="54" text-anchor="middle" font-size="5.5" fill="#a8d8a0" font-family="DM Sans,sans-serif">ORGANIC</text>
-
-          <!-- Diagonal: Water -->
-          <circle cx="46" cy="174" r="17" fill="rgba(26,74,36,0.85)" stroke="rgba(82,176,67,0.4)" stroke-width="1.5"/>
-          <text x="46" y="171" text-anchor="middle" font-size="10" fill="white">💧</text>
-          <text x="46" y="182" text-anchor="middle" font-size="5.5" fill="#a8d8a0" font-family="DM Sans,sans-serif">WATER</text>
-
-          <!-- Diagonal: Green Build -->
-          <circle cx="174" cy="174" r="17" fill="rgba(26,74,36,0.85)" stroke="rgba(82,176,67,0.4)" stroke-width="1.5"/>
-          <text x="174" y="171" text-anchor="middle" font-size="10" fill="white">🏗️</text>
-          <text x="174" y="182" text-anchor="middle" font-size="5.5" fill="#a8d8a0" font-family="DM Sans,sans-serif">BUILD</text>
-
-          <!-- Outer orbit ring -->
-          <circle cx="110" cy="110" r="85" fill="none" stroke="rgba(82,176,67,0.08)" stroke-width="1" stroke-dasharray="4,6"/>
-        </svg>
-      </div>
-
-      <!-- RIGHT: Live Panels -->
-      <div class="live-panels">
-        <!-- Product Categories -->
-        <div class="live-panel">
-          <div class="live-panel-label">📦 Product Categories — Active Suppliers</div>
-          <div class="live-cats" id="heroProdCats">
-            <a href="/products?category=Solar Energy" class="live-cat">
-              <span class="live-cat-icon">☀️</span>
-              <span class="live-cat-name">Solar</span>
-              <span class="live-cat-count" id="catCount-solar">—</span>
-            </a>
-            <a href="/products?category=Organic Farming" class="live-cat">
-              <span class="live-cat-icon">🌾</span>
-              <span class="live-cat-name">Organic</span>
-              <span class="live-cat-count" id="catCount-organic">—</span>
-            </a>
-            <a href="/products?category=Eco Packaging" class="live-cat">
-              <span class="live-cat-icon">📦</span>
-              <span class="live-cat-name">Packaging</span>
-              <span class="live-cat-count" id="catCount-packaging">—</span>
-            </a>
-            <a href="/products?category=Water Technology" class="live-cat">
-              <span class="live-cat-icon">💧</span>
-              <span class="live-cat-name">Water Tech</span>
-              <span class="live-cat-count" id="catCount-water">—</span>
-            </a>
-            <a href="/products?category=Green Building" class="live-cat">
-              <span class="live-cat-icon">🏗️</span>
-              <span class="live-cat-name">Green Build</span>
-              <span class="live-cat-count" id="catCount-build">—</span>
-            </a>
-            <a href="/products?category=Waste Management" class="live-cat">
-              <span class="live-cat-icon">♻️</span>
-              <span class="live-cat-name">Waste Mgmt</span>
-              <span class="live-cat-count" id="catCount-waste">—</span>
-            </a>
-            <a href="/products?category=Energy Storage" class="live-cat">
-              <span class="live-cat-icon">🔋</span>
-              <span class="live-cat-name">Energy</span>
-              <span class="live-cat-count" id="catCount-energy">—</span>
-            </a>
-            <a href="/products?category=Herbal Products" class="live-cat">
-              <span class="live-cat-icon">🌿</span>
-              <span class="live-cat-name">Herbal</span>
-              <span class="live-cat-count" id="catCount-herbal">—</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Service Categories -->
-        <div class="live-panel">
-          <div class="live-panel-label">🔧 Service Categories — Active Providers</div>
-          <div class="live-cats" id="heroSvcCats">
-            <a href="/services?category=Solar Installation" class="live-cat">
-              <span class="live-cat-icon">☀️</span>
-              <span class="live-cat-name">Solar Install</span>
-              <span class="live-cat-count" id="svcCount-solar">—</span>
-            </a>
-            <a href="/services?category=Organic Certification" class="live-cat">
-              <span class="live-cat-icon">🌾</span>
-              <span class="live-cat-name">Org. Cert</span>
-              <span class="live-cat-count" id="svcCount-organic">—</span>
-            </a>
-            <a href="/services?category=Waste Management" class="live-cat">
-              <span class="live-cat-icon">♻️</span>
-              <span class="live-cat-name">Waste Mgmt</span>
-              <span class="live-cat-count" id="svcCount-waste">—</span>
-            </a>
-            <a href="/services?category=Green Consulting" class="live-cat">
-              <span class="live-cat-icon">📋</span>
-              <span class="live-cat-name">Consulting</span>
-              <span class="live-cat-count" id="svcCount-consult">—</span>
-            </a>
-            <a href="/services?category=Water Treatment" class="live-cat">
-              <span class="live-cat-icon">💧</span>
-              <span class="live-cat-name">Water Treat</span>
-              <span class="live-cat-count" id="svcCount-water">—</span>
-            </a>
-            <a href="/services?category=Energy Audit" class="live-cat">
-              <span class="live-cat-icon">⚡</span>
-              <span class="live-cat-name">Energy Audit</span>
-              <span class="live-cat-count" id="svcCount-audit">—</span>
-            </a>
-            <a href="/services?category=EV Charging" class="live-cat">
-              <span class="live-cat-icon">🚗</span>
-              <span class="live-cat-name">EV Charging</span>
-              <span class="live-cat-count" id="svcCount-ev">—</span>
-            </a>
-            <a href="/services" class="live-cat">
-              <span class="live-cat-icon">➕</span>
-              <span class="live-cat-name">More</span>
-              <span class="live-cat-count">View All</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BOTTOM STATS ROW -->
-    <div class="hero-svc-row">
-      <div class="live-cats live-svcs">
-        <a href="/supplier-profile" class="live-cat" style="padding:10px;">
-          <span class="live-cat-icon">✅</span>
-          <span class="live-cat-name">Verified Suppliers</span>
-          <span class="live-cat-count" id="statSuppliers2">2+</span>
-        </a>
-        <a href="/services" class="live-cat" style="padding:10px;">
-          <span class="live-cat-icon">🔧</span>
-          <span class="live-cat-name">Service Providers</span>
-          <span class="live-cat-count" id="statSvc">Live</span>
-        </a>
-        <a href="/products" class="live-cat" style="padding:10px;">
-          <span class="live-cat-icon">📦</span>
-          <span class="live-cat-name">Products Listed</span>
-          <span class="live-cat-count" id="statProducts2">5+</span>
-        </a>
-        <a href="/category" class="live-cat" style="padding:10px;">
-          <span class="live-cat-icon">🗂️</span>
-          <span class="live-cat-name">Categories</span>
-          <span class="live-cat-count">11+</span>
-        </a>
-        <a href="/about" class="live-cat" style="padding:10px;">
-          <span class="live-cat-icon">🇮🇳</span>
-          <span class="live-cat-name">Pan India</span>
-          <span class="live-cat-count">Coverage</span>
-        </a>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- MISSION STRIP -->
-<div class="mission-strip">
-  <span class="mission-strip-text">🇮🇳 India's First &amp; Only Dedicated Eco B2B Platform</span>
-  <span class="mission-strip-text"><span>Verified Suppliers</span> · <span>Trusted Buyers</span> · <span>Green Products</span> · <span>Sustainable Trade</span></span>
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="ti"><span>✅</span> All Suppliers Verified</div><div class="tsep"></div>
+  <div class="ti"><span>🌍</span> Pan India Coverage</div><div class="tsep"></div>
+  <div class="ti"><span>🔒</span> Safe & Secure</div><div class="tsep"></div>
+  <div class="ti"><span>⚡</span> Direct WhatsApp Leads</div><div class="tsep"></div>
+  <div class="ti"><span>🌿</span> 100% Eco Focused</div>
 </div>
 
-<!-- WHO WE SERVE -->
-<section class="serve">
-  <div style="text-align:center;margin-bottom:0;">
-    <div class="sec-label" style="text-align:center;">Who We Serve</div>
-    <h2 class="sec-title" style="text-align:center;">One Platform. Three Powerful Roles.</h2>
-    <p style="font-size:15px;color:var(--mid);text-align:center;max-width:560px;margin:0 auto 0;">Whether you sell green, buy green, or provide green services — GRS is built for you.</p>
+<!-- GREEN CATEGORIES -->
+<section class="sec wh">
+  <div class="sec-row">
+    <div><div class="sec-lbl">Explore</div><div class="sec-t">Green Product Categories</div></div>
+    <a href="/category" class="sea">View All →</a>
   </div>
-  <div class="serve-grid">
-
-    <a href="/register" class="serve-card suppliers">
-      <span class="serve-icon">🏪</span>
-      <div class="serve-label">For Eco Businesses</div>
-      <div class="serve-title">Green Suppliers</div>
-      <div class="serve-desc">List your eco-friendly products and services. Get discovered by thousands of serious buyers across India and globally.</div>
-      <div class="serve-points">
-        <div class="serve-point">Free listing to get started</div>
-        <div class="serve-point">Verified badge builds instant trust</div>
-        <div class="serve-point">Leads directly to your WhatsApp</div>
-        <div class="serve-point">Dedicated supplier dashboard</div>
-      </div>
-      <div class="serve-cta">List Your Business Free →</div>
-    </a>
-
-    <a href="/supplier-profile" class="serve-card buyers">
-      <span class="serve-icon">🛒</span>
-      <div class="serve-label">For Procurement Teams</div>
-      <div class="serve-title">B2B Buyers</div>
-      <div class="serve-desc">Source eco-friendly products at wholesale prices from verified Indian suppliers. No middlemen. Direct deals.</div>
-      <div class="serve-points">
-        <div class="serve-point">All suppliers verified by GRS</div>
-        <div class="serve-point">Direct supplier contact</div>
-        <div class="serve-point">11+ green categories to explore</div>
-        <div class="serve-point">Pan India supplier network</div>
-      </div>
-      <div class="serve-cta">Browse Suppliers →</div>
-    </a>
-
-    <a href="/services" class="serve-card services">
-      <span class="serve-icon">🔧</span>
-      <div class="serve-label">For Experts & Consultants</div>
-      <div class="serve-title">Service Providers</div>
-      <div class="serve-desc">Offer solar installation, organic certification, waste audits, green consulting and more to businesses that need you.</div>
-      <div class="serve-points">
-        <div class="serve-point">Reach eco-focused businesses</div>
-        <div class="serve-point">List services for free</div>
-        <div class="serve-point">Build your green reputation</div>
-        <div class="serve-point">India-wide client reach</div>
-      </div>
-      <div class="serve-cta">Offer Your Services →</div>
-    </a>
-
+  <div class="cats-grid" id="catsGrid">
+    <div class="ld" style="grid-column:1/-1"><span></span><span></span><span></span></div>
   </div>
 </section>
 
-<!-- WHY GRS -->
-<section class="why">
-  <div style="text-align:center;position:relative;z-index:1;">
-    <div class="sec-label" style="text-align:center;">Why Green Roots Smart</div>
-    <h2 class="sec-title" style="color:white;text-align:center;">Not Just a Marketplace.<br/>A Movement.</h2>
-    <p style="font-size:15px;color:rgba(255,255,255,0.55);text-align:center;max-width:500px;margin:0 auto 0;">We built GRS because India's green businesses deserved better than a generic listing site.</p>
+<!-- SERVICE CATEGORIES -->
+<section class="sec cream">
+  <div class="sec-row">
+    <div><div class="sec-lbl">Find Experts</div><div class="sec-t">Environmental Service Categories</div><div class="sec-s">Verified service providers across India</div></div>
+    <a href="/services" class="sea">All Services →</a>
   </div>
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-icon">✅</div>
-      <div class="why-title">100% Eco-Focused</div>
-      <div class="why-desc">Every supplier, every product, every service on GRS is eco-friendly. We don't mix green with non-green. This is a dedicated green platform — the only one in India.</div>
-      <span class="why-tag">INDIA'S FIRST</span>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">🔍</div>
-      <div class="why-title">Verified Suppliers Only</div>
-      <div class="why-desc">Every supplier listed on GRS goes through our verification process. Buyers can trust what they see. No fake listings. No spam. Just real eco businesses.</div>
-      <span class="why-tag">TRUST GUARANTEED</span>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">⚡</div>
-      <div class="why-title">Direct & Fast Connections</div>
-      <div class="why-desc">No middlemen, no delays. Enquiries go straight to suppliers via WhatsApp. Deals happen faster on GRS than anywhere else.</div>
-      <span class="why-tag">ZERO FRICTION</span>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">🌍</div>
-      <div class="why-title">Built for India, Open to the World</div>
-      <div class="why-desc">Designed for Indian eco businesses but built to connect with global buyers. Our suppliers can reach customers across India and internationally.</div>
-      <span class="why-tag">GLOBAL REACH</span>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">💚</div>
-      <div class="why-title">Free to Start</div>
-      <div class="why-desc">Getting listed on GRS costs nothing. No setup fees, no monthly commitment to begin. Grow your visibility, then upgrade when you're ready.</div>
-      <span class="why-tag">START FREE</span>
-    </div>
-    <div class="why-card">
-      <div class="why-icon">📊</div>
-      <div class="why-title">Smart Supplier Dashboard</div>
-      <div class="why-desc">Manage your products, services, enquiries and performance from one powerful dashboard. Built specifically for eco businesses.</div>
-      <span class="why-tag">ALL-IN-ONE</span>
-    </div>
+  <div class="svc-cats-grid" id="svcCatsGrid">
+    <div class="ld" style="grid-column:1/-1"><span></span><span></span><span></span></div>
   </div>
 </section>
 
-<!-- FEATURED SUPPLIERS -->
-<section class="featured" id="suppliers">
-  <div class="sec-label">Verified Partners</div>
-  <h2 class="sec-title">Featured Suppliers</h2>
-  <p class="sec-sub">All suppliers are verified, eco-certified and audited by our Green Roots team.</p>
-
-  <div class="sup-grid" id="suppliersGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#7a9a74;font-size:14px;">Loading suppliers... 🌿</div>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<section class="section" id="products">
-  <div class="sec-header">
+<!-- FEATURED SUPPLIERS CAROUSEL -->
+<section class="sec dk">
+  <div class="sec-row">
     <div>
-      <div class="sec-label">Trending Now</div>
-      <h2 class="sec-title">Popular Products</h2>
-      <p class="sec-sub">Most searched eco products this week from verified Indian suppliers.</p>
+      <div class="sec-lbl w">Verified Partners</div>
+      <div class="sec-t w">Featured Suppliers</div>
+      <div class="sec-s w">Click any supplier to view full profile</div>
     </div>
-    <a href="/products" class="see-all">View All Products →</a>
+    <a href="/supplier-profile" class="sea w">View All →</a>
   </div>
+  <div class="carousel-wrap">
+    <button class="carousel-btn prev dk" onclick="slideCarousel('supCarousel','supDots',-1)">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="carousel-track-outer">
+      <div class="carousel-track" id="supCarousel">
+        <div class="ld"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <button class="carousel-btn next dk" onclick="slideCarousel('supCarousel','supDots',1)">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="carousel-dots" id="supDots"></div>
+</section>
 
-  <div class="products-grid" id="productsGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#7a9a74;font-size:14px;">Loading products... 🌿</div>
+<!-- POPULAR PRODUCTS CAROUSEL -->
+<section class="sec">
+  <div class="sec-row">
+    <div>
+      <div class="sec-lbl">Trending Now</div>
+      <div class="sec-t">Popular Products</div>
+      <div class="sec-s" id="prodSub">Click any product to view details</div>
+    </div>
+    <a href="/products" class="sea">View All →</a>
   </div>
+  <div class="carousel-wrap">
+    <button class="carousel-btn prev" onclick="slideCarousel('prodCarousel','prodDots',-1)">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1a4a24" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="carousel-track-outer">
+      <div class="carousel-track" id="prodCarousel">
+        <div class="ld"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <button class="carousel-btn next" onclick="slideCarousel('prodCarousel','prodDots',1)">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#1a4a24" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="carousel-dots" id="prodDots"></div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div style="text-align:center;margin-bottom:0;">
-    <div class="sec-label" style="text-align:center">Simple Process</div>
-    <h2 class="sec-title" style="text-align:center">How Green Roots Smart Works</h2>
-    <p class="sec-sub" style="max-width:500px;margin:0 auto 0;">From finding suppliers to closing deals — all in one platform.</p>
+<section class="sec wh">
+  <div style="text-align:center;margin-bottom:36px;">
+    <div class="sec-lbl" style="text-align:center">Simple Process</div>
+    <div class="sec-t" style="text-align:center">How Green Roots Smart Works</div>
+    <div class="sec-s" style="text-align:center;max-width:500px;margin:6px auto 0">From finding suppliers to closing deals — all in one platform</div>
   </div>
-
   <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Register Free</h3>
-      <p>Create your buyer or seller account in under 2 minutes with just email & phone</p>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>Search & Discover</h3>
-      <p>Browse green products from verified eco suppliers across India</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Send Inquiry / RFQ</h3>
-      <p>Contact suppliers directly or send bulk quote requests with one click</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h3>Close the Deal</h3>
-      <p>Negotiate, pay securely and grow your green business globally</p>
-    </div>
+    <div class="step"><div class="step-n">1</div><h3>Register Free</h3><p>Create your account in 2 minutes with just email & phone</p></div>
+    <div class="step"><div class="step-n">2</div><h3>Search & Discover</h3><p>Browse green products from verified eco suppliers across India</p></div>
+    <div class="step"><div class="step-n">3</div><h3>Send Enquiry</h3><p>Contact suppliers directly via WhatsApp or send bulk enquiries</p></div>
+    <div class="step"><div class="step-n">4</div><h3>Close the Deal</h3><p>Negotiate, finalise and grow your green business globally</p></div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="sec cream">
+  <div style="text-align:center;margin-bottom:32px;">
+    <div class="sec-lbl" style="text-align:center">Who We Serve</div>
+    <div class="sec-t" style="text-align:center">One Platform. Three Powerful Roles.</div>
+    <div class="sec-s" style="text-align:center;max-width:500px;margin:6px auto 0">Whether you sell green, buy green, or provide green services — GRS is built for you</div>
+  </div>
+  <div class="serve">
+    <a href="/register" class="sv-c s">
+      <span class="sv-ico">🏪</span><div class="sv-lbl">For Eco Businesses</div><div class="sv-t">Green Suppliers</div>
+      <div class="sv-d">List your eco-friendly products. Get discovered by serious buyers across India and globally.</div>
+      <div class="sv-pts"><div class="sv-pt">Free listing to get started</div><div class="sv-pt">Verified badge builds trust</div><div class="sv-pt">WhatsApp leads directly</div><div class="sv-pt">Smart supplier dashboard</div></div>
+      <div class="sv-cta">List Your Business Free →</div>
+    </a>
+    <a href="/supplier-profile" class="sv-c b">
+      <span class="sv-ico">🛒</span><div class="sv-lbl">For Procurement Teams</div><div class="sv-t">B2B Buyers</div>
+      <div class="sv-d">Source eco-friendly products at wholesale prices from verified Indian suppliers. No middlemen.</div>
+      <div class="sv-pts"><div class="sv-pt">All suppliers GRS-verified</div><div class="sv-pt">Direct supplier contact</div><div class="sv-pt">11+ green categories</div><div class="sv-pt">Pan India network</div></div>
+      <div class="sv-cta">Browse Suppliers →</div>
+    </a>
+    <a href="/services" class="sv-c v">
+      <span class="sv-ico">🔧</span><div class="sv-lbl">For Experts & Consultants</div><div class="sv-t">Service Providers</div>
+      <div class="sv-d">Offer solar installation, organic certification, waste audits, green consulting and more.</div>
+      <div class="sv-pts"><div class="sv-pt">Reach eco-focused businesses</div><div class="sv-pt">List services free</div><div class="sv-pt">Build your green reputation</div><div class="sv-pt">India-wide client reach</div></div>
+      <div class="sv-cta">Offer Your Services →</div>
+    </a>
   </div>
 </section>
 
 <!-- MANIFESTO -->
-<section class="manifesto">
-  <div class="manifesto-inner">
-    <div class="manifesto-label">Our Mission</div>
-    <h2 class="manifesto-title">We Are Building the Future of<br/><em>Sustainable Trade in India.</em></h2>
-    <p class="manifesto-body">India has millions of green businesses — solar installers, organic farmers, eco packagers, water technologists — working hard but struggling to find each other. Green Roots Smart exists to change that. We are the bridge between the suppliers building a greener India and the buyers who want to be part of that change.</p>
-    <div class="manifesto-pillars">
-      <span class="pillar">🌱 Rooted in Sustainability</span>
-      <span class="pillar">🤝 Trusted Connections</span>
-      <span class="pillar">🇮🇳 Made for India</span>
-      <span class="pillar">🌍 Global Ambition</span>
+<div class="mf">
+  <div class="mf-in">
+    <div class="mf-lbl">Our Mission</div>
+    <h2 class="mf-t">We Are Building the Future of<br/><em>Sustainable Trade in India.</em></h2>
+    <p class="mf-p">India has millions of green businesses — solar installers, organic farmers, eco packagers, water technologists — working hard but struggling to find each other. Green Roots Smart is the bridge between the suppliers building a greener India and the buyers who want to be part of that change.</p>
+    <div class="mf-pills">
+      <span class="pill">🌱 Rooted in Sustainability</span>
+      <span class="pill">🤝 Trusted Connections</span>
+      <span class="pill">🇮🇳 Made for India</span>
+      <span class="pill">🌍 Global Ambition</span>
     </div>
-    <div class="manifesto-btns">
-      <a href="/register" class="btn-green-solid">🌿 Join the Movement</a>
-      <a href="/about" class="btn-outline-white">Our Story →</a>
+    <div class="mf-btns">
+      <a href="/register" class="btn-gr">🌿 Join the Movement</a>
+      <a href="/about" class="btn-ol">Our Story →</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- CTA -->
-<div class="cta">
-  <div class="cta-left">
-    <h2>Ready to Go Green?</h2>
-    <p>Join eco businesses already trading on Green Roots Smart. List your products free for 30 days.</p>
+<!-- CTA SPLIT -->
+<div class="cta-sp">
+  <div class="cta-h gr">
+    <div class="cta-ico">🏪</div>
+    <div class="cta-t">Browse Verified Suppliers</div>
+    <div class="cta-d">Find eco-friendly suppliers across 11+ categories. All verified by GRS. Direct contact. Zero commission.</div>
+    <a href="/supplier-profile" class="cta-btn w">Find Suppliers →</a>
   </div>
-  <div class="cta-btns">
-    <button class="btn-white" onclick="window.location.href='/register'">🌿 List Your Business</button>
-    <button class="btn-ghost" onclick="window.location.href='/category'">Browse Suppliers</button>
+  <div class="cta-h or">
+    <div class="cta-ico">🌿</div>
+    <div class="cta-t">List Your Products Free</div>
+    <div class="cta-d">Register your eco business today. Reach thousands of buyers across India. Free listing — no credit card needed.</div>
+    <a href="/register" class="cta-btn wo">Join Free Now →</a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-grid">
+  <div class="foot-g">
     <div>
-      <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_180,h_60,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart" style="height:40px;width:auto;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:10px;display:block;"/>
-      <p class="foot-desc">India's leading B2B marketplace for sustainable and eco-friendly businesses. Rooted in sustainability, growing globally.</p>
+      <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_180,h_60,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart" class="foot-img"/>
+      <p class="foot-desc">India's first and only dedicated eco B2B marketplace. Connecting green suppliers with serious buyers since 2025.</p>
     </div>
-    <div class="foot-col">
-      <h4>Marketplace</h4>
-      <ul>
-        <li><a href="/products">Browse Products</a></li>
-        <li><a href="/supplier-profile">Find Suppliers</a></li>
-        <li><a href="/buyer-dashboard">Post RFQ</a></li>
-        <li><a href="/category">Categories</a></li>
-        <li><a href="/services">Eco Services</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>For Sellers</h4>
-      <ul>
-        <li><a href="/login">List Products</a></li>
-        <li><a href="/dashboard">Seller Dashboard</a></li>
-        <li><a href="/pricing">Pricing Plans</a></li>
-        <li><a href="/login">Get Verified</a></li>
-        <li><a href="/claim-profile">Claim Your Profile</a></li>
-      </ul>
-    </div>
-    <div class="foot-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/privacy">Privacy Policy</a></li>
-        <li><a href="/terms">Terms of Service</a></li>
-      </ul>
-    </div>
+    <div class="foot-col"><h4>Marketplace</h4><ul><li><a href="/products">Browse Products</a></li><li><a href="/supplier-profile">Find Suppliers</a></li><li><a href="/category">All Categories</a></li><li><a href="/services">Eco Services</a></li></ul></div>
+    <div class="foot-col"><h4>For Sellers</h4><ul><li><a href="/register">List Products Free</a></li><li><a href="/dashboard">Seller Dashboard</a></li><li><a href="/pricing">Pricing Plans</a></li><li><a href="/claim-profile">Claim Profile</a></li></ul></div>
+    <div class="foot-col"><h4>Company</h4><ul><li><a href="/about">About Us</a></li><li><a href="/blog">Blog</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms</a></li></ul></div>
   </div>
-  <div class="foot-bottom">
+  <div class="foot-bot">
     <span>© 2026 Green Roots Smart. All rights reserved.</span>
-    <span>🌿 Made for a sustainable India & world</span>
+    <span>🌿 Made for a Sustainable India & World</span>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-const db = supabase.createClient(SURL, SKEY);
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
+const CDN='https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/grs_categories/';
 
-const catColors = {
-  '☀️ Solar Energy':'linear-gradient(135deg,#fff9c4,#fff176)',
-  '🌾 Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)',
-  '📦 Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)',
-  '♻️ Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)',
-  '💧 Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)',
-  '🔋 Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)',
-  '🏗️ Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)',
-  '🌿 Herbal & Natural':'linear-gradient(135deg,#e8f5e2,#c8e6c0)',
-};
+// ── CATEGORY CONFIG ────────────────────────────────────────────────────────
+const PROD_CATS=[
+  {name:'Solar Energy',    emoji:'☀️', color:'#f59e0b', img:'solar-energy'},
+  {name:'Organic Farming', emoji:'🌾', color:'#66bb6a', img:'organic-farming'},
+  {name:'Eco Packaging',   emoji:'📦', color:'#26c6da', img:'eco-packaging'},
+  {name:'Waste Management',emoji:'♻️', color:'#ec407a', img:'waste-management'},
+  {name:'Water Technology',emoji:'💧', color:'#42a5f5', img:'water-technology'},
+  {name:'Energy Storage',  emoji:'🔋', color:'#ab47bc', img:'energy-storage'},
+  {name:'Green Building',  emoji:'🏗️', color:'#8d6e63', img:'green-building'},
+  {name:'Herbal Products', emoji:'🌿', color:'#66bb6a', img:'herbal-products'},
+  {name:'Eco Textiles',    emoji:'👗', color:'#f06292', img:'eco-textiles'},
+  {name:'Wind Energy',     emoji:'🌬️', color:'#4dd0e1', img:'wind-energy'},
+  {name:'EV Components',   emoji:'🚗', color:'#5c6bc0', img:'ev-components'},
+];
 
-async function loadHomeData(){
-  try {
-    // Load counts via REST API directly - bypasses RLS issues
-    let supCount = 0, prodCount = 0;
-    try {
-      const r1 = await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&select=id`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      const s1 = await r1.json();
-      supCount = Array.isArray(s1) ? s1.length : 0;
-    } catch(e){}
-    try {
-      const r2 = await fetch(`${SURL}/rest/v1/products?select=id`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      const s2 = await r2.json();
-      prodCount = Array.isArray(s2) ? s2.length : 0;
-    } catch(e){}
-    const el = document.getElementById('statSuppliers');
-    if(el) el.textContent = supCount > 0 ? supCount + '+' : '2+';
-    const el2 = document.getElementById('statProducts');
-    if(el2) el2.textContent = prodCount > 0 ? prodCount + '+' : '5+';
-    // Update impact section
-    const imp1 = document.getElementById('impactSup');
-    if(imp1) imp1.innerHTML = (supCount > 0 ? supCount : 2) + '<span>+</span>';
-    const imp2 = document.getElementById('impactProd');
-    if(imp2) imp2.innerHTML = (prodCount > 0 ? prodCount : 5) + '<span>+</span>';
-    // Update bottom stats row
-    const s2 = document.getElementById('statSuppliers2');
-    if(s2) s2.textContent = supCount > 0 ? supCount + '+' : '2+';
-    const p2 = document.getElementById('statProducts2');
-    if(p2) p2.textContent = prodCount > 0 ? prodCount + '+' : '5+';
+const SVC_CATS=[
+  {name:'Testing & Labs',        emoji:'🔬', color:'#42a5f5', key:'Testing & Laboratory'},
+  {name:'Consulting',            emoji:'📋', color:'#7e57c2', key:'Consulting & Advisory'},
+  {name:'Certification',         emoji:'📜', color:'#26a69a', key:'Certification & Compliance'},
+  {name:'Waste Management',      emoji:'♻️', color:'#ec407a', key:'Waste Management'},
+  {name:'Water Services',        emoji:'💧', color:'#29b6f6', key:'Water & Wastewater'},
+  {name:'Renewable Energy',      emoji:'⚡', color:'#ffa726', key:'Renewable Energy'},
+  {name:'Ecological',            emoji:'🌱', color:'#66bb6a', key:'Ecological Services'},
+  {name:'Remediation',           emoji:'🏗️', color:'#8d6e63', key:'Remediation'},
+  {name:'Reporting & Tech',      emoji:'📊', color:'#5c6bc0', key:'Reporting & Technology'},
+  {name:'Training',              emoji:'🎓', color:'#ef5350', key:'Training & Education'},
+];
 
-    // Load category counts for hero panels
-    const catMap = {
-      'solar': ['☀️ Solar Energy','Solar Energy','solar'],
-      'organic': ['🌾 Organic Farming','Organic Farming','organic'],
-      'packaging': ['📦 Eco Packaging','Eco Packaging','packaging'],
-      'water': ['💧 Water Technology','Water Technology','water'],
-      'build': ['🏗️ Green Building','Green Building','build'],
-      'waste': ['♻️ Waste Management','Waste Management','waste'],
-      'energy': ['🔋 Energy Storage','Energy Storage','energy'],
-      'herbal': ['🌿 Herbal & Natural','Herbal Products','herbal']
-    };
-    try {
-      const allSups = await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&select=category`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      const supsData = await allSups.json();
-      if(Array.isArray(supsData)) {
-        Object.entries(catMap).forEach(([key, [dbCat, , id]]) => {
-          const count = supsData.filter(s => s.category && s.category.includes(dbCat.split(' ').slice(1).join(' '))).length;
-          const el = document.getElementById('catCount-' + id);
-          if(el) el.textContent = count > 0 ? count + ' supplier' + (count>1?'s':'') : '0 yet';
-        });
-      }
-    } catch(e){}
+const catBg={'Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal Products':'linear-gradient(135deg,#e8f5e9,#c8e6c9)','Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)','Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
+const catEmoji={'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Energy Storage':'🔋','Green Building':'🏗️','Herbal Products':'🌿','Eco Textiles':'👗','Wind Energy':'🌬️','EV Components':'🚗'};
+const supColors=['linear-gradient(135deg,#52b043,#2d7a3a)','linear-gradient(135deg,#1565c0,#0d47a1)','linear-gradient(135deg,#e65100,#bf360c)','linear-gradient(135deg,#6a1b9a,#4a148c)','linear-gradient(135deg,#00838f,#006064)','linear-gradient(135deg,#558b2f,#33691e)','linear-gradient(135deg,#c62828,#b71c1c)','linear-gradient(135deg,#f57f17,#e65100)'];
 
-    // Load service category counts
-    try {
-      const allSvcs = await fetch(`${SURL}/rest/v1/services?select=category`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      const svcsData = await allSvcs.json();
-      if(Array.isArray(svcsData)) {
-        const svcMap = {
-          'solar': 'Solar Installation',
-          'organic': 'Organic Certification',
-          'waste': 'Waste Management',
-          'consult': 'Green Consulting',
-          'water': 'Water Treatment',
-          'audit': 'Energy Audit',
-          'ev': 'EV Charging'
-        };
-        Object.entries(svcMap).forEach(([id, cat]) => {
-          const count = svcsData.filter(s => s.category && s.category.includes(cat.split(' ')[0])).length;
-          const el = document.getElementById('svcCount-' + id);
-          if(el) el.textContent = count > 0 ? count + ' provider' + (count>1?'s':'') : '0 yet';
-        });
-        const svcEl = document.getElementById('statSvc');
-        if(svcEl) svcEl.textContent = svcsData.length > 0 ? svcsData.length + '+' : 'Live';
-      }
-    } catch(e){}
+// ── CAROUSEL STATE ─────────────────────────────────────────────────────────
+const carousels={};
 
-    // Update floating badge
-    const badge = document.getElementById('floatingBadge');
-    if(badge) badge.textContent = supCount > 0 ? '🌿 ' + supCount + ' eco suppliers live!' : '🌿 GRS is Live!';
-    // Hardcode minimum to show we're live
-    if(el && el.textContent === '🌿') el.textContent = '2+';
-    if(el2 && el2.textContent === '🌿') el2.textContent = '5+';
-
-    // Load real suppliers for featured section
-    // Load featured suppliers via REST
-    let featuredSups = [];
-    try {
-      const r3 = await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&limit=3`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      featuredSups = await r3.json();
-      if(!Array.isArray(featuredSups)) featuredSups = [];
-    } catch(e){ featuredSups = []; }
-    const supGrid = document.getElementById('suppliersGrid');
-    if(supGrid && featuredSups && featuredSups.length > 0){
-      supGrid.innerHTML = featuredSups.map((s,i) => {
-        const initials = (s.business_name||s.owner_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
-        const colors = ['linear-gradient(135deg,#52b043,#2d7a3a)','linear-gradient(135deg,#7a4f2d,#c4956a)','linear-gradient(135deg,#2a7a7a,#4ab0b0)'];
-        const color = colors[i % colors.length];
-        const isUnclaimed = s.manually_added && !s.claimed;
-        return \`<div class="sup-card" onclick="window.location.href='/supplier-profile'" style="cursor:pointer">
-          <div class="sup-head">
-            <div class="sup-av" style="background:\${color}">\${initials}</div>
-            <div>
-              <div class="sup-name">\${s.business_name||'Eco Supplier'}</div>
-              <div class="sup-loc">📍 \${s.city||''}\${s.state ? ', '+s.state : ''}</div>
-            </div>
-            \${isUnclaimed
-              ? '<div class="sup-badge" style="background:#fff3e0;color:#e65100;">Unclaimed</div>'
-              : '<div class="sup-badge">✓ Verified</div>'}
-          </div>
-          <div class="sup-tags">
-            <span class="sup-tag">\${s.category||'Eco Products'}</span>
-          </div>
-          <div class="sup-footer">
-            \${isUnclaimed
-              ? '<a href="/claim-profile" onclick="event.stopPropagation()" style="font-size:11px;font-weight:600;color:#e65100;text-decoration:none;">👆 Is this your business? Claim →</a>'
-              : '<div class="sup-rating">🌿 Active</div>'}
-            <div class="sup-deals">\${isUnclaimed ? '' : 'GRS Listed'}</div>
-          </div>
-        </div>\`;
-      }).join('');
-    } else if(supGrid){
-      supGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">No suppliers yet! <a href="/register" style="color:#2d7a3a;font-weight:600;">Be first to register →</a></div>';
-    }
-
-    // Load real products
-    // Load featured products via REST
-    let featuredProds = [];
-    try {
-      const r4 = await fetch(`${SURL}/rest/v1/products?order=created_at.desc&limit=4`, {
-        headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-      });
-      featuredProds = await r4.json();
-      if(!Array.isArray(featuredProds)) featuredProds = [];
-    } catch(e){ featuredProds = []; }
-    const prodGrid = document.getElementById('productsGrid');
-    if(prodGrid && featuredProds && featuredProds.length > 0){
-      prodGrid.innerHTML = featuredProds.map(p => {
-        const bg = catColors[p.category] || 'linear-gradient(135deg,#e8f5e2,#c8e6c0)';
-        const emoji = p.category ? p.category.split(' ')[0] : '🌿';
-        const imgHtml = p.image_url
-          ? \`<div class="prod-img" style="background:\${bg};padding:0;overflow:hidden"><img src="\${p.image_url}" style="width:100%;height:100%;object-fit:cover"/></div>\`
-          : \`<div class="prod-img" style="background:\${bg}">\${emoji}</div>\`;
-        const waNum = (p.whatsapp||'').replace(/\D/g,'');
-        const waMsg = encodeURIComponent('Hi! I am interested in '+p.name+' from Green Roots Smart.');
-        return \`<div class="prod-card" onclick="window.location.href='/products'">
-          \${imgHtml}
-          <div class="prod-body">
-            <h4>\${p.name}</h4>
-            <div class="supplier">by \${p.supplier_name||'Verified Supplier'} · \${p.location||'India'}</div>
-            <div class="prod-price">₹\${Number(p.price).toLocaleString('en-IN')}/\${p.price_unit||'unit'}</div>
-            <div class="prod-moq">MOQ: \${p.moq||1} units</div>
-            <div class="prod-footer">
-              <span class="prod-rating">🌿 Eco</span>
-              \${waNum ? \`<a href="https://wa.me/91\${waNum}?text=\${waMsg}" target="_blank" onclick="event.stopPropagation()" style="background:#25D366;color:white;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">💬 WA</a>\` : \`<button class="prod-btn" onclick="event.stopPropagation();window.location.href='/products'">Enquire</button>\`}
-            </div>
-          </div>
-        </div>\`;
-      }).join('');
-    } else if(prodGrid){
-      prodGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#7a9a74">Be the first to list a product! 🌿</div>';
-    }
-
-    // Update hero grid with real products
-    const heroGrid = document.getElementById('heroProductsGrid');
-    if(heroGrid && featuredProds && featuredProds.length > 0) {
-      heroGrid.innerHTML = featuredProds.slice(0,4).map(p => {
-        const emoji = p.category ? p.category.split(' ')[0] : '🌿';
-        const img = p.image_url ? `<img src="${p.image_url}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;margin-bottom:6px;"/>` : `<div style="font-size:32px;margin-bottom:6px;">${emoji}</div>`;
-        return `<div style="background:white;border-radius:12px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);cursor:pointer;text-align:center;" onclick="window.location.href='/products'">
-          ${img}
-          <div style="font-size:11px;font-weight:700;color:#1a4a24;margin-bottom:2px;">${(p.name||'Eco Product').substring(0,20)}</div>
-          <div style="font-size:11px;color:#52b043;font-weight:600;">₹${Number(p.price||0).toLocaleString('en-IN')}/${p.price_unit||'unit'}</div>
-        </div>`;
-      }).join('');
-    } else if(heroGrid) {
-      heroGrid.innerHTML = `
-        <div style="background:white;border-radius:12px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,0.08);text-align:center;cursor:pointer;" onclick="window.location.href='/register'">
-          <div style="font-size:32px;margin-bottom:6px;">🌿</div>
-          <div style="font-size:11px;font-weight:700;color:#1a4a24;">Add Products</div>
-          <div style="font-size:10px;color:#7a9a74;">Register free</div>
-        </div>
-        <div style="background:white;border-radius:12px;padding:14px;box-shadow:0 2px 12px rgba(0,0,0,0.08);text-align:center;cursor:pointer;" onclick="window.location.href='/supplier-profile'">
-          <div style="font-size:32px;margin-bottom:6px;">🏪</div>
-          <div style="font-size:11px;font-weight:700;color:#1a4a24;">Find Suppliers</div>
-          <div style="font-size:10px;color:#7a9a74;">Browse all</div>
-        </div>`;
-    }
-  } catch(e){ console.error('loadHomeData:', e); }
+function initCarousel(id,dotsId,itemsPerView){
+  carousels[id]={pos:0,perView:itemsPerView,dotsId};
 }
 
-window.addEventListener('DOMContentLoaded', loadHomeData);
+function getSlideWidth(track){
+  // Get width of one slide including gap
+  const slide=track.querySelector('.sup-slide,.prod-slide');
+  if(!slide) return 0;
+  const gap=18;
+  return slide.getBoundingClientRect().width+gap;
+}
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  if(window.scrollY > 50) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
+function slideCarousel(id,dotsId,dir){
+  const c=carousels[id];if(!c) return;
+  const track=document.getElementById(id);
+  const slides=track.querySelectorAll('.sup-slide,.prod-slide');
+  if(!slides.length) return;
+  const total=Math.ceil(slides.length/c.perView);
+  c.pos=Math.max(0,Math.min(c.pos+dir,total-1));
+  const slideW=getSlideWidth(track);
+  // Move by exactly (perView slides * slideW) per step
+  track.style.transform=`translateX(-${c.pos*c.perView*slideW}px)`;
+  updateDots(dotsId,c.pos,total,id);
+}
 
-// Category card click
-document.querySelectorAll('.cat-card').forEach(card => {
-  card.addEventListener('click', function(){
-    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
+function updateDots(dotsId,pos,total,carouselId){
+  const dotsEl=document.getElementById(dotsId);if(!dotsEl) return;
+  const isDk=dotsId.includes('sup');
+  dotsEl.innerHTML=[...Array(total)].map((_,i)=>
+    `<span class="cdot ${isDk?'dk':''} ${i===pos?'active':''}" onclick="goToDot('${carouselId||dotsId.replace('Dots','')+'Carousel'}','${dotsId}',${i})"></span>`
+  ).join('');
+}
 
-// Search tags click
-document.querySelectorAll('.stag').forEach(tag => {
-  tag.addEventListener('click', function(){
-    document.querySelector('.search-box input').value = this.textContent.trim();
-  });
-});
+function goToDot(id,dotsId,idx){
+  const c=carousels[id];if(!c) return;
+  const track=document.getElementById(id);
+  const slides=track.querySelectorAll('.sup-slide,.prod-slide');
+  if(!slides.length) return;
+  const total=Math.ceil(slides.length/c.perView);
+  c.pos=Math.max(0,Math.min(idx,total-1));
+  const slideW=getSlideWidth(track);
+  track.style.transform=`translateX(-${c.pos*c.perView*slideW}px)`;
+  updateDots(dotsId,c.pos,total,id);
+}
+
+// ── MAIN LOAD ──────────────────────────────────────────────────────────────
+async function loadAll(){
+  await Promise.all([loadCats(),loadSvcCats(),loadSuppliers(),loadProducts()]);
+}
+
+// ── PRODUCT CATEGORIES WITH REAL COUNTS ───────────────────────────────────
+async function loadCats(){
+  try{
+    const [{data:sups},{data:prods}]=await Promise.all([
+      db.from('suppliers').select('id,category').eq('status','active'),
+      db.from('products').select('id,category'),
+    ]);
+    const sa=sups||[],pa=prods||[];
+    // Update hero stats
+    const supEl=document.getElementById('statSup');
+    const prodEl=document.getElementById('statProd');
+    if(supEl&&sa.length>0) supEl.textContent=sa.length+'+';
+    if(prodEl) prodEl.textContent=pa.length>0?pa.length+'+':'5+';
+
+    const grid=document.getElementById('catsGrid');
+    if(!grid) return;
+
+    // Build cards with Cloudinary image + real supplier count
+    const cards=PROD_CATS.map(c=>{
+      // Count suppliers for this category
+      const supCount=sa.filter(s=>{
+        const cat=(s.category||'').toLowerCase();
+        return cat===c.name.toLowerCase()||cat.includes(c.name.split(' ')[0].toLowerCase());
+      }).length;
+      const ct=supCount>0?`${supCount} supplier${supCount>1?'s':''}`:pa.filter(p=>(p.category||'').includes(c.name)).length>0?pa.filter(p=>(p.category||'').includes(c.name)).length+' products':'Be first!';
+
+      const imgUrl=`${CDN}${c.img}.jpg`;
+      return `<div class="cat-card" onclick="window.location.href='/category-products?cat=${encodeURIComponent(c.name)}'" style="border-bottom:3px solid ${c.color}">
+        <div class="cat-img-wrap" style="background:linear-gradient(135deg,${c.color}22,${c.color}44)">
+          <img src="${imgUrl}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="cat-emoji-bg" style="display:none">${c.emoji}</div>
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-body" style="border-color:${c.color}">
+          <div class="cat-name">${c.emoji} ${c.name}</div>
+          <div class="cat-info">
+            <span class="cat-sup-count">${ct}</span>
+            <span class="cat-arrow">→</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    // Add "View All" card
+    cards.push(`<div class="cat-card cat-va" onclick="window.location.href='/category'" style="border-bottom:3px solid var(--g3)">
+      <div class="cat-img-wrap" style="background:var(--g5);display:flex;align-items:center;justify-content:center;">
+        <div class="cat-emoji-bg">🗂️</div>
+      </div>
+      <div class="cat-body">
+        <div class="cat-name">🗂️ View All Categories</div>
+        <div class="cat-info"><span class="cat-sup-count">11+ categories</span><span class="cat-arrow">→</span></div>
+      </div>
+    </div>`);
+    grid.innerHTML=cards.join('');
+  }catch(e){console.error('loadCats:',e);}
+}
+
+// ── SERVICE CATEGORIES WITH REAL COUNTS ───────────────────────────────────
+async function loadSvcCats(){
+  try{
+    const {data}=await db.from('service_providers').select('id,category');
+    const arr=data||[];
+    const grid=document.getElementById('svcCatsGrid');
+    if(!grid) return;
+    grid.innerHTML=SVC_CATS.map(c=>{
+      const cnt=arr.filter(s=>(s.category||'').toLowerCase().includes(c.key.split(' ')[0].toLowerCase())).length;
+      const ct=cnt>0?`${cnt} provider${cnt>1?'s':''}`:arr.length>0?'Coming soon':'Be first!';
+      return `<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}">
+        <span class="svc-icon">${c.emoji}</span>
+        <div class="svc-name">${c.name}</div>
+        <div class="svc-count">${ct}</div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    // fallback — show all without counts
+    const grid=document.getElementById('svcCatsGrid');
+    if(grid) grid.innerHTML=SVC_CATS.map(c=>`<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}"><span class="svc-icon">${c.emoji}</span><div class="svc-name">${c.name}</div><div class="svc-count">View all</div></div>`).join('');
+  }
+}
+
+// ── SUPPLIERS CAROUSEL ─────────────────────────────────────────────────────
+async function loadSuppliers(){
+  try{
+    const {data}=await db.from('suppliers').select('*').eq('status','active').order('created_at',{ascending:false}).limit(12);
+    const track=document.getElementById('supCarousel');
+    if(!track) return;
+    if(!data||!data.length){
+      track.innerHTML='<div class="empty">No suppliers yet! <a href="/register">Be first to register →</a></div>';
+      return;
+    }
+    const perView=window.innerWidth<600?1:window.innerWidth<900?2:3;
+    initCarousel('supCarousel','supDots',perView);
+    track.innerHTML=data.map((s,i)=>{
+      const initials=(s.business_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+      const isUnclaimed=s.manually_added&&!s.claimed;
+      return `<div class="sup-slide" onclick="window.location.href='/supplier-detail?id=${s.id}'">
+        <div class="sup-h">
+          <div class="sup-av" style="background:${supColors[i%supColors.length]}">${initials}</div>
+          <div style="flex:1"><div class="sup-nm">${s.business_name||'Eco Supplier'}</div><div class="sup-lc">📍 ${s.city||''}${s.state?', '+s.state:''}</div></div>
+          <div class="sup-bd ${isUnclaimed?'un':''}">${isUnclaimed?'Unclaimed':'✓ Verified'}</div>
+        </div>
+        <div class="sup-tag">${s.category||'Eco Products'}</div>
+        <div class="sup-ft">
+          <div class="sup-st">${isUnclaimed?'🌿 GRS Listed':'🌿 Active'}</div>
+          ${isUnclaimed?`<a href="/claim-profile" onclick="event.stopPropagation()" class="sup-ac">Claim →</a>`:'<span style="font-size:11px;color:#80b080">GRS Listed</span>'}
+        </div>
+      </div>`;
+    }).join('');
+    const total=Math.ceil(data.length/perView);
+    updateDots('supDots',0,total,'supCarousel');
+  }catch(e){console.error('loadSuppliers:',e);}
+}
+
+// ── PRODUCTS CAROUSEL ──────────────────────────────────────────────────────
+async function loadProducts(){
+  try{
+    const {data}=await db.from('products').select('*').order('created_at',{ascending:false}).limit(12);
+    const track=document.getElementById('prodCarousel');
+    const sub=document.getElementById('prodSub');
+    if(!track) return;
+    if(!data||!data.length){
+      track.innerHTML='<div class="empty">No products yet! <a href="/register">Be first to list →</a></div>';
+      return;
+    }
+    if(sub) sub.textContent=data.length+' eco product'+(data.length!==1?'s':'')+' from verified suppliers · Click to view details';
+    const perView=window.innerWidth<600?1:window.innerWidth<900?2:4;
+    initCarousel('prodCarousel','prodDots',perView);
+    track.innerHTML=data.map(p=>{
+      const bg=catBg[p.category]||catBg['default'];
+      const emoji=catEmoji[p.category]||'🌿';
+      const imgSec=p.image_url
+        ?`<div class="prod-im" style="background:${bg};padding:0"><img src="${p.image_url}" alt="${p.name||''}"/><span class="prod-eco">🌿 Eco</span></div>`
+        :`<div class="prod-im" style="background:${bg}">${emoji}<span class="prod-eco">🌿 Eco</span></div>`;
+      const waNum=(p.whatsapp||'').replace(/\D/g,'');
+      const waMsg=encodeURIComponent('Hi! I found "'+( p.name||'')+'" on Green Roots Smart. I am interested.');
+      const waBtn=waNum?`<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()" class="wa-l">💬 WA</a>`:'';
+      return `<div class="prod-slide" onclick="window.location.href='/product-detail?id=${p.id}'">
+        ${imgSec}
+        <div class="prod-b">
+          <div class="prod-cl">${p.category||'Eco Product'}</div>
+          <div class="prod-nm">${p.name||'Eco Product'}</div>
+          <div class="prod-sl"><span class="vd"></span>${p.supplier_name||'Verified Supplier'} · ${p.location||p.city||'India'}</div>
+          <div class="prod-pr">₹${Number(p.price||0).toLocaleString('en-IN')} <span class="prod-un">/${p.price_unit||'unit'}</span></div>
+          ${p.moq?`<div class="prod-mq">MOQ: ${p.moq} ${p.price_unit||'units'}</div>`:''}
+          <div class="prod-ft">
+            ${waBtn}
+            <button class="enq-l" onclick="event.stopPropagation();window.location.href='/product-detail?id=${p.id}'">View Details</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    const total=Math.ceil(data.length/perView);
+    updateDots('prodDots',0,total,'prodCarousel');
+  }catch(e){console.error('loadProducts:',e);}
+}
+
+// ── UTILS ──────────────────────────────────────────────────────────────────
+function doHeroSearch(){
+  const q=document.getElementById('heroSearch').value.trim();
+  const cat=document.getElementById('heroCat').value;
+  if(cat) window.location.href='/category-products?cat='+encodeURIComponent(cat);
+  else if(q) window.location.href='/products?q='+encodeURIComponent(q);
+  else window.location.href='/products';
+}
+function doQ(v){document.getElementById('heroSearch').value=v;window.location.href='/products?q='+encodeURIComponent(v);}
+function toggleMob(){const m=document.getElementById('mobMenu');m.style.display=m.style.display==='block'?'none':'block';}
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50));
+
+// Init
+loadAll();
 </script>
 </body>
 </html>
