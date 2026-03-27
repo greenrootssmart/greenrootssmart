@@ -600,16 +600,16 @@ const PROD_CATS=[
 ];
 
 const SVC_CATS=[
-  {name:'Testing & Labs',        emoji:'🔬', color:'#42a5f5', key:'Testing & Laboratory'},
-  {name:'Consulting',            emoji:'📋', color:'#7e57c2', key:'Consulting & Advisory'},
-  {name:'Certification',         emoji:'📜', color:'#26a69a', key:'Certification & Compliance'},
-  {name:'Waste Management',      emoji:'♻️', color:'#ec407a', key:'Waste Management'},
-  {name:'Water Services',        emoji:'💧', color:'#29b6f6', key:'Water & Wastewater'},
-  {name:'Renewable Energy',      emoji:'⚡', color:'#ffa726', key:'Renewable Energy'},
-  {name:'Ecological',            emoji:'🌱', color:'#66bb6a', key:'Ecological Services'},
-  {name:'Remediation',           emoji:'🏗️', color:'#8d6e63', key:'Remediation'},
-  {name:'Reporting & Tech',      emoji:'📊', color:'#5c6bc0', key:'Reporting & Technology'},
-  {name:'Training',              emoji:'🎓', color:'#ef5350', key:'Training & Education'},
+  {name:'Testing & Labs',   emoji:'🔬', color:'#42a5f5', key:'Testing & Laboratory',        img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626714/Testing-Laboratory.PNG_hgcmme.png'},
+  {name:'Consulting',       emoji:'📋', color:'#7e57c2', key:'Consulting & Advisory',        img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626713/Consulting-Advisory.PNG_ykn8fy.png'},
+  {name:'Certification',    emoji:'📜', color:'#26a69a', key:'Certification & Compliance',   img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626712/Certification-Compliance.PNG_tbviqv.png'},
+  {name:'Waste Management', emoji:'♻️', color:'#ec407a', key:'Waste Management',             img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626717/Waste-Management.PNG_n9s8gf.png'},
+  {name:'Water Services',   emoji:'💧', color:'#29b6f6', key:'Water & Wastewater',           img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626720/Water-Wastewater.PNG_r05ujy.png'},
+  {name:'Renewable Energy', emoji:'⚡', color:'#ffa726', key:'Renewable Energy',             img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626723/Renewable-Energy.PNG_b5frfd.png'},
+  {name:'Ecological',       emoji:'🌱', color:'#66bb6a', key:'Ecological Services',          img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626716/Ecological-Services.PNG_mgnpux.png'},
+  {name:'Remediation',      emoji:'🏗️', color:'#8d6e63', key:'Remediation',                 img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Remediation.PNG_g2985d.png'},
+  {name:'Reporting & Tech', emoji:'📊', color:'#5c6bc0', key:'Reporting & Technology',       img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626722/Reporting-Technology.PNG_bj9d3p.png'},
+  {name:'Training',         emoji:'🎓', color:'#ef5350', key:'Training & Education',         img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Training-Education.PNG_pi0jgw.png'},
 ];
 
 const catBg={'Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal Products':'linear-gradient(135deg,#e8f5e9,#c8e6c9)','Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)','Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
@@ -735,10 +735,9 @@ async function loadSvcCats(){
     grid.innerHTML=SVC_CATS.map(c=>{
       const cnt=arr.filter(s=>(s.category||'').toLowerCase().includes(c.key.split(' ')[0].toLowerCase())).length;
       const ct=cnt>0?`${cnt} provider${cnt>1?'s':''}`:arr.length>0?'Coming soon':'Be first!';
-      const svcImgUrl=`${SVC_CDN}${c.key.toLowerCase().replace(/ & /g,'-').replace(/ /g,'-')}.jpg`;
       return `<div class="svc-cat-card" onclick="window.location.href='/services?cat=${encodeURIComponent(c.key)}'" style="border-top:3px solid ${c.color}">
         <div class="svc-card-img" style="background:${c.color}22">
-          <img src="${svcImgUrl}" alt="${c.name}" 
+          <img src="${c.img}" alt="${c.name}" 
             onerror="this.parentElement.innerHTML='<div class=\'svc-icon-lg\'>${c.emoji}</div>';"
             style="width:100%;height:100%;object-fit:cover;display:block;border-radius:10px 10px 0 0;"/>
         </div>
@@ -753,10 +752,9 @@ async function loadSvcCats(){
     // fallback — show all without counts
     const grid=document.getElementById('svcCatsGrid');
     if(grid) grid.innerHTML=SVC_CATS.map(c=>{
-      const svcImgUrl=`${SVC_CDN}${c.key.toLowerCase().replace(/ & /g,'-').replace(/ /g,'-')}.jpg`;
       return `<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}">
         <div class="svc-card-img" style="background:${c.color}22">
-          <img src="${svcImgUrl}" alt="${c.name}" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src=SVC_CDN_ROOT+this.src.split('/').pop();}else{this.parentElement.innerHTML='<div class=\'svc-icon-lg\'>${c.emoji}</div>';}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:10px 10px 0 0;"/>
+          <img src="${c.img}" alt="${c.name}" onerror="this.parentElement.innerHTML='<div class=\'svc-icon-lg\'>${c.emoji}</div>';" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:10px 10px 0 0;"/>
         </div>
         <div class="svc-card-body"><span class="svc-icon-sm">${c.emoji}</span><div class="svc-name">${c.name}</div><div class="svc-count">View all</div></div>
       </div>`;}).join('');
