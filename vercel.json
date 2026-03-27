@@ -7,6 +7,7 @@
     { "src": "/register", "dest": "/register.html" },
     { "src": "/buyer-register", "dest": "/buyer-register.html" },
     { "src": "/products", "dest": "/products.html" },
+    { "src": "/category-products", "dest": "/category-products.html" },
     { "src": "/product-detail", "dest": "/product-detail.html" },
     { "src": "/supplier-detail", "dest": "/supplier-detail.html" },
     { "src": "/dashboard", "dest": "/dashboard.html" },
