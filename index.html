@@ -131,12 +131,16 @@ a{text-decoration:none;color:inherit;}
 .cat-va .cat-body{background:var(--g5);border-color:var(--g3);}
 
 /* ── SERVICE CATEGORY CARDS ──────────────────────────────────────────────── */
-.svc-cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
-.svc-cat-card{background:white;border-radius:14px;padding:18px 12px;text-align:center;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
-.svc-cat-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.12);}
+.svc-cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.svc-cat-card{background:white;border-radius:14px;overflow:hidden;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.svc-cat-card:hover{border-color:var(--g3);transform:translateY(-4px);box-shadow:0 10px 24px rgba(45,122,58,0.13);}
+.svc-card-img{height:100px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;}
+.svc-icon-lg{font-size:40px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+.svc-card-body{padding:10px 12px;text-align:center;}
+.svc-icon-sm{font-size:16px;display:block;margin-bottom:4px;}
 .svc-icon{font-size:28px;margin-bottom:8px;display:block;}
 .svc-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:3px;}
-.svc-count{font-size:10px;color:var(--light);}
+.svc-count{font-size:10px;color:var(--g2);font-weight:600;}
 
 /* ── CAROUSEL ────────────────────────────────────────────────────────────── */
 .carousel-wrap{position:relative;}
@@ -573,21 +577,26 @@ footer{background:#0f1f10;padding:52px 5% 24px;}
 const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
 const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
 const db=supabase.createClient(SURL,SKEY);
-const CDN='https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/grs_categories/';
+// Cloudinary base - tries grs_categories folder first, falls back to root
+const CLOUD='dvbaciabk';
+const CDN=`https://res.cloudinary.com/${CLOUD}/image/upload/w_400,h_200,c_fill,q_auto,f_auto/grs_categories/`;
+const CDN_ROOT=`https://res.cloudinary.com/${CLOUD}/image/upload/w_400,h_200,c_fill,q_auto,f_auto/`;
+const SVC_CDN=`https://res.cloudinary.com/${CLOUD}/image/upload/w_300,h_160,c_fill,q_auto,f_auto/grs_services/`;
+const SVC_CDN_ROOT=`https://res.cloudinary.com/${CLOUD}/image/upload/w_300,h_160,c_fill,q_auto,f_auto/`;
 
 // ── CATEGORY CONFIG ────────────────────────────────────────────────────────
 const PROD_CATS=[
-  {name:'Solar Energy',    emoji:'☀️', color:'#f59e0b', img:'solar-energy'},
-  {name:'Organic Farming', emoji:'🌾', color:'#66bb6a', img:'organic-farming'},
-  {name:'Eco Packaging',   emoji:'📦', color:'#26c6da', img:'eco-packaging'},
-  {name:'Waste Management',emoji:'♻️', color:'#ec407a', img:'waste-management'},
-  {name:'Water Technology',emoji:'💧', color:'#42a5f5', img:'water-technology'},
-  {name:'Energy Storage',  emoji:'🔋', color:'#ab47bc', img:'energy-storage'},
-  {name:'Green Building',  emoji:'🏗️', color:'#8d6e63', img:'green-building'},
-  {name:'Herbal Products', emoji:'🌿', color:'#66bb6a', img:'herbal-products'},
-  {name:'Eco Textiles',    emoji:'👗', color:'#f06292', img:'eco-textiles'},
-  {name:'Wind Energy',     emoji:'🌬️', color:'#4dd0e1', img:'wind-energy'},
-  {name:'EV Components',   emoji:'🚗', color:'#5c6bc0', img:'ev-components'},
+  {name:'Solar Energy',    emoji:'☀️', color:'#f59e0b', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622974/solar-energy.jpg_q0v8zq.png'},
+  {name:'Organic Farming', emoji:'🌾', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/organic-farming.jpg_xhzvbn.png'},
+  {name:'Eco Packaging',   emoji:'📦', color:'#26c6da', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622964/eco-packaging.jpg_dblrlj.png'},
+  {name:'Waste Management',emoji:'♻️', color:'#ec407a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/waste-management.jpg_azw0og.png'},
+  {name:'Water Technology',emoji:'💧', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/water-technology.jpg_ymxpit.png'},
+  {name:'Energy Storage',  emoji:'🔋', color:'#ab47bc', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622969/energy-storage.jpg_jmhosb.png'},
+  {name:'Green Building',  emoji:'🏗️', color:'#8d6e63', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622980/green-building.jpg_vvzhkl.png'},
+  {name:'Herbal Products', emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
+  {name:'Eco Textiles',    emoji:'👗', color:'#f06292', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/eco-textiles.jpg_iqcvus.png'},
+  {name:'Wind Energy',     emoji:'🌬️', color:'#4dd0e1', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622983/wind-energy.jpg_rwzfmw.png'},
+  {name:'EV Components',   emoji:'🚗', color:'#5c6bc0', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622979/ev-components.jpg_owmws0.png'},
 ];
 
 const SVC_CATS=[
@@ -686,11 +695,11 @@ async function loadCats(){
       }).length;
       const ct=supCount>0?`${supCount} supplier${supCount>1?'s':''}`:pa.filter(p=>(p.category||'').includes(c.name)).length>0?pa.filter(p=>(p.category||'').includes(c.name)).length+' products':'Be first!';
 
-      const imgUrl=`${CDN}${c.img}.jpg`;
       return `<div class="cat-card" onclick="window.location.href='/category-products?cat=${encodeURIComponent(c.name)}'" style="border-bottom:3px solid ${c.color}">
         <div class="cat-img-wrap" style="background:linear-gradient(135deg,${c.color}22,${c.color}44)">
-          <img src="${imgUrl}" alt="${c.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="cat-emoji-bg" style="display:none">${c.emoji}</div>
+          <img src="${c.img}" alt="${c.name}" 
+            onerror="this.parentElement.innerHTML='<div class=\'cat-emoji-bg\'>${c.emoji}</div>';"
+            style="width:100%;height:100%;object-fit:cover;display:block;"/>
           <div class="cat-overlay"></div>
         </div>
         <div class="cat-body" style="border-color:${c.color}">
@@ -726,16 +735,31 @@ async function loadSvcCats(){
     grid.innerHTML=SVC_CATS.map(c=>{
       const cnt=arr.filter(s=>(s.category||'').toLowerCase().includes(c.key.split(' ')[0].toLowerCase())).length;
       const ct=cnt>0?`${cnt} provider${cnt>1?'s':''}`:arr.length>0?'Coming soon':'Be first!';
-      return `<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}">
-        <span class="svc-icon">${c.emoji}</span>
-        <div class="svc-name">${c.name}</div>
-        <div class="svc-count">${ct}</div>
+      const svcImgUrl=`${SVC_CDN}${c.key.toLowerCase().replace(/ & /g,'-').replace(/ /g,'-')}.jpg`;
+      return `<div class="svc-cat-card" onclick="window.location.href='/services?cat=${encodeURIComponent(c.key)}'" style="border-top:3px solid ${c.color}">
+        <div class="svc-card-img" style="background:${c.color}22">
+          <img src="${svcImgUrl}" alt="${c.name}" 
+            onerror="this.parentElement.innerHTML='<div class=\'svc-icon-lg\'>${c.emoji}</div>';"
+            style="width:100%;height:100%;object-fit:cover;display:block;border-radius:10px 10px 0 0;"/>
+        </div>
+        <div class="svc-card-body">
+          <span class="svc-icon-sm">${c.emoji}</span>
+          <div class="svc-name">${c.name}</div>
+          <div class="svc-count">${ct}</div>
+        </div>
       </div>`;
     }).join('');
   }catch(e){
     // fallback — show all without counts
     const grid=document.getElementById('svcCatsGrid');
-    if(grid) grid.innerHTML=SVC_CATS.map(c=>`<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}"><span class="svc-icon">${c.emoji}</span><div class="svc-name">${c.name}</div><div class="svc-count">View all</div></div>`).join('');
+    if(grid) grid.innerHTML=SVC_CATS.map(c=>{
+      const svcImgUrl=`${SVC_CDN}${c.key.toLowerCase().replace(/ & /g,'-').replace(/ /g,'-')}.jpg`;
+      return `<div class="svc-cat-card" onclick="window.location.href='/services'" style="border-top:3px solid ${c.color}">
+        <div class="svc-card-img" style="background:${c.color}22">
+          <img src="${svcImgUrl}" alt="${c.name}" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src=SVC_CDN_ROOT+this.src.split('/').pop();}else{this.parentElement.innerHTML='<div class=\'svc-icon-lg\'>${c.emoji}</div>';}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:10px 10px 0 0;"/>
+        </div>
+        <div class="svc-card-body"><span class="svc-icon-sm">${c.emoji}</span><div class="svc-name">${c.name}</div><div class="svc-count">View all</div></div>
+      </div>`;}).join('');
   }
 }
 
