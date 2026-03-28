@@ -1,8 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Browse eco-friendly products by category on Green Roots Smart. Find verified Indian suppliers for solar energy, organic farming, eco packaging, water technology and more. Best wholesale prices."/>
+<meta name="keywords" content="eco products by category India, solar energy products wholesale, organic products B2B, eco packaging suppliers India, water technology products, green building materials wholesale"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Eco Products by Category — Green Roots Smart"/>
+<meta name="twitter:description" content="Find verified eco-friendly products and suppliers by category across India on Green Roots Smart."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
 <!-- SEO meta tags injected dynamically by JS below -->
 <title id="pageTitle">Eco Products — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -13,6 +20,14 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
+
+/* KEYWORD CHIPS SECTION */
+.keywords-section{background:white;border-bottom:1px solid #e8f0e8;padding:14px 5%;}
+.kw-inner{max-width:1400px;margin:0 auto;}
+.kw-label{font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.kw-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.kw-chip{padding:5px 13px;background:var(--g5);border-radius:20px;font-size:12px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;border:1.5px solid transparent;white-space:nowrap;}
+.kw-chip:hover{background:var(--g2);color:white;border-color:var(--g2);}
 
 /* NAV */
 .grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
@@ -259,6 +274,14 @@ footer a{color:#a8d8a0;text-decoration:none;font-size:12px;margin-left:12px;}
   </div>
 </div>
 
+<!-- KEYWORD CHIPS SECTION -->
+<div class="keywords-section" id="keywordsSection">
+  <div class="kw-inner">
+    <div class="kw-label">🔍 Popular Keywords in this Category</div>
+    <div class="kw-chips" id="kwChips"></div>
+  </div>
+</div>
+
 <!-- MAIN LAYOUT -->
 <div class="page-layout">
 
@@ -377,17 +400,138 @@ const db=supabase.createClient(SURL,SKEY);
 
 // ── CATEGORY CONFIG ────────────────────────────────────────────────────────
 const CAT_CONFIG = {
-  'Solar Energy':{emoji:'☀️',color:'linear-gradient(150deg,#1a3a0a,#2d6a1a)',badge:'SOLAR ENERGY',desc:'Find wholesale solar panels, inverters, batteries and complete solar power systems from verified Indian manufacturers and suppliers. Best prices for B2B buyers across India.',keywords:'solar panels wholesale India, solar energy suppliers B2B, solar inverters India, solar power systems bulk'},
-  'Organic Farming':{emoji:'🌾',color:'linear-gradient(150deg,#3a2800,#7a5500)',badge:'ORGANIC FARMING',desc:'Source certified organic seeds, fertilizers, pesticides, farming equipment and organic produce from verified Indian organic farmers and suppliers. Perfect for bulk B2B procurement.',keywords:'organic farming products India, organic seeds wholesale, organic fertilizers B2B, certified organic suppliers India'},
-  'Eco Packaging':{emoji:'📦',color:'linear-gradient(150deg,#003a3a,#007a7a)',badge:'ECO PACKAGING',desc:'Browse biodegradable boxes, recycled paper bags, compostable packaging and sustainable packaging solutions from verified Indian eco packaging manufacturers.',keywords:'eco packaging wholesale India, biodegradable packaging B2B, recycled packaging suppliers, sustainable packaging India'},
-  'Waste Management':{emoji:'♻️',color:'linear-gradient(150deg,#3a003a,#7a107a)',badge:'WASTE MANAGEMENT',desc:'Find waste management equipment, recycling machinery, composting systems and waste processing solutions from verified Indian suppliers.',keywords:'waste management equipment India, recycling machinery B2B, composting systems India, waste processing suppliers'},
-  'Water Technology':{emoji:'💧',color:'linear-gradient(150deg,#00203a,#004a8a)',badge:'WATER TECHNOLOGY',desc:'Source water purifiers, filtration systems, rainwater harvesting equipment and water treatment solutions from verified Indian water technology suppliers.',keywords:'water purifiers wholesale India, water filtration B2B, water treatment systems India, rainwater harvesting suppliers'},
-  'Energy Storage':{emoji:'🔋',color:'linear-gradient(150deg,#2a003a,#5a1a7a)',badge:'ENERGY STORAGE',desc:'Find lithium batteries, energy storage systems, UPS systems and power backup solutions from verified Indian energy storage manufacturers and suppliers.',keywords:'energy storage systems India, lithium batteries wholesale, UPS systems B2B India, power backup suppliers'},
-  'Green Building':{emoji:'🏗️',color:'linear-gradient(150deg,#3a1a00,#7a4a00)',badge:'GREEN BUILDING',desc:'Browse green building materials, insulation, sustainable construction products and eco-friendly building solutions from verified Indian green building suppliers.',keywords:'green building materials India, sustainable construction B2B, eco building products India, insulation materials wholesale'},
-  'Herbal Products':{emoji:'🌿',color:'linear-gradient(150deg,#003a10,#007a30)',badge:'HERBAL & NATURAL',desc:'Source herbal extracts, natural ingredients, Ayurvedic products and plant-based materials from verified Indian herbal and natural product suppliers.',keywords:'herbal products wholesale India, natural ingredients B2B, Ayurvedic products suppliers, plant extracts India'},
-  'Eco Textiles':{emoji:'👗',color:'linear-gradient(150deg,#3a003a,#7a0060)',badge:'ECO TEXTILES',desc:'Find organic cotton, bamboo fabric, recycled textiles and sustainable clothing materials from verified Indian eco textile manufacturers and suppliers.',keywords:'eco textiles wholesale India, organic cotton B2B, bamboo fabric suppliers, sustainable textiles India'},
-  'Wind Energy':{emoji:'🌬️',color:'linear-gradient(150deg,#002a3a,#006a8a)',badge:'WIND ENERGY',desc:'Source wind turbines, wind energy components and renewable wind power solutions from verified Indian wind energy suppliers and manufacturers.',keywords:'wind turbines India wholesale, wind energy components B2B, renewable energy suppliers India'},
-  'EV Components':{emoji:'🚗',color:'linear-gradient(150deg,#1a1a3a,#2a2a7a)',badge:'EV COMPONENTS',desc:'Browse electric vehicle batteries, motors, charging equipment and EV components from verified Indian EV manufacturers and suppliers.',keywords:'EV components wholesale India, electric vehicle parts B2B, EV batteries India, EV charging equipment'},
+  'Solar Energy':{
+    emoji:'☀️', color:'linear-gradient(150deg,#1a3a0a,#2d6a1a)', badge:'SOLAR ENERGY',
+    desc:'Find wholesale solar panels, inverters, batteries and complete solar power systems from verified Indian manufacturers. Best B2B prices for rooftop, off-grid, on-grid and hybrid solar systems.',
+    keywords:'solar panels wholesale India, solar energy suppliers B2B, solar inverters India, solar battery storage, off-grid solar system, rooftop solar India, solar EPC contractors, solar mounting structure, solar water heater, solar street light, solar pump India, bifacial solar panel, PERC solar panel, solar charge controller, photovoltaic panels India, solar power plant, net metering India, solar subsidy India, monocrystalline solar panel, polycrystalline solar panel',
+    chips:['Solar Panels','Solar Inverters','Solar Batteries','Solar Pumps','Solar Street Lights','Solar Water Heaters','Solar Chargers','Mounting Structures','Rooftop Solar','Off-Grid Systems','Solar EPC','Bifacial Panels','PERC Panels','Net Metering','Hybrid Solar','On-Grid Solar','Solar Farm','Solar SCADA','Agrivoltaics','Solar Dryer']
+  },
+  'Wind Energy':{
+    emoji:'🌬️', color:'linear-gradient(150deg,#002a3a,#006a8a)', badge:'WIND ENERGY',
+    desc:'Source wind turbines, wind energy components and hybrid wind-solar systems from verified Indian wind energy suppliers and manufacturers. Best wholesale prices for onshore wind projects.',
+    keywords:'wind energy suppliers India, wind turbines wholesale India, wind power plant B2B, onshore wind energy India, small wind turbine India, wind farm equipment, horizontal axis wind turbine, vertical axis wind turbine, wind inverter, wind battery storage, hybrid wind solar system, wind energy certificate India, wind resource assessment, wind turbine blade India, wind tower supplier',
+    chips:['Wind Turbines','Small Wind Turbine','Onshore Wind','Wind Farm','Horizontal Axis Turbine','Vertical Axis Turbine','Wind Inverter','Wind Battery Storage','Hybrid Wind Solar','Wind Turbine Blade','Wind Tower','Anemometer','Wind Resource Assessment','Wind Energy Certificate']
+  },
+  'Organic Farming':{
+    emoji:'🌾', color:'linear-gradient(150deg,#3a2800,#7a5500)', badge:'ORGANIC FARMING',
+    desc:'Source certified organic seeds, bio fertilizers, pesticides, farming equipment and organic produce from verified Indian organic farmers and suppliers. Perfect for bulk B2B procurement.',
+    keywords:'organic farming products India, organic seeds wholesale, bio fertilizers India, organic pesticides B2B, vermicompost suppliers, compost India, biostimulants wholesale, organic manure India, organic certification India, FSSAI organic, organic food India, organic vegetables wholesale, organic fruits India, organic grains, organic spices wholesale, regenerative agriculture, permaculture, agroforestry, zero budget farming, neem pesticide India, organic crop protection, drip irrigation India, farmer producer organisation',
+    chips:['Organic Seeds','Bio Fertilizers','Organic Pesticides','Vermicompost','Biostimulants','Compost','Organic Manure','Neem Pesticide','Drip Irrigation','Organic Produce','Organic Spices','Organic Fruits','Organic Grains','Organic Tea','Organic Cotton','Natural Farming','Agroforestry','Regenerative Agriculture','Organic Dairy','Bio Pesticide']
+  },
+  'Eco Packaging':{
+    emoji:'📦', color:'linear-gradient(150deg,#003a3a,#007a7a)', badge:'ECO PACKAGING',
+    desc:'Browse biodegradable bags, compostable boxes, kraft paper packaging, bamboo packaging and sustainable packaging solutions from verified Indian eco packaging manufacturers.',
+    keywords:'eco packaging wholesale India, biodegradable packaging B2B, compostable packaging India, sustainable packaging suppliers, kraft paper bags wholesale, recycled packaging India, plastic-free packaging, bagasse packaging, bamboo packaging India, sugarcane packaging, biodegradable bags, compostable bags, jute bags wholesale, mycelium packaging, PLA packaging, bioplastic packaging, eco mailer box, zero waste packaging, eco cutlery India, bamboo cutlery, wooden cutlery, compostable cups',
+    chips:['Biodegradable Bags','Kraft Paper Bags','Compostable Boxes','Bagasse Packaging','Bamboo Packaging','Jute Bags','PLA Packaging','Bioplastic Packaging','Eco Mailer Box','Eco Cutlery','Compostable Cups','Sugarcane Packaging','Mycelium Packaging','Recycled Packaging','Zero Waste Packaging','Paper Carry Bags','Cloth Bags','Seaweed Packaging','Plant-Based Packaging','Reusable Packaging']
+  },
+  'Waste Management':{
+    emoji:'♻️', color:'linear-gradient(150deg,#3a003a,#7a107a)', badge:'WASTE MANAGEMENT',
+    desc:'Find waste management equipment, recycling machinery, composting plants, biogas systems and waste processing solutions from verified Indian suppliers.',
+    keywords:'waste management equipment India, recycling machinery B2B, solid waste management India, e-waste recycling India, plastic waste management, biomedical waste India, waste to energy India, composting plant India, biogas plant, anaerobic digestion, industrial waste management, construction waste recycling, food waste management, agricultural waste recycling, material recovery facility, metal recycling India, paper recycling, plastic recycling India, glass recycling, battery recycling India, e-waste management, sewage treatment plant, effluent treatment plant, zero liquid discharge',
+    chips:['Solid Waste Management','E-waste Recycling','Plastic Recycling','Composting Plant','Biogas Plant','Waste to Energy','Metal Recycling','Paper Recycling','Glass Recycling','Battery Recycling','Industrial Waste','Construction Waste','Food Waste','Sewage Treatment','Effluent Treatment','Zero Liquid Discharge','Landfill Management','Biomedical Waste','Hazardous Waste','Zero Waste']
+  },
+  'Water Technology':{
+    emoji:'💧', color:'linear-gradient(150deg,#00203a,#004a8a)', badge:'WATER TECHNOLOGY',
+    desc:'Source water purifiers, RO systems, rainwater harvesting equipment, water treatment plants and smart water solutions from verified Indian water technology suppliers.',
+    keywords:'water purifiers wholesale India, RO water system B2B, industrial RO India, water filtration systems, water treatment plant India, rainwater harvesting equipment, greywater recycling, water conservation India, water audit services, borewell recharge, groundwater conservation, water sensor India, smart water meter, desalination plant India, water ATM, safe drinking water solutions, water testing India, water footprint assessment',
+    chips:['RO Water Systems','Water Purifiers','Rainwater Harvesting','Wastewater Treatment','Desalination Plant','Water Sensors','Smart Water Meters','Industrial RO','Greywater Recycling','Water Conservation','Water Audit','Borewell Recharge','Water ATM','Water Testing','Community Water Supply','Leak Detection','Water Footprint']
+  },
+  'Green Building':{
+    emoji:'🏗️', color:'linear-gradient(150deg,#3a1a00,#7a4a00)', badge:'GREEN BUILDING',
+    desc:'Browse LEED certified green building materials, fly ash bricks, bamboo construction products, low VOC paints and sustainable construction solutions from verified Indian suppliers.',
+    keywords:'green building materials India, sustainable construction B2B, LEED certification India, GRIHA rating India, fly ash bricks wholesale, eco bricks India, AAC blocks, recycled steel, green cement, bamboo construction, low carbon construction, passive house India, energy efficient building, green roof India, building insulation, bamboo flooring, cork flooring, low VOC paint India, natural paint, net zero building, prefab green building, modular construction India',
+    chips:['Fly Ash Bricks','AAC Blocks','Bamboo Construction','Green Cement','Recycled Steel','Low VOC Paint','Green Roof','Bamboo Flooring','Cork Flooring','Building Insulation','Natural Paint','Sustainable Flooring','LEED Certified','GRIHA Rating','Net Zero Building','Prefab Green Building','Rammed Earth','Green Interior','Recycled Tiles','Smart Building']
+  },
+  'EV Components':{
+    emoji:'🚗', color:'linear-gradient(150deg,#1a1a3a,#2a2a7a)', badge:'EV COMPONENTS',
+    desc:'Browse electric vehicle batteries, motors, EV charging stations, BMS and EV components from verified Indian EV manufacturers and suppliers. Best wholesale prices.',
+    keywords:'EV components wholesale India, EV batteries India, EV charging station B2B, lithium ion battery India, EV motor suppliers, electric bus India, electric auto rickshaw, electric two wheeler parts, EV charger supplier, fast charger India, home EV charger, commercial EV charging, battery management system, BMS India, EV conversion kit, regenerative braking system, EV fleet management',
+    chips:['EV Batteries','EV Charging Stations','EV Motors','BMS Systems','Fast Chargers','Home EV Charger','Electric Bus','Electric Auto Rickshaw','Electric Two Wheeler','EV Conversion Kit','Lithium Ion Battery','EV Fleet Management','Commercial EV Charging','Regenerative Braking']
+  },
+  'Energy Storage':{
+    emoji:'🔋', color:'linear-gradient(150deg,#2a003a,#5a1a7a)', badge:'ENERGY STORAGE',
+    desc:'Find lithium batteries, BESS systems, solar batteries, UPS and power backup solutions from verified Indian energy storage manufacturers and suppliers.',
+    keywords:'energy storage systems India, lithium battery wholesale, BESS India, battery energy storage, lead acid battery India, flow battery, sodium ion battery, grid scale storage, hybrid inverter India, solar battery India, deep cycle battery, UPS system India, power backup suppliers, inverter battery India, battery storage wholesale',
+    chips:['Lithium Batteries','BESS Systems','Solar Batteries','Lead Acid Batteries','Flow Batteries','Grid Scale Storage','Hybrid Inverters','Deep Cycle Batteries','UPS Systems','Power Backup','Inverter Batteries','Sodium Ion Battery','Battery Management']
+  },
+  'Eco Textiles':{
+    emoji:'👗', color:'linear-gradient(150deg,#3a003a,#7a0060)', badge:'ECO TEXTILES',
+    desc:'Find organic cotton, bamboo fabric, recycled polyester, GOTS certified textiles and sustainable fashion materials from verified Indian eco textile manufacturers.',
+    keywords:'eco textiles wholesale India, organic cotton B2B, bamboo fabric suppliers, organic linen India, organic hemp fabric, recycled fabric India, sustainable fashion India, natural dye fabric, GOTS certification textile, fairtrade textile, upcycled fabric, tencel fabric, lyocell fabric, recycled polyester India, PET fabric, sustainable yarn, biodegradable textile, low impact dye',
+    chips:['Organic Cotton','Bamboo Fabric','Organic Linen','Organic Hemp','Recycled Fabric','Natural Dye','GOTS Certified','Fairtrade Textile','Tencel Fabric','Lyocell Fabric','Recycled Polyester','Sustainable Yarn','Upcycled Fabric','Biodegradable Textile','Deadstock Fabric']
+  },
+  'Herbal Products':{
+    emoji:'🌿', color:'linear-gradient(150deg,#003a10,#007a30)', badge:'HERBAL & NATURAL',
+    desc:'Source herbal extracts, Ayurvedic products, natural cosmetics, essential oils and plant-based materials from verified Indian herbal and natural product suppliers.',
+    keywords:'herbal products wholesale India, Ayurvedic products B2B, natural cosmetics India, organic skincare wholesale, essential oils India, herbal extract suppliers, botanical extract India, natural soap wholesale, organic soap India, herbal shampoo, nutraceuticals India, organic spices wholesale, herbal tea India, medicinal plants, phytonutrients, plant-based products India',
+    chips:['Herbal Extracts','Ayurvedic Products','Essential Oils','Natural Cosmetics','Organic Skincare','Botanical Extracts','Natural Soap','Organic Soap','Herbal Shampoo','Nutraceuticals','Organic Spices','Herbal Tea','Medicinal Plants','Natural Hair Care','Organic Moisturiser','Phytonutrients']
+  },
+  'Bioenergy':{
+    emoji:'⚡', color:'linear-gradient(150deg,#2a1a00,#6a4a00)', badge:'BIOENERGY',
+    desc:'Find biogas plants, biomass energy systems, biofuel, biodiesel and biochar solutions from verified Indian bioenergy suppliers and manufacturers.',
+    keywords:'biogas plant India, biomass energy suppliers, biofuel India wholesale, biodiesel suppliers India, bioethanol India, biochar suppliers, biomass boiler India, waste to biogas, cow dung biogas, kitchen waste biogas, agricultural biomass India, wood pellets India, green gas India, bioenergy supplier B2B, biomass plant India',
+    chips:['Biogas Plants','Biomass Energy','Biofuel','Biodiesel','Bioethanol','Biochar','Wood Pellets','Waste to Biogas','Cow Dung Biogas','Kitchen Waste Biogas','Agricultural Biomass','Biomass Boiler','Green Gas']
+  },
+  'Green Transport':{
+    emoji:'🚌', color:'linear-gradient(150deg,#003a2a,#007a5a)', badge:'GREEN TRANSPORT',
+    desc:'Find green logistics, electric delivery vehicles, sustainable transport and carbon neutral shipping solutions from verified Indian green transport suppliers.',
+    keywords:'green logistics India, sustainable transport B2B, electric delivery vehicle India, carbon neutral shipping, green freight India, EV fleet management, last mile green delivery, electric bus India, electric truck India, hydrogen vehicle India, green mobility solutions, sustainable fleet management, cycle logistics India',
+    chips:['Green Logistics','Electric Delivery','EV Fleet','Electric Bus','Electric Truck','Carbon Neutral Shipping','Green Freight','Last Mile Delivery','Hydrogen Vehicle','Green Mobility','Sustainable Fleet','Cycle Logistics','Sustainable Aviation Fuel']
+  },
+  'Smart Agriculture':{
+    emoji:'🌱', color:'linear-gradient(150deg,#003a00,#1a7a00)', badge:'SMART AGRITECH',
+    desc:'Find precision farming equipment, drone agriculture, IoT farming solutions, hydroponic and vertical farming systems from verified Indian AgriTech suppliers.',
+    keywords:'precision farming India, smart irrigation systems, IoT farming India, drone agriculture suppliers, soil sensors India, farm management software, crop monitoring India, satellite farming, hydroponic farm India, aquaponics India, vertical farming systems, urban farming India, rooftop farming, AgriTech suppliers India, smart agriculture B2B',
+    chips:['Precision Farming','Drone Agriculture','IoT Farming','Hydroponic Farm','Vertical Farming','Aquaponics','Soil Sensors','Smart Irrigation','Farm Management Software','Crop Monitoring','Satellite Farming','Urban Farming','Rooftop Farming','Weather Station Farm']
+  },
+  'Green Chemistry':{
+    emoji:'🧪', color:'linear-gradient(150deg,#002a3a,#005a7a)', badge:'GREEN CHEMISTRY',
+    desc:'Source bio-based chemicals, enzyme cleaners, eco detergents, natural pigments and green solvents from verified Indian green chemistry suppliers.',
+    keywords:'green chemistry India wholesale, bio-based chemicals B2B, non-toxic chemicals India, natural cleaning products, enzyme cleaner India, eco detergent suppliers, plant-based cleaner India, zero VOC India, biodegradable chemical, green solvent India, bio surfactant, natural preservative, organic dye India, natural pigment, eco adhesive India',
+    chips:['Bio-based Chemicals','Enzyme Cleaners','Eco Detergents','Plant-based Cleaners','Zero VOC','Biodegradable Chemicals','Green Solvents','Bio Surfactants','Natural Preservatives','Organic Dye','Natural Pigments','Eco Adhesives','Non-toxic Chemicals']
+  },
+  'Urban Green':{
+    emoji:'🏙️', color:'linear-gradient(150deg,#1a3a00,#3a7a00)', badge:'URBAN GREEN',
+    desc:'Find rooftop gardens, vertical gardens, green walls, urban composting and city farming solutions from verified Indian urban green and landscaping suppliers.',
+    keywords:'urban composting India, rooftop garden suppliers, vertical garden India, community garden, green wall India, edible garden, food forest India, city farming, green roof India, permeable pavement, urban biodiversity, tree planting India, urban forestry, green corridor, eco city solutions, urban farming B2B',
+    chips:['Urban Composting','Rooftop Gardens','Vertical Gardens','Green Walls','Community Gardens','Edible Gardens','Food Forest','City Farming','Green Roof','Permeable Pavement','Tree Planting','Urban Forestry','Green Corridor','Urban Biodiversity']
+  },
+  'Carbon & Climate':{
+    emoji:'🌍', color:'linear-gradient(150deg,#002a00,#005a00)', badge:'CARBON & CLIMATE',
+    desc:'Find carbon credits, carbon offset solutions, GHG inventory services, life cycle assessment and climate reporting from verified Indian carbon and climate solution providers.',
+    keywords:'carbon credits India, carbon offset India, carbon footprint assessment, carbon neutral India, net zero strategy India, carbon sequestration, carbon trading India, voluntary carbon market, verified carbon standard, GHG inventory India, greenhouse gas reduction, Scope 1 2 3 emissions, carbon accounting, life cycle assessment India, ESG reporting, sustainability report India, ISO 14001, carbon tax India',
+    chips:['Carbon Credits','Carbon Offsets','Carbon Footprint','Carbon Neutral','Net Zero','Carbon Sequestration','Carbon Trading','GHG Inventory','Scope 1 2 3','Carbon Accounting','Life Cycle Assessment','ESG Reporting','Sustainability Report','ISO 14001','Carbon Tax','Gold Standard Carbon']
+  },
+  'Eco Tourism':{
+    emoji:'🌄', color:'linear-gradient(150deg,#2a1a00,#5a4a00)', badge:'ECO TOURISM',
+    desc:'Find eco tourism products, sustainable travel solutions, nature-based tourism equipment and eco-friendly hospitality products from verified Indian suppliers.',
+    keywords:'eco tourism India B2B, sustainable travel India, nature tourism equipment, eco lodge supplies India, green hospitality products, eco resort supplies, sustainable tourism India, responsible tourism, wildlife tourism India, community-based tourism, eco travel products wholesale',
+    chips:['Eco Lodge Supplies','Green Hospitality','Eco Resort Products','Sustainable Travel','Nature Tourism','Wildlife Tourism','Community Tourism','Responsible Tourism','Eco Travel Products']
+  },
+  'Green Finance & ESG':{
+    emoji:'📈', color:'linear-gradient(150deg,#1a002a,#3a005a)', badge:'GREEN FINANCE & ESG',
+    desc:'Find ESG advisory, green finance solutions, sustainability reporting, impact investing and corporate sustainability services from verified Indian providers.',
+    keywords:'ESG investing India, green finance India, impact investing, sustainability reporting India, TCFD reporting, science based targets India, SBTi India, net zero strategy, green procurement policy, sustainable supply chain audit, vendor sustainability, green sourcing India, eco compliance India, corporate sustainability India, climate disclosure',
+    chips:['ESG Advisory','Green Finance','Impact Investing','Sustainability Reporting','TCFD Reporting','SBTi','Net Zero Strategy','Green Procurement','Sustainable Supply Chain','Vendor Sustainability','Green Sourcing','Eco Compliance','Climate Disclosure']
+  },
+  'Certifications':{
+    emoji:'📋', color:'linear-gradient(150deg,#003a2a,#006a4a)', badge:'CERTIFICATIONS',
+    desc:'Find BIS, ISO 14001, LEED, GRIHA, GOTS, FSSAI organic and other green certification and compliance solutions from verified Indian certification service providers.',
+    keywords:'BIS certification India, ISO 14001 India, ISO 50001, LEED certification India, GRIHA certification, B Corp certification India, Fair Trade certification, GOTS certification India, FSSAI organic certification, India Organic, GreenPro certification, Energy Star India, ECBC compliance, BEE star rating, EPD certification, REACH compliance, RoHS compliance, FSC certification India, Rainforest Alliance India',
+    chips:['BIS Certification','ISO 14001','ISO 50001','LEED Certification','GRIHA Rating','B Corp','GOTS Certification','FSSAI Organic','India Organic','GreenPro','Energy Star','ECBC Compliance','BEE Star Rating','FSC Certification','Rainforest Alliance','REACH Compliance','RoHS Compliance']
+  },
+  'Global Green Trade':{
+    emoji:'🌐', color:'linear-gradient(150deg,#001a3a,#003a7a)', badge:'GLOBAL GREEN TRADE',
+    desc:'Find eco product exporters, sustainable trade solutions, green supply chain and ethical sourcing partners from verified Indian global green trade suppliers.',
+    keywords:'green import export India, eco product export India, sustainable trade India, green supply chain India, ethical sourcing India, B2B green marketplace, eco B2B platform India, sustainable procurement, green vendor India, eco supplier India, international eco trade, circular economy India, sustainable development goals, SDG India, Paris agreement India, climate finance, green bond India, cleantech India, greentech India, eco innovation',
+    chips:['Eco Product Export','Green Supply Chain','Ethical Sourcing','Sustainable Procurement','Green Vendor','Circular Economy','SDG Aligned','Climate Finance','Green Bond','Cleantech','Greentech','Eco Innovation','Carbon Border Adjustment']
+  },
+  'Sustainable Agri':{
+    emoji:'🌻', color:'linear-gradient(150deg,#2a2a00,#5a5a00)', badge:'SUSTAINABLE AGRICULTURE',
+    desc:'Find sustainable agriculture products, biodynamic farming inputs, organic aquaculture and regenerative agriculture solutions from verified Indian suppliers.',
+    keywords:'sustainable agriculture India, biodynamic farming India, organic aquaculture India, regenerative agriculture suppliers, organic livestock India, organic poultry India, organic dairy India, soil health India, soil microbiome products, farmer producer organisation, FPO organic India, organic cluster India, organic export India, water conservation farming',
+    chips:['Biodynamic Farming','Organic Aquaculture','Regenerative Agriculture','Organic Livestock','Organic Poultry','Organic Dairy','Soil Health Products','Soil Microbiome','FPO Organic','Organic Export','Water Conservation Farming','Natural Farming']
+  },
 };
 
 const ALL_CATS = Object.keys(CAT_CONFIG);
@@ -439,6 +583,9 @@ async function init() {
     </a>`
   ).join('');
 
+  // ── Render keyword chips ──────────────────────────────────────────────
+  renderKeywordChips(cfg);
+
   // ── Load data ──────────────────────────────────────────────────────────
   await Promise.all([loadProducts(), loadSuppliers()]);
 }
@@ -457,6 +604,22 @@ function setCanonical(url) {
   let el = document.querySelector('link[rel="canonical"]');
   if (!el) { el = document.createElement('link'); el.rel = 'canonical'; document.head.appendChild(el); }
   el.href = url;
+}
+
+// ── RENDER KEYWORD CHIPS ──────────────────────────────────────────────────
+function renderKeywordChips(cfg) {
+  const chips = cfg.chips || [];
+  const container = document.getElementById('kwChips');
+  if (!container || !chips.length) return;
+  container.innerHTML = chips.map(kw =>
+    `<span class="kw-chip" onclick="setSearchAndFilter('${kw}')">${kw}</span>`
+  ).join('');
+}
+
+function setSearchAndFilter(kw) {
+  document.getElementById('searchInput').value = kw;
+  doSearch();
+  window.scrollTo({top: document.getElementById('searchInput').getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth'});
 }
 
 // ── LOAD PRODUCTS ──────────────────────────────────────────────────────────
