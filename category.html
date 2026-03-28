@@ -4,537 +4,326 @@
 <head>
 <meta charset="UTF-8"/>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Categories — Green Roots Smart</title>
+<title>Browse All Green Categories — Green Roots Smart | India Eco B2B Marketplace</title>
+<meta name="description" content="Browse 21 eco-friendly product categories and 10 environmental service categories on Green Roots Smart — solar energy, organic farming, eco packaging, water technology, EV components, green building, bioenergy, green transport, AgriTech and more. India's #1 eco B2B marketplace."/>
+<meta name="keywords" content="eco B2B categories India, solar energy suppliers, organic farming products, eco packaging wholesale, waste management India, water technology B2B, green building materials, EV components suppliers, energy storage India, eco textiles wholesale, herbal products India, bioenergy suppliers, green transport India, smart agriculture AgriTech, green chemistry India, urban green landscaping, carbon credits India, ESG sustainability India, green B2B marketplace India, eco supplier categories"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.greenrootssmart.com/category"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Browse All Green Categories — Green Roots Smart"/>
+<meta property="og:description" content="Explore 21 green product categories and 10 environmental service categories. Find verified eco-friendly suppliers across India on Green Roots Smart."/>
+<meta property="og:url" content="https://www.greenrootssmart.com/category"/>
+<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<meta property="og:site_name" content="Green Roots Smart"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Browse All Green Categories — Green Roots Smart"/>
+<meta name="twitter:description" content="Explore 21 green product categories and 10 environmental service categories on India's first eco B2B marketplace."/>
+<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
-*{margin:0;padding:0;box-sizing:border-box;}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
-nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:34px;height:34px;}
-.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
-.logo-text span{color:var(--g3);}
-.nav-links{display:flex;gap:24px;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;transition:color 0.2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--g2);font-weight:600;}
-.nav-btns{display:flex;gap:10px;}
-.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
-.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px;}
 
-.hero{background:linear-gradient(160deg,var(--g1) 0%,var(--g2) 100%);padding:48px 6%;color:white;position:relative;overflow:hidden;}
-.hero::after{content:'🌿';position:absolute;right:5%;bottom:-20px;font-size:160px;opacity:0.06;}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.97);backdrop-filter:blur(20px);border-bottom:1px solid #d4e8cc;height:64px;display:flex;align-items:center;padding:0 5%;justify-content:space-between;transition:box-shadow 0.3s;}
+.nav.scrolled{box-shadow:0 4px 20px rgba(45,122,58,0.1);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:40px;width:auto;object-fit:contain;}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--g1);line-height:1.2;}
+.nav-logo-text span{color:var(--g3);}
+.nav-logo-sub{font-size:9px;color:var(--light);font-weight:500;letter-spacing:0.5px;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{color:var(--mid);font-size:13px;font-weight:500;padding:6px 9px;border-radius:8px;transition:all 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--g2);background:var(--g5);}
+.nav-drop{position:relative;}
+.nav-drop-btn{background:none;border:none;cursor:pointer;color:var(--mid);font-size:13px;font-weight:500;padding:6px 9px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.nav-drop-btn:hover{color:var(--g2);background:var(--g5);}
+.drop-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:100;}
+.nav-drop:hover .drop-menu{display:block;}
+.drop-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:var(--g1);font-size:13px;font-weight:500;transition:all 0.2s;}
+.drop-item:hover{background:var(--g5);}
+.drop-item .di{font-size:18px;width:30px;height:30px;background:var(--g5);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.di-t{font-weight:600;font-size:13px;color:var(--g1);}
+.di-s{font-size:11px;color:var(--light);margin-top:1px;}
+.drop-divider{height:1px;background:#f0f4f0;margin:4px 0;}
+.drop-soon{opacity:0.4;pointer-events:none;}
+.soon-tag{background:var(--g5);color:var(--g2);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;}
+.nav-btns{display:flex;align-items:center;gap:8px;}
+.btn-o{padding:7px 14px;border-radius:8px;border:1.5px solid var(--g2);color:var(--g2);font-size:13px;font-weight:600;transition:all 0.2s;}
+.btn-o:hover{background:var(--g5);}
+.btn-p{padding:7px 14px;border-radius:8px;background:var(--g2);color:white;font-size:13px;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;}
+.btn-p:hover{background:var(--g1);}
+.btn-claim{padding:7px 12px;border-radius:8px;border:1.5px solid var(--g4);background:var(--g5);color:var(--g2);font-size:12px;font-weight:600;}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:4px;}
+@media(max-width:900px){.nav-links{display:none;}.nav-btns .btn-o,.nav-btns .btn-claim{display:none;}.ham{display:block;}}
+.mob-menu{display:none;background:white;border-bottom:1px solid #d4e8cc;padding:14px 5%;}
+.mob-menu a{display:block;padding:10px;color:var(--g1);font-size:14px;font-weight:500;border-radius:8px;}
+.mob-menu a:hover{background:var(--g5);}
+.mob-div{height:1px;background:#e8f0e8;margin:8px 0;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--g1) 0%,var(--g2) 100%);padding:48px 5%;color:white;position:relative;overflow:hidden;}
+.hero::after{content:'🌿';position:absolute;right:5%;bottom:-10px;font-size:160px;opacity:0.05;pointer-events:none;}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--g4);font-weight:600;margin-bottom:14px;}
 .hero h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:8px;}
-.hero p{font-size:15px;color:#a0c8a0;margin-bottom:24px;max-width:500px;}
-.hero-stats{display:flex;gap:28px;}
-.hs{text-align:center;}
-.hs-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:white;}
-.hs-lbl{font-size:11px;color:#80b080;}
+.hero p{font-size:15px;color:#a0c8a0;margin-bottom:24px;max-width:560px;}
+.hero-search{display:flex;background:white;border-radius:12px;overflow:hidden;max-width:560px;box-shadow:0 4px 20px rgba(0,0,0,0.15);}
+.hero-search input{flex:1;padding:13px 18px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
+.hero-search button{padding:0 22px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;}
+.hero-search button:hover{background:var(--g2);}
+.hero-stats{display:flex;gap:32px;margin-top:24px;flex-wrap:wrap;}
+.hs-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:white;display:block;}
+.hs-l{font-size:11px;color:rgba(255,255,255,0.6);display:block;margin-top:2px;}
 
-.main{padding:40px 6%;}
-.cat-search{background:white;border-radius:14px;padding:20px 24px;margin-bottom:32px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 12px #00000008;}
-.cat-search input{flex:1;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--dark);}
-.cat-search input::placeholder{color:#b0c8b0;}
-.cat-search button{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+/* SECTIONS */
+.sec{padding:48px 5%;}
+.sec.wh{background:white;}
+.sec.dk{background:#0f1f10;}
+.sec-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:10px;}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--g3);text-transform:uppercase;margin-bottom:5px;}
+.sec-lbl.w{color:var(--g4);}
+.sec-t{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);margin-bottom:3px;}
+.sec-t.w{color:white;}
+.sec-s{font-size:13px;color:var(--light);}
+.sea{color:var(--g2);font-size:13px;font-weight:700;white-space:nowrap;}
+.sea:hover{text-decoration:underline;}
 
-.sec-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--g3);text-transform:uppercase;margin-bottom:8px;}
-.sec-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);margin-bottom:6px;}
-.sec-sub{font-size:14px;color:var(--mid);margin-bottom:28px;}
+/* PRODUCT CATEGORY CARDS */
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cat-card{border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.07);background:white;}
+.cat-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,0.13);}
+.cat-img-wrap{height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.cat-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;}
+.cat-card:hover .cat-img-wrap img{transform:scale(1.06);}
+.cat-emoji-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.45) 100%);}
+.cat-body{background:white;padding:11px 13px;border-top:3px solid transparent;}
+.cat-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:4px;}
+.cat-info{display:flex;align-items:center;justify-content:space-between;}
+.cat-count{font-size:10px;font-weight:700;color:var(--g2);background:var(--g5);padding:2px 7px;border-radius:8px;}
+.cat-arr{font-size:12px;color:var(--light);}
+.cat-card:hover .cat-arr{color:var(--g2);}
 
-.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;}
-.feat-card{border-radius:20px;padding:32px 24px;color:white;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;}
-.feat-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px #00000025;}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.5) 100%);}
-.feat-emoji{position:absolute;top:20px;right:20px;font-size:56px;opacity:0.3;}
-.feat-content{position:relative;z-index:1;}
-.feat-tag{display:inline-block;padding:3px 10px;background:rgba(255,255,255,0.2);border-radius:20px;font-size:10px;font-weight:600;margin-bottom:8px;}
-.feat-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
-.feat-card p{font-size:12px;opacity:0.85;}
-.feat-count{font-size:11px;font-weight:600;margin-top:8px;opacity:0.8;}
+/* SERVICE CATEGORY CARDS */
+.svc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.svc-card{background:white;border-radius:13px;overflow:hidden;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.svc-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.12);}
+.svc-img{height:100px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.svc-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.svc-icon-lg{font-size:40px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+.svc-body{padding:10px 12px;text-align:center;border-top:3px solid transparent;}
+.svc-em{font-size:14px;display:block;margin-bottom:3px;}
+.svc-name{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:3px;}
+.svc-count{font-size:10px;color:var(--g2);font-weight:600;background:var(--g5);padding:2px 7px;border-radius:8px;display:inline-block;}
 
-.all-cats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:48px;}@media(max-width:1024px){.all-cats-grid{grid-template-columns:repeat(4,1fr);}}@media(max-width:768px){.all-cats-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}@media(max-width:400px){.all-cats-grid{grid-template-columns:1fr;}}
+/* LOADING */
+.ld{display:flex;align-items:center;justify-content:center;gap:6px;padding:32px;grid-column:1/-1;}
+.ld span{width:7px;height:7px;border-radius:50%;background:var(--g3);animation:boun 1.2s infinite;}
+.ld span:nth-child(2){animation-delay:0.2s;}
+.ld span:nth-child(3){animation-delay:0.4s;}
+@keyframes boun{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
 
-.cat-card{background:white;border-radius:16px;padding:0;cursor:pointer;overflow:hidden;transition:all 0.3s;border:1.5px solid #e8f0e8;box-shadow:0 2px 8px rgba(0,0,0,0.05);display:flex;flex-direction:column;}
-.cat-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.15);}
-.cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.cat-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;}
-.cat-arrow{color:var(--g3);font-size:18px;opacity:0;}
-.cat-card:hover .cat-arrow{opacity:1;}
-.cat-card h3{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px;}
-.cat-card p{font-size:12px;color:var(--light);line-height:1.5;flex:1;}
-.cat-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--g5);}
-.cat-count{font-size:12px;font-weight:700;color:var(--g2);}
+/* SUBCATS */
+.subcat-box{background:white;border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.subcat-hd{display:flex;align-items:center;gap:10px;margin-bottom:13px;}
+.subcat-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.subcat-title{font-size:14px;font-weight:700;color:var(--g1);}
+.subcat-sub{font-size:11px;color:var(--light);}
+.chips{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{padding:6px 12px;background:var(--g5);border-radius:8px;font-size:11px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;border:1.5px solid transparent;}
+.chip:hover{background:var(--g2);color:white;}
 
-.subcats-section{background:white;border-radius:20px;padding:28px;margin-bottom:48px;box-shadow:0 2px 12px #00000008;}
-.subcats-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
-.subcats-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;}
-.subcats-title{font-size:16px;font-weight:700;color:var(--g1);}
-.subcats-sub{font-size:12px;color:var(--light);}
-.subcats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-.subcat-chip{padding:10px 14px;background:var(--g5);border-radius:10px;font-size:12px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;text-align:center;border:1.5px solid transparent;}
-.subcat-chip:hover{background:var(--g2);color:white;}
+/* CTA */
+.cta{background:linear-gradient(135deg,var(--g2),var(--g1));border-radius:18px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;color:white;position:relative;overflow:hidden;margin-top:40px;}
+.cta::after{content:'🌿';position:absolute;right:40px;top:-10px;font-size:90px;opacity:0.08;}
+.cta h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:5px;}
+.cta p{font-size:13px;color:#b0d8b0;}
+.cta-btns{display:flex;gap:10px;flex-shrink:0;}
+.btn-wh{padding:11px 24px;border-radius:9px;background:white;color:var(--g1);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-gh{padding:11px 24px;border-radius:9px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.35);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
 
-.cta-strip{background:linear-gradient(135deg,var(--g2),var(--g1));border-radius:20px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;color:white;position:relative;overflow:hidden;}
-.cta-strip::after{content:'🌿';position:absolute;right:48px;top:-10px;font-size:100px;opacity:0.08;}
-.cta-strip h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:6px;}
-.cta-strip p{font-size:14px;color:#b0d8b0;}
-.cta-strip-btns{display:flex;gap:12px;flex-shrink:0;}
-.btn-white{padding:12px 28px;border-radius:10px;background:white;color:var(--g1);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
-.btn-ghost{padding:12px 28px;border-radius:10px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+footer{background:#0f1f10;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+footer p{font-size:12px;color:#4a6a4a;}
+footer a{color:var(--g4);font-size:12px;}
 
-footer{background:#0f1f10;padding:32px 6%;display:flex;justify-content:space-between;align-items:center;margin-top:48px;}
-footer p{font-size:13px;color:#4a6a4a;}
-footer a{color:var(--g4);text-decoration:none;font-size:13px;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.feat-card,.cat-card{animation:fadeUp 0.5s ease both;}
-
-/* MOBILE RESPONSIVENESS */
-@media(max-width:900px){
-  .featured-grid{grid-template-columns:repeat(2,1fr);}
-  .subcats-grid{grid-template-columns:repeat(3,1fr);}
-  .hero-stats{flex-wrap:wrap;}
-}
-@media(max-width:600px){
-  .featured-grid{grid-template-columns:1fr;}
-  .subcats-grid{grid-template-columns:repeat(2,1fr);}
-  .cta-strip{flex-direction:column;text-align:center;gap:20px;}
-  .cta-strip::after{display:none;}
-  .cat-search{flex-direction:column;padding:16px;}
-  .cat-search input, .cat-search button{width:100%;}
-}
+@media(max-width:1100px){.cats-grid{grid-template-columns:repeat(3,1fr);}.svc-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:900px){.cats-grid{grid-template-columns:repeat(2,1fr);}.svc-grid{grid-template-columns:repeat(3,1fr);}.cta{flex-direction:column;gap:16px;}.hero h1{font-size:28px;}}
+@media(max-width:600px){.cats-grid{grid-template-columns:repeat(2,1fr);}.svc-grid{grid-template-columns:repeat(2,1fr);}.hero-search{flex-direction:column;}.hero-search button{padding:12px;}.cta{padding:24px 20px;text-align:center;}.cta-btns{flex-direction:column;width:100%;}}
 </style>
 </head>
 <body>
 
-<!-- GRS HEADER — paste this in all pages replacing existing nav -->
-<style>
-.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
-.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.grs-logo img{height:40px;width:auto;object-fit:contain;}
-.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
-.grs-logo-text span{color:#52b043;}
-.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
-.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
-.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
-.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown{position:relative;}
-.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown-btn svg{transition:transform 0.2s;}
-.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
-.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
-.grs-dropdown:hover .grs-dropdown-menu{display:block;}
-.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
-.grs-dropdown-item:hover{background:#e8f5e2;}
-.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.grs-dropdown-item .di-text{}
-.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
-.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
-.grs-coming{opacity:0.5;pointer-events:none;}
-.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
-.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
-.grs-btns{display:flex;align-items:center;gap:8px;}
-.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-out:hover{background:#e8f5e2;}
-.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-pri:hover{background:#1a4a24;}
-.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
-.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
-@media(max-width:900px){
-  .grs-links{display:none;}
-  .grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}
-  .grs-mobile-menu{display:block;}
-}
-</style>
-
-<nav class="grs-nav">
-  <!-- LOGO -->
-  <a href="/" class="grs-logo">
-    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS Logo"/>
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="/" class="nav-logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart"/>
     <div>
-      <div class="grs-logo-text">Green Roots <span>Smart</span></div>
-      <div class="grs-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
+      <div class="nav-logo-text">Green Roots <span>Smart</span></div>
+      <div class="nav-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
     </div>
   </a>
-
-  <!-- NAV LINKS -->
-  <ul class="grs-links">
+  <ul class="nav-links">
     <li><a href="/">Home</a></li>
-
-    <!-- BROWSE DROPDOWN -->
-    <li class="grs-dropdown">
-      <button class="grs-dropdown-btn">
-        Browse
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-      <div class="grs-dropdown-menu">
-        <a href="/supplier-profile" class="grs-dropdown-item">
-          <div class="di-icon">🏪</div>
-          <div class="di-text">
-            <div class="di-title">Suppliers</div>
-            <div class="di-sub">Browse verified eco suppliers</div>
-          </div>
-        </a>
-        <a href="/services" class="grs-dropdown-item">
-          <div class="di-icon">🔧</div>
-          <div class="di-text">
-            <div class="di-title">Service Providers</div>
-            <div class="di-sub">Find eco service experts</div>
-          </div>
-        </a>
-        <div class="grs-divider"></div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">💼</div>
-          <div class="di-text">
-            <div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Green jobs & careers</div>
-          </div>
-        </div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">🎓</div>
-          <div class="di-text">
-            <div class="di-title">Education <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Eco learning & courses</div>
-          </div>
-        </div>
+    <li class="nav-drop">
+      <button class="nav-drop-btn">Browse <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <div class="drop-menu">
+        <a href="/supplier-profile" class="drop-item"><div class="di">🏪</div><div><div class="di-t">Suppliers</div><div class="di-s">Verified eco suppliers</div></div></a>
+        <a href="/services" class="drop-item"><div class="di">🔧</div><div><div class="di-t">Services</div><div class="di-s">Eco service providers</div></div></a>
+        <div class="drop-divider"></div>
+        <div class="drop-item drop-soon"><div class="di">💼</div><div><div class="di-t">Jobs <span class="soon-tag">SOON</span></div></div></div>
+        <div class="drop-item drop-soon"><div class="di">🎓</div><div><div class="di-t">Education <span class="soon-tag">SOON</span></div></div></div>
       </div>
     </li>
-
     <li><a href="/products">Products</a></li>
+    <li><a href="/category" class="active">Categories</a></li>
     <li><a href="/services">Services</a></li>
-    <li><a href="/contact">Contact Us</a></li>
-    <li><a href="/about">About Us</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
   </ul>
-
-  <!-- RIGHT BUTTONS -->
-  <div class="grs-btns">
-    <a href="/claim-profile" class="grs-btn-claim">🌿 Claim Profile</a>
-    <a href="/login" class="grs-btn-out">Login</a>
-    <a href="/register" class="grs-btn-pri">List Business</a>
+  <div class="nav-btns">
+    <a href="/claim-profile" class="btn-claim">🌿 Claim Profile</a>
+    <a href="/login" class="btn-o">Login</a>
+    <a href="/register" class="btn-p">List Business</a>
   </div>
-
-  <!-- MOBILE MENU -->
-  <button class="grs-mobile-menu" onclick="toggleMobileMenu()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+  <button class="ham" onclick="toggleMob()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div id="grs-mobile-nav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;font-family:'DM Sans',sans-serif;">
-  <div style="display:flex;flex-direction:column;gap:4px;">
-    <a href="/" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏠 Home</a>
-    <a href="/supplier-profile" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏪 Suppliers</a>
-    <a href="/services" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🔧 Services</a>
-    <a href="/products" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📦 Products</a>
-    <a href="/contact" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📞 Contact Us</a>
-    <a href="/about" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">ℹ️ About Us</a>
-    <div style="height:1px;background:#e8f0e8;margin:8px 0;"></div>
-    <a href="/claim-profile" style="padding:10px;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;">🌿 Claim Profile</a>
-    <a href="/login" style="padding:10px;background:#e8f5e2;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">Login</a>
-    <a href="/register" style="padding:10px;background:#2d7a3a;color:white;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">List Business</a>
-  </div>
+<div class="mob-menu" id="mobMenu">
+  <a href="/">🏠 Home</a>
+  <a href="/supplier-profile">🏪 Suppliers</a>
+  <a href="/products">📦 Products</a>
+  <a href="/category" style="color:var(--g2);font-weight:700;">🗂️ Categories</a>
+  <a href="/services">🔧 Services</a>
+  <a href="/about">ℹ️ About</a>
+  <a href="/contact">📞 Contact</a>
+  <div class="mob-div"></div>
+  <a href="/login" style="background:#e8f5e2;color:#2d7a3a;font-weight:600;text-align:center;">Login</a>
+  <a href="/register" style="background:#2d7a3a;color:white;font-weight:600;text-align:center;margin-top:4px;">List Business Free</a>
 </div>
 
-<script>
-function toggleMobileMenu() {
-  var m = document.getElementById('grs-mobile-nav');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-</script>
-
-
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🌿 Green Categories</div>
-  <h1>Browse All Categories</h1>
-  <p>From solar energy to organic farming — find verified eco suppliers across every green category.</p>
+  <div class="hero-badge">🗂️ All Categories</div>
+  <h1>Green Product & Service Categories</h1>
+  <p>Find verified eco-friendly suppliers across 21 sustainable product categories and 10 environmental service categories — all in one place.</p>
+  <div class="hero-search">
+    <input type="text" id="catSearch" placeholder="Search categories or products..." onkeydown="if(event.key==='Enter')doSearch()"/>
+    <button onclick="doSearch()">Search 🔍</button>
+  </div>
   <div class="hero-stats">
-    <div class="hs"><div class="hs-num" id="statCats">50+</div><div class="hs-lbl">Categories</div></div>
-    <div class="hs"><div class="hs-num" id="statSuppliers">...</div><div class="hs-lbl">Suppliers</div></div>
-    <div class="hs"><div class="hs-num" id="statProducts">...</div><div class="hs-lbl">Products</div></div>
-    <div class="hs"><div class="hs-num">28</div><div class="hs-lbl">States</div></div>
+    <div><span class="hs-n">21</span><span class="hs-l">Product Categories</span></div>
+    <div><span class="hs-n">10</span><span class="hs-l">Service Categories</span></div>
+    <div><span class="hs-n" id="statSup">8+</span><span class="hs-l">Verified Suppliers</span></div>
+    <div><span class="hs-n" id="statProd">—</span><span class="hs-l">Products Listed</span></div>
   </div>
 </div>
 
-<div class="main">
-
-  <div class="cat-search">
-    <span style="font-size:20px">🔍</span>
-    <input type="text" id="catSearchInput" placeholder="Search categories — solar, organic, packaging, water..."/>
-    <button onclick="goSearch()">Search</button>
+<!-- PRODUCT CATEGORIES — all 21 -->
+<section class="sec wh">
+  <div class="sec-row">
+    <div>
+      <div class="sec-lbl">Browse Products</div>
+      <div class="sec-t">All Green Product Categories</div>
+      <div class="sec-s">21 eco-friendly categories — click to browse products & suppliers</div>
+    </div>
+    <a href="/products" class="sea">All Products →</a>
   </div>
+  <div class="cats-grid" id="prodCatsGrid">
+    <div class="ld" style="grid-column:1/-1"><span></span><span></span><span></span></div>
+  </div>
+</section>
 
-  <div class="sec-label">Most Popular</div>
-  <h2 class="sec-title">Featured Categories</h2>
-  <p class="sec-sub">Highest demand green product categories on our platform</p>
+<!-- SERVICE CATEGORIES — all 10 -->
+<section class="sec">
+  <div class="sec-row">
+    <div>
+      <div class="sec-lbl">Environmental Services</div>
+      <div class="sec-t">All Service Categories</div>
+      <div class="sec-s">10 environmental service categories — verified providers across India</div>
+    </div>
+    <a href="/services" class="sea">All Services →</a>
+  </div>
+  <div class="svc-grid" id="svcCatsGrid">
+    <div class="ld" style="grid-column:1/-1"><span></span><span></span><span></span></div>
+  </div>
+</section>
 
-  <div class="featured-grid">
-    <div class="feat-card" style="background:url('https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1773850055/1.solar-energy-india.jpg_asmzyx.png') center/cover;position:relative;" onclick="goToProducts('Solar Energy')">
-      <div style="position:absolute;inset:0;background:rgba(26,74,36,0.6);border-radius:inherit;"></div>
-      <span class="feat-emoji" style="position:relative;z-index:1;">☀️</span>
-      <div class="feat-content">
-        <span class="feat-tag">⚡ Highest Demand</span>
-        <h3>Solar Energy</h3>
-        <p>Panels, inverters, batteries, EPC services</p>
-        <div class="feat-count" style="position:relative;z-index:1;" id="fc-solar">Loading...</div>
-      </div>
-    </div>
-    <div class="feat-card" style="background:linear-gradient(135deg,#4a7a1a,#7a9a2a)" onclick="goToProducts('Organic Farming')">
-      <span class="feat-emoji">🌾</span>
-      <div class="feat-content">
-        <span class="feat-tag">🌱 Fast Growing</span>
-        <h3>Organic Farming</h3>
-        <p>Seeds, fertilisers, pesticides, equipment</p>
-        <div class="feat-count" style="position:relative;z-index:1;" id="fc-organic">Loading...</div>
-      </div>
-    </div>
-    <div class="feat-card" style="background:linear-gradient(135deg,#1a3a4a,#2a6a7a)" onclick="goToProducts('Eco Packaging')">
-      <span class="feat-emoji">📦</span>
-      <div class="feat-content">
-        <span class="feat-tag">♻️ Eco Certified</span>
-        <h3>Eco Packaging</h3>
-        <p>Biodegradable, kraft paper, compostable</p>
-        <div class="feat-count" style="position:relative;z-index:1;" id="fc-packaging">Loading...</div>
-      </div>
+<!-- SUB-CATEGORIES -->
+<section class="sec wh">
+  <div class="sec-row">
+    <div>
+      <div class="sec-lbl">Sub Categories</div>
+      <div class="sec-t">Browse Specific Products</div>
+      <div class="sec-s">Popular sub-categories from your keyword list</div>
     </div>
   </div>
 
-  <div class="sec-label">Browse All</div>
-  <h2 class="sec-title">All Green Categories</h2>
-  <p class="sec-sub">Every eco-friendly product category — all in one place</p>
-
-  <div class="all-cats-grid" id="allCatsGrid">
-    <div class="cat-card" onclick="goToProducts('Solar Energy')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#fff8e1;">
-        <img src="./Category%20images/1.solar-energy-india.jpg.png" alt="Solar Energy" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">☀️</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Solar Energy</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Solar panels, inverters & EPC services</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-solar-energy" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Organic Farming')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#f1f8e9;">
-        <img src="./Category%20images/3.organic-farming-india.jpg.png" alt="Organic Farming" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌾</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Organic Farming</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Bio fertilisers, seeds & tools</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-organic-farming" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Eco Packaging')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e0f7fa;">
-        <img src="./Category%20images/4.eco-friendly-packaging.jpg.png" alt="Eco Packaging" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">📦</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Eco Packaging</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Biodegradable & kraft packaging</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-eco-packaging" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Green Building')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#fce4ec;">
-        <img src="./Category%20images/7.%20green-building-construction.jpg.png" alt="Green Building" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🏗️</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Green Building</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Eco cement & bamboo materials</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-green-building" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Waste Management')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#f3e5f5;">
-        <img src="./Category%20images/5.%20waste-recycling-india.jpg.png" alt="Waste Management" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">♻️</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Waste Management</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Recycling & composting solutions</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-waste-management" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Water Technology')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e3f2fd;">
-        <img src="./Category%20images/6.%20water-technology.jpg.png" alt="Water Technology" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">💧</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Water Technology</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">RO systems & treatment plants</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-water-technology" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Wind Energy')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e8eaf6;">
-        <img src="./Category%20images/2.%20wind-energy-india%20.%20jpg.png" alt="Wind Energy" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌬️</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Wind Energy</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Wind turbines & hybrid systems</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-wind-energy" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Eco Textiles')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#fce4ec;">
-        <img src="./Category%20images/10.%20eco-textiles-fashion.jpg.png" alt="Eco Textiles" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">👗</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Eco Textiles</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Organic cotton & bamboo fabric</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-eco-textiles" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Herbal Products')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e8f5e2;">
-        <img src="./Category%20images/11.herbal-natural-products.jpg.png" alt="Herbal Products" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🌿</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Herbal Products</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Ayurvedic & essential oils</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-herbal-products" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Energy Storage')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#fff8e1;">
-        <img src="./Category%20images/9.%20energy-storage-battery.jpg.png" alt="Energy Storage" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🔋</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Energy Storage</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Lithium & solar batteries</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-energy-storage" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('EV Components')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e8eaf6;">
-        <img src="./Category%20images/8.%20electric-vehicles-india.jpg.png" alt="EV Components" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🚗</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">EV Components</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">EV batteries & chargers</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-ev-components" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="cat-card" onclick="goToProducts('Green Chemistry')">
-      <div style="height:120px;overflow:hidden;position:relative;flex-shrink:0;background:#e0f2f1;">
-        <img src="./Category%20images/12.%20green-chemistry-cleaning.jpg.png" alt="Green Chemistry" loading="lazy" style="width:100%;height:120px;object-fit:cover;object-position:center;display:block;"/>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,74,36,0.7) 0%,transparent 60%);"></div>
-        <div style="position:absolute;bottom:8px;left:10px;font-size:20px;">🧪</div>
-      </div>
-      <div style="padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;">
-        <div style="font-size:12px;font-weight:700;color:#1a4a24;margin-bottom:3px;">Green Chemistry</div>
-        <div style="font-size:11px;color:#7a9a74;line-height:1.4;flex:1;">Bio-based chemicals & cleaners</div>
-        <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-          <span id="count-sup-green-chemistry" style="font-size:10px;font-weight:600;color:#52b043;background:#e8f5e2;padding:3px 8px;border-radius:10px;">View →</span>
-          <span style="font-size:14px;color:#52b043;">→</span>
-        </div>
-      </div>
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#fffde7">☀️</div><div><div class="subcat-title">Solar Energy</div><div class="subcat-sub">Panels, inverters, batteries, EPC, rooftop, off-grid</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Solar Energy')">Solar Panels</div><div class="chip" onclick="go('Solar Energy')">Solar Inverters</div><div class="chip" onclick="go('Solar Energy')">Solar Batteries</div><div class="chip" onclick="go('Solar Energy')">Solar Pumps</div><div class="chip" onclick="go('Solar Energy')">Solar Street Lights</div><div class="chip" onclick="go('Solar Energy')">Solar Water Heaters</div><div class="chip" onclick="go('Solar Energy')">Solar Chargers</div><div class="chip" onclick="go('Solar Energy')">Mounting Structures</div><div class="chip" onclick="go('Solar Energy')">Rooftop Solar</div><div class="chip" onclick="go('Solar Energy')">Off-Grid Systems</div><div class="chip" onclick="go('Solar Energy')">Solar EPC</div><div class="chip" onclick="go('Solar Energy')">Bifacial Panels</div>
     </div>
   </div>
 
-
-
-  <div class="subcats-section">
-    <div class="subcats-header">
-      <div class="subcats-icon" style="background:#e8f5e2">☀️</div>
-      <div>
-        <div class="subcats-title">Solar Energy — Sub Categories</div>
-        <div class="subcats-sub">Browse specific solar products</div>
-      </div>
-    </div>
-    <div class="subcats-grid">
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Panels</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Inverters</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Batteries</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Pumps</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Street Lights</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Water Heaters</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Chargers</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Mounting Structures</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar EPC</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Charge Controllers</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Solar Lanterns</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Rooftop Solar</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Off-Grid Systems</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">On-Grid Systems</div>
-      <div class="subcat-chip" onclick="goToProducts('Solar Energy')">Hybrid Systems</div>
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#f1f8e9">🌾</div><div><div class="subcat-title">Organic Farming & Agriculture</div><div class="subcat-sub">Seeds, fertilizers, bio-inputs, produce, equipment</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Organic Farming')">Organic Seeds</div><div class="chip" onclick="go('Organic Farming')">Bio Fertilizers</div><div class="chip" onclick="go('Organic Farming')">Organic Pesticides</div><div class="chip" onclick="go('Organic Farming')">Vermicompost</div><div class="chip" onclick="go('Organic Farming')">Biostimulants</div><div class="chip" onclick="go('Organic Farming')">Compost</div><div class="chip" onclick="go('Organic Farming')">Drip Irrigation</div><div class="chip" onclick="go('Organic Farming')">Organic Produce</div><div class="chip" onclick="go('Organic Farming')">Neem Pesticide</div><div class="chip" onclick="go('Organic Farming')">Organic Manure</div>
     </div>
   </div>
 
-  <div class="cta-strip">
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#e0f7fa">📦</div><div><div class="subcat-title">Eco Packaging</div><div class="subcat-sub">Biodegradable, compostable, recycled, plant-based packaging</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Eco Packaging')">Biodegradable Bags</div><div class="chip" onclick="go('Eco Packaging')">Kraft Paper Bags</div><div class="chip" onclick="go('Eco Packaging')">Compostable Boxes</div><div class="chip" onclick="go('Eco Packaging')">Bagasse Packaging</div><div class="chip" onclick="go('Eco Packaging')">Bamboo Packaging</div><div class="chip" onclick="go('Eco Packaging')">Jute Bags</div><div class="chip" onclick="go('Eco Packaging')">PLA Packaging</div><div class="chip" onclick="go('Eco Packaging')">Eco Cutlery</div><div class="chip" onclick="go('Eco Packaging')">Compostable Cups</div>
+    </div>
+  </div>
+
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#e3f2fd">💧</div><div><div class="subcat-title">Water Technology</div><div class="subcat-sub">Purification, treatment, harvesting, conservation</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Water Technology')">RO Water Systems</div><div class="chip" onclick="go('Water Technology')">Water Purifiers</div><div class="chip" onclick="go('Water Technology')">Rainwater Harvesting</div><div class="chip" onclick="go('Water Technology')">Wastewater Treatment</div><div class="chip" onclick="go('Water Technology')">Desalination Plant</div><div class="chip" onclick="go('Water Technology')">Water Sensors</div><div class="chip" onclick="go('Water Technology')">Smart Water Meters</div>
+    </div>
+  </div>
+
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#e8eaf6">🚗</div><div><div class="subcat-title">Electric Vehicles</div><div class="subcat-sub">EV batteries, motors, chargers, components</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('EV Components')">EV Batteries</div><div class="chip" onclick="go('EV Components')">EV Chargers</div><div class="chip" onclick="go('EV Components')">EV Motors</div><div class="chip" onclick="go('EV Components')">BMS Systems</div><div class="chip" onclick="go('EV Components')">Fast Chargers</div><div class="chip" onclick="go('EV Components')">Electric Auto</div><div class="chip" onclick="go('EV Components')">EV Conversion Kit</div>
+    </div>
+  </div>
+
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#e8f5e2">🌱</div><div><div class="subcat-title">Smart Agriculture & AgriTech</div><div class="subcat-sub">Precision farming, IoT, drones, hydroponics, vertical farming</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Smart Agriculture')">Precision Farming</div><div class="chip" onclick="go('Smart Agriculture')">Drone Agriculture</div><div class="chip" onclick="go('Smart Agriculture')">IoT Farming</div><div class="chip" onclick="go('Smart Agriculture')">Hydroponic Farm</div><div class="chip" onclick="go('Smart Agriculture')">Vertical Farming</div><div class="chip" onclick="go('Smart Agriculture')">Soil Sensors</div><div class="chip" onclick="go('Smart Agriculture')">Aquaponics</div><div class="chip" onclick="go('Smart Agriculture')">Urban Farming</div>
+    </div>
+  </div>
+
+  <div class="subcat-box">
+    <div class="subcat-hd"><div class="subcat-ico" style="background:#fff3e0">⚡</div><div><div class="subcat-title">Bioenergy</div><div class="subcat-sub">Biogas, biomass, biofuel, biochar, green gas</div></div></div>
+    <div class="chips">
+      <div class="chip" onclick="go('Bioenergy')">Biogas Plant</div><div class="chip" onclick="go('Bioenergy')">Biomass Energy</div><div class="chip" onclick="go('Bioenergy')">Bioethanol</div><div class="chip" onclick="go('Bioenergy')">Biodiesel</div><div class="chip" onclick="go('Bioenergy')">Biochar</div><div class="chip" onclick="go('Bioenergy')">Wood Pellets</div><div class="chip" onclick="go('Bioenergy')">Kitchen Waste Biogas</div>
+    </div>
+  </div>
+
+  <div class="cta">
     <div>
       <h2>Can't Find Your Category?</h2>
       <p>We add new green categories every week. Tell us what you're looking for!</p>
     </div>
-    <div class="cta-strip-btns">
-      <button class="btn-white" onclick="window.location.href='/login'">🌿 List Your Business</button>
-      <button class="btn-ghost" onclick="alert('Thank you! We will add your category soon!')">Request Category</button>
+    <div class="cta-btns">
+      <button class="btn-wh" onclick="window.location.href='/register'">🌿 List Your Business</button>
+      <button class="btn-gh" onclick="window.location.href='/contact'">Request Category</button>
     </div>
   </div>
-
-</div>
+</section>
 
 <footer>
   <p>© 2026 Green Roots Smart · Rooted in Sustainability 🌿</p>
@@ -542,74 +331,113 @@ function toggleMobileMenu() {
 </footer>
 
 <script>
-function goToProducts(cat) {
-  window.location.href = '/category-products?cat=' + encodeURIComponent(cat);
-}
-function goSearch() {
-  const q = document.getElementById('catSearchInput').value.trim();
-  if (q) window.location.href = '/products?q=' + encodeURIComponent(q);
-}
-document.getElementById('catSearchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') goSearch();
-});
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
 
-const SURL2 = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SKEY2 = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+// ALL 21 PRODUCT CATEGORIES — with Cloudinary URLs (11 have images, 10 use emoji fallback until you upload)
+const PROD_CATS=[
+  {name:'Solar Energy',         emoji:'☀️', color:'#f59e0b', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622974/solar-energy.jpg_q0v8zq.png'},
+  {name:'Wind Energy',          emoji:'🌬️', color:'#4dd0e1', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622983/wind-energy.jpg_rwzfmw.png'},
+  {name:'Organic Farming',      emoji:'🌾', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/organic-farming.jpg_xhzvbn.png'},
+  {name:'Eco Packaging',        emoji:'📦', color:'#26c6da', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622964/eco-packaging.jpg_dblrlj.png'},
+  {name:'Waste Management',     emoji:'♻️', color:'#ec407a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/waste-management.jpg_azw0og.png'},
+  {name:'Water Technology',     emoji:'💧', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/water-technology.jpg_ymxpit.png'},
+  {name:'Green Building',       emoji:'🏗️', color:'#8d6e63', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622980/green-building.jpg_vvzhkl.png'},
+  {name:'EV Components',        emoji:'🚗', color:'#5c6bc0', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622979/ev-components.jpg_owmws0.png'},
+  {name:'Energy Storage',       emoji:'🔋', color:'#ab47bc', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622969/energy-storage.jpg_jmhosb.png'},
+  {name:'Eco Textiles',         emoji:'👗', color:'#f06292', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/eco-textiles.jpg_iqcvus.png'},
+  {name:'Herbal Products',      emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
+  // 10 new categories — emoji shown until you upload images to Cloudinary
+  {name:'Bioenergy',            emoji:'⚡', color:'#ffa726', img:null},
+  {name:'Green Transport',      emoji:'🚌', color:'#26a69a', img:null},
+  {name:'Smart Agriculture',    emoji:'🌱', color:'#66bb6a', img:null},
+  {name:'Green Chemistry',      emoji:'🧪', color:'#00bcd4', img:null},
+  {name:'Urban Green',          emoji:'🏙️', color:'#8bc34a', img:null},
+  {name:'Carbon & Climate',     emoji:'🌍', color:'#4caf50', img:null},
+  {name:'Eco Tourism',          emoji:'🌄', color:'#ff7043', img:null},
+  {name:'Green Finance & ESG',  emoji:'📈', color:'#7e57c2', img:null},
+  {name:'Certifications',       emoji:'📋', color:'#26a69a', img:null},
+  {name:'Global Green Trade',   emoji:'🌐', color:'#42a5f5', img:null},
+  {name:'Sustainable Agri',     emoji:'🌻', color:'#ffca28', img:null},
+];
 
-const CAT_SLUGS = {
-  'Solar Energy':'solar-energy','Organic Farming':'organic-farming',
-  'Eco Packaging':'eco-packaging','Green Building':'green-building',
-  'Waste Management':'waste-management','Water Technology':'water-technology',
-  'Wind Energy':'wind-energy','Eco Textiles':'eco-textiles',
-  'Herbal Products':'herbal-products','Energy Storage':'energy-storage',
-  'EV Components':'ev-components','Green Chemistry':'green-chemistry'
-};
+// ALL 10 SERVICE CATEGORIES with exact Cloudinary URLs
+const SVC_CATS=[
+  {name:'Testing & Labs',   emoji:'🔬', color:'#42a5f5', key:'Testing & Laboratory',       img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626714/Testing-Laboratory.PNG_hgcmme.png'},
+  {name:'Consulting',       emoji:'📋', color:'#7e57c2', key:'Consulting & Advisory',       img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626713/Consulting-Advisory.PNG_ykn8fy.png'},
+  {name:'Certification',    emoji:'📜', color:'#26a69a', key:'Certification & Compliance',  img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626712/Certification-Compliance.PNG_tbviqv.png'},
+  {name:'Waste Management', emoji:'♻️', color:'#ec407a', key:'Waste Management',            img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626717/Waste-Management.PNG_n9s8gf.png'},
+  {name:'Water Services',   emoji:'💧', color:'#29b6f6', key:'Water & Wastewater',          img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626720/Water-Wastewater.PNG_r05ujy.png'},
+  {name:'Renewable Energy', emoji:'⚡', color:'#ffa726', key:'Renewable Energy',            img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626723/Renewable-Energy.PNG_b5frfd.png'},
+  {name:'Ecological',       emoji:'🌱', color:'#66bb6a', key:'Ecological Services',         img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626716/Ecological-Services.PNG_mgnpux.png'},
+  {name:'Remediation',      emoji:'🏗️', color:'#8d6e63', key:'Remediation',                img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Remediation.PNG_g2985d.png'},
+  {name:'Reporting & Tech', emoji:'📊', color:'#5c6bc0', key:'Reporting & Technology',      img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626722/Reporting-Technology.PNG_bj9d3p.png'},
+  {name:'Training',         emoji:'🎓', color:'#ef5350', key:'Training & Education',        img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Training-Education.PNG_pi0jgw.png'},
+];
 
-async function loadCategoryCounts() {
-  try {
-    const r = await fetch(SURL2 + '/rest/v1/suppliers?status=eq.active&select=category', {
-      headers:{'apikey':SKEY2,'Authorization':'Bearer ' + SKEY2}
-    });
-    const suppliers = await r.json();
-    
-    const counts = {};
-    if(Array.isArray(suppliers)) {
-      suppliers.forEach(function(s) {
-        const c = (s.category||'').trim();
-        counts[c] = (counts[c]||0) + 1;
-      });
+async function loadAll(){
+  try{
+    const [{data:sups},{data:prods}]=await Promise.all([
+      db.from('suppliers').select('id,category').eq('status','active'),
+      db.from('products').select('id,category'),
+    ]);
+    const sa=sups||[], pa=prods||[];
+
+    // Update hero stats
+    const supEl=document.getElementById('statSup');
+    const prodEl=document.getElementById('statProd');
+    if(supEl&&sa.length>0) supEl.textContent=sa.length+'+';
+    if(prodEl&&pa.length>0) prodEl.textContent=pa.length+'+';
+
+    // Render all 21 product categories
+    const pg=document.getElementById('prodCatsGrid');
+    if(pg){
+      pg.innerHTML=PROD_CATS.map(c=>{
+        const sc=sa.filter(s=>(s.category||'').toLowerCase().includes(c.name.split(' ')[0].toLowerCase())||s.category===c.name).length;
+        const pc=pa.filter(p=>(p.category||'').includes(c.name)).length;
+        const ct=sc>0?sc+' supplier'+(sc>1?'s':''):pc>0?pc+' product'+(pc>1?'s':''):'Be first!';
+        const imgHtml=c.img
+          ?`<img src="${c.img}" alt="${c.name}" onerror="this.parentElement.innerHTML='<div class=\\'cat-emoji-bg\\'>${c.emoji}</div>';"/><div class="cat-overlay"></div>`
+          :`<div class="cat-emoji-bg">${c.emoji}</div>`;
+        return `<div class="cat-card" onclick="go('${c.name}')">
+          <div class="cat-img-wrap" style="background:${c.color}22">${imgHtml}</div>
+          <div class="cat-body" style="border-color:${c.color}">
+            <div class="cat-name">${c.emoji} ${c.name}</div>
+            <div class="cat-info"><span class="cat-count">${ct}</span><span class="cat-arr">→</span></div>
+          </div>
+        </div>`;
+      }).join('');
     }
 
-    Object.keys(CAT_SLUGS).forEach(function(cat) {
-      const slug = CAT_SLUGS[cat];
-      const el = document.getElementById('count-sup-' + slug);
-      if(!el) return;
-      
-      let n = counts[cat] || 0;
-      if(!n) {
-        Object.keys(counts).forEach(function(k) {
-          if(k.toLowerCase().indexOf(cat.toLowerCase()) > -1 || cat.toLowerCase().indexOf(k.toLowerCase().replace(/[^a-z ]/g,'').trim()) > -1) {
-            n = counts[k];
-          }
-        });
-      }
-      
-      if(n > 0) {
-        el.textContent = n + ' Supplier' + (n !== 1 ? 's' : '');
-        el.style.background = '#e8f5e2';
-        el.style.color = '#2d7a3a';
-      } else {
-        el.textContent = 'Be First!';
-        el.style.background = '#fff8e1';
-        el.style.color = '#f57c00';
-      }
-    });
-  } catch(e) {
-    console.log('Count load error:', e);
-  }
+    // Render all 10 service categories
+    const sg=document.getElementById('svcCatsGrid');
+    if(sg){
+      let svcArr=[];
+      try{const {data:svcs}=await db.from('service_providers').select('id,category');svcArr=svcs||[];}catch(e){}
+      sg.innerHTML=SVC_CATS.map(c=>{
+        const cnt=svcArr.filter(s=>(s.category||'').toLowerCase().includes(c.key.split(' ')[0].toLowerCase())).length;
+        const ct=cnt>0?cnt+' provider'+(cnt>1?'s':''):'Be first!';
+        return `<div class="svc-card" onclick="window.location.href='/services'">
+          <div class="svc-img" style="background:${c.color}22;border-top:3px solid ${c.color}">
+            <img src="${c.img}" alt="${c.name}" onerror="this.parentElement.innerHTML='<div class=\\'svc-icon-lg\\'>${c.emoji}</div>';"/>
+          </div>
+          <div class="svc-body" style="border-color:${c.color}">
+            <span class="svc-em">${c.emoji}</span>
+            <div class="svc-name">${c.name}</div>
+            <span class="svc-count">${ct}</span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }catch(e){console.error(e);}
 }
 
-loadCategoryCounts();
+function go(cat){window.location.href='/category-products?cat='+encodeURIComponent(cat);}
+function doSearch(){const q=document.getElementById('catSearch').value.trim();if(q)window.location.href='/products?q='+encodeURIComponent(q);}
+function toggleMob(){const m=document.getElementById('mobMenu');m.style.display=m.style.display==='block'?'none':'block';}
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50));
+loadAll();
 </script>
 </body>
 </html>
