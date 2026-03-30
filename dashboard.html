@@ -321,8 +321,13 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 
     <!-- ADD PRODUCT SECTION -->
     <div id="section-add-product" style="display:none">
+      <input type="hidden" id="ap-edit-id" value=""/>
+      <div id="ap-edit-banner" style="display:none;background:#e8f5e2;border:1.5px solid #a8d8a0;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;font-weight:600;color:#2d7a3a;">
+        ✏️ Editing Product — make your changes and click Update Product
+        <button onclick="apCancelEdit()" style="float:right;background:none;border:none;color:#c0392b;font-size:13px;font-weight:600;cursor:pointer;">✕ Cancel Edit</button>
+      </div>
       <div class="card" style="margin-bottom:16px">
-        <div class="card-header"><div class="card-title">📦 Basic Product Information</div></div>
+        <div class="card-header"><div class="card-title" id="ap-form-title">📦 Basic Product Information</div></div>
         <div class="form-grid">
           <div class="form-group" style="grid-column:span 2">
             <label>Product Name *</label>
@@ -420,7 +425,7 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
       </div>
       <div id="ap-alert" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:12px;"></div>
       <div style="display:flex;gap:12px;margin-bottom:24px;">
-        <button onclick="apSaveProduct('draft')" style="padding:12px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Draft</button>
+        <button onclick="apSaveProduct('draft')" id="ap-draft-btn" style="padding:12px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Draft</button>
         <button id="ap-publish-btn" onclick="apSaveProduct('published')" style="flex:1;padding:12px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">🌿 Publish Product</button>
       </div>
     </div>
@@ -775,6 +780,7 @@ async function loadMyProducts() {
           <th style="text-align:left;padding:10px;color:var(--mid)">Price</th>
           <th style="text-align:left;padding:10px;color:var(--mid)">MOQ</th>
           <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+          <th style="text-align:left;padding:10px;color:var(--mid)">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -784,7 +790,11 @@ async function loadMyProducts() {
             <td style="padding:10px;color:var(--mid)">${p.category}</td>
             <td style="padding:10px">₹${p.price}/${p.price_unit}</td>
             <td style="padding:10px">${p.moq} units</td>
-            <td style="padding:10px"><span style="background:${p.status==='active'?'#e8f5e2':'#fff3e0'};color:${p.status==='active'?'#2d7a3a':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${p.status || 'active'}</span></td>
+            <td style="padding:10px"><span style="background:${p.status==='active'||p.status==='published'?'#e8f5e2':'#fff3e0'};color:${p.status==='active'||p.status==='published'?'#2d7a3a':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${p.status || 'active'}</span></td>
+            <td style="padding:10px;white-space:nowrap">
+              <button onclick="editProduct(${JSON.stringify(p).replace(/"/g,'&quot;')})" style="padding:5px 12px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;margin-right:6px;">✏️ Edit</button>
+              <button onclick="deleteProduct(${p.id},'${p.name.replace(/'/g,"\\\'")}')" style="padding:5px 12px;background:#fff0f0;color:#c0392b;border:1.5px solid #f5c6c6;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
+            </td>
           </tr>`).join('')}
       </tbody>
     </table>`;
@@ -1010,8 +1020,13 @@ async function apSaveProduct(status){
   if(!price) return apShowAlert('Enter Price!');
   if(!moq) return apShowAlert('Enter MOQ!');
   if(!wa) return apShowAlert('Enter WhatsApp number!');
+
+  const editId = document.getElementById('ap-edit-id').value;
+  const isEdit = editId !== '';
   const btn = document.getElementById('ap-publish-btn');
-  btn.disabled = true; btn.textContent = 'Publishing...';
+  btn.disabled = true;
+  btn.textContent = isEdit ? 'Updating...' : 'Publishing...';
+
   const u = JSON.parse(localStorage.getItem('grs_user')||'{}');
   const data = {
     supplier_id: u.id, supplier_name: u.business||u.name,
@@ -1025,15 +1040,73 @@ async function apSaveProduct(status){
     image_url: apPhotos.length > 0 ? apPhotos[0] : null,
     status, location: u.city||u.state||'India',
   };
+
   try {
-    const { error } = await supabaseClient.from('products').insert([data]);
-    if(error){ apShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent='🌿 Publish Product'; return; }
-    apShowAlert('✅ Product published!', 'success');
-    btn.disabled=false; btn.textContent='🌿 Publish Product';
-    ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-    apPhotos=[]; apCerts=[]; apRenderPhotos();
-  } catch(e){ apShowAlert('Something went wrong!'); btn.disabled=false; btn.textContent='🌿 Publish Product'; }
+    let error;
+    if(isEdit){
+      // UPDATE existing product
+      const res = await supabaseClient.from('products').update(data).eq('id', editId);
+      error = res.error;
+    } else {
+      // INSERT new product
+      const res = await supabaseClient.from('products').insert([data]);
+      error = res.error;
+    }
+    if(error){ apShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent= isEdit?'✅ Update Product':'🌿 Publish Product'; return; }
+    apShowAlert(isEdit ? '✅ Product updated successfully!' : '✅ Product published!', 'success');
+    btn.disabled=false;
+    apCancelEdit();
+    setTimeout(()=>{ showSection('products', null); loadMyProducts(); }, 1500);
+  } catch(e){ apShowAlert('Something went wrong!'); btn.disabled=false; btn.textContent=isEdit?'✅ Update Product':'🌿 Publish Product'; }
 }
+
+// Fill form with product data for editing
+function editProduct(p){
+  document.getElementById('ap-edit-id').value = p.id;
+  document.getElementById('ap-name').value = p.name || '';
+  document.getElementById('ap-category').value = p.category || '';
+  document.getElementById('ap-desc').value = p.description || '';
+  document.getElementById('ap-price').value = p.price || '';
+  document.getElementById('ap-moq').value = p.moq || '';
+  document.getElementById('ap-whatsapp').value = p.whatsapp || '';
+  document.getElementById('ap-brand').value = p.brand || '';
+  document.getElementById('ap-unit').value = p.price_unit || 'per unit';
+  document.getElementById('ap-availability').value = p.availability || 'in_stock';
+  document.getElementById('ap-delivery').value = p.delivery_time || '3-7 days';
+  document.getElementById('ap-shipping').value = p.shipping || 'Pan India';
+  // Show edit mode banner and update button label
+  document.getElementById('ap-edit-banner').style.display = 'block';
+  document.getElementById('ap-publish-btn').textContent = '✅ Update Product';
+  document.getElementById('ap-draft-btn').style.display = 'none';
+  // Load existing photos
+  try { apPhotos = JSON.parse(p.photos || '[]'); } catch(e){ apPhotos = p.image_url ? [p.image_url] : []; }
+  apRenderPhotos();
+  // Navigate to the add-product section
+  showSection('add-product', null);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Cancel edit — reset form back to add mode
+function apCancelEdit(){
+  document.getElementById('ap-edit-id').value = '';
+  document.getElementById('ap-edit-banner').style.display = 'none';
+  document.getElementById('ap-publish-btn').textContent = '🌿 Publish Product';
+  document.getElementById('ap-draft-btn').style.display = 'inline-flex';
+  ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
+  apPhotos=[]; apCerts=[];
+  try{ apRenderPhotos(); }catch(e){}
+}
+
+// Delete a product with confirmation
+async function deleteProduct(id, name){
+  if(!confirm(`Are you sure you want to delete "${name}"?\n\nThis cannot be undone.`)) return;
+  try {
+    const { error } = await supabaseClient.from('products').delete().eq('id', id);
+    if(error){ alert('Error deleting: ' + error.message); return; }
+    loadMyProducts();
+  } catch(e){ alert('Something went wrong!'); }
+}
+
 </script>
 </body>
 </html>
