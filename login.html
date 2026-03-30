@@ -102,19 +102,20 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 
   <div class="right">
     <div class="tabs">
-      <button class="tab active" id="tabLogin">Login</button>
-      <button class="tab" id="tabRegister">Register</button>
+      <button class="tab active" id="tabLogin" onclick="switchTab('login',this)">Login</button>
+      <button class="tab" id="tabRegister" onclick="switchTab('register',this)">Register</button>
     </div>
 
     <div class="alert" id="alertBox"></div>
+    <div id="alertMsg" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;"></div>
 
     <!-- LOGIN FORM -->
     <div class="form-section active" id="loginForm">
       <div class="form-title">Welcome Back! 👋</div>
       <div class="form-sub">Login to your Green Roots Smart account</div>
       <div class="user-type-row">
-        <button class="user-type-btn active" id="type-supplier" >🏪 Supplier</button>
-        <button class="user-type-btn" id="type-buyer" >🛒 Buyer</button>
+        <button class="user-type-btn active" id="type-supplier" onclick="setUserType('supplier')">🏪 Supplier</button>
+        <button class="user-type-btn" id="type-buyer" onclick="setUserType('buyer')">🛒 Buyer</button>
       </div>
       <div class="form-group">
         <label>Email Address *</label>
@@ -129,10 +130,10 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
           <span class="input-icon">🔒</span>
           <input type="password" id="login-password" placeholder="Enter your password"
             onkeydown="if(event.key==='Enter') doLogin()"/>
-          <button class="toggle-pass" id="toggleLoginPass">👁️</button>
+          <button class="toggle-pass" id="toggleLoginPass" onclick="togglePassword('login-password',this)">👁️</button>
         </div>
       </div>
-      <button class="btn-submit" id="loginBtn" >🌿 Login to Dashboard</button>
+      <button class="btn-submit" id="loginBtn" onclick="doLogin()">🌿 Login to Dashboard</button>
       <div class="forgot-link"><a href="#" id="forgotLink">Forgot Password? Reset here →</a></div>
       <div class="switch-text">Don't have an account? <a id="goToRegister">Register Free →</a></div>
     </div>
