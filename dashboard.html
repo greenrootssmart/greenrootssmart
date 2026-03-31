@@ -1151,9 +1151,13 @@ function showSection(name, el){
     if(sb && bd && sb.classList.contains('open')) {
       sb.classList.remove('open');
       bd.classList.remove('show');
+    }
+  }
   if(name === 'profile') loadProfileForm();
   if(name === 'verification') loadVerificationSection();
 }
+
+function toggleSidebar(){
   const sb = document.querySelector('.sidebar');
   const bd = document.getElementById('sidebarBackdrop');
   if(sb && bd) {
