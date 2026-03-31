@@ -27,6 +27,7 @@
     { "src": "/claim-profile", "dest": "/claim-profile.html" },
     { "src": "/blog", "dest": "/blog.html" },
     { "src": "/blog-post", "dest": "/blog-post.html" },
+    { "src": "/store", "dest": "/store.html" },
     { "src": "/reset-password", "dest": "/reset-password.html" }
   ]
 }
