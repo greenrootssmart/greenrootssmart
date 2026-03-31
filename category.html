@@ -356,7 +356,7 @@ const PROD_CATS=[
   {name:'Green Chemistry',     emoji:'🧪', color:'#00bcd4', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/green-chemistry._PNG_ezk4u5.png'},
   {name:'Urban Green',         emoji:'🏙️', color:'#8bc34a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/urban-green.PNG_qqyab4.png'},
   {name:'Carbon & Climate',    emoji:'🌍', color:'#4caf50', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765491/Carbon-climate.PNG_fo9bey.png'},
-  {name:'Eco Tourism',         emoji:'🌄', color:'#ff7043', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765490/Eco-tour.PNG_hqrsu0.png'},
+  {name:'Eco Home & Lifestyle', emoji:'🏠', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774969381/eco-home-lifestyle.PNG_r1rtbs.png'},
   {name:'Green Finance & ESG', emoji:'📈', color:'#7e57c2', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765492/Green-Finance.PNG_uhereg.png'},
   {name:'Certifications',      emoji:'📋', color:'#26a69a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/ESG-certificate.PNG_iy9jvo.png'},
   {name:'Global Green Trade',  emoji:'🌐', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765492/Green-trade.PNG_rwezfy.png'},
@@ -374,6 +374,7 @@ const SVC_CATS=[
   {name:'Remediation',      emoji:'🏗️', color:'#8d6e63', key:'Remediation',                img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Remediation.PNG_g2985d.png'},
   {name:'Reporting & Tech', emoji:'📊', color:'#5c6bc0', key:'Reporting & Technology',      img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626722/Reporting-Technology.PNG_bj9d3p.png'},
   {name:'Training',         emoji:'🎓', color:'#ef5350', key:'Training & Education',        img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Training-Education.PNG_pi0jgw.png'},
+  {name:'Eco Tourism',      emoji:'🌄', color:'#ff7043', key:'Eco Tourism',                  img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774765490/Eco-tour.PNG_hqrsu0.png'},
 ];
 
 async function loadAll(){
@@ -394,9 +395,12 @@ async function loadAll(){
     const pg=document.getElementById('prodCatsGrid');
     if(pg){
       pg.innerHTML=PROD_CATS.map(c=>{
-        const sc=sa.filter(s=>(s.category||'').toLowerCase().includes(c.name.split(' ')[0].toLowerCase())||s.category===c.name).length;
-        const pc=pa.filter(p=>(p.category||'').includes(c.name)).length;
-        const ct=sc>0?sc+' supplier'+(sc>1?'s':''):pc>0?pc+' product'+(pc>1?'s':''):'Be first!';
+        const sc=sa.filter(s=>(s.category||'').trim()===c.name.trim()||(s.category||'').trim().toLowerCase()===c.name.trim().toLowerCase()).length;
+        const pc=pa.filter(p=>(p.category||'').trim()===c.name.trim()||(p.category||'').trim().toLowerCase()===c.name.trim().toLowerCase()).length;
+        let ct='Be first!';
+        if(sc>0&&pc>0) ct=sc+' supplier'+(sc>1?'s':'')+' · '+pc+' product'+(pc>1?'s':'');
+        else if(sc>0) ct=sc+' supplier'+(sc>1?'s':'');
+        else if(pc>0) ct=pc+' product'+(pc>1?'s':'');
         const imgHtml=c.img
           ?`<img src="${c.img}" alt="${c.name}" onerror="this.parentElement.innerHTML='<div class=\\'cat-emoji-bg\\'>${c.emoji}</div>';"/><div class="cat-overlay"></div>`
           :`<div class="cat-emoji-bg">${c.emoji}</div>`;
