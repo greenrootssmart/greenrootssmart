@@ -493,17 +493,21 @@ function doSearch() {
   const priceMax = parseFloat(document.getElementById('priceMax').value) || Infinity;
   const sort = document.getElementById('sortSelect').value;
 
-  filteredProducts = allProducts.filter(p => {
-    const matchSearch = !query ||
+  const cleanCat = function(str){ return (str||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase(); };
+
+  filteredProducts = allProducts.filter(function(p) {
+    var pCatClean = cleanCat(p.category);
+
+    var matchSearch = !query ||
       (p.name && p.name.toLowerCase().includes(query)) ||
       (p.description && p.description.toLowerCase().includes(query)) ||
       (p.category && p.category.toLowerCase().includes(query));
 
-    const matchCatDrop = !catDropdown || (p.category && p.category === catDropdown);
-    const matchCatCheck = checkedCats.length === 0 || checkedCats.includes(p.category);
-    const matchLoc = checkedLocs.length === 0 || checkedLocs.some(l => p.location && p.location.includes(l));
-    const price = parseFloat(p.price) || 0;
-    const matchPrice = price >= priceMin && price <= priceMax;
+    var matchCatDrop = !catDropdown || pCatClean === cleanCat(catDropdown) || (p.category||'').trim() === catDropdown.trim();
+    var matchCatCheck = checkedCats.length === 0 || checkedCats.some(function(cc){ return pCatClean === cleanCat(cc) || (p.category||'').trim() === cc.trim(); });
+    var matchLoc = checkedLocs.length === 0 || checkedLocs.some(function(l){ return p.location && p.location.includes(l); });
+    var price = parseFloat(p.price) || 0;
+    var matchPrice = price >= priceMin && price <= priceMax;
 
     return matchSearch && matchCatDrop && matchCatCheck && matchLoc && matchPrice;
   });

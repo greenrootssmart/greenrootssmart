@@ -395,8 +395,9 @@ async function loadAll(){
     const pg=document.getElementById('prodCatsGrid');
     if(pg){
       pg.innerHTML=PROD_CATS.map(c=>{
-        const sc=sa.filter(s=>(s.category||'').trim()===c.name.trim()||(s.category||'').trim().toLowerCase()===c.name.trim().toLowerCase()).length;
-        const pc=pa.filter(p=>(p.category||'').trim()===c.name.trim()||(p.category||'').trim().toLowerCase()===c.name.trim().toLowerCase()).length;
+        const cleanC=function(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();};
+        const sc=sa.filter(s=>cleanC(s.category)===cleanC(c.name)||(s.category||'').trim()===c.name.trim()).length;
+        const pc=pa.filter(p=>cleanC(p.category)===cleanC(c.name)||(p.category||'').trim()===c.name.trim()).length;
         let ct='Be first!';
         if(sc>0&&pc>0) ct=sc+' supplier'+(sc>1?'s':'')+' · '+pc+' product'+(pc>1?'s':'');
         else if(sc>0) ct=sc+' supplier'+(sc>1?'s':'');

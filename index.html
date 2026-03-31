@@ -701,8 +701,9 @@ async function loadCats(){
     // Build cards with Cloudinary image + real supplier count
     const cards=PROD_CATS.map(c=>{
       // Count suppliers for this category
-      const supCount=sa.filter(s=>(s.category||'').trim().toLowerCase()===(c.name).trim().toLowerCase()).length;
-      const prodCount=pa.filter(p=>(p.category||'').trim().toLowerCase()===(c.name).trim().toLowerCase()).length;
+      const cleanCI=function(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();};
+      const supCount=sa.filter(s=>cleanCI(s.category)===cleanCI(c.name)||(s.category||'').trim()===c.name.trim()).length;
+      const prodCount=pa.filter(p=>cleanCI(p.category)===cleanCI(c.name)||(p.category||'').trim()===c.name.trim()).length;
       let ct='Be first!';
       if(supCount>0&&prodCount>0) ct=supCount+' supplier'+(supCount>1?'s':'')+' · '+prodCount+' product'+(prodCount>1?'s':'');
       else if(supCount>0) ct=supCount+' supplier'+(supCount>1?'s':'');
