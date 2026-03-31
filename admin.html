@@ -140,6 +140,7 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
     <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
     <div class="nav-section">System</div>
+    <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
   </nav>
   <div class="sidebar-bottom">
@@ -499,6 +500,39 @@ tr:hover td{background:#fafffe;}
     </div>
 
     <!-- SETTINGS -->
+
+    <!-- ═══════ VERIFICATIONS SECTION ═══════ -->
+    <div id="section-verifications" class="section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);">🏆 Verification Applications</h2>
+          <p style="font-size:13px;color:var(--light);">Review and approve GRS Verified supplier applications</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="loadVerifications('pending')" id="vbtn-pending" style="padding:7px 16px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">⏳ Pending</button>
+          <button onclick="loadVerifications('approved')" id="vbtn-approved" style="padding:7px 16px;background:#e8f5e2;color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approved</button>
+          <button onclick="loadVerifications('rejected')" id="vbtn-rejected" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">❌ Rejected</button>
+          <button onclick="loadVerifications('all')" id="vbtn-all" style="padding:7px 16px;background:#f5f5f5;color:#555;border:1.5px solid #ddd;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 All</button>
+        </div>
+      </div>
+      <div id="verif-list">
+        <div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading applications...</div>
+      </div>
+    </div>
+
+    <!-- VERIFICATION DETAIL MODAL -->
+    <div id="verifModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;overflow-y:auto;">
+      <div style="background:white;border-radius:16px;max-width:680px;margin:40px auto;padding:0;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#1a4a24,#2d7a3a);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏆 Verification Application</div>
+          <button onclick="closeVerifModal()" style="background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer;">✕</button>
+        </div>
+        <div id="verifModalContent" style="padding:24px;max-height:70vh;overflow-y:auto;"></div>
+        <div id="verifModalActions" style="padding:16px 24px;border-top:1px solid #e8f0e8;display:flex;gap:10px;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <!-- ═══════ END VERIFICATIONS ═══════ -->
+
     <div id="section-settings" class="section">
       <div class="card">
         <div class="card-header"><div class="card-title">⚙️ Admin Settings</div></div>
@@ -608,6 +642,7 @@ function checkAdminAccess() {
 }
 
 async function initAdmin() {
+  loadVerifBadgeCount();
   if (!checkAdminAccess()) return;
   await loadAllData();
   await loadSvcProviders();
@@ -841,6 +876,7 @@ const pageTitles = {
 };
 
 function showSection(name, el) {
+  if(name==='verifications') setTimeout(()=>loadVerifications('pending'),100);
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('section-' + name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -1078,6 +1114,253 @@ async function deleteBlog(id) {
   await supabaseClient.from('blogs').delete().eq('id', id);
   loadBlogs();
 }
+
+
+// ═══════════════════════════════════════
+// VERIFICATION ADMIN FUNCTIONS
+// ═══════════════════════════════════════
+
+let currentVerifFilter = 'pending';
+
+async function loadVerifications(filter='pending'){
+  currentVerifFilter = filter;
+  // Update button styles
+  ['pending','approved','rejected','all'].forEach(f=>{
+    const btn = document.getElementById('vbtn-'+f);
+    if(!btn) return;
+    if(f===filter){
+      const colors = {pending:'var(--g2)',approved:'#2d7a3a',rejected:'#c62828',all:'#555'};
+      btn.style.background = colors[f];
+      btn.style.color = 'white';
+      btn.style.border = 'none';
+    } else {
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.border = '';
+    }
+  });
+
+  const list = document.getElementById('verif-list');
+  list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading...</div>';
+
+  try{
+    let query = supabaseClient.from('verifications').select('*').order('applied_at',{ascending:false});
+    if(filter!=='all') query = query.eq('status', filter);
+    const {data, error} = await query;
+
+    if(error){ list.innerHTML=`<div style="color:#c62828;padding:20px;">Error: ${error.message}</div>`; return; }
+    if(!data||!data.length){
+      list.innerHTML=`<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No ${filter} applications found 🌿</div>`;
+      return;
+    }
+
+    const levelEmoji = {bronze:'🥉',silver:'🥈',gold:'🥇'};
+    const statusColor = {pending:'#fff3e0',approved:'#e8f5e2',rejected:'#fce4ec'};
+    const statusText = {pending:'⏳ Pending Review',approved:'✅ Approved',rejected:'❌ Rejected'};
+
+    list.innerHTML = data.map(v=>`
+      <div style="background:white;border-radius:14px;border:1.5px solid #e8f0e8;margin-bottom:12px;overflow:hidden;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--g5);display:flex;align-items:center;justify-content:center;font-size:24px;">${levelEmoji[v.level]||'🥉'}</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--dark);">${v.supplier_name||'Unknown Supplier'}</div>
+              <div style="font-size:12px;color:var(--light);">${v.category||'—'} · Applied ${new Date(v.applied_at).toLocaleDateString('en-IN')}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="background:${statusColor[v.status]||'#f5f5f5'};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;">${statusText[v.status]||v.status}</span>
+            <span style="background:${v.level==='gold'?'#fffbf0':v.level==='silver'?'#f8f8f8':'#fff8f0'};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;color:${v.level==='gold'?'#b8860b':v.level==='silver'?'#888':'#cd7f32'};">${(v.level||'bronze').toUpperCase()}</span>
+            <button onclick="viewVerifDetail(${v.id})" style="padding:7px 16px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">👁️ Review</button>
+            ${v.status==='pending'?`
+            <button onclick="quickApprove(${v.id},'${v.supplier_id}','${v.level||'bronze'}')" style="padding:7px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approve</button>
+            <button onclick="quickReject(${v.id})" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">❌ Reject</button>`:''}
+          </div>
+        </div>
+      </div>`).join('');
+
+  }catch(e){ list.innerHTML=`<div style="color:#c62828;padding:20px;">Error loading: ${e.message}</div>`; }
+}
+
+async function viewVerifDetail(id){
+  document.getElementById('verifModal').style.display='block';
+  document.getElementById('verifModalContent').innerHTML='<div style="text-align:center;padding:40px;"><div style="width:32px;height:32px;border:3px solid #e8f5e2;border-top-color:#52b043;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto;"></div></div>';
+  document.getElementById('verifModalActions').innerHTML='';
+
+  try{
+    const {data} = await supabaseClient.from('verifications').select('*').eq('id',id);
+    if(!data||!data.length){ document.getElementById('verifModalContent').innerHTML='<p style="color:#c62828;">Application not found.</p>'; return; }
+    const v = data[0];
+    const levelEmoji = {bronze:'🥉',silver:'🥈',gold:'🥇'};
+    let catAnswers = {};
+    try{ catAnswers = JSON.parse(v.cat_answers||'{}'); }catch(e){}
+
+    document.getElementById('verifModalContent').innerHTML = `
+      <!-- HEADER INFO -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #e8f0e8;">
+        <div style="font-size:48px;">${levelEmoji[v.level]||'🥉'}</div>
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--dark);">${v.supplier_name}</div>
+          <div style="font-size:13px;color:var(--light);">${v.category||'—'} · Applying for ${(v.level||'bronze').toUpperCase()}</div>
+          <div style="font-size:12px;color:var(--light);">Applied: ${new Date(v.applied_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</div>
+        </div>
+      </div>
+
+      <!-- BUSINESS PROOF -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Business Proof</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>GST Number:</strong> ${v.gst_number||'—'}</div>
+          <div style="font-size:13px;margin-bottom:8px;"><strong>Registration Type:</strong> ${v.reg_type||'—'}</div>
+          ${v.gst_doc_url?`<a href="${v.gst_doc_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#e8f5e2;color:#2d7a3a;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">📄 View Business Document</a>`:'<span style="font-size:12px;color:#c62828;">No document uploaded</span>'}
+        </div>
+      </div>
+
+      <!-- PRODUCT PROOF -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📦 Product Proof</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>Product:</strong> ${v.product_name||'—'}</div>
+          <div style="font-size:13px;margin-bottom:8px;"><strong>Why Eco-Friendly:</strong> ${v.eco_reason||'—'}</div>
+          ${v.product_photo_url?`<div style="margin-top:8px;"><img src="${v.product_photo_url}" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;" alt="Product"/></div>`:'<span style="font-size:12px;color:#c62828;">No product photo</span>'}
+        </div>
+      </div>
+
+      <!-- ECO CERTIFICATION -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🌿 Eco Certification</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>Type:</strong> ${v.cert_type==='none'?'None — Bronze application':v.cert_type}</div>
+          ${v.cert_name?`<div style="font-size:13px;margin-bottom:8px;"><strong>Cert Number:</strong> ${v.cert_name}</div>`:''}
+          ${v.cert_doc_url?`<a href="${v.cert_doc_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#e8f5e2;color:#2d7a3a;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">🏅 View Certification</a>`:'<span style="font-size:12px;color:var(--light);">No certification document</span>'}
+        </div>
+      </div>
+
+      <!-- SUPPLY CAPABILITY -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🚚 Supply Capability</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="font-size:13px;"><strong>Reach:</strong> ${v.supply_reach||'—'}</div>
+          <div style="font-size:13px;"><strong>MOQ:</strong> ${v.moq||'—'}</div>
+          <div style="font-size:13px;"><strong>Delivery:</strong> ${v.delivery_time||'—'}</div>
+          <div style="font-size:13px;"><strong>Response:</strong> ${v.response_time||'—'}</div>
+        </div>
+      </div>
+
+      <!-- CATEGORY ANSWERS -->
+      ${Object.keys(catAnswers).length>0?`
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Category Answers</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          ${Object.values(catAnswers).map((a,i)=>`<div style="font-size:13px;margin-bottom:6px;"><strong>Q${i+1}:</strong> ${a}</div>`).join('')}
+        </div>
+      </div>`:''}
+
+      <!-- CODE OF CONDUCT -->
+      <div style="background:${v.code_signed?'#e8f5e2':'#fce4ec'};border-radius:10px;padding:12px;font-size:13px;font-weight:600;color:${v.code_signed?'#2d7a3a':'#c62828'};">
+        ${v.code_signed?'✅ Supplier has signed the GRS Eco Code of Conduct':'❌ Code of Conduct NOT signed'}
+      </div>
+
+      ${v.status==='rejected'&&v.rejection_reason?`
+      <div style="margin-top:12px;background:#fce4ec;border-radius:10px;padding:12px;font-size:13px;color:#c62828;">
+        <strong>Rejection Reason:</strong> ${v.rejection_reason}
+      </div>`:''}
+    `;
+
+    // Action buttons
+    if(v.status==='pending'){
+      document.getElementById('verifModalActions').innerHTML=`
+        <div style="flex:1;">
+          <input id="reject-reason-input" type="text" placeholder="Rejection reason (required for rejection)" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;margin-bottom:10px;"/>
+          <div style="display:flex;gap:10px;">
+            <button onclick="approveVerification(${v.id},'${v.supplier_id}','${v.level||'bronze'}')" style="flex:1;padding:12px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">✅ Approve — Grant ${(v.level||'bronze').toUpperCase()} Badge</button>
+            <button onclick="rejectVerification(${v.id})" style="padding:12px 20px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">❌ Reject</button>
+          </div>
+        </div>`;
+    } else {
+      document.getElementById('verifModalActions').innerHTML=`<button onclick="closeVerifModal()" style="padding:10px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Close</button>`;
+    }
+
+  }catch(e){ document.getElementById('verifModalContent').innerHTML=`<p style="color:#c62828;">Error: ${e.message}</p>`; }
+}
+
+async function approveVerification(id, supplierId, level){
+  if(!confirm(`Approve this application and grant ${level.toUpperCase()} verified status?`)) return;
+  const certNo = `GRS-2026-${String(supplierId).padStart(4,'0')}`;
+  try{
+    // Update verification status
+    await supabaseClient.from('verifications').update({
+      status:'approved', reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    // Update supplier verified status
+    await supabaseClient.from('suppliers').update({
+      verified_status: level,
+      verified_at: new Date().toISOString(),
+      cert_number: certNo,
+      status: 'active'
+    }).eq('id', supplierId);
+    closeVerifModal();
+    loadVerifications(currentVerifFilter);
+    showAdminToast(`✅ ${level.toUpperCase()} badge granted! Certificate: ${certNo}`,'success');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+async function rejectVerification(id){
+  const reason = document.getElementById('reject-reason-input')?.value.trim();
+  if(!reason) return alert('Please enter a rejection reason before rejecting.');
+  if(!confirm('Reject this application?')) return;
+  try{
+    await supabaseClient.from('verifications').update({
+      status:'rejected', rejection_reason:reason,
+      reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    closeVerifModal();
+    loadVerifications(currentVerifFilter);
+    showAdminToast('Application rejected. Supplier has been notified.','error');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+async function quickApprove(id, supplierId, level){
+  if(!confirm(`Quick approve — grant ${level.toUpperCase()} badge to this supplier?`)) return;
+  await approveVerification(id, supplierId, level);
+}
+
+async function quickReject(id){
+  const reason = prompt('Enter rejection reason:');
+  if(!reason) return;
+  try{
+    await supabaseClient.from('verifications').update({
+      status:'rejected', rejection_reason:reason,
+      reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    loadVerifications(currentVerifFilter);
+    showAdminToast('Application rejected.','error');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+function closeVerifModal(){
+  document.getElementById('verifModal').style.display='none';
+}
+
+function showAdminToast(msg, type='success'){
+  const toast = document.createElement('div');
+  toast.style.cssText=`position:fixed;bottom:24px;right:24px;background:${type==='success'?'#2d7a3a':'#c62828'};color:white;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:320px;`;
+  toast.textContent=msg;
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(), 4000);
+}
+
+async function loadVerifBadgeCount(){
+  try{
+    const {data} = await supabaseClient.from('verifications').select('id',{count:'exact'}).eq('status','pending');
+    const badge = document.getElementById('verifBadge');
+    if(badge && data && data.length>0){
+      badge.style.display='inline-block';
+      badge.textContent=data.length;
+    }
+  }catch(e){}
+}
+// END VERIFICATION ADMIN
 
 window.onload = initAdmin;
 
