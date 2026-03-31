@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title id="pageTitle">Eco Supplier — Green Roots Smart</title>
+<meta name="robots" content="index, follow"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;
+  --cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+
+/* LOADING */
+.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px;}
+.spinner{width:44px;height:44px;border:3px solid var(--g5);border-top-color:var(--g3);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.5s ease forwards;}
+
+/* TOP BAR */
+.topbar{background:var(--g1);padding:10px 5%;display:flex;align-items:center;justify-content:space-between;}
+.topbar-logo{display:flex;align-items:center;gap:8px;}
+.topbar-logo img{height:32px;width:auto;object-fit:contain;}
+.topbar-text{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:white;}
+.topbar-text span{color:var(--g4);}
+.topbar-tagline{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.5px;}
+.topbar-link{font-size:12px;color:var(--g4);font-weight:600;padding:6px 14px;border:1px solid rgba(168,216,160,0.3);border-radius:20px;}
+
+/* HERO SECTION */
+.hero{background:linear-gradient(160deg,var(--g1) 0%,var(--g2) 60%,#3a9a4a 100%);padding:48px 5% 0;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);border-radius:50%;}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(82,176,67,0.15) 0%,transparent 70%);border-radius:50%;}
+.hero-inner{max-width:680px;margin:0 auto;position:relative;z-index:1;}
+.verified-ribbon{display:inline-flex;align-items:center;gap:6px;background:rgba(82,176,67,0.2);border:1px solid rgba(82,176,67,0.4);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--g4);letter-spacing:0.5px;margin-bottom:20px;}
+.verified-dot{width:6px;height:6px;background:var(--g3);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* PROFILE CARD */
+.profile-card{background:white;border-radius:24px 24px 0 0;padding:32px 28px 28px;text-align:center;position:relative;}
+.logo-wrap{width:88px;height:88px;border-radius:20px;background:var(--g5);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;overflow:hidden;border:3px solid var(--g4);position:relative;}
+.logo-wrap img{width:100%;height:100%;object-fit:cover;}
+.logo-initials{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--g2);}
+.verified-badge{position:absolute;bottom:-4px;right:-4px;background:var(--g3);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid white;}
+.biz-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--dark);margin-bottom:6px;line-height:1.2;}
+.biz-cat{font-size:13px;color:var(--light);margin-bottom:4px;}
+.biz-location{font-size:12px;color:var(--light);display:flex;align-items:center;justify-content:center;gap:4px;}
+.cert-no{font-size:10px;color:var(--light);margin-top:8px;letter-spacing:0.5px;}
+
+/* SOCIAL LINKS */
+.social-row{display:flex;justify-content:center;gap:10px;margin:20px 0;}
+.soc-btn{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.2s;cursor:pointer;text-decoration:none;}
+.soc-wa{background:#e8f9ef;color:#25D366;}
+.soc-wa:hover{background:#25D366;color:white;}
+.soc-ig{background:#fce4ec;color:#E1306C;}
+.soc-ig:hover{background:#E1306C;color:white;}
+.soc-li{background:#e3f2fd;color:#0077B5;}
+.soc-li:hover{background:#0077B5;color:white;}
+.soc-yt{background:#fce4ec;color:#FF0000;}
+.soc-yt:hover{background:#FF0000;color:white;}
+.soc-web{background:var(--g5);color:var(--g2);}
+.soc-web:hover{background:var(--g2);color:white;}
+.soc-fb{background:#e3f2fd;color:#1877F2;}
+.soc-fb:hover{background:#1877F2;color:white;}
+.soc-tw{background:#e3f2fd;color:#1DA1F2;}
+.soc-tw:hover{background:#1DA1F2;color:white;}
+.soc-mail{background:var(--g5);color:var(--g2);}
+.soc-mail:hover{background:var(--g2);color:white;}
+
+/* ACTION BUTTONS */
+.action-wrap{padding:0 5% 24px;max-width:680px;margin:0 auto;}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(135deg,#25D366,#1ea952);color:white;border-radius:14px;font-size:16px;font-weight:700;border:none;cursor:pointer;margin-bottom:12px;transition:all 0.2s;box-shadow:0 4px 16px rgba(37,211,102,0.3);}
+.wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.4);}
+.enq-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:var(--g5);color:var(--g2);border-radius:14px;font-size:15px;font-weight:700;border:1.5px solid var(--g4);cursor:pointer;transition:all 0.2s;}
+.enq-btn:hover{background:var(--g2);color:white;}
+
+/* MAIN CONTENT */
+.main{max-width:680px;margin:0 auto;padding:0 5% 80px;}
+
+/* LINK CARDS */
+.link-card{background:white;border-radius:14px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.25s;border:1.5px solid #f0f4f0;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.link-card:hover{border-color:var(--g3);transform:translateY(-2px);box-shadow:0 8px 20px rgba(45,122,58,0.1);}
+.lc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.lc-icon.green{background:var(--g5);}
+.lc-icon.blue{background:#e3f2fd;}
+.lc-icon.orange{background:#fff3e0;}
+.lc-icon.red{background:#fce4ec;}
+.lc-icon.purple{background:#f3e5f5;}
+.lc-body{flex:1;}
+.lc-title{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:2px;}
+.lc-sub{font-size:12px;color:var(--light);}
+.lc-arrow{font-size:18px;color:var(--g4);}
+
+/* SECTION TITLE */
+.sec-title{font-size:11px;font-weight:700;color:var(--light);letter-spacing:1.5px;text-transform:uppercase;margin:24px 0 12px;}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.stat-box{background:white;border-radius:14px;padding:16px 12px;text-align:center;border:1.5px solid #f0f4f0;}
+.stat-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);}
+.stat-lbl{font-size:10px;color:var(--light);margin-top:3px;}
+
+/* ABOUT */
+.about-card{background:white;border-radius:14px;padding:20px;margin-bottom:10px;border:1.5px solid #f0f4f0;}
+.about-text{font-size:13px;color:var(--mid);line-height:1.8;}
+
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.prod-card{background:white;border-radius:14px;overflow:hidden;border:1.5px solid #f0f4f0;cursor:pointer;transition:all 0.2s;}
+.prod-card:hover{border-color:var(--g3);transform:translateY(-2px);}
+.prod-img{height:100px;background:var(--g5);display:flex;align-items:center;justify-content:center;font-size:36px;}
+.prod-img img{width:100%;height:100%;object-fit:cover;}
+.prod-body{padding:10px 12px;}
+.prod-name{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:3px;line-height:1.3;}
+.prod-price{font-size:11px;color:var(--g2);font-weight:600;}
+
+/* GRS VERIFIED SECTION */
+.verified-card{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:14px;padding:20px;margin-bottom:10px;color:white;text-align:center;}
+.vc-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:6px;}
+.vc-sub{font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:14px;line-height:1.6;}
+.vc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--g4);}
+.cert-details{display:flex;justify-content:center;gap:20px;margin-top:14px;}
+.cd-item{text-align:center;}
+.cd-val{font-size:13px;font-weight:700;color:white;}
+.cd-lbl{font-size:10px;color:rgba(255,255,255,0.6);}
+
+/* ENQUIRY MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:flex-end;}
+.modal-bg.open{display:flex;}
+.modal{background:white;border-radius:24px 24px 0 0;padding:28px 24px;width:100%;max-height:85vh;overflow-y:auto;}
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--light);margin-bottom:20px;}
+.m-field{margin-bottom:14px;}
+.m-field label{display:block;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.m-field input,.m-field textarea,.m-field select{width:100%;padding:12px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;}
+.m-field input:focus,.m-field textarea:focus{border-color:var(--g3);}
+.m-field textarea{height:80px;resize:vertical;}
+.m-send-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+.m-cancel{width:100%;padding:12px;background:none;border:none;font-size:13px;color:var(--light);cursor:pointer;margin-top:8px;}
+
+/* POWERED BY */
+.powered-by{text-align:center;padding:24px 0;border-top:1px solid #e8f0e8;}
+.pb-text{font-size:11px;color:var(--light);margin-bottom:8px;}
+.pb-link{display:inline-flex;align-items:center;gap:6px;background:var(--g5);border:1px solid var(--g4);border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;color:var(--g2);}
+
+/* ERROR */
+.error-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:40px 5%;}
+.error-wrap h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:8px;}
+.error-wrap p{font-size:14px;color:var(--light);margin-bottom:24px;}
+.back-btn{padding:12px 28px;background:var(--g2);color:white;border-radius:10px;font-size:14px;font-weight:600;}
+
+@media(max-width:480px){
+  .biz-name{font-size:20px;}
+  .prod-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="/" class="topbar-logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS"/>
+    <div>
+      <div class="topbar-text">Green Roots <span>Smart</span></div>
+      <div class="topbar-tagline">INDIA'S FIRST ECO B2B MARKETPLACE</div>
+    </div>
+  </a>
+  <a href="/supplier-profile" class="topbar-link">Browse Suppliers</a>
+</div>
+
+<!-- PAGE CONTENT -->
+<div id="pageContent">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <p style="font-size:13px;color:var(--light);">Loading supplier profile...</p>
+  </div>
+</div>
+
+<!-- ENQUIRY MODAL -->
+<div class="modal-bg" id="enqModal">
+  <div class="modal">
+    <div class="modal-title">Send Enquiry 🌿</div>
+    <div class="modal-sub" id="enqModalSub">Contact supplier directly</div>
+    <div class="m-field"><label>Your Name *</label><input id="enqName" placeholder="Your full name"/></div>
+    <div class="m-field"><label>Mobile Number *</label><input id="enqMobile" type="tel" placeholder="Your WhatsApp number"/></div>
+    <div class="m-field"><label>Email</label><input id="enqEmail" type="email" placeholder="your@email.com"/></div>
+    <div class="m-field"><label>Your Requirement *</label><textarea id="enqMsg" placeholder="Describe what you need — product, quantity, location..."></textarea></div>
+    <div id="enqAlert" style="display:none;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;"></div>
+    <button class="m-send-btn" onclick="sendEnquiry()">📩 Send Enquiry</button>
+    <button class="m-cancel" onclick="closeEnq()">Cancel</button>
+  </div>
+</div>
+
+<script>
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
+let currentSupplier=null;
+
+// CAT EMOJI MAP
+const catEmoji={'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Green Building':'🏗️','EV Components':'🚗','Energy Storage':'🔋','Eco Textiles':'👗','Herbal & Natural':'🌿','Wind Energy':'🌬️','Bioenergy':'⚡','Green Transport':'🚌','Smart Agriculture':'🌱','Green Chemistry':'🧪','Urban Green':'🏙️','Carbon & Climate':'🌍','Eco Tourism':'🌄','Green Finance & ESG':'📈','Certifications':'📋','Global Green Trade':'🌐'};
+
+function getCatEmoji(cat){return catEmoji[cat]||'🌿';}
+
+function fmtDate(d){
+  if(!d)return'2026';
+  return new Date(d).toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+}
+
+function genCertNo(id){
+  const n=String(id).padStart(4,'0');
+  return `GRS-2026-${n}`;
+}
+
+async function loadStore(){
+  const params=new URLSearchParams(window.location.search);
+  const slug=params.get('slug')||params.get('id');
+  if(!slug){showError('Supplier not found','Please go back and try again.');return;}
+
+  try{
+    let data;
+    // Try slug first
+    const r1=await db.from('suppliers').select('*').eq('slug',slug);
+    if(r1.data&&r1.data.length>0){data=r1.data[0];}
+    else{
+      // Try by id
+      const r2=await db.from('suppliers').select('*').eq('id',slug);
+      if(r2.data&&r2.data.length>0){data=r2.data[0];}
+      else{
+        // Try by business name slug
+        const r3=await db.from('suppliers').select('*').ilike('business_name',slug.replace(/-/g,' '));
+        if(r3.data&&r3.data.length>0){data=r3.data[0];}
+      }
+    }
+    if(!data){showError('Supplier not found','This supplier page may have moved.');return;}
+    currentSupplier=data;
+    renderStore(data);
+  }catch(e){
+    console.error(e);
+    showError('Unable to load','Please check your connection and try again.');
+  }
+}
+
+async function renderStore(s){
+  // SEO
+  document.title=`${s.business_name} — GRS Verified Eco Supplier`;
+  setMeta('description',`${s.business_name} is a GRS Verified Eco Supplier. ${s.description||''} Contact directly on WhatsApp.`);
+  setOG('og:title',s.business_name);
+  setOG('og:description',`GRS Verified Eco Supplier — ${s.category||'Eco Products'} — ${s.city||'India'}`);
+  setOG('og:image',s.logo_url||s.image_url||'https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg');
+  setCanonical(`https://www.greenrootssmart.com/store?slug=${s.slug||s.id}`);
+
+  // Build social links
+  const socials=[];
+  if(s.whatsapp||s.mobile) socials.push({cls:'soc-wa',icon:'💬',href:`https://wa.me/91${(s.whatsapp||s.mobile||'').replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${s.business_name}! I found you on Green Roots Smart.`)}`});
+  if(s.instagram) socials.push({cls:'soc-ig',icon:'📸',href:s.instagram.startsWith('http')?s.instagram:`https://instagram.com/${s.instagram.replace('@','')}`});
+  if(s.linkedin) socials.push({cls:'soc-li',icon:'💼',href:s.linkedin.startsWith('http')?s.linkedin:`https://linkedin.com/company/${s.linkedin}`});
+  if(s.youtube) socials.push({cls:'soc-yt',icon:'▶️',href:s.youtube.startsWith('http')?s.youtube:`https://youtube.com/@${s.youtube}`});
+  if(s.facebook) socials.push({cls:'soc-fb',icon:'👥',href:s.facebook.startsWith('http')?s.facebook:`https://facebook.com/${s.facebook}`});
+  if(s.website) socials.push({cls:'soc-web',icon:'🌐',href:s.website.startsWith('http')?s.website:`https://${s.website}`});
+  if(s.email) socials.push({cls:'soc-mail',icon:'📧',href:`mailto:${s.email}`});
+
+  const initials=(s.business_name||'GS').split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+  const waNum=`91${(s.whatsapp||s.mobile||'').replace(/\D/g,'')}`;
+  const waMsg=encodeURIComponent(`Hi ${s.business_name}! I found you on Green Roots Smart. I'm interested in your products. Please share details.`);
+
+  // Load products
+  const {data:products}=await db.from('products').select('*').eq('supplier_id',s.id).eq('status','published').limit(4);
+  const prodsHTML=products&&products.length>0?`
+    <div class="sec-title">Our Products</div>
+    <div class="prod-grid">
+      ${products.map(p=>`
+        <div class="prod-card" onclick="window.location.href='/product-detail?id=${p.id}'">
+          <div class="prod-img">${p.image_url?`<img src="${p.image_url}" alt="${p.name}"/>`:(catEmoji[p.category]||'🌿')}</div>
+          <div class="prod-body">
+            <div class="prod-name">${p.name}</div>
+            <div class="prod-price">₹${p.price}/${p.price_unit||'unit'}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="link-card fade-up" onclick="window.location.href='/supplier-detail?id=${s.id}'" style="margin-bottom:10px">
+      <div class="lc-icon green">📦</div>
+      <div class="lc-body"><div class="lc-title">View All Products</div><div class="lc-sub">Browse complete product catalogue</div></div>
+      <div class="lc-arrow">›</div>
+    </div>`:'';
+
+  document.getElementById('pageContent').innerHTML=`
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="verified-ribbon"><span class="verified-dot"></span> GRS VERIFIED ECO SUPPLIER</div>
+        <div class="profile-card fade-up">
+          <div class="logo-wrap">
+            ${s.logo_url||s.image_url?`<img src="${s.logo_url||s.image_url}" alt="${s.business_name}"/>`:`<div class="logo-initials">${initials}</div>`}
+            <div class="verified-badge">✅</div>
+          </div>
+          <div class="biz-name">${s.business_name}</div>
+          <div class="biz-cat">${getCatEmoji(s.category)} ${s.category||'Eco Products'}</div>
+          <div class="biz-location">📍 ${[s.city,s.state].filter(Boolean).join(', ')||'India'}</div>
+          ${s.status==='active'?`<div class="cert-no">Certificate No: ${genCertNo(s.id)} · Member since ${fmtDate(s.created_at)}</div>`:''}
+          ${socials.length>0?`<div class="social-row">${socials.map(sl=>`<a href="${sl.href}" target="_blank" class="soc-btn ${sl.cls}">${sl.icon}</a>`).join('')}</div>`:'<div style="height:8px"></div>'}
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-wrap fade-up">
+      ${s.whatsapp||s.mobile?`<button class="wa-btn" onclick="window.open('https://wa.me/${waNum}?text=${waMsg}','_blank')">💬 Chat on WhatsApp</button>`:''}
+      <button class="enq-btn" onclick="openEnq()">📩 Send Enquiry</button>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main fade-up">
+
+      <!-- ABOUT -->
+      ${s.description?`
+        <div class="sec-title">About the Business</div>
+        <div class="about-card">
+          <div class="about-text">${s.description}</div>
+        </div>`:''}
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">${getCatEmoji(s.category)}</div><div class="stat-lbl">${s.category||'Eco Products'}</div></div>
+        <div class="stat-box"><div class="stat-num">📍</div><div class="stat-lbl">${s.state||'India'}</div></div>
+        <div class="stat-box"><div class="stat-num">✅</div><div class="stat-lbl">GRS Verified</div></div>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div class="sec-title">Quick Links</div>
+
+      <div class="link-card fade-up" onclick="window.location.href='/supplier-detail?id=${s.id}'">
+        <div class="lc-icon green">🏪</div>
+        <div class="lc-body"><div class="lc-title">View Full Profile</div><div class="lc-sub">Complete business details & products</div></div>
+        <div class="lc-arrow">›</div>
+      </div>
+
+      ${s.website?`
+      <div class="link-card fade-up" onclick="window.open('${s.website.startsWith('http')?s.website:'https://'+s.website}','_blank')">
+        <div class="lc-icon blue">🌐</div>
+        <div class="lc-body"><div class="lc-title">Visit Website</div><div class="lc-sub">${s.website}</div></div>
+        <div class="lc-arrow">›</div>
+      </div>`:''}
+
+      ${s.whatsapp||s.mobile?`
+      <div class="link-card fade-up" onclick="window.open('https://wa.me/${waNum}?text=${waMsg}','_blank')">
+        <div class="lc-icon" style="background:#e8f9ef;">💬</div>
+        <div class="lc-body"><div class="lc-title">WhatsApp Direct</div><div class="lc-sub">Get quick response for bulk orders</div></div>
+        <div class="lc-arrow">›</div>
+      </div>`:''}
+
+      <div class="link-card fade-up" onclick="openEnq()">
+        <div class="lc-icon orange">📩</div>
+        <div class="lc-body"><div class="lc-title">Send Enquiry</div><div class="lc-sub">Get quotes, samples and pricing</div></div>
+        <div class="lc-arrow">›</div>
+      </div>
+
+      <!-- PRODUCTS -->
+      ${prodsHTML}
+
+      <!-- GRS VERIFIED -->
+      <div class="sec-title">Verification</div>
+      <div class="verified-card">
+        <div class="vc-title">🌿 GRS Verified Eco Supplier</div>
+        <div class="vc-sub">This business has been verified by Green Roots Smart as a genuine eco-friendly supplier. Business documents checked. Products confirmed eco. Code of conduct signed.</div>
+        <div class="vc-badge">✅ Certificate No: ${genCertNo(s.id)}</div>
+        <div class="cert-details">
+          <div class="cd-item"><div class="cd-val">${fmtDate(s.created_at)}</div><div class="cd-lbl">Member Since</div></div>
+          <div class="cd-item"><div class="cd-val">Active</div><div class="cd-lbl">Status</div></div>
+          <div class="cd-item"><div class="cd-val">Annual</div><div class="cd-lbl">Renewal</div></div>
+        </div>
+      </div>
+
+      <!-- SHARE -->
+      <div class="sec-title">Share This Page</div>
+      <div class="link-card fade-up" onclick="sharePage('${s.business_name}')">
+        <div class="lc-icon" style="background:#e8f9ef;">📤</div>
+        <div class="lc-body"><div class="lc-title">Share Supplier Page</div><div class="lc-sub">Share via WhatsApp, Instagram, LinkedIn</div></div>
+        <div class="lc-arrow">›</div>
+      </div>
+
+      <!-- POWERED BY -->
+      <div class="powered-by">
+        <div class="pb-text">Powered by India's First Eco B2B Marketplace</div>
+        <a href="/" class="pb-link">🌿 Green Roots Smart</a>
+        <div style="font-size:11px;color:var(--light);margin-top:10px;">Want your own eco supplier page? <a href="/register" style="color:var(--g2);font-weight:600;">List FREE →</a></div>
+      </div>
+
+    </div>`;
+
+  document.getElementById('enqModalSub').textContent=`Send your requirement to ${s.business_name}`;
+}
+
+function sharePage(name){
+  const url=window.location.href;
+  const text=`Check out ${name} on Green Roots Smart — India's First Eco B2B Marketplace! 🌿`;
+  if(navigator.share){
+    navigator.share({title:name,text,url}).catch(()=>copyToClipboard(url));
+  } else {
+    copyToClipboard(url);
+  }
+}
+
+function copyToClipboard(text){
+  navigator.clipboard.writeText(text).then(()=>alert('Link copied! Share it on WhatsApp, Instagram and LinkedIn 🌿'));
+}
+
+function openEnq(){document.getElementById('enqModal').classList.add('open');}
+function closeEnq(){document.getElementById('enqModal').classList.remove('open');}
+
+async function sendEnquiry(){
+  const name=document.getElementById('enqName').value.trim();
+  const mobile=document.getElementById('enqMobile').value.trim();
+  const msg=document.getElementById('enqMsg').value.trim();
+  if(!name)return showEnqAlert('Please enter your name!');
+  if(!mobile)return showEnqAlert('Please enter your mobile number!');
+  if(!msg)return showEnqAlert('Please describe your requirement!');
+  const btn=document.querySelector('.m-send-btn');
+  btn.disabled=true;btn.textContent='Sending...';
+  try{
+    await db.from('enquiries').insert([{
+      buyer_name:name,buyer_mobile:mobile,buyer_email:document.getElementById('enqEmail').value.trim(),
+      product_name:`General Enquiry — ${currentSupplier?.business_name}`,
+      supplier_id:currentSupplier?.id,supplier_name:currentSupplier?.business_name,
+      message:msg,status:'new',created_at:new Date().toISOString()
+    }]);
+    showEnqAlert('✅ Enquiry sent! Supplier will contact you soon.','success');
+    btn.textContent='✅ Sent!';
+    setTimeout(closeEnq,2000);
+  }catch(e){showEnqAlert('Something went wrong. Please try WhatsApp directly.');btn.disabled=false;btn.textContent='📩 Send Enquiry';}
+}
+
+function showEnqAlert(msg,type='error'){
+  const el=document.getElementById('enqAlert');
+  el.style.display='block';
+  el.style.background=type==='success'?'#e8f5e2':'#fce4ec';
+  el.style.color=type==='success'?'#2d7a3a':'#c62828';
+  el.textContent=msg;
+}
+
+function setMeta(name,content){let el=document.querySelector(`meta[name="${name}"]`);if(!el){el=document.createElement('meta');el.name=name;document.head.appendChild(el);}el.content=content;}
+function setOG(prop,content){let el=document.querySelector(`meta[property="${prop}"]`);if(!el){el=document.createElement('meta');el.setAttribute('property',prop);document.head.appendChild(el);}el.content=content;}
+function setCanonical(url){let el=document.querySelector('link[rel="canonical"]');if(!el){el=document.createElement('link');el.rel='canonical';document.head.appendChild(el);}el.href=url;}
+
+function showError(title,msg){
+  document.getElementById('pageContent').innerHTML=`
+    <div class="error-wrap">
+      <div style="font-size:64px;margin-bottom:16px">🌿</div>
+      <h2>${title}</h2>
+      <p>${msg}</p>
+      <a href="/supplier-profile" class="back-btn">← Browse Suppliers</a>
+    </div>`;
+}
+
+// Close modal on bg click
+document.getElementById('enqModal').addEventListener('click',function(e){if(e.target===this)closeEnq();});
+
+loadStore();
+</script>
+</body>
+</html>
