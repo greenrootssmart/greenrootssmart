@@ -1,8 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="google-site-verification" content="NkzAv2zIqn0EUtwYB82XA3Vhz1x2tijxuGa5GewM8C0"/>
 <title>Green Roots Smart — India's #1 Eco B2B Marketplace</title>
@@ -586,17 +588,27 @@ const SVC_CDN_ROOT=`https://res.cloudinary.com/${CLOUD}/image/upload/w_300,h_160
 
 // ── CATEGORY CONFIG ────────────────────────────────────────────────────────
 const PROD_CATS=[
-  {name:'Solar Energy',    emoji:'☀️', color:'#f59e0b', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622974/solar-energy.jpg_q0v8zq.png'},
-  {name:'Organic Farming', emoji:'🌾', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/organic-farming.jpg_xhzvbn.png'},
-  {name:'Eco Packaging',   emoji:'📦', color:'#26c6da', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622964/eco-packaging.jpg_dblrlj.png'},
-  {name:'Waste Management',emoji:'♻️', color:'#ec407a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/waste-management.jpg_azw0og.png'},
-  {name:'Water Technology',emoji:'💧', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/water-technology.jpg_ymxpit.png'},
-  {name:'Energy Storage',  emoji:'🔋', color:'#ab47bc', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622969/energy-storage.jpg_jmhosb.png'},
-  {name:'Green Building',  emoji:'🏗️', color:'#8d6e63', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622980/green-building.jpg_vvzhkl.png'},
-  {name:'Herbal Products', emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
-  {name:'Eco Textiles',    emoji:'👗', color:'#f06292', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/eco-textiles.jpg_iqcvus.png'},
-  {name:'Wind Energy',     emoji:'🌬️', color:'#4dd0e1', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622983/wind-energy.jpg_rwzfmw.png'},
-  {name:'EV Components',   emoji:'🚗', color:'#5c6bc0', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622979/ev-components.jpg_owmws0.png'},
+  {name:'Solar Energy',        emoji:'☀️', color:'#f59e0b', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622974/solar-energy.jpg_q0v8zq.png'},
+  {name:'Organic Farming',     emoji:'🌾', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/organic-farming.jpg_xhzvbn.png'},
+  {name:'Eco Packaging',       emoji:'📦', color:'#26c6da', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622964/eco-packaging.jpg_dblrlj.png'},
+  {name:'Waste Management',    emoji:'♻️', color:'#ec407a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/waste-management.jpg_azw0og.png'},
+  {name:'Water Technology',    emoji:'💧', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/water-technology.jpg_ymxpit.png'},
+  {name:'Energy Storage',      emoji:'🔋', color:'#ab47bc', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622969/energy-storage.jpg_jmhosb.png'},
+  {name:'Green Building',      emoji:'🏗️', color:'#8d6e63', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622980/green-building.jpg_vvzhkl.png'},
+  {name:'Herbal Products',     emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
+  {name:'Eco Textiles',        emoji:'👗', color:'#f06292', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/eco-textiles.jpg_iqcvus.png'},
+  {name:'Wind Energy',         emoji:'🌬️', color:'#4dd0e1', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622983/wind-energy.jpg_rwzfmw.png'},
+  {name:'EV Components',       emoji:'🚗', color:'#5c6bc0', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622979/ev-components.jpg_owmws0.png'},
+  {name:'Bioenergy',           emoji:'⚡', color:'#ffa726', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/Bio-energy.PNG_mtbhj8.png'},
+  {name:'Green Transport',     emoji:'🚌', color:'#26a69a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765493/green-transport.PNG_iq0kok.png'},
+  {name:'Smart Agriculture',   emoji:'🌱', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765493/smart-agri.PNG_rhzmmq.png'},
+  {name:'Green Chemistry',     emoji:'🧪', color:'#00bcd4', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/green-chemistry._PNG_ezk4u5.png'},
+  {name:'Urban Green',         emoji:'🏙️', color:'#8bc34a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/urban-green.PNG_qqyab4.png'},
+  {name:'Carbon & Climate',    emoji:'🌍', color:'#4caf50', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765491/Carbon-climate.PNG_fo9bey.png'},
+  {name:'Eco Tourism',         emoji:'🌄', color:'#ff7043', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765490/Eco-tour.PNG_hqrsu0.png'},
+  {name:'Green Finance & ESG', emoji:'📈', color:'#7e57c2', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765492/Green-Finance.PNG_uhereg.png'},
+  {name:'Certifications',      emoji:'📋', color:'#26a69a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765489/ESG-certificate.PNG_iy9jvo.png'},
+  {name:'Global Green Trade',  emoji:'🌐', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774765492/Green-trade.PNG_rwezfy.png'},
 ];
 
 const SVC_CATS=[

@@ -2,191 +2,413 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Blog Post — Green Roots Smart</title>
+<!-- SEO tags set dynamically by JS below based on blog content -->
+<title id="pageTitle">Blog — Green Roots Smart</title>
+<meta name="robots" content="index, follow"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
-*{margin:0;padding:0;box-sizing:border-box;}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
-nav{background:white;padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;}
-.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-decoration:none;}
-.logo span{color:var(--g3);}
-.nav-links{display:flex;align-items:center;gap:24px;}
-.nav-links a{text-decoration:none;color:var(--mid);font-size:13px;font-weight:500;}
-.btn-list{padding:9px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--g3);border-radius:3px;}
 
-.article-wrap{max-width:760px;margin:0 auto;padding:48px 24px;}
-.breadcrumb{font-size:12px;color:var(--light);margin-bottom:24px;}
-.breadcrumb a{color:var(--g2);text-decoration:none;}
-.art-cat{display:inline-block;padding:5px 14px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px;}
-.art-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--dark);line-height:1.25;margin-bottom:16px;}
-.art-meta{display:flex;align-items:center;gap:20px;font-size:13px;color:var(--light);margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #e8f0e8;}
-.art-cover{width:100%;height:300px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:100px;margin-bottom:36px;}
-.art-content{font-size:15px;line-height:1.85;color:var(--mid);}
-.art-content h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--dark);margin:32px 0 14px;}
-.art-content p{margin-bottom:18px;}
-.art-content ul,.art-content ol{margin:0 0 18px 24px;}
-.art-content li{margin-bottom:8px;}
-.art-content strong{color:var(--dark);font-weight:700;}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.97);backdrop-filter:blur(20px);border-bottom:1px solid #d4e8cc;height:64px;display:flex;align-items:center;padding:0 5%;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:40px;width:auto;object-fit:contain;}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--g1);line-height:1.2;}
+.nav-logo-text span{color:var(--g3);}
+.nav-logo-sub{font-size:9px;color:var(--light);font-weight:500;letter-spacing:0.5px;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{color:var(--mid);font-size:13px;font-weight:500;padding:6px 9px;border-radius:8px;transition:all 0.2s;}
+.nav-links a:hover{color:var(--g2);background:var(--g5);}
+.nav-btns{display:flex;align-items:center;gap:8px;}
+.btn-o{padding:7px 14px;border-radius:8px;border:1.5px solid var(--g2);color:var(--g2);font-size:13px;font-weight:600;}
+.btn-p{padding:7px 14px;border-radius:8px;background:var(--g2);color:white;font-size:13px;font-weight:600;border:none;cursor:pointer;}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:4px;}
+@media(max-width:900px){.nav-links{display:none;}.nav-btns .btn-o{display:none;}.ham{display:block;}}
+.mob-menu{display:none;background:white;border-bottom:1px solid #d4e8cc;padding:14px 5%;}
+.mob-menu a{display:block;padding:10px;color:var(--g1);font-size:14px;font-weight:500;border-radius:8px;}
 
-.cta-box{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:16px;padding:32px;text-align:center;color:white;margin:40px 0;}
-.cta-box h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;}
-.cta-box p{font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:20px;}
-.cta-box a{display:inline-block;padding:11px 28px;background:var(--g3);color:white;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;}
+/* BREADCRUMB */
+.breadcrumb{padding:12px 5%;background:white;border-bottom:1px solid #e8f0e8;font-size:12px;color:var(--light);}
+.breadcrumb a{color:var(--g2);font-weight:500;}
+.breadcrumb a:hover{text-decoration:underline;}
 
-.share-row{display:flex;align-items:center;gap:12px;margin-top:40px;padding-top:24px;border-top:2px solid #e8f0e8;}
-.share-lbl{font-size:13px;font-weight:600;color:var(--dark);}
-.share-btn{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;color:white;}
-.share-wa{background:#25D366;}
-.share-li{background:#0077B5;}
-.share-copy{background:var(--g2);}
+/* ARTICLE LAYOUT */
+.article-wrap{max-width:820px;margin:0 auto;padding:40px 5% 64px;}
 
-.related-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);margin:48px 0 20px;}
-.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-.rel-card{background:white;border-radius:12px;padding:16px;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.2s;}
-.rel-card:hover{border-color:var(--g4);transform:translateY(-2px);}
-.rel-cat{font-size:10px;font-weight:700;color:var(--g2);margin-bottom:6px;}
-.rel-title{font-size:14px;font-weight:700;color:var(--dark);line-height:1.4;}
+/* HERO IMAGE */
+.article-hero-img{width:100%;height:380px;object-fit:cover;border-radius:16px;margin-bottom:32px;display:block;}
+.article-hero-placeholder{width:100%;height:380px;background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:16px;margin-bottom:32px;display:flex;align-items:center;justify-content:center;font-size:80px;}
 
-footer{background:#0f1f10;color:rgba(255,255,255,0.6);text-align:center;padding:24px;font-size:12px;margin-top:48px;}
-footer a{color:#a8d8a0;text-decoration:none;margin:0 8px;}
+/* CATEGORY TAG */
+.article-cat{display:inline-flex;align-items:center;gap:6px;background:var(--g5);color:var(--g2);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;}
+
+/* TITLE */
+.article-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:var(--dark);line-height:1.2;margin-bottom:16px;}
+
+/* META ROW */
+.article-meta{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--light);margin-bottom:28px;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid #e8f0e8;}
+.meta-item{display:flex;align-items:center;gap:5px;}
+.meta-dot{width:4px;height:4px;background:var(--g3);border-radius:50%;}
+
+/* ARTICLE CONTENT */
+.article-content{font-size:16px;line-height:1.9;color:#2a3a2a;}
+.article-content h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--g5);}
+.article-content h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g2);margin:28px 0 10px;}
+.article-content p{margin-bottom:18px;}
+.article-content ul,.article-content ol{padding-left:28px;margin-bottom:18px;}
+.article-content li{margin-bottom:8px;line-height:1.7;}
+.article-content strong{color:var(--g1);font-weight:700;}
+.article-content a{color:var(--g2);text-decoration:underline;}
+.article-content a:hover{color:var(--g1);}
+.article-content blockquote{border-left:4px solid var(--g3);padding:16px 20px;background:var(--g5);border-radius:0 12px 12px 0;margin:24px 0;font-style:italic;color:var(--mid);}
+
+/* SHARE BAR */
+.share-bar{background:white;border-radius:14px;padding:20px 24px;margin-top:40px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,0.05);border:1.5px solid #e8f0e8;flex-wrap:wrap;gap:14px;}
+.share-label{font-size:14px;font-weight:700;color:var(--g1);}
+.share-btns{display:flex;gap:10px;}
+.share-btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;display:flex;align-items:center;gap:6px;}
+.share-wa{background:#25D366;color:white;}
+.share-wa:hover{background:#20ba5a;}
+.share-link{background:var(--g5);color:var(--g2);}
+.share-link:hover{background:var(--g2);color:white;}
+
+/* CTA BOX */
+.cta-box{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:18px;padding:36px;color:white;text-align:center;margin-top:40px;position:relative;overflow:hidden;}
+.cta-box::before{content:'🌿';position:absolute;right:20px;top:10px;font-size:80px;opacity:0.08;}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:10px;}
+.cta-box p{font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-wh{padding:12px 26px;background:white;color:var(--g1);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+.btn-gh{padding:12px 26px;background:transparent;color:white;border:2px solid rgba(255,255,255,0.4);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+
+/* RELATED POSTS */
+.related-section{margin-top:48px;}
+.related-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g1);margin-bottom:20px;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.related-card{background:white;border-radius:14px;overflow:hidden;border:1.5px solid #e8f0e8;cursor:pointer;transition:all 0.3s;}
+.related-card:hover{border-color:var(--g3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,122,58,0.1);}
+.related-img{height:120px;background:linear-gradient(135deg,var(--g5),var(--g4));display:flex;align-items:center;justify-content:center;font-size:36px;}
+.related-body{padding:14px;}
+.related-cat{font-size:10px;color:var(--g3);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.related-t{font-size:13px;font-weight:700;color:var(--dark);line-height:1.4;}
+
+/* LOADING & ERROR */
+.loading-state{text-align:center;padding:80px 20px;}
+.spinner{width:40px;height:40px;border:3px solid var(--g5);border-top-color:var(--g3);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.error-state{text-align:center;padding:80px 20px;}
+.error-state h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--g1);margin-bottom:10px;}
+.error-state p{color:var(--light);font-size:14px;margin-bottom:24px;}
+.back-btn{display:inline-flex;padding:12px 28px;background:var(--g2);color:white;border-radius:10px;font-size:14px;font-weight:600;}
+
+footer{background:#0f1f10;padding:28px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:0;}
+footer p{font-size:12px;color:#4a6a4a;}
+footer a{color:var(--g4);font-size:12px;margin-left:10px;}
+
+@media(max-width:768px){
+  .article-title{font-size:26px;}
+  .article-hero-img,.article-hero-placeholder{height:220px;}
+  .related-grid{grid-template-columns:1fr;}
+  .share-bar{flex-direction:column;text-align:center;}
+  .cta-btns{flex-direction:column;align-items:center;}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Green Roots <span>Smart</span></a>
-  <div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/products">Products</a>
-    <a href="/blog">Blog</a>
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart"/>
+    <div>
+      <div class="nav-logo-text">Green Roots <span>Smart</span></div>
+      <div class="nav-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/category">Categories</a></li>
+    <li><a href="/supplier-profile">Suppliers</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/blog" class="active">Blog</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="/login" class="btn-o">Login</a>
+    <a href="/register" class="btn-p">List Business</a>
   </div>
-  <a href="/login" class="btn-list">List Your Business</a>
+  <button class="ham" onclick="document.getElementById('mob').style.display=document.getElementById('mob').style.display==='block'?'none':'block'">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
 </nav>
+<div class="mob-menu" id="mob">
+  <a href="/">🏠 Home</a>
+  <a href="/products">📦 Products</a>
+  <a href="/category">🗂️ Categories</a>
+  <a href="/supplier-profile">🏪 Suppliers</a>
+  <a href="/blog">📝 Blog</a>
+  <a href="/register" style="background:#2d7a3a;color:white;font-weight:600;text-align:center;margin-top:8px;">List Business</a>
+</div>
 
-<div class="article-wrap" id="articleWrap">
-  <p style="color:#7a9a74;text-align:center;padding:60px 0;">Loading article... 🌿</p>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> › <a href="/blog">Blog</a> › <span id="breadTitle">Loading...</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+  <div class="article-wrap">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p style="color:var(--light);font-size:14px;">Loading article...</p>
+    </div>
+  </div>
 </div>
 
 <footer>
-  © 2026 Green Roots Smart 🌿
-  <a href="/">Home</a><a href="/products">Products</a>
-  <a href="/blog">Blog</a><a href="/contact">Contact</a>
+  <p>© 2026 Green Roots Smart. All rights reserved. 🌿</p>
+  <div>
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/products">Products</a>
+    <a href="/contact">Contact</a>
+  </div>
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
 
-const catBgs = {
-  'Solar Energy':'linear-gradient(135deg,#fff9c4,#ffe082)',
-  'Organic Farming':'linear-gradient(135deg,#e8f5e2,#a5d6a7)',
-  'Eco Packaging':'linear-gradient(135deg,#e0f7fa,#80deea)',
-  'Waste Management':'linear-gradient(135deg,#fce4ec,#f48fb1)',
-  'Water Technology':'linear-gradient(135deg,#e3f2fd,#90caf9)',
-  'Green Business':'linear-gradient(135deg,#f3e5f5,#ce93d8)',
-};
-const catEmojis = {'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Green Business':'💼'};
+// ── SET META TAGS DYNAMICALLY ─────────────────────────────────────────────
+function setMeta(name, content){
+  let el=document.querySelector(`meta[name="${name}"]`);
+  if(!el){el=document.createElement('meta');el.name=name;document.head.appendChild(el);}
+  el.content=content;
+}
+function setOG(prop, content){
+  let el=document.querySelector(`meta[property="${prop}"]`);
+  if(!el){el=document.createElement('meta');el.setAttribute('property',prop);document.head.appendChild(el);}
+  el.content=content;
+}
+function setCanonical(url){
+  let el=document.querySelector('link[rel="canonical"]');
+  if(!el){el=document.createElement('link');el.rel='canonical';document.head.appendChild(el);}
+  el.href=url;
+}
 
-async function loadPost() {
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('slug');
-  if(!slug) { showError(); return; }
+function applyBlogSEO(post){
+  // Title — blog post title + GRS brand
+  document.title=`${post.title} | Green Roots Smart`;
+  document.getElementById('pageTitle').textContent=`${post.title} | Green Roots Smart`;
 
-  // Update view count
-  // Try by slug first, then by id
-  let data = null;
-  const { data: bySlug } = await db.from('blogs').select('*').eq('slug', slug).single();
-  if(bySlug) {
-    data = bySlug;
-  } else {
-    const { data: byId } = await db.from('blogs').select('*').eq('id', slug).single();
-    data = byId;
-  }
+  // Description — use blog excerpt or first 155 chars of content
+  const rawDesc=post.meta_description||post.excerpt||stripHTML(post.content||'').substring(0,155);
+  const desc=rawDesc.length>155?rawDesc.substring(0,152)+'...':rawDesc;
 
-  if(!data) { showError(); return; }
+  // Keywords — use blog tags or category
+  const keys=post.tags||post.keywords||`${post.category||'eco'} India, green business, sustainable trade, eco B2B marketplace India, Green Roots Smart`;
 
-  // Increment views
-  await db.from('blogs').update({ views: (data.views||0)+1 }).eq('id', data.id);
+  setMeta('description', desc);
+  setMeta('keywords', keys);
+  setMeta('author', post.author||'Green Roots Smart');
+  setMeta('robots','index, follow');
 
-  // Update page title
-  document.title = data.title + ' — Green Roots Smart';
+  // Canonical URL
+  const slug=post.slug||post.id;
+  setCanonical(`https://www.greenrootssmart.com/blog-post?slug=${slug}`);
 
-  const bg = catBgs[data.category] || 'linear-gradient(135deg,#e8f5e2,#2d7a3a)';
-  const emoji = catEmojis[data.category] || '🌿';
-  const coverHtml = data.cover_image
-    ? `<img src="${data.cover_image}" alt="${data.title}" style="width:100%;height:320px;object-fit:cover;border-radius:16px;margin-bottom:36px;"/>`
-    : `<div class="art-cover" style="background:${bg}">${emoji}</div>`;
-  const dateStr = new Date(data.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  // Open Graph
+  setOG('og:type','article');
+  setOG('og:title', post.title);
+  setOG('og:description', desc);
+  setOG('og:url',`https://www.greenrootssmart.com/blog-post?slug=${slug}`);
+  setOG('og:image', post.image_url||'https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg');
+  setOG('og:site_name','Green Roots Smart');
+  setOG('article:published_time', post.created_at||new Date().toISOString());
+  setOG('article:author', post.author||'Green Roots Smart');
 
-  document.getElementById('articleWrap').innerHTML = `
-    <div class="breadcrumb">
-      <a href="/">Home</a> › <a href="/blog">Blog</a> › ${data.category||'Articles'}
-    </div>
-    <span class="art-cat">${data.category || 'Eco Tips'}</span>
-    <h1 class="art-title">${data.title}</h1>
-    <div class="art-meta">
-      <span>✍️ ${data.author || 'GRS Team'}</span>
-      <span>📅 ${dateStr}</span>
-      <span>👁️ ${(data.views||0)+1} views</span>
-    </div>
-    ${coverHtml}
-    <div class="art-content">${data.content || '<p>Article content coming soon!</p>'}</div>
+  // Twitter
+  setMeta('twitter:card','summary_large_image');
+  setMeta('twitter:title', post.title);
+  setMeta('twitter:description', desc);
+  setMeta('twitter:image', post.image_url||'https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg');
+}
 
-    <div class="cta-box">
-      <h3>🌿 Find Eco Suppliers on GRS!</h3>
-      <p>Browse verified ${data.category||'eco'} suppliers and get the best bulk quotes for your business!</p>
-      <a href="/products">Browse Products →</a>
-    </div>
+function stripHTML(html){
+  return html.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+}
 
-    <div class="share-row">
-      <span class="share-lbl">Share:</span>
-      <button class="share-btn share-wa" onclick="shareWA()">💬 WhatsApp</button>
-      <button class="share-btn share-li" onclick="shareLI()">LinkedIn</button>
-      <button class="share-btn share-copy" onclick="copyLink()">🔗 Copy Link</button>
-    </div>
+// ── FORMAT DATE ────────────────────────────────────────────────────────────
+function fmtDate(d){
+  if(!d) return 'Green Roots Smart';
+  return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+}
 
-    <div class="related-title">Related Articles</div>
-    <div class="related-grid" id="relatedGrid">
-      <p style="color:#7a9a74;font-size:13px;">Loading...</p>
+// ── READ TIME ──────────────────────────────────────────────────────────────
+function readTime(content){
+  const words=(content||'').split(/\s+/).length;
+  return Math.max(1,Math.round(words/200))+' min read';
+}
+
+// ── RENDER BLOG POST ───────────────────────────────────────────────────────
+function renderPost(post){
+  const slug=post.slug||post.id;
+  const shareUrl=encodeURIComponent(`https://www.greenrootssmart.com/blog-post?slug=${slug}`);
+  const shareText=encodeURIComponent(`${post.title} — Read on Green Roots Smart 🌿`);
+
+  // Format content — convert markdown-style to HTML if needed
+  let content = post.content||'';
+  // Basic markdown to HTML
+  content = content
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g,'<ul>$&</ul>')
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/^(?!<[hul])/gm,'');
+
+  // Wrap orphan text in paragraphs
+  if(!content.startsWith('<')){content='<p>'+content+'</p>';}
+
+  document.getElementById('breadTitle').textContent=post.title.length>50?post.title.substring(0,50)+'...':post.title;
+
+  const heroImg=post.image_url
+    ?`<img src="${post.image_url}" alt="${post.title}" class="article-hero-img"/>`
+    :`<div class="article-hero-placeholder">${getCatEmoji(post.category)}</div>`;
+
+  document.getElementById('mainContent').innerHTML=`
+    <div class="article-wrap">
+      ${heroImg}
+      <div class="article-cat">${getCatEmoji(post.category)} ${post.category||'Eco Business'}</div>
+      <h1 class="article-title">${post.title}</h1>
+      <div class="article-meta">
+        <div class="meta-item">✍️ ${post.author||'Green Roots Smart Team'}</div>
+        <div class="meta-dot"></div>
+        <div class="meta-item">📅 ${fmtDate(post.created_at)}</div>
+        <div class="meta-dot"></div>
+        <div class="meta-item">⏱️ ${readTime(post.content)}</div>
+        ${post.category?`<div class="meta-dot"></div><div class="meta-item">🏷️ ${post.category}</div>`:''}
+      </div>
+      <div class="article-content">${content}</div>
+
+      <!-- SHARE BAR -->
+      <div class="share-bar">
+        <div class="share-label">📤 Share this article</div>
+        <div class="share-btns">
+          <button class="share-btn share-wa" onclick="window.open('https://wa.me/?text=${shareText}%20${shareUrl}','_blank')">💬 WhatsApp</button>
+          <button class="share-btn share-link" onclick="copyLink()">🔗 Copy Link</button>
+        </div>
+      </div>
+
+      <!-- CTA BOX -->
+      <div class="cta-box">
+        <h3>Ready to Source Eco Products?</h3>
+        <p>Connect with verified eco-friendly suppliers across India on Green Roots Smart — India's first eco B2B marketplace. Free to join!</p>
+        <div class="cta-btns">
+          <button class="btn-wh" onclick="window.location.href='/supplier-profile'">🔍 Find Suppliers</button>
+          <button class="btn-gh" onclick="window.location.href='/register'">🌿 List Your Business Free</button>
+        </div>
+      </div>
+
+      <!-- RELATED POSTS -->
+      <div class="related-section" id="relatedSection"></div>
     </div>`;
 
   // Load related posts
-  const { data: related } = await db.from('blogs').select('*').eq('published',true).eq('category', data.category).neq('id', data.id).limit(2);
-  const rg = document.getElementById('relatedGrid');
-  if(related && related.length > 0) {
-    rg.innerHTML = related.map(r => `
-      <div class="rel-card" onclick="window.location.href='/blog-post?slug=${r.slug||r.id}'">
-        <div class="rel-cat">${r.category||'Eco Tips'}</div>
-        <div class="rel-title">${r.title}</div>
-      </div>`).join('');
-  } else {
-    rg.innerHTML = '<p style="color:#7a9a74;font-size:13px;">No related articles yet!</p>';
+  loadRelated(post.category, post.id);
+}
+
+function getCatEmoji(cat){
+  const map={'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Green Building':'🏗️','EV Components':'🚗','Energy Storage':'🔋','Eco Textiles':'👗','Herbal Products':'🌿','Wind Energy':'🌬️','Bioenergy':'⚡','Green Transport':'🚌','Smart Agriculture':'🌱','Green Chemistry':'🧪','Urban Green':'🏙️','Carbon & Climate':'🌍','Eco Tourism':'🌄','Green Finance & ESG':'📈','Certifications':'📋','Global Green Trade':'🌐'};
+  return map[cat]||'🌿';
+}
+
+// ── COPY LINK ──────────────────────────────────────────────────────────────
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    const btn=document.querySelector('.share-link');
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='🔗 Copy Link',2000);
+  });
+}
+
+// ── LOAD RELATED POSTS ─────────────────────────────────────────────────────
+async function loadRelated(category, currentId){
+  try{
+    const {data}=await db.from('blogs').select('id,title,slug,category,image_url').eq('status','published').neq('id',currentId).limit(3);
+    if(!data||!data.length) return;
+    const sec=document.getElementById('relatedSection');
+    if(!sec) return;
+    sec.innerHTML=`
+      <div class="related-title">📚 More from Green Roots Smart</div>
+      <div class="related-grid">
+        ${data.map(p=>`
+          <div class="related-card" onclick="window.location.href='/blog-post?slug=${p.slug||p.id}'">
+            <div class="related-img">
+              ${p.image_url?`<img src="${p.image_url}" style="width:100%;height:100%;object-fit:cover;" alt="${p.title}"/>`:getCatEmoji(p.category)}
+            </div>
+            <div class="related-body">
+              <div class="related-cat">${p.category||'Eco Business'}</div>
+              <div class="related-t">${p.title}</div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }catch(e){}
+}
+
+// ── LOAD POST ──────────────────────────────────────────────────────────────
+async function loadPost(){
+  const params=new URLSearchParams(window.location.search);
+  const slug=params.get('slug')||params.get('id');
+
+  if(!slug){
+    showError('No blog post specified','Please go back to the blog and select an article.');
+    return;
+  }
+
+  try{
+    // Try by slug first, then by id
+    let {data}=await db.from('blogs').select('*').eq('slug',slug);
+    if(!data||!data.length){
+      const res=await db.from('blogs').select('*').eq('id',slug);
+      data=res.data;
+    }
+    if(!data||!data.length){
+      showError('Article not found','This blog post may have been moved or deleted.');
+      return;
+    }
+    const post=data[0];
+    applyBlogSEO(post);
+    renderPost(post);
+  }catch(e){
+    console.error(e);
+    showError('Unable to load article','Please check your connection and try again.');
   }
 }
 
-function shareWA() {
-  window.open('https://wa.me/?text=' + encodeURIComponent(document.title + ' - ' + window.location.href));
-}
-function shareLI() {
-  window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href));
-}
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href);
-  alert('✅ Link copied!');
-}
-
-function showError() {
-  document.getElementById('articleWrap').innerHTML = `
-    <div style="text-align:center;padding:80px 20px;">
-      <div style="font-size:64px;margin-bottom:16px">🌿</div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:#1a4a24;margin-bottom:8px">Article not found!</h2>
-      <p style="color:#7a9a74;margin-bottom:24px">This article may have been moved or deleted.</p>
-      <a href="/blog" style="padding:12px 28px;background:#2d7a3a;color:white;border-radius:8px;text-decoration:none;font-weight:600;">← Back to Blog</a>
+function showError(title, msg){
+  document.getElementById('breadTitle').textContent='Not Found';
+  document.getElementById('mainContent').innerHTML=`
+    <div class="article-wrap">
+      <div class="error-state">
+        <div style="font-size:64px;margin-bottom:16px;">🌿</div>
+        <h2>${title}</h2>
+        <p>${msg}</p>
+        <a href="/blog" class="back-btn">← Back to Blog</a>
+      </div>
     </div>`;
 }
 
