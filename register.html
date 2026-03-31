@@ -136,19 +136,19 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
   <!-- LEFT PANEL -->
   <div class="left">
     <h1>Join India's <span>Green</span> B2B Revolution! 🌿</h1>
-    <p>List your eco-friendly products and connect with thousands of buyers across India and 50+ countries worldwide.</p>
+    <p>List your eco-friendly products for free and get discovered by eco-conscious buyers across India on India's first dedicated green B2B marketplace.</p>
     <div class="benefit-list">
-      <div class="benefit"><div class="benefit-icon">🌍</div>Reach buyers across India & 50+ countries</div>
-      <div class="benefit"><div class="benefit-icon">📦</div>List unlimited eco products</div>
+      <div class="benefit"><div class="benefit-icon">🌍</div>Reach eco buyers across India</div>
+      <div class="benefit"><div class="benefit-icon">📦</div>List your eco products for free</div>
       <div class="benefit"><div class="benefit-icon">📩</div>Receive direct buyer enquiries</div>
       <div class="benefit"><div class="benefit-icon">✅</div>Get verified supplier badge</div>
       <div class="benefit"><div class="benefit-icon">📊</div>Real-time analytics dashboard</div>
       <div class="benefit"><div class="benefit-icon">💰</div>Start FREE — no credit card needed</div>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-num">12,400+</div><div class="stat-lbl">Suppliers</div></div>
-      <div class="stat"><div class="stat-num">86,000+</div><div class="stat-lbl">Products</div></div>
-      <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Countries</div></div>
+      <div class="stat"><div class="stat-num">FREE</div><div class="stat-lbl">To List</div></div>
+      <div class="stat"><div class="stat-num">21+</div><div class="stat-lbl">Eco Categories</div></div>
+      <div class="stat"><div class="stat-num">Pan India</div><div class="stat-lbl">Reach</div></div>
     </div>
   </div>
 
@@ -281,18 +281,42 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
           <span class="input-icon">📦</span>
           <select id="category">
             <option value="">Select Category</option>
-            <option>☀️ Solar Energy</option>
-            <option>🌾 Organic Farming</option>
-            <option>📦 Eco Packaging</option>
-            <option>♻️ Waste Management</option>
-            <option>💧 Water Technology</option>
-            <option>🌬️ Wind Energy</option>
-            <option>🔋 Energy Storage</option>
-            <option>🏗️ Green Building</option>
-            <option>🌿 Herbal & Natural</option>
-            <option>🚗 Electric Vehicles</option>
-            <option>🌱 Sustainable Agriculture</option>
-            <option>♻️ Recycled Products</option>
+            <optgroup label="🌿 Product Categories">
+            <option value="Solar Energy">☀️ Solar Energy</option>
+            <option value="Organic Farming">🌾 Organic Farming</option>
+            <option value="Eco Packaging">📦 Eco Packaging</option>
+            <option value="Waste Management">♻️ Waste Management</option>
+            <option value="Water Technology">💧 Water Technology</option>
+            <option value="Wind Energy">🌬️ Wind Energy</option>
+            <option value="Energy Storage">🔋 Energy Storage</option>
+            <option value="Green Building">🏗️ Green Building</option>
+            <option value="Herbal & Natural">🌿 Herbal & Natural</option>
+            <option value="EV Components">🚗 EV Components</option>
+            <option value="Eco Textiles">👗 Eco Textiles</option>
+            <option value="Bioenergy">⚡ Bioenergy</option>
+            <option value="Green Transport">🚌 Green Transport</option>
+            <option value="Smart Agriculture">🌱 Smart Agriculture</option>
+            <option value="Green Chemistry">🧪 Green Chemistry</option>
+            <option value="Urban Green">🏙️ Urban Green</option>
+            <option value="Carbon & Climate">🌍 Carbon & Climate</option>
+            <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
+            <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
+            <option value="Certifications">📋 Certifications</option>
+            <option value="Global Green Trade">🌐 Global Green Trade</option>
+            </optgroup>
+            <optgroup label="🔧 Service Categories">
+            <option value="Testing & Laboratory">🔬 Testing & Laboratory</option>
+            <option value="Consulting & Advisory">📋 Consulting & Advisory</option>
+            <option value="Certification & Compliance">📜 Certification & Compliance</option>
+            <option value="Waste Management Services">♻️ Waste Management Services</option>
+            <option value="Water & Wastewater">💧 Water & Wastewater Services</option>
+            <option value="Renewable Energy">⚡ Renewable Energy Services</option>
+            <option value="Ecological Services">🌱 Ecological Services</option>
+            <option value="Remediation">🏗️ Remediation</option>
+            <option value="Reporting & Technology">📊 Reporting & Technology</option>
+            <option value="Training & Education">🎓 Training & Education</option>
+            <option value="Eco Tourism">🌄 Eco Tourism</option>
+            </optgroup>
           </select>
         </div>
       </div>
@@ -315,10 +339,7 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
         <div class="input-wrap">
           <span class="input-icon">⭐</span>
           <select id="plan">
-            <option value="free">🌱 Starter — FREE (10 products)</option>
-            <option value="basic">🌿 Basic — ₹999/mo (50 products)</option>
-            <option value="pro">🌳 Pro — ₹2,499/mo (200 products)</option>
-            <option value="premium">🏆 Premium — ₹4,999/mo (Unlimited)</option>
+            <option value="free">🌱 Free Listing — List your products FREE</option>
           </select>
         </div>
       </div>
@@ -377,7 +398,7 @@ function goStep(step){
       if(!document.getElementById('password').value || document.getElementById('password').value.length < 8){return showAlert('Password must be at least 8 characters!');}
     }
     if(currentStep === 3){
-      if(!document.getElementById('category').value){return showAlert('Please select Product Category!');}
+      if(!document.getElementById('category').value){return showAlert('Please select your Business Category!');}
     }
   }
 
