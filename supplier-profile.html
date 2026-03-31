@@ -253,16 +253,28 @@ function toggleMobileMenu() {
     <input type="text" id="searchInput" placeholder="Search suppliers by name or category..."/>
     <select id="catFilter">
       <option value="">All Categories</option>
-      <option>☀️ Solar Energy</option>
-      <option>🌾 Organic Farming</option>
-      <option>📦 Eco Packaging</option>
-      <option>♻️ Waste Management</option>
-      <option>💧 Water Technology</option>
-      <option>🌬️ Wind Energy</option>
-      <option>🔋 Energy Storage</option>
-      <option>🏗️ Green Building</option>
-      <option>🌿 Herbal & Natural</option>
-      <option>🚗 Electric Vehicles</option>
+      <option value="Solar Energy">☀️ Solar Energy</option>
+      <option value="Organic Farming">🌾 Organic Farming</option>
+      <option value="Eco Packaging">📦 Eco Packaging</option>
+      <option value="Waste Management">♻️ Waste Management</option>
+      <option value="Water Technology">💧 Water Technology</option>
+      <option value="Wind Energy">🌬️ Wind Energy</option>
+      <option value="Energy Storage">🔋 Energy Storage</option>
+      <option value="Green Building">🏗️ Green Building</option>
+      <option value="Herbal & Natural">🌿 Herbal & Natural</option>
+      <option value="Herbal Products">🌿 Herbal Products</option>
+      <option value="EV Components">🚗 EV Components</option>
+      <option value="Eco Textiles">👗 Eco Textiles</option>
+      <option value="Bioenergy">⚡ Bioenergy</option>
+      <option value="Green Transport">🚌 Green Transport</option>
+      <option value="Smart Agriculture">🌱 Smart Agriculture</option>
+      <option value="Green Chemistry">🧪 Green Chemistry</option>
+      <option value="Urban Green">🏙️ Urban Green</option>
+      <option value="Carbon & Climate">🌍 Carbon & Climate</option>
+      <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
+      <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
+      <option value="Certifications">📋 Certifications</option>
+      <option value="Global Green Trade">🌐 Global Green Trade</option>
     </select>
     <button onclick="doSearch()">Search 🔍</button>
   </div>
@@ -315,7 +327,7 @@ async function loadSuppliers() {
   const { data } = await db.from('suppliers')
     .select('*')
     .eq('status','active')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false }).limit(1000);
 
   allSuppliers = data || [];
   document.getElementById('totalSup').textContent = allSuppliers.length + '+';
@@ -338,7 +350,7 @@ async function loadSuppliers() {
     const heroTitle = document.querySelector('.hero h1');
     if(heroTitle) heroTitle.textContent = '🏪 ' + urlCat + ' Suppliers';
     // Filter directly
-    const filtered = allSuppliers.filter(s => (s.category||'').toLowerCase().includes(urlCat.toLowerCase()));
+    const filtered = allSuppliers.filter(s => (s.category||'').trim().toLowerCase() === urlCat.trim().toLowerCase());
     renderSuppliers(filtered.length > 0 ? filtered : allSuppliers);
   } else {
     renderSuppliers(allSuppliers);
@@ -404,6 +416,7 @@ function doSearch() {
 }
 
 document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+document.getElementById('searchInput').addEventListener('input', () => doSearch());
 document.getElementById('catFilter').addEventListener('change', doSearch);
 
 // Modal

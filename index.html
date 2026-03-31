@@ -701,11 +701,12 @@ async function loadCats(){
     // Build cards with Cloudinary image + real supplier count
     const cards=PROD_CATS.map(c=>{
       // Count suppliers for this category
-      const supCount=sa.filter(s=>{
-        const cat=(s.category||'').toLowerCase();
-        return cat===c.name.toLowerCase()||cat.includes(c.name.split(' ')[0].toLowerCase());
-      }).length;
-      const ct=supCount>0?`${supCount} supplier${supCount>1?'s':''}`:pa.filter(p=>(p.category||'').includes(c.name)).length>0?pa.filter(p=>(p.category||'').includes(c.name)).length+' products':'Be first!';
+      const supCount=sa.filter(s=>(s.category||'').trim().toLowerCase()===(c.name).trim().toLowerCase()).length;
+      const prodCount=pa.filter(p=>(p.category||'').trim().toLowerCase()===(c.name).trim().toLowerCase()).length;
+      let ct='Be first!';
+      if(supCount>0&&prodCount>0) ct=supCount+' supplier'+(supCount>1?'s':'')+' · '+prodCount+' product'+(prodCount>1?'s':'');
+      else if(supCount>0) ct=supCount+' supplier'+(supCount>1?'s':'');
+      else if(prodCount>0) ct=prodCount+' product'+(prodCount>1?'s':'');
 
       return `<div class="cat-card" onclick="window.location.href='/category-products?cat=${encodeURIComponent(c.name)}'" style="border-bottom:3px solid ${c.color}">
         <div class="cat-img-wrap" style="background:linear-gradient(135deg,${c.color}22,${c.color}44)">

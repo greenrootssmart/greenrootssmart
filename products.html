@@ -293,9 +293,20 @@ function toggleMobileMenu() {
       <option value="Energy Storage">🔋 Energy Storage</option>
       <option value="Green Building">🏗️ Green Building</option>
       <option value="Herbal Products">🌿 Herbal Products</option>
+      <option value="Herbal & Natural">🌿 Herbal & Natural</option>
       <option value="Eco Textiles">👗 Eco Textiles</option>
       <option value="Wind Energy">🌬️ Wind Energy</option>
       <option value="EV Components">🚗 EV Components</option>
+      <option value="Bioenergy">⚡ Bioenergy</option>
+      <option value="Green Transport">🚌 Green Transport</option>
+      <option value="Smart Agriculture">🌱 Smart Agriculture</option>
+      <option value="Green Chemistry">🧪 Green Chemistry</option>
+      <option value="Urban Green">🏙️ Urban Green</option>
+      <option value="Carbon & Climate">🌍 Carbon & Climate</option>
+      <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
+      <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
+      <option value="Certifications">📋 Certifications</option>
+      <option value="Global Green Trade">🌐 Global Green Trade</option>
     </select>
     <button onclick="doSearch()">Search 🔍</button>
   </div>
@@ -311,14 +322,26 @@ function toggleMobileMenu() {
 
     <div class="filter-section">
       <h4>Category</h4>
-      <div class="filter-option"><input type="checkbox" id="f1" value="Solar Energy" onchange="doSearch()"/><label for="f1">☀️ Solar Energy</label></div>
-      <div class="filter-option"><input type="checkbox" id="f2" value="Organic Farming" onchange="doSearch()"/><label for="f2">🌾 Organic Farming</label></div>
-      <div class="filter-option"><input type="checkbox" id="f3" value="Eco Packaging" onchange="doSearch()"/><label for="f3">📦 Eco Packaging</label></div>
-      <div class="filter-option"><input type="checkbox" id="f4" value="Waste Management" onchange="doSearch()"/><label for="f4">♻️ Waste Mgmt</label></div>
-      <div class="filter-option"><input type="checkbox" id="f5" value="Water Technology" onchange="doSearch()"/><label for="f5">💧 Water Tech</label></div>
-      <div class="filter-option"><input type="checkbox" id="f6" value="Energy Storage" onchange="doSearch()"/><label for="f6">🔋 Energy Storage</label></div>
-      <div class="filter-option"><input type="checkbox" id="f7" value="Herbal Products" onchange="doSearch()"/><label for="f7">🌿 Herbal Products</label></div>
-      <div class="filter-option"><input type="checkbox" id="f8" value="Green Building" onchange="doSearch()"/><label for="f8">🏗️ Green Building</label></div>
+      <div class="filter-option"><input type="checkbox" id="f1" value="Solar Energy" class="cat-filter" onchange="doSearch()"/><label for="f1">☀️ Solar Energy</label></div>
+      <div class="filter-option"><input type="checkbox" id="f2" value="Organic Farming" class="cat-filter" onchange="doSearch()"/><label for="f2">🌾 Organic Farming</label></div>
+      <div class="filter-option"><input type="checkbox" id="f3" value="Eco Packaging" class="cat-filter" onchange="doSearch()"/><label for="f3">📦 Eco Packaging</label></div>
+      <div class="filter-option"><input type="checkbox" id="f4" value="Waste Management" class="cat-filter" onchange="doSearch()"/><label for="f4">♻️ Waste Management</label></div>
+      <div class="filter-option"><input type="checkbox" id="f5" value="Water Technology" class="cat-filter" onchange="doSearch()"/><label for="f5">💧 Water Technology</label></div>
+      <div class="filter-option"><input type="checkbox" id="f6" value="Energy Storage" class="cat-filter" onchange="doSearch()"/><label for="f6">🔋 Energy Storage</label></div>
+      <div class="filter-option"><input type="checkbox" id="f7" value="Herbal & Natural" class="cat-filter" onchange="doSearch()"/><label for="f7">🌿 Herbal & Natural</label></div>
+      <div class="filter-option"><input type="checkbox" id="f8" value="Green Building" class="cat-filter" onchange="doSearch()"/><label for="f8">🏗️ Green Building</label></div>
+      <div class="filter-option"><input type="checkbox" id="f9" value="Eco Textiles" class="cat-filter" onchange="doSearch()"/><label for="f9">👗 Eco Textiles</label></div>
+      <div class="filter-option"><input type="checkbox" id="f10" value="Wind Energy" class="cat-filter" onchange="doSearch()"/><label for="f10">🌬️ Wind Energy</label></div>
+      <div class="filter-option"><input type="checkbox" id="f11" value="EV Components" class="cat-filter" onchange="doSearch()"/><label for="f11">🚗 EV Components</label></div>
+      <div class="filter-option"><input type="checkbox" id="f12" value="Bioenergy" class="cat-filter" onchange="doSearch()"/><label for="f12">⚡ Bioenergy</label></div>
+      <div class="filter-option"><input type="checkbox" id="f13" value="Green Transport" class="cat-filter" onchange="doSearch()"/><label for="f13">🚌 Green Transport</label></div>
+      <div class="filter-option"><input type="checkbox" id="f14" value="Smart Agriculture" class="cat-filter" onchange="doSearch()"/><label for="f14">🌱 Smart Agriculture</label></div>
+      <div class="filter-option"><input type="checkbox" id="f15" value="Green Chemistry" class="cat-filter" onchange="doSearch()"/><label for="f15">🧪 Green Chemistry</label></div>
+      <div class="filter-option"><input type="checkbox" id="f16" value="Urban Green" class="cat-filter" onchange="doSearch()"/><label for="f16">🏙️ Urban Green</label></div>
+      <div class="filter-option"><input type="checkbox" id="f17" value="Carbon & Climate" class="cat-filter" onchange="doSearch()"/><label for="f17">🌍 Carbon & Climate</label></div>
+      <div class="filter-option"><input type="checkbox" id="f18" value="Eco Home & Lifestyle" class="cat-filter" onchange="doSearch()"/><label for="f18">🏠 Eco Home & Lifestyle</label></div>
+      <div class="filter-option"><input type="checkbox" id="f19" value="Green Finance & ESG" class="cat-filter" onchange="doSearch()"/><label for="f19">📈 Green Finance & ESG</label></div>
+      <div class="filter-option"><input type="checkbox" id="f20" value="Global Green Trade" class="cat-filter" onchange="doSearch()"/><label for="f20">🌐 Global Green Trade</label></div>
     </div>
 
     <div class="filter-section">
@@ -434,10 +457,12 @@ let currentSupplierId = '';
 
 async function fetchProducts() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`, {
+    // Fetch up to 1000 products — remove Supabase default 100 limit
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc&limit=1000`, {
       headers: {
         'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Range': '0-999'
       }
     });
     const data = await res.json();
@@ -447,9 +472,9 @@ async function fetchProducts() {
   }
 }
 
-function getCheckedValues(name) {
-  return [...document.querySelectorAll(`.filters input[type="checkbox"]:checked`)]
-    .filter(cb => ['f1','f2','f3','f4','f5','f6','f7','f8'].includes(cb.id))
+function getCheckedValues() {
+  // Get all category checkboxes that are checked — dynamically by class not hardcoded IDs
+  return [...document.querySelectorAll(`.filter-section input[type="checkbox"].cat-filter:checked`)]
     .map(cb => cb.value);
 }
 
@@ -688,6 +713,25 @@ document.getElementById('modalOverlay').addEventListener('click', function(e) {
     count > 0
       ? `${count} eco-friendly product${count !== 1 ? 's' : ''} from verified Indian suppliers`
       : 'Be the first to list your eco products!';
+
+  // Pre-select category from URL parameter (e.g. /products?cat=Solar Energy)
+  const urlParams = new URLSearchParams(window.location.search);
+  const catParam = urlParams.get('cat');
+  if(catParam){
+    // Set dropdown
+    const dropdown = document.getElementById('categorySelect');
+    if(dropdown){
+      for(let i=0;i<dropdown.options.length;i++){
+        if(dropdown.options[i].value === catParam){
+          dropdown.selectedIndex = i;
+          break;
+        }
+      }
+    }
+    // Also check matching sidebar checkbox if exists
+    const cbs = document.querySelectorAll('.cat-filter');
+    cbs.forEach(cb=>{ if(cb.value===catParam) cb.checked=true; });
+  }
 
   doSearch();
 })();
