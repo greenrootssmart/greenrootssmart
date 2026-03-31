@@ -197,6 +197,10 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     </button>
 
     <div class="nav-section">Business</div>
+    <button class="nav-item" onclick="showSection('verification', this)">
+      <span class="nav-icon">🏆</span> GRS Verification
+      <span id="verif-nav-badge" style="display:none;background:#52b043;color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:4px;">NEW</span>
+    </button>
     <button class="nav-item" onclick="showSection('analytics', this)">
       <span class="nav-icon">📈</span> Analytics
     </button>
@@ -443,37 +447,292 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
         <p style="color:var(--light);font-size:13px;padding:20px 0">Detailed analytics coming soon in next update!</p>
       </div>
     </div>
+
+    <!-- ════════ GRS VERIFICATION SECTION ════════ -->
+    <div id="section-verification" style="display:none">
+
+      <!-- STATUS CARD — shown based on current status -->
+      <div id="verif-status-card" style="margin-bottom:20px"></div>
+
+      <!-- APPLY FORM -->
+      <div id="verif-apply-form">
+
+        <!-- WHY GET VERIFIED -->
+        <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,#1a4a24,#2d7a3a);border:none;">
+          <div style="padding:20px">
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:8px;">🏆 Why Get GRS Verified?</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+              <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">✅ Official GRS Certificate</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">🏅 Bronze/Silver/Gold Badge</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">🌿 Verified tick on bio page</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">📈 Higher buyer trust</div>
+            </div>
+            <!-- LEVELS -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+              <div style="background:rgba(205,127,50,0.2);border:1px solid rgba(205,127,50,0.5);border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:24px;margin-bottom:4px;">🥉</div>
+                <div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">GST + Product Photo + Pledge</div>
+              </div>
+              <div style="background:rgba(192,192,192,0.2);border:1px solid rgba(192,192,192,0.5);border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:24px;margin-bottom:4px;">🥈</div>
+                <div style="font-size:13px;font-weight:700;color:#c0c0c0;">Silver</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Bronze + Eco Certification</div>
+              </div>
+              <div style="background:rgba(255,215,0,0.2);border:1px solid rgba(255,215,0,0.5);border-radius:10px;padding:12px;text-align:center;">
+                <div style="font-size:24px;margin-bottom:4px;">🥇</div>
+                <div style="font-size:13px;font-weight:700;color:#ffd700;">Gold</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Silver + References + Call</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1 — BUSINESS PROOF -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">📋 Step 1 — Business Proof</div>
+            <span style="font-size:11px;color:var(--light)">Required for all levels</span>
+          </div>
+          <div style="padding:16px 0">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>GST Number *</label>
+                <input type="text" id="vf-gst" placeholder="e.g. 33AABCG1234F1Z5" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+              </div>
+              <div class="form-group">
+                <label>Business Registration Type *</label>
+                <select id="vf-reg-type" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+                  <option value="">Select Type</option>
+                  <option>GST Registered</option>
+                  <option>MSME / Udyam Registered</option>
+                  <option>Trade Licence</option>
+                  <option>Shop Establishment Certificate</option>
+                  <option>Company Registration (Pvt Ltd / LLP)</option>
+                </select>
+              </div>
+              <div class="form-group" style="grid-column:span 2">
+                <label>Upload Business Registration Document * (GST / MSME / Trade Licence)</label>
+                <div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('gst')">
+                  <div style="font-size:28px;margin-bottom:6px">📄</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload Document</div>
+                  <div style="font-size:11px;color:var(--light)">PDF or Image • Max 5MB</div>
+                </div>
+                <div id="vf-gst-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — PRODUCT PROOF -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">📦 Step 2 — Product Proof</div>
+            <span style="font-size:11px;color:var(--light)">Show us your eco products</span>
+          </div>
+          <div style="padding:16px 0">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Main Product Name *</label>
+                <input type="text" id="vf-product-name" placeholder="e.g. Organic Turmeric Powder" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+              </div>
+              <div class="form-group">
+                <label>Why is this product eco-friendly? *</label>
+                <input type="text" id="vf-eco-reason" placeholder="e.g. Chemical free, biodegradable, solar powered" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+              </div>
+              <div class="form-group" style="grid-column:span 2">
+                <label>Upload Product Photo * (Real photo of your actual product)</label>
+                <div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('product')">
+                  <div style="font-size:28px;margin-bottom:6px">📸</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload Product Photo</div>
+                  <div style="font-size:11px;color:var(--light)">JPG or PNG • Real product photo only</div>
+                </div>
+                <div id="vf-product-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 — ECO CERTIFICATION (Silver/Gold) -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">🌿 Step 3 — Eco Certification</div>
+            <span style="font-size:11px;color:#52b043;font-weight:600">Required for Silver & Gold • Optional for Bronze</span>
+          </div>
+          <div style="padding:16px 0">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Do you have any eco certification?</label>
+                <select id="vf-cert-type" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;" onchange="vfCertTypeChange(this.value)">
+                  <option value="none">No certification — applying for Bronze</option>
+                  <option value="organic">India Organic / NPOP</option>
+                  <option value="fssai">FSSAI Organic</option>
+                  <option value="iso14001">ISO 14001 — Environmental Management</option>
+                  <option value="bis">BIS Certification</option>
+                  <option value="gots">GOTS — Organic Textiles</option>
+                  <option value="usda">USDA Organic</option>
+                  <option value="eu">EU Organic</option>
+                  <option value="ecocert">Ecocert</option>
+                  <option value="other">Other eco certification</option>
+                </select>
+              </div>
+              <div class="form-group" id="vf-cert-name-wrap" style="display:none">
+                <label>Certification Name / Number</label>
+                <input type="text" id="vf-cert-name" placeholder="e.g. NPOP-2024-12345" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+              </div>
+              <div class="form-group" id="vf-cert-upload-wrap" style="display:none;grid-column:span 2">
+                <label>Upload Eco Certification Document</label>
+                <div style="border:2px dashed #52b043;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('cert')">
+                  <div style="font-size:28px;margin-bottom:6px">🏅</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Upload Certification Document</div>
+                  <div style="font-size:11px;color:var(--light)">PDF or Image • Max 5MB</div>
+                </div>
+                <div id="vf-cert-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 — CATEGORY SPECIFIC -->
+        <div class="card" style="margin-bottom:16px" id="vf-category-specific">
+          <div class="card-header">
+            <div class="card-title" id="vf-cat-title">📋 Step 4 — Category Specific</div>
+          </div>
+          <div style="padding:16px 0" id="vf-cat-content">
+            <p style="font-size:13px;color:var(--light)">Loading category-specific questions...</p>
+          </div>
+        </div>
+
+        <!-- STEP 5 — DELIVERY & SUPPLY -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header">
+            <div class="card-title">🚚 Step 5 — Supply Capability</div>
+            <span style="font-size:11px;color:var(--light)">Tell buyers where and how you supply</span>
+          </div>
+          <div style="padding:16px 0">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>States You Supply To *</label>
+                <select id="vf-supply-reach" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+                  <option value="">Select reach</option>
+                  <option>Local — City / District only</option>
+                  <option>State — Tamil Nadu only</option>
+                  <option>South India — TN, KL, KA, AP, TS</option>
+                  <option>Pan India — All states</option>
+                  <option>Pan India + Export</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Minimum Order Quantity *</label>
+                <input type="text" id="vf-moq" placeholder="e.g. 10 kg, 50 units, 1 tonne" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+              </div>
+              <div class="form-group">
+                <label>Typical Delivery Time *</label>
+                <select id="vf-delivery" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+                  <option>1-3 days</option>
+                  <option>3-7 days</option>
+                  <option>7-15 days</option>
+                  <option>15-30 days</option>
+                  <option>Made to order — 30+ days</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Enquiry Response Time *</label>
+                <select id="vf-response" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+                  <option>Within 2 hours</option>
+                  <option>Within 4 hours</option>
+                  <option>Within 24 hours</option>
+                  <option>Within 48 hours</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6 — GRS ECO CODE OF CONDUCT -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header"><div class="card-title">🤝 Step 6 — GRS Eco Code of Conduct</div></div>
+          <div style="padding:16px 0">
+            <div style="background:var(--g5);border-radius:10px;padding:16px;margin-bottom:16px;">
+              <div style="font-size:12px;font-weight:700;color:var(--g1);margin-bottom:10px;">By applying I confirm and agree:</div>
+              <div id="conduct-checks" style="display:flex;flex-direction:column;gap:8px;"></div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;background:#fff3e0;border-radius:10px;border:1px solid #ffcc02;">
+              <input type="checkbox" id="vf-pledge" style="margin-top:3px;width:16px;height:16px;accent-color:#2d7a3a;flex-shrink:0;"/>
+              <label for="vf-pledge" style="font-size:13px;color:#e65100;font-weight:600;cursor:pointer;">I have read and agree to the GRS Eco Code of Conduct. I confirm all information submitted is accurate. I understand that false information will result in permanent removal from GRS. *</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHICH LEVEL -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="card-header"><div class="card-title">🏅 Which Level Are You Applying For?</div></div>
+          <div style="padding:16px 0">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;" id="vf-level-select">
+              <div class="vf-level-btn" data-level="bronze" onclick="selectLevel('bronze')" style="border:2px solid #cd7f32;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fff8f0;">
+                <div style="font-size:28px;margin-bottom:6px;">🥉</div>
+                <div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div>
+                <div style="font-size:10px;color:#888;margin-top:4px;">GST + Photo + Pledge</div>
+              </div>
+              <div class="vf-level-btn" data-level="silver" onclick="selectLevel('silver')" style="border:2px solid #c0c0c0;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#f8f8f8;">
+                <div style="font-size:28px;margin-bottom:6px;">🥈</div>
+                <div style="font-size:13px;font-weight:700;color:#888;">Silver</div>
+                <div style="font-size:10px;color:#888;margin-top:4px;">+ Eco Certification</div>
+              </div>
+              <div class="vf-level-btn" data-level="gold" onclick="selectLevel('gold')" style="border:2px solid #ffd700;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fffbf0;">
+                <div style="font-size:28px;margin-bottom:6px;">🥇</div>
+                <div style="font-size:13px;font-weight:700;color:#b8860b;">Gold</div>
+                <div style="font-size:10px;color:#888;margin-top:4px;">+ References + Call</div>
+              </div>
+            </div>
+            <div id="vf-selected-level" style="margin-top:10px;text-align:center;font-size:13px;color:var(--g2);font-weight:600;"></div>
+          </div>
+        </div>
+
+        <div id="vf-alert" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:12px;"></div>
+        <button onclick="submitVerification()" id="vf-submit-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:24px;">🏆 Submit Verification Application</button>
+      </div>
+
+    </div>
+    <!-- ════════ END VERIFICATION SECTION ════════ -->
+
     <div id="section-profile" style="display:none">
+
+      <!-- BIO PAGE BANNER -->
+      <div id="bioPageBanner" style="display:none;background:linear-gradient(135deg,#1a4a24,#2d7a3a);border-radius:14px;padding:16px 20px;margin-bottom:16px;color:white;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">🌿 Your GRS Supplier Bio Page is Live!</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-bottom:10px;">Share this link on WhatsApp, Instagram, LinkedIn — everywhere!</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <div id="bioPageUrl" style="background:rgba(255,255,255,0.1);border-radius:8px;padding:7px 12px;font-size:12px;color:#a8d8a0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></div>
+          <button onclick="copyBioLink()" style="padding:7px 14px;background:#52b043;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 Copy</button>
+          <button onclick="openBioPage()" style="padding:7px 14px;background:rgba(255,255,255,0.15);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">👁️ View</button>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header"><div class="card-title">🏢 Business Profile</div></div>
         <div style="padding:20px 0">
           <div class="form-grid">
-            <div class="form-group">
-              <label>Business Name</label>
-              <input type="text" id="bp-business" placeholder="Your business name"/>
-            </div>
-            <div class="form-group">
-              <label>Owner Name</label>
-              <input type="text" id="bp-owner" placeholder="Your name"/>
-            </div>
-            <div class="form-group">
-              <label>Mobile</label>
-              <input type="tel" id="bp-mobile" placeholder="Your mobile"/>
-            </div>
-            <div class="form-group">
-              <label>City</label>
-              <input type="text" id="bp-city" placeholder="Your city"/>
-            </div>
-            <div class="form-group">
-              <label>State</label>
-              <input type="text" id="bp-state" placeholder="Your state"/>
-            </div>
-            <div class="form-group">
-              <label>Category</label>
-              <input type="text" id="bp-category" placeholder="Your business category"/>
+            <div class="form-group"><label>Business Name</label><input type="text" id="bp-business" placeholder="Your business name"/></div>
+            <div class="form-group"><label>Owner Name</label><input type="text" id="bp-owner" placeholder="Your name"/></div>
+            <div class="form-group"><label>Mobile / WhatsApp</label><input type="tel" id="bp-mobile" placeholder="Your mobile"/></div>
+            <div class="form-group"><label>City</label><input type="text" id="bp-city" placeholder="Your city"/></div>
+            <div class="form-group"><label>State</label><input type="text" id="bp-state" placeholder="Your state"/></div>
+            <div class="form-group"><label>Category</label><input type="text" id="bp-category" placeholder="Your business category"/></div>
+            <div class="form-group" style="grid-column:span 2"><label>About Your Business</label><textarea id="bp-description" style="height:80px;width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:inherit;font-size:13px;outline:none;" placeholder="Tell buyers what makes you eco-friendly..."></textarea></div>
+            <div class="form-group"><label>Website</label><input type="text" id="bp-website" placeholder="www.yourbusiness.com"/></div>
+            <div class="form-group"><label>Email</label><input type="email" id="bp-email" placeholder="business@email.com"/></div>
+          </div>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--g5)">
+            <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">📱 Social Media — Shown on Your Bio Page</div>
+            <div class="form-grid">
+              <div class="form-group"><label>📸 Instagram</label><input type="text" id="bp-instagram" placeholder="@yourbusiness or full URL"/></div>
+              <div class="form-group"><label>💼 LinkedIn</label><input type="text" id="bp-linkedin" placeholder="linkedin.com/company/yourco"/></div>
+              <div class="form-group"><label>▶️ YouTube</label><input type="text" id="bp-youtube" placeholder="youtube.com/@yourchannel"/></div>
+              <div class="form-group"><label>👥 Facebook</label><input type="text" id="bp-facebook" placeholder="facebook.com/yourpage"/></div>
             </div>
           </div>
-          <button onclick="saveProfile()" style="margin-top:16px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Profile</button>
+          <button onclick="saveProfile()" style="margin-top:16px;padding:12px 32px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">💾 Save & Update Bio Page</button>
           <div id="bp-msg" style="display:none;margin-top:12px;padding:10px;border-radius:8px;font-size:13px;"></div>
         </div>
       </div>
@@ -861,13 +1120,14 @@ function logout() {
   window.location.href = '/login';
 }
 
-const sections = ['overview','enquiries','products','add-product','analytics','profile','reviews','settings'];
+const sections = ['overview','enquiries','products','add-product','analytics','verification','profile','reviews','settings'];
 const titles = {
   'overview': ['Dashboard Overview', ''],
   'enquiries': ['My Enquiries', 'Manage all buyer enquiries from here.'],
   'products': ['My Products', 'Manage your product listings.'],
   'add-product': ['Add New Product', 'Add a new eco product to your listing.'],
   'analytics': ['Analytics', 'Track your business performance.'],
+  'verification': ['GRS Verification', 'Apply for your GRS Verified badge and certificate.'],
   'profile': ['Business Profile', 'Manage your business details.'],
   'reviews': ['Reviews & Ratings', 'See what buyers say about you.'],
   'settings': ['Settings', 'Manage your account settings.'],
@@ -891,11 +1151,9 @@ function showSection(name, el){
     if(sb && bd && sb.classList.contains('open')) {
       sb.classList.remove('open');
       bd.classList.remove('show');
-    }
-  }
+  if(name === 'profile') loadProfileForm();
+  if(name === 'verification') loadVerificationSection();
 }
-
-function toggleSidebar(){
   const sb = document.querySelector('.sidebar');
   const bd = document.getElementById('sidebarBackdrop');
   if(sb && bd) {
@@ -919,7 +1177,7 @@ async function loadMyProducts2(){
     '</tbody></table>';
 }
 
-function loadProfileForm(){
+async function loadProfileForm(){
   const u = currentUser;
   const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
   setVal('bp-business', u.business);
@@ -928,6 +1186,41 @@ function loadProfileForm(){
   setVal('bp-city', u.city);
   setVal('bp-state', u.state);
   setVal('bp-category', u.category);
+  // Load full supplier data for extra fields
+  try{
+    const {data} = await supabaseClient.from('suppliers').select('*').eq('id', u.id);
+    if(data&&data.length>0){
+      const s=data[0];
+      setVal('bp-description', s.description);
+      setVal('bp-website', s.website);
+      setVal('bp-email', s.email);
+      setVal('bp-instagram', s.instagram);
+      setVal('bp-linkedin', s.linkedin);
+      setVal('bp-youtube', s.youtube);
+      setVal('bp-facebook', s.facebook);
+    }
+  }catch(e){}
+  // Show bio page banner
+  const bioUrl = `https://www.greenrootssmart.com/store?id=${u.id}`;
+  const banner = document.getElementById('bioPageBanner');
+  const urlEl = document.getElementById('bioPageUrl');
+  if(banner){ banner.style.display='block'; }
+  if(urlEl){ urlEl.textContent = bioUrl; }
+}
+
+function copyBioLink(){
+  const u = currentUser;
+  const bioUrl = `https://www.greenrootssmart.com/store?id=${u.id}`;
+  navigator.clipboard.writeText(bioUrl).then(()=>{
+    const btn = event.target;
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy', 2000);
+  });
+}
+
+function openBioPage(){
+  const u = currentUser;
+  window.open(`https://www.greenrootssmart.com/store?id=${u.id}`, '_blank');
 }
 
 async function saveProfile(){
@@ -938,22 +1231,308 @@ async function saveProfile(){
     city: document.getElementById('bp-city').value.trim(),
     state: document.getElementById('bp-state').value.trim(),
     category: document.getElementById('bp-category').value.trim(),
+    description: document.getElementById('bp-description').value.trim(),
+    website: document.getElementById('bp-website').value.trim(),
+    email: document.getElementById('bp-email').value.trim(),
+    instagram: document.getElementById('bp-instagram').value.trim(),
+    linkedin: document.getElementById('bp-linkedin').value.trim(),
+    youtube: document.getElementById('bp-youtube').value.trim(),
+    facebook: document.getElementById('bp-facebook').value.trim(),
   };
   const { error } = await supabaseClient.from('suppliers').update(updates).eq('id', currentUser.id);
   const msg = document.getElementById('bp-msg');
   if(error){
     msg.style.display='block'; msg.style.background='#fce4ec'; msg.style.color='#c62828'; msg.textContent='Error: '+error.message;
   } else {
-    msg.style.display='block'; msg.style.background='#e8f5e2'; msg.style.color='#2d7a3a'; msg.textContent='✅ Profile saved!';
-    // Update localStorage
+    msg.style.display='block'; msg.style.background='#e8f5e2'; msg.style.color='#2d7a3a'; msg.textContent='✅ Profile & Bio Page updated! Share your bio link now 🌿';
     currentUser.business = updates.business_name;
     currentUser.name = updates.owner_name;
     localStorage.setItem('grs_user', JSON.stringify(currentUser));
   }
-  setTimeout(()=>msg.style.display='none', 3000);
+  setTimeout(()=>msg.style.display='none', 4000);
 }
 
 window.onload = initDashboard;
+
+// ══════════════════════════════════════
+// GRS VERIFICATION SYSTEM
+// ══════════════════════════════════════
+
+let vfLevel = 'bronze';
+let vfGstUrl = '';
+let vfProductUrl = '';
+let vfCertUrl = '';
+
+// Category specific questions
+const CAT_QUESTIONS = {
+  'Solar Energy': [
+    {id:'vf-cat-1', q:'What solar products do you sell? (panels, inverters, batteries, EPC)', type:'text', placeholder:'e.g. Monocrystalline panels, hybrid inverters'},
+    {id:'vf-cat-2', q:'Do your solar panels have BIS / IEC certification?', type:'select', options:['Yes — BIS certified','Yes — IEC certified','No — but manufacturer certified','Planning to get certified']},
+    {id:'vf-cat-3', q:'Annual supply capacity (in MW or units)?', type:'text', placeholder:'e.g. 5 MW/year or 1000 units/year'},
+  ],
+  'Organic Farming': [
+    {id:'vf-cat-1', q:'What organic products do you supply?', type:'text', placeholder:'e.g. Vermicompost, bio fertilizers, organic seeds'},
+    {id:'vf-cat-2', q:'Are your products certified organic?', type:'select', options:['Yes — India Organic (NPOP)','Yes — PGS India','Yes — FSSAI Organic','No — natural/chemical free but not certified','Applying for certification']},
+    {id:'vf-cat-3', q:'Do you supply to FPOs or work with farmer groups?', type:'select', options:['Yes — part of FPO','Yes — work with multiple farmers','No — individual supplier']},
+  ],
+  'Eco Packaging': [
+    {id:'vf-cat-1', q:'What eco packaging materials do you work with?', type:'text', placeholder:'e.g. Bagasse, kraft paper, biodegradable bags, bamboo'},
+    {id:'vf-cat-2', q:'Is your packaging compostable/biodegradable certified?', type:'select', options:['Yes — IS 17088 certified','Yes — EN 13432 certified','No — but made from natural materials','Not certified yet']},
+    {id:'vf-cat-3', q:'Can you do custom printing/branding on packaging?', type:'select', options:['Yes — full custom printing','Yes — basic printing','No — plain packaging only']},
+  ],
+  'Water Technology': [
+    {id:'vf-cat-1', q:'What water technology products/services do you offer?', type:'text', placeholder:'e.g. RO systems, water treatment plants, rainwater harvesting'},
+    {id:'vf-cat-2', q:'Do your products have any quality certifications?', type:'select', options:['Yes — BIS certified','Yes — NSF/ANSI certified','Yes — ISO certified','No formal certification']},
+    {id:'vf-cat-3', q:'Do you offer installation and after-sales service?', type:'select', options:['Yes — full installation + AMC','Yes — installation only','No — product supply only']},
+  ],
+  'Waste Management': [
+    {id:'vf-cat-1', q:'What waste management solutions do you provide?', type:'text', placeholder:'e.g. Composting, biogas, recycling equipment, e-waste'},
+    {id:'vf-cat-2', q:'Are you registered with any pollution control board?', type:'select', options:['Yes — CPCB registered','Yes — State PCB registered','No — but compliant','Not applicable']},
+    {id:'vf-cat-3', q:'Do you provide waste audit or consultancy services?', type:'select', options:['Yes','No','Planning to offer']},
+  ],
+  'Green Building': [
+    {id:'vf-cat-1', q:'What green building products/services do you offer?', type:'text', placeholder:'e.g. Fly ash bricks, bamboo construction, low VOC paints'},
+    {id:'vf-cat-2', q:'Do your products contribute to LEED/GRIHA points?', type:'select', options:['Yes — LEED certified','Yes — GRIHA rated','Yes — BEE rated','Not certified but eco materials']},
+    {id:'vf-cat-3', q:'Minimum project size you can serve?', type:'select', options:['Any size — individual homes','Small commercial — up to 5000 sqft','Medium commercial — up to 50000 sqft','Large commercial/industrial projects']},
+  ],
+  'EV Components': [
+    {id:'vf-cat-1', q:'What EV components do you supply?', type:'text', placeholder:'e.g. Lithium batteries, BMS, motors, charging stations'},
+    {id:'vf-cat-2', q:'Are your EV components AIS/BIS certified?', type:'select', options:['Yes — AIS certified','Yes — BIS certified','Yes — manufacturer certified','Not certified yet']},
+    {id:'vf-cat-3', q:'Which EV segments do you cater to?', type:'select', options:['Two wheelers','Three wheelers / auto','Cars / four wheelers','Buses / commercial','All segments']},
+  ],
+};
+
+function getDefaultCatQuestions(cat){
+  return [
+    {id:'vf-cat-1', q:`What specific ${cat} products/services do you offer?`, type:'text', placeholder:'Describe your main offerings'},
+    {id:'vf-cat-2', q:'How long have you been in this eco business?', type:'select', options:['Less than 1 year','1-3 years','3-5 years','More than 5 years']},
+    {id:'vf-cat-3', q:'Do you supply to other businesses (B2B)?', type:'select', options:['Yes — primarily B2B','Yes — both B2B and B2C','Mostly B2C but open to B2B']},
+  ];
+}
+
+const CONDUCT_PLEDGES = [
+  'My products are genuinely eco-friendly — no greenwashing',
+  'All product descriptions on GRS are honest and accurate',
+  'I will respond to buyer enquiries within 48 hours',
+  'I will not list non-eco products on GRS',
+  'I will inform GRS if my product or business changes significantly',
+  'I will not misuse the GRS Verified badge',
+  'I accept GRS may revoke verification if I violate these rules',
+];
+
+function loadVerificationSection(){
+  // Check existing verification status
+  loadVerifStatus();
+  // Load conduct pledges
+  const cc = document.getElementById('conduct-checks');
+  if(cc){
+    cc.innerHTML = CONDUCT_PLEDGES.map((p,i)=>`
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <span style="color:#52b043;font-size:14px;flex-shrink:0;">✅</span>
+        <span style="font-size:12px;color:var(--mid);">${p}</span>
+      </div>`).join('');
+  }
+  // Load category questions
+  loadCatQuestions();
+  // Set default level
+  selectLevel('bronze');
+  // Pre-fill GST if available
+  if(currentUser){
+    const gstEl = document.getElementById('vf-gst');
+    if(gstEl && currentUser.gst) gstEl.value = currentUser.gst;
+  }
+}
+
+async function loadVerifStatus(){
+  try{
+    const {data} = await supabaseClient.from('verifications').select('*').eq('supplier_id', currentUser.id).order('applied_at', {ascending:false}).limit(1);
+    const card = document.getElementById('verif-status-card');
+    if(!data||!data.length){
+      card.innerHTML = `<div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;"><div style="font-size:28px;">🏅</div><div><div style="font-size:13px;font-weight:700;color:#e65100;">Not Verified Yet</div><div style="font-size:12px;color:#888;">Fill the form below and apply for your GRS Verified badge!</div></div></div>`;
+      document.getElementById('verif-nav-badge').style.display='inline-block';
+      return;
+    }
+    const v=data[0];
+    const statusColor = v.status==='approved'?'#e8f5e2':v.status==='rejected'?'#fce4ec':'#fff3e0';
+    const statusTextColor = v.status==='approved'?'#2d7a3a':v.status==='rejected'?'#c62828':'#e65100';
+    const statusIcon = v.status==='approved'?getBadgeEmoji(v.level):v.status==='rejected'?'❌':'⏳';
+    const statusText = v.status==='approved'?`🎉 You are GRS ${capitalize(v.level||'Bronze')} Verified!`:v.status==='rejected'?'Application Rejected':'Application Under Review';
+    const statusSub = v.status==='approved'?`Certificate No: GRS-2026-${String(currentUser.id).padStart(4,'0')} · Share your bio page proudly!`:v.status==='rejected'?`Reason: ${v.rejection_reason||'Please reapply with correct documents.'}`:'Our team will review within 48 hours. You will be notified.';
+    card.innerHTML = `
+      <div style="background:${statusColor};border-radius:12px;padding:16px 18px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:${v.status==='approved'?'12':'0'}px">
+          <div style="font-size:36px;">${statusIcon}</div>
+          <div><div style="font-size:14px;font-weight:700;color:${statusTextColor};">${statusText}</div><div style="font-size:12px;color:#666;">${statusSub}</div></div>
+        </div>
+        ${v.status==='approved'?`
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button onclick="copyBioLink()" style="padding:8px 16px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 Copy Bio Link</button>
+          <button onclick="openBioPage()" style="padding:8px 16px;background:white;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">👁️ View Bio Page</button>
+        </div>`:''}
+      </div>
+      ${v.status==='rejected'?'<div style="margin-bottom:12px;font-size:13px;color:var(--mid);font-weight:600;">You can reapply by filling the form below:</div>':''}
+      ${v.status==='pending'?'<div style="display:none">' : ''}`;
+    if(v.status==='approved'){
+      document.getElementById('verif-apply-form').style.display='none';
+      document.getElementById('verif-nav-badge').style.display='none';
+    }
+  }catch(e){console.error('Verif status error:',e);}
+}
+
+function getBadgeEmoji(level){
+  if(level==='gold') return '🥇';
+  if(level==='silver') return '🥈';
+  return '🥉';
+}
+
+function capitalize(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
+
+function loadCatQuestions(){
+  const cat = currentUser?.category?.replace(/[☀️🌾📦♻️💧🏗️🚗🔋👗🌿🌬️⚡🚌🌱🧪🏙️🌍🌄📈📋🌐]\s*/g,'').trim();
+  const questions = CAT_QUESTIONS[cat] || getDefaultCatQuestions(cat||'Eco Products');
+  const titleEl = document.getElementById('vf-cat-title');
+  const contentEl = document.getElementById('vf-cat-content');
+  if(titleEl) titleEl.textContent = `📋 Step 4 — ${cat||'Your Category'} Specific Questions`;
+  if(contentEl){
+    contentEl.innerHTML = `<div class="form-grid">${questions.map(q=>`
+      <div class="form-group">
+        <label>${q.q} *</label>
+        ${q.type==='text'
+          ?`<input type="text" id="${q.id}" placeholder="${q.placeholder}" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>`
+          :`<select id="${q.id}" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">${q.options.map(o=>`<option>${o}</option>`).join('')}</select>`
+        }
+      </div>`).join('')}</div>`;
+  }
+}
+
+function vfCertTypeChange(val){
+  const nameWrap = document.getElementById('vf-cert-name-wrap');
+  const uploadWrap = document.getElementById('vf-cert-upload-wrap');
+  if(val==='none'){
+    if(nameWrap) nameWrap.style.display='none';
+    if(uploadWrap) uploadWrap.style.display='none';
+  } else {
+    if(nameWrap) nameWrap.style.display='block';
+    if(uploadWrap) uploadWrap.style.display='block';
+  }
+}
+
+function selectLevel(level){
+  vfLevel = level;
+  document.querySelectorAll('.vf-level-btn').forEach(btn=>{
+    const l = btn.getAttribute('data-level');
+    btn.style.transform = l===level?'scale(1.05)':'scale(1)';
+    btn.style.boxShadow = l===level?'0 4px 16px rgba(45,122,58,0.2)':'none';
+  });
+  const info = {
+    bronze:'🥉 Bronze — GST + Product Photo + Code of Conduct pledge',
+    silver:'🥈 Silver — All Bronze requirements + Any eco certification',
+    gold:'🥇 Gold — All Silver requirements + Customer references + GRS video call'
+  };
+  const el = document.getElementById('vf-selected-level');
+  if(el) el.textContent = info[level]||'';
+}
+
+function vfUpload(type){
+  if(!window.cloudinary) return vfShowAlert('Upload not ready. Please try again.','error');
+  const widget = cloudinary.createUploadWidget({
+    cloudName:'dvbaciabk', uploadPreset:'grs_products',
+    sources:['local'], multiple:false,
+    clientAllowedFormats:['jpg','png','pdf','jpeg'],
+    maxFileSize:5000000,
+  }, (error, result)=>{
+    if(result.event==='success'){
+      const url = result.info.secure_url;
+      if(type==='gst'){ vfGstUrl=url; document.getElementById('vf-gst-preview').innerHTML=`✅ Document uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
+      if(type==='product'){ vfProductUrl=url; document.getElementById('vf-product-preview').innerHTML=`✅ Photo uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
+      if(type==='cert'){ vfCertUrl=url; document.getElementById('vf-cert-preview').innerHTML=`✅ Certificate uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
+    }
+  });
+  widget.open();
+}
+
+function vfShowAlert(msg, type='error'){
+  const el = document.getElementById('vf-alert');
+  if(!el) return;
+  el.style.display='block';
+  el.style.background = type==='success'?'#e8f5e2':'#fce4ec';
+  el.style.color = type==='success'?'#2d7a3a':'#c62828';
+  el.textContent = msg;
+  if(type!=='success') setTimeout(()=>el.style.display='none',5000);
+}
+
+async function submitVerification(){
+  // Validate required fields
+  const gst = document.getElementById('vf-gst')?.value.trim();
+  const regType = document.getElementById('vf-reg-type')?.value;
+  const productName = document.getElementById('vf-product-name')?.value.trim();
+  const ecoReason = document.getElementById('vf-eco-reason')?.value.trim();
+  const supplyReach = document.getElementById('vf-supply-reach')?.value;
+  const moq = document.getElementById('vf-moq')?.value.trim();
+  const pledge = document.getElementById('vf-pledge')?.checked;
+
+  if(!gst) return vfShowAlert('Please enter your GST number!');
+  if(!regType) return vfShowAlert('Please select your registration type!');
+  if(!vfGstUrl) return vfShowAlert('Please upload your business registration document!');
+  if(!productName) return vfShowAlert('Please enter your main product name!');
+  if(!ecoReason) return vfShowAlert('Please explain why your product is eco-friendly!');
+  if(!vfProductUrl) return vfShowAlert('Please upload a product photo!');
+  if(!supplyReach) return vfShowAlert('Please select your supply reach!');
+  if(!moq) return vfShowAlert('Please enter your minimum order quantity!');
+  if(!pledge) return vfShowAlert('Please agree to the GRS Eco Code of Conduct!');
+
+  // Silver/Gold requires certification
+  if((vfLevel==='silver'||vfLevel==='gold') && document.getElementById('vf-cert-type')?.value==='none'){
+    return vfShowAlert('Silver and Gold levels require an eco certification. Please upload your certification or apply for Bronze.');
+  }
+
+  const btn = document.getElementById('vf-submit-btn');
+  btn.disabled=true; btn.textContent='Submitting...';
+
+  // Collect cat questions
+  const catAnswers = {};
+  ['vf-cat-1','vf-cat-2','vf-cat-3'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) catAnswers[id]=el.value;
+  });
+
+  const data = {
+    supplier_id: currentUser.id,
+    supplier_name: currentUser.business,
+    category: currentUser.category,
+    level: vfLevel,
+    gst_number: gst,
+    reg_type: regType,
+    gst_doc_url: vfGstUrl,
+    product_name: productName,
+    eco_reason: ecoReason,
+    product_photo_url: vfProductUrl,
+    cert_type: document.getElementById('vf-cert-type')?.value||'none',
+    cert_name: document.getElementById('vf-cert-name')?.value||'',
+    cert_doc_url: vfCertUrl||null,
+    supply_reach: supplyReach,
+    moq: moq,
+    delivery_time: document.getElementById('vf-delivery')?.value||'',
+    response_time: document.getElementById('vf-response')?.value||'',
+    cat_answers: JSON.stringify(catAnswers),
+    code_signed: true,
+    status: 'pending',
+    applied_at: new Date().toISOString(),
+  };
+
+  try{
+    const {error} = await supabaseClient.from('verifications').insert([data]);
+    if(error){ vfShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent='🏆 Submit Verification Application'; return; }
+    vfShowAlert('🎉 Application submitted successfully! Our team will review within 48 hours.','success');
+    btn.textContent='✅ Application Submitted!';
+    setTimeout(()=>loadVerifStatus(), 2000);
+  }catch(e){
+    vfShowAlert('Something went wrong. Please try again.');
+    btn.disabled=false; btn.textContent='🏆 Submit Verification Application';
+  }
+}
+// END VERIFICATION SYSTEM
+
 </script>
 
 
