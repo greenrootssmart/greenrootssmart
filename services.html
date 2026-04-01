@@ -541,7 +541,7 @@ function renderProviders(providers) {
     const waNum = (p.phone || '').replace(/\D/g,'');
     const waMsg = encodeURIComponent(`Hi! I found your service "${p.service_name || p.name}" on Green Roots Smart. I am interested. Please share details.`);
 
-    return `<div class="service-card">
+    return `<div class="service-card" style="cursor:pointer;" onclick="window.location.href='/service-detail?id=${p.id}'">
       <div class="card-top">
         <div class="card-icon" style="background:${color}">${icon}</div>
         <span class="avail-badge ${availClass}">${availText}</span>
