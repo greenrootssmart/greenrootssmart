@@ -1009,7 +1009,10 @@ async function addServiceProvider() {
     experience: document.getElementById('svc-exp').value.trim(),
     availability: document.getElementById('svc-avail').value,
     description: document.getElementById('svc-desc').value.trim(),
-    verified: true,
+    verified: false,
+    manually_added: true,
+    claimed: false,
+    status: 'unclaimed',
     created_at: new Date().toISOString(),
   };
 

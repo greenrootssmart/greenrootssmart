@@ -266,7 +266,11 @@ async function renderProvider(p){
             <div class="hero-tags">
               <span class="h-tag cat">${p.category||'Eco Service'}</span>
               <span class="h-tag avail ${availClass}">${availText}</span>
-              ${p.verified?'<span class="h-tag verified">✅ GRS Verified</span>':'<span class="h-tag verified">🌿 GRS Listed</span>'}
+              ${p.manually_added && !p.claimed
+                ? '<span class="h-tag" style="background:#fff3e0;color:#e65100;">🔔 Unclaimed Profile</span>'
+                : p.verified
+                  ? '<span class="h-tag verified">✅ GRS Verified</span>'
+                  : '<span class="h-tag verified">🌿 GRS Listed</span>'}
               ${p.experience?`<span class="h-tag cat">${p.experience} Experience</span>`:''}
             </div>
           </div>
@@ -375,8 +379,14 @@ async function renderProvider(p){
             ${availText}
           </div>
 
-          ${waNum?`<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa" onclick="grsTrackWA('${(company||name).replace(/'/g,"\\'")}',${p.id},'${name.replace(/'/g,"\\'")}')">💬 WhatsApp Now</a>`:''}
-          <button class="btn-enq" onclick="openModal()">📩 Send Enquiry</button>
+          ${p.manually_added && !p.claimed ? `
+            <div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:16px;margin-bottom:14px;text-align:center;">
+              <div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px;">🔔 This is an Unclaimed Profile</div>
+              <div style="font-size:12px;color:#888;margin-bottom:12px;">Is this your business? Claim it to manage your profile.</div>
+              <a href="/claim-profile" style="display:block;padding:10px;background:#e65100;color:white;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;">Claim This Profile →</a>
+            </div>
+          ` : `          ${waNum?`<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa" onclick="grsTrackWA('${(company||name).replace(/'/g,"\\'")}',${p.id},'${name.replace(/'/g,"\\'")}')">💬 WhatsApp Now</a>`:''}
+          <button class="btn-enq" onclick="openModal()">📩 Send Enquiry</button>\`}
 
           <hr class="cc-sep"/>
 

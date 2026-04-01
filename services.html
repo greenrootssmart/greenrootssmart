@@ -552,6 +552,7 @@ function renderProviders(providers) {
       <div class="card-tags">
         <span class="card-tag">${p.category || 'Eco Service'}</span>
         ${p.verified ? '<span class="card-tag">✅ Verified</span>' : ''}
+        ${p.manually_added && !p.claimed ? '<span style="background:#fff3e0;color:#e65100;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:700;">🔔 Unclaimed</span>' : ''}
         ${p.experience ? `<span class="card-tag">${p.experience}</span>` : ''}
       </div>
       <div class="card-footer">
