@@ -418,6 +418,47 @@ function copyToClipboard(text){
 function openEnq(){document.getElementById('enqModal').classList.add('open');}
 function closeEnq(){document.getElementById('enqModal').classList.remove('open');}
 
+
+// ═══════════════════════════════════════════════════
+// GRS NOTIFICATION SYSTEM
+// ═══════════════════════════════════════════════════
+const GRS_EMAILJS_SERVICE = 'service_clis9zo';
+const GRS_EMAILJS_TEMPLATE = 'template_7gj9klp';
+
+async function grsNotifyAdmin(data){
+  try{
+    if(typeof emailjs === 'undefined') return;
+    await emailjs.send(GRS_EMAILJS_SERVICE, GRS_EMAILJS_TEMPLATE, {
+      to_name: 'Dinesh — GRS Admin',
+      from_name: data.buyer_name || 'Buyer',
+      buyer_name: data.buyer_name || 'Unknown Buyer',
+      buyer_mobile: data.buyer_mobile || '—',
+      buyer_email: data.buyer_email || '—',
+      product_name: data.product_name || 'General Enquiry',
+      supplier_name: data.supplier_name || '—',
+      quantity: data.quantity || 'Not specified',
+      message: data.message || '—',
+      enquiry_type: data.enquiry_type || 'Form Enquiry',
+      page_source: window.location.href,
+      timestamp: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    });
+    console.log('✅ GRS Admin notified!');
+  }catch(e){ console.log('Admin notify (non-critical):', e?.text||e?.message||e); }
+}
+
+async function grsTrackWA(supplierName, supplierId, productName){
+  try{
+    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+    await fetch(SURL+'/rest/v1/wa_clicks',{
+      method:'POST',
+      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({supplier_name:supplierName,supplier_id:supplierId||null,product_name:productName||null,page:window.location.pathname,clicked_at:new Date().toISOString()})
+    });
+  }catch(e){}
+}
+// ═══════════════════════════════════════════════════
+
 async function sendEnquiry(){
   const name=document.getElementById('enqName').value.trim();
   const mobile=document.getElementById('enqMobile').value.trim();
@@ -435,6 +476,7 @@ async function sendEnquiry(){
       message:msg,status:'new',created_at:new Date().toISOString()
     }]);
     showEnqAlert('✅ Enquiry sent! Supplier will contact you soon.','success');
+    grsNotifyAdmin({buyer_name:document.getElementById('enqName').value,buyer_mobile:document.getElementById('enqMobile').value,buyer_email:document.getElementById('enqEmail')?.value||'',supplier_name:currentSupplier?.business_name||'',product_name:'Bio Page Enquiry — '+(currentSupplier?.business_name||''),message:document.getElementById('enqMsg').value,enquiry_type:'Store Bio Page Enquiry'});
     btn.textContent='✅ Sent!';
     setTimeout(closeEnq,2000);
   }catch(e){showEnqAlert('Something went wrong. Please try WhatsApp directly.');btn.disabled=false;btn.textContent='📩 Send Enquiry';}

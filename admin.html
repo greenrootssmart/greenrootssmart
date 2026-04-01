@@ -143,6 +143,7 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
     <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
     <div class="nav-section">System</div>
+    <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
   </nav>
@@ -504,6 +505,49 @@ tr:hover td{background:#fafffe;}
 
     <!-- SETTINGS -->
 
+
+    <!-- ═══════ LEAD ANALYTICS SECTION ═══════ -->
+    <div id="section-analytics_section" class="section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);">📊 Lead Analytics</h2>
+          <p style="font-size:13px;color:var(--light);">All buyer enquiries + WhatsApp clicks across GRS</p>
+        </div>
+        <button onclick="sendWeeklySummary()" style="padding:10px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">📧 Send Weekly Summary to Email</button>
+      </div>
+
+      <!-- STATS ROW -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;" id="leadStatsRow">
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);" id="totalEnquiries">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">Total Enquiries</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#25D366;" id="totalWAClicks">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">WhatsApp Clicks</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#f59e0b;" id="thisWeekLeads">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">This Week</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#7e57c2;" id="uniqueSuppliers">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">Suppliers Contacted</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <button onclick="loadLeadTab('enquiries')" id="ltab-enq" style="padding:8px 18px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📩 Form Enquiries</button>
+        <button onclick="loadLeadTab('wa')" id="ltab-wa" style="padding:8px 18px;background:#e8f5e2;color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">💬 WhatsApp Clicks</button>
+      </div>
+
+      <div id="leadsList">
+        <div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading leads...</div>
+      </div>
+    </div>
+    <!-- ═══════ END LEAD ANALYTICS ═══════ -->
+
     <!-- ═══════ VERIFICATIONS SECTION ═══════ -->
     <div id="section-verifications" class="section">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
@@ -646,6 +690,7 @@ function checkAdminAccess() {
 
 async function initAdmin() {
   loadVerifBadgeCount();
+  loadLeadAnalyticsBadge();
   if (!checkAdminAccess()) return;
   await loadAllData();
   await loadSvcProviders();
@@ -880,6 +925,7 @@ const pageTitles = {
 
 function showSection(name, el) {
   if(name==='verifications') setTimeout(()=>loadVerifications('pending'),100);
+  if(name==='analytics_section') setTimeout(()=>loadLeadAnalytics(),100);
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('section-' + name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -1353,6 +1399,14 @@ function showAdminToast(msg, type='success'){
   setTimeout(()=>toast.remove(), 4000);
 }
 
+async function loadLeadAnalyticsBadge(){
+  try{
+    const {data} = await supabaseClient.from('enquiries').select('id').eq('status','new');
+    const badge = document.getElementById('newLeadsBadge');
+    if(badge && data && data.length>0){ badge.style.display='inline-block'; badge.textContent=data.length; }
+  }catch(e){}
+}
+
 async function loadVerifBadgeCount(){
   try{
     const {data} = await supabaseClient.from('verifications').select('id',{count:'exact'}).eq('status','pending');
@@ -1364,6 +1418,135 @@ async function loadVerifBadgeCount(){
   }catch(e){}
 }
 // END VERIFICATION ADMIN
+
+
+// ═══════════════════════════════════════════════════
+// LEAD ANALYTICS
+// ═══════════════════════════════════════════════════
+let currentLeadTab = 'enquiries';
+
+async function loadLeadAnalytics(){
+  try{
+    // Load enquiries count
+    const {data:enqs} = await supabaseClient.from('enquiries').select('id,created_at,supplier_name,buyer_name,buyer_mobile,product_name,status,enquiry_type').order('created_at',{ascending:false}).limit(200);
+    const enquiries = enqs||[];
+
+    // Load WA clicks
+    let waClicks = [];
+    try{
+      const {data:wa} = await supabaseClient.from('wa_clicks').select('*').order('clicked_at',{ascending:false}).limit(200);
+      waClicks = wa||[];
+    }catch(e){}
+
+    // This week
+    const weekAgo = new Date(Date.now()-7*24*60*60*1000).toISOString();
+    const thisWeek = enquiries.filter(e=>e.created_at>weekAgo).length + waClicks.filter(w=>w.clicked_at>weekAgo).length;
+
+    // Unique suppliers contacted
+    const suppSet = new Set([
+      ...enquiries.map(e=>e.supplier_name).filter(Boolean),
+      ...waClicks.map(w=>w.supplier_name).filter(Boolean)
+    ]);
+
+    document.getElementById('totalEnquiries').textContent = enquiries.length;
+    document.getElementById('totalWAClicks').textContent = waClicks.length;
+    document.getElementById('thisWeekLeads').textContent = thisWeek;
+    document.getElementById('uniqueSuppliers').textContent = suppSet.size;
+
+    // Update badge
+    const newLeads = enquiries.filter(e=>e.status==='new').length;
+    const badge = document.getElementById('newLeadsBadge');
+    if(badge && newLeads>0){ badge.style.display='inline-block'; badge.textContent=newLeads; }
+
+    // Store for tab switching
+    window._grsEnquiries = enquiries;
+    window._grsWAClicks = waClicks;
+
+    loadLeadTab('enquiries');
+  }catch(e){ console.error('Lead analytics error:',e); }
+}
+
+function loadLeadTab(tab){
+  currentLeadTab = tab;
+  // Update tab buttons
+  document.getElementById('ltab-enq').style.background = tab==='enquiries'?'var(--g2)':'#e8f5e2';
+  document.getElementById('ltab-enq').style.color = tab==='enquiries'?'white':'var(--g2)';
+  document.getElementById('ltab-wa').style.background = tab==='wa'?'#25D366':'#e8f5e2';
+  document.getElementById('ltab-wa').style.color = tab==='wa'?'white':'var(--g2)';
+
+  const list = document.getElementById('leadsList');
+
+  if(tab==='enquiries'){
+    const data = window._grsEnquiries||[];
+    if(!data.length){ list.innerHTML='<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No enquiries yet 🌿</div>'; return; }
+    list.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:2px solid var(--g5)">
+        <th style="text-align:left;padding:10px;color:var(--mid)">Buyer</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Mobile</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Product / Supplier</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Type</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Date</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+      </tr></thead>
+      <tbody>${data.map(e=>`
+        <tr style="border-bottom:1px solid var(--g5)">
+          <td style="padding:10px;font-weight:600">${e.buyer_name||'—'}</td>
+          <td style="padding:10px"><a href="tel:${e.buyer_mobile}" style="color:var(--g2)">${e.buyer_mobile||'—'}</a></td>
+          <td style="padding:10px;color:var(--mid)">${e.product_name||e.supplier_name||'—'}</td>
+          <td style="padding:10px;font-size:11px;color:#666">${e.enquiry_type||'Form'}</td>
+          <td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+          <td style="padding:10px"><span style="background:${e.status==='new'?'#e8f5e2':'#f5f5f5'};color:${e.status==='new'?'#2d7a3a':'#666'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${e.status||'new'}</span></td>
+        </tr>`).join('')}
+      </tbody></table>`;
+  } else {
+    const data = window._grsWAClicks||[];
+    if(!data.length){ list.innerHTML='<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No WhatsApp clicks tracked yet 🌿</div>'; return; }
+    list.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:2px solid var(--g5)">
+        <th style="text-align:left;padding:10px;color:var(--mid)">Supplier</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Page</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Date & Time</th>
+      </tr></thead>
+      <tbody>${data.map(w=>`
+        <tr style="border-bottom:1px solid var(--g5)">
+          <td style="padding:10px;font-weight:600">${w.supplier_name||'—'}</td>
+          <td style="padding:10px;color:var(--mid)">${w.product_name||'—'}</td>
+          <td style="padding:10px;font-size:11px;color:#666">${w.page||'—'}</td>
+          <td style="padding:10px;color:var(--light)">${new Date(w.clicked_at).toLocaleString('en-IN')}</td>
+        </tr>`).join('')}
+      </tbody></table>`;
+  }
+}
+
+async function sendWeeklySummary(){
+  const enqs = window._grsEnquiries||[];
+  const wa = window._grsWAClicks||[];
+  const weekAgo = new Date(Date.now()-7*24*60*60*1000).toISOString();
+  const weekEnqs = enqs.filter(e=>e.created_at>weekAgo);
+  const weekWA = wa.filter(w=>w.clicked_at>weekAgo);
+
+  try{
+    await emailjs.send('service_clis9zo','template_7gj9klp',{
+      to_name: 'Dinesh — GRS Admin',
+      from_name: 'GRS System',
+      buyer_name: 'Weekly Summary Report',
+      buyer_mobile: weekEnqs.length + ' form enquiries this week',
+      buyer_email: 'greenrootssmart@gmail.com',
+      product_name: weekWA.length + ' WhatsApp clicks this week',
+      supplier_name: 'Total leads: ' + (weekEnqs.length + weekWA.length),
+      quantity: 'All time enquiries: ' + enqs.length,
+      message: weekEnqs.map(e=>`${e.buyer_name||'Buyer'} enquired about ${e.product_name||e.supplier_name||'—'} on ${new Date(e.created_at).toLocaleDateString('en-IN')}`).join('\n') || 'No enquiries this week',
+      enquiry_type: 'Weekly Summary',
+      page_source: 'GRS Admin Panel',
+      timestamp: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    });
+    showAdminToast('✅ Weekly summary sent to greenrootssmart@gmail.com!','success');
+  }catch(e){
+    showAdminToast('Error sending email: '+JSON.stringify(e),'error');
+  }
+}
+// ═══════════════════════════════════════════════════
 
 window.onload = initAdmin;
 

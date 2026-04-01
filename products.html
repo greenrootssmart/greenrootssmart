@@ -626,6 +626,47 @@ function closeModal() {
   document.getElementById('modalOverlay').classList.remove('show');
 }
 
+
+// ═══════════════════════════════════════════════════
+// GRS NOTIFICATION SYSTEM
+// ═══════════════════════════════════════════════════
+const GRS_EMAILJS_SERVICE = 'service_clis9zo';
+const GRS_EMAILJS_TEMPLATE = 'template_7gj9klp';
+
+async function grsNotifyAdmin(data){
+  try{
+    if(typeof emailjs === 'undefined') return;
+    await emailjs.send(GRS_EMAILJS_SERVICE, GRS_EMAILJS_TEMPLATE, {
+      to_name: 'Dinesh — GRS Admin',
+      from_name: data.buyer_name || 'Buyer',
+      buyer_name: data.buyer_name || 'Unknown Buyer',
+      buyer_mobile: data.buyer_mobile || '—',
+      buyer_email: data.buyer_email || '—',
+      product_name: data.product_name || 'General Enquiry',
+      supplier_name: data.supplier_name || '—',
+      quantity: data.quantity || 'Not specified',
+      message: data.message || '—',
+      enquiry_type: data.enquiry_type || 'Form Enquiry',
+      page_source: window.location.href,
+      timestamp: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    });
+    console.log('✅ GRS Admin notified!');
+  }catch(e){ console.log('Admin notify (non-critical):', e?.text||e?.message||e); }
+}
+
+async function grsTrackWA(supplierName, supplierId, productName){
+  try{
+    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+    await fetch(SURL+'/rest/v1/wa_clicks',{
+      method:'POST',
+      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({supplier_name:supplierName,supplier_id:supplierId||null,product_name:productName||null,page:window.location.pathname,clicked_at:new Date().toISOString()})
+    });
+  }catch(e){}
+}
+// ═══════════════════════════════════════════════════
+
 async function submitEnquiry() {
   const name = document.getElementById('enqName').value.trim();
   const mobile = document.getElementById('enqMobile').value.trim();
@@ -663,18 +704,7 @@ async function submitEnquiry() {
 
     if (res.ok || res.status === 201) {
       // Send email notification via EmailJS
-      try {
-        await emailjs.send('service_clis9zo', 'template_7gj9klp', {
-          product_name: currentProductName,
-          buyer_name: name,
-          buyer_mobile: mobile,
-          quantity: qty || 'Not specified',
-          message: message || 'No message',
-        });
-        console.log('✅ Email notification sent!');
-      } catch(emailErr) {
-        console.log('Email error (non-critical):', emailErr);
-      }
+      grsNotifyAdmin({buyer_name:name,buyer_mobile:mobile,product_name:currentProductName,quantity:qty||'Not specified',message:message||'—',enquiry_type:'Product Page Enquiry'});
       closeModal();
       showToast('✅ Enquiry sent! Supplier will contact you soon.');
       document.getElementById('enqName').value = '';
