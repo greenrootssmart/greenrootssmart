@@ -110,6 +110,10 @@ nav{background:white;padding:0 6%;height:64px;display:flex;align-items:center;ju
 .card-footer{display:flex;align-items:center;justify-content:space-between;}
 .card-location{font-size:11px;color:var(--light);display:flex;align-items:center;gap:4px;}
 .card-btns{display:flex;gap:8px;}
+.svc-manual{margin-left:auto;padding:3px 10px;background:#fff3e0;color:#e65100;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
+.svc-badge{margin-left:auto;padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
+.btn-claim{padding:6px 14px;background:#fff3e0;color:#e65100;border:1.5px solid #ffcc02;border-radius:7px;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;}
+.btn-claim:hover{background:#e65100;color:white;}
 .btn-wa{padding:6px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:4px;}
 .btn-enquire{padding:6px 14px;background:var(--g2);color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;}
 
@@ -541,25 +545,30 @@ function renderProviders(providers) {
     const waNum = (p.phone || '').replace(/\D/g,'');
     const waMsg = encodeURIComponent(`Hi! I found your service "${p.service_name || p.name}" on Green Roots Smart. I am interested. Please share details.`);
 
-    return `<div class="service-card" style="cursor:pointer;" onclick="window.location.href='/service-detail?id=${p.id}'">
+        const isManual = p.manually_added && !p.claimed;
+    return `<div class="service-card" style="cursor:${isManual ? 'default' : 'pointer'};" onclick="${isManual ? 'void(0)' : `window.location.href='/service-detail?id=${p.id}'`}">
       <div class="card-top">
         <div class="card-icon" style="background:${color}">${icon}</div>
-        <span class="avail-badge ${availClass}">${availText}</span>
+        ${isManual
+          ? '<span class="svc-manual">Unclaimed</span>'
+          : `<span class="svc-badge">${p.verified ? '✅ Verified' : '🌿 Listed'}</span>`
+        }
       </div>
       <div class="card-name">${p.service_name || p.name || 'Eco Service'}</div>
       <div class="card-company">📍 ${p.company || p.business_name || 'Verified Provider'} · ${p.location || p.city || 'India'}</div>
       <div class="card-desc">${p.description || 'Professional environmental service provider verified by Green Roots Smart.'}</div>
       <div class="card-tags">
         <span class="card-tag">${p.category || 'Eco Service'}</span>
-        ${p.verified ? '<span class="card-tag">✅ Verified</span>' : ''}
-        ${p.manually_added && !p.claimed ? '<span style="background:#fff3e0;color:#e65100;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:700;">🔔 Unclaimed</span>' : ''}
         ${p.experience ? `<span class="card-tag">${p.experience}</span>` : ''}
       </div>
       <div class="card-footer">
-        <div class="card-location">📍 ${p.city || p.location || 'India'}</div>
+        <div style="font-size:11px;color:#7a9a74">${isManual ? '👆 This your business?' : '🌿 GRS Listed'}</div>
         <div class="card-btns">
-          ${waNum ? `<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa">💬 WhatsApp</a>` : ''}
-          <button class="btn-enquire" onclick="openModal('${(p.service_name||p.name||'').replace(/'/g,"\\'")}')">Enquire</button>
+          ${isManual
+            ? `<a href="/claim-profile" onclick="event.stopPropagation()" class="btn-claim">Claim &#x2192;</a>`
+            : `${waNum ? `<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa" onclick="event.stopPropagation()">💬 WhatsApp</a>` : ''}
+               <button class="btn-enquire" onclick="event.stopPropagation();openModal('${(p.service_name||p.name||'').replace(/'/g,"\'")}')" >Enquire</button>`
+          }
         </div>
       </div>
     </div>`;
