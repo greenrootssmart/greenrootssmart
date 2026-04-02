@@ -2,232 +2,397 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Claim Your Business Profile — Green Roots Smart</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>Claim Your Profile — Green Roots Smart</title>
+<meta name="description" content="Claim your eco business profile on Green Roots Smart. If your business is already listed, claim it to manage your profile, add products and connect with buyers."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.greenrootssmart.com/claim-profile"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Claim Your Profile — Green Roots Smart"/>
+<meta property="og:url" content="https://www.greenrootssmart.com/claim-profile"/>
+<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:#f0f4f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
-.container{background:white;border-radius:24px;padding:40px;width:100%;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,0.1);}
-.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-align:center;margin-bottom:6px;}
-.logo span{color:var(--g3);}
-.step-label{text-align:center;font-size:12px;color:var(--light);margin-bottom:24px;}
-h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--g1);margin-bottom:8px;text-align:center;}
-.sub{font-size:13px;color:var(--light);text-align:center;margin-bottom:28px;line-height:1.6;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+a{text-decoration:none;color:inherit;}
 
-/* SEARCH STEP */
-.search-box{display:flex;gap:10px;margin-bottom:20px;}
-.search-box input{flex:1;padding:12px 16px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;}
-.search-box input:focus{border-color:var(--g3);}
-.search-box button{padding:12px 20px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
+nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{height:44px;width:auto;object-fit:contain;}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.nav-link{font-size:13px;color:var(--mid);font-weight:500;padding:7px 16px;border-radius:8px;border:1.5px solid #d4e8cc;}
+.nav-link:hover{background:var(--g5);}
+.nav-link.primary{background:var(--g2);color:white;border-color:var(--g2);}
+
+.page{max-width:760px;margin:0 auto;padding:40px 5% 60px;}
+
+/* HERO */
+.hero-box{background:linear-gradient(135deg,var(--g1),var(--g2));border-radius:20px;padding:36px;text-align:center;margin-bottom:32px;color:white;}
+.hero-icon{font-size:48px;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:10px;}
+.hero-sub{font-size:14px;color:#a0c8a0;line-height:1.7;max-width:480px;margin:0 auto;}
+
+/* TYPE TOGGLE */
+.type-toggle{display:flex;background:#f0f4f0;border-radius:12px;padding:4px;margin-bottom:28px;gap:4px;}
+.type-btn{flex:1;padding:12px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--light);cursor:pointer;border-radius:9px;transition:all 0.2s;}
+.type-btn.active{background:white;color:var(--g2);box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+
+/* CARD */
+.card{background:white;border-radius:16px;padding:28px;margin-bottom:20px;border:1.5px solid #e8f0e8;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);margin-bottom:6px;}
+.card-sub{font-size:13px;color:var(--light);margin-bottom:20px;}
+
+/* SEARCH */
+.search-wrap{display:flex;gap:10px;margin-bottom:16px;}
+.search-wrap input{flex:1;padding:13px 16px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;color:var(--dark);}
+.search-wrap input:focus{border-color:var(--g3);}
+.search-wrap button{padding:13px 24px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
 
 /* RESULTS */
-.results{margin-bottom:20px;}
-.result-card{padding:14px 16px;border:1.5px solid #d4e8cc;border-radius:12px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+.result-card{border:1.5px solid #e8f0e8;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;}
 .result-card:hover{border-color:var(--g3);background:var(--g5);}
 .result-card.selected{border-color:var(--g3);background:var(--g5);}
-.result-name{font-size:14px;font-weight:700;color:var(--dark);}
-.result-cat{font-size:12px;color:var(--light);}
-.result-loc{font-size:11px;color:var(--light);}
-.result-badge{padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:700;}
-.result-claimed{padding:3px 10px;background:#fce4ec;color:#c62828;border-radius:20px;font-size:10px;font-weight:700;}
+.result-name{font-size:15px;font-weight:700;color:var(--dark);}
+.result-meta{font-size:12px;color:var(--light);margin-top:4px;}
+.result-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:8px;}
+.badge-supplier{background:#e8f5e2;color:#2d7a3a;}
+.badge-service{background:#e3f2fd;color:#1565c0;}
 
 /* FORM */
 .form-group{margin-bottom:16px;}
-.form-group label{display:block;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
-.form-group input{width:100%;padding:11px 14px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border 0.2s;}
-.form-group input:focus{border-color:var(--g3);box-shadow:0 0 0 3px rgba(82,176,67,0.1);}
-.form-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group label{display:block;font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.form-group input{width:100%;padding:12px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;}
+.form-group input:focus{border-color:var(--g3);}
+.form-group small{display:block;font-size:11px;color:var(--light);margin-top:4px;}
 
-.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;transition:all 0.2s;}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,122,58,0.3);}
-.btn-back{width:100%;padding:11px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;}
 
+/* ALERT */
 .alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none;}
-.alert-error{background:#fce4ec;color:#c62828;border:1px solid #f48fb1;}
-.alert-success{background:var(--g5);color:var(--g2);border:1px solid var(--g4);}
+.alert-error{background:#fce4ec;color:#c62828;}
+.alert-success{background:#e8f5e2;color:#2d7a3a;}
+.alert-warning{background:#fff3e0;color:#e65100;}
 
-.step{display:none;}
-.step.active{display:block;}
+/* SUCCESS STATE */
+.success-state{text-align:center;padding:32px 0;}
+.success-icon{font-size:64px;margin-bottom:16px;}
+.success-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--g1);margin-bottom:8px;}
+.success-sub{font-size:14px;color:var(--light);line-height:1.7;}
 
-.success-icon{font-size:64px;text-align:center;margin-bottom:16px;}
-.info-box{background:var(--g5);border-radius:12px;padding:16px;margin-bottom:20px;font-size:13px;color:var(--mid);line-height:1.6;}
-.info-box strong{color:var(--g1);}
+/* HOW IT WORKS */
+.steps{display:flex;flex-direction:column;gap:14px;}
+.step{display:flex;align-items:flex-start;gap:14px;}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--g2);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:700;color:var(--dark);}
+.step-sub{font-size:12px;color:var(--light);margin-top:2px;}
 
-.no-results{text-align:center;padding:24px;color:var(--light);font-size:13px;}
+/* NOT LISTED */
+.not-listed{background:#fff8e1;border:1.5px solid #ffe082;border-radius:12px;padding:16px;margin-top:12px;text-align:center;}
+.not-listed p{font-size:13px;color:#e65100;margin-bottom:10px;}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="logo">Green Roots <span>Smart</span></div>
-  <div class="step-label">🌿 Business Profile Claim</div>
+<nav>
+  <a href="/" class="logo">
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_180,h_60,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="Green Roots Smart"/>
+  </a>
+  <div class="nav-right">
+    <a href="/supplier-profile" class="nav-link">Browse Suppliers</a>
+    <a href="/services" class="nav-link">Browse Services</a>
+    <a href="/register" class="nav-link primary">Register Free</a>
+  </div>
+</nav>
 
-  <!-- STEP 1: Search -->
-  <div class="step active" id="step1">
-    <h2>🔍 Find Your Business</h2>
-    <p class="sub">Search for your business name to see if it's already listed on Green Roots Smart</p>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero-box">
+    <div class="hero-icon">🌿</div>
+    <div class="hero-title">Claim Your Business Profile</div>
+    <div class="hero-sub">Your business may already be listed on Green Roots Smart. Search below to find and claim your profile — it's completely free!</div>
+  </div>
+
+  <!-- TYPE TOGGLE -->
+  <div class="type-toggle">
+    <button class="type-btn active" id="typeSupplier" onclick="setType('supplier')">🏪 I'm a Product Supplier</button>
+    <button class="type-btn" id="typeService" onclick="setType('service')">🔧 I'm a Service Provider</button>
+  </div>
+
+  <!-- STEP 1: SEARCH -->
+  <div class="card" id="searchCard">
+    <div class="card-title" id="searchTitle">🔍 Search for Your Business</div>
+    <div class="card-sub" id="searchSub">Enter your business name to check if it's already listed on GRS</div>
     <div class="alert alert-error" id="searchAlert"></div>
-    <div class="search-box">
-      <input type="text" id="searchQuery" placeholder="Enter your business name..." onkeydown="if(event.key==='Enter')searchBusiness()"/>
-      <button onclick="searchBusiness()">Search</button>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Enter your business or service name..." onkeydown="if(event.key==='Enter')searchBusiness()"/>
+      <button onclick="searchBusiness()">Search 🔍</button>
     </div>
-    <div class="results" id="searchResults"></div>
-    <div style="text-align:center;font-size:13px;color:var(--light);margin-top:16px;">
-      Not listed yet? <a href="/register" style="color:var(--g2);font-weight:600;">Register your business →</a>
+    <div id="searchResults"></div>
+    <div class="not-listed" id="notListedBox" style="display:none">
+      <p>Can't find your business? You may not be listed yet.</p>
+      <a href="/register" style="display:inline-block;padding:10px 24px;background:var(--g2);color:white;border-radius:10px;font-size:13px;font-weight:700;">Register Free →</a>
     </div>
   </div>
 
-  <!-- STEP 2: Claim Form -->
-  <div class="step" id="step2">
-    <h2>✅ Claim This Profile</h2>
-    <p class="sub">Verify you are the owner of this business listing</p>
-    <div class="info-box" id="selectedBizInfo">Selected business info here</div>
+  <!-- STEP 2: CLAIM FORM (hidden until business selected) -->
+  <div class="card" id="claimCard" style="display:none">
+    <div class="card-title">📋 Claim This Profile</div>
+    <div class="card-sub">Fill in your details to verify you own this business</div>
     <div class="alert" id="claimAlert"></div>
+
+    <div id="selectedBusinessInfo" style="background:var(--g5);border-radius:10px;padding:14px;margin-bottom:20px;border:1.5px solid var(--g4);">
+      <div style="font-size:13px;font-weight:700;color:var(--g1);" id="selectedName"></div>
+      <div style="font-size:12px;color:var(--light);margin-top:4px;" id="selectedMeta"></div>
+    </div>
+
     <div class="form-group">
       <label>Your Full Name *</label>
-      <input type="text" id="claimName" placeholder="Your full name"/>
+      <input type="text" id="claimName" placeholder="As per business registration"/>
     </div>
-    <div class="form-2">
-      <div class="form-group">
-        <label>Your Email *</label>
-        <input type="email" id="claimEmail" placeholder="your@email.com"/>
-      </div>
-      <div class="form-group">
-        <label>Your Mobile *</label>
-        <input type="tel" id="claimPhone" placeholder="9876543210"/>
-      </div>
+    <div class="form-group">
+      <label>Business Email *</label>
+      <input type="email" id="claimEmail" placeholder="This will be your login email"/>
+      <small>You will use this email to login to your dashboard</small>
+    </div>
+    <div class="form-group">
+      <label>Mobile Number *</label>
+      <input type="tel" id="claimPhone" placeholder="Your WhatsApp number"/>
     </div>
     <div class="form-group">
       <label>Your Designation</label>
-      <input type="text" id="claimDesignation" placeholder="e.g. Owner, MD, CEO"/>
+      <input type="text" id="claimDesignation" placeholder="e.g. Owner, CEO, Director"/>
     </div>
     <div class="form-group">
-      <label>GSTIN (Optional)</label>
-      <input type="text" id="claimGstin" placeholder="Your GST number for verification"/>
+      <label>GST Number (optional)</label>
+      <input type="text" id="claimGST" placeholder="For faster verification"/>
     </div>
-    <div class="info-box" style="font-size:12px;">
-      ⚠️ Our team will verify your claim within <strong>24-48 hours</strong>. Once approved you will get full access to your dashboard.
+
+    <div style="background:#fff3e0;border-radius:10px;padding:14px;margin-bottom:16px;font-size:12px;color:#e65100;line-height:1.7;">
+      ⚠️ By submitting this claim, you confirm that you are an authorized representative of this business. False claims will result in permanent removal from GRS.
     </div>
-    <button class="btn-submit" onclick="submitClaim()">🌿 Submit Claim Request</button>
-    <button class="btn-back" onclick="goBack()">← Back to Search</button>
+
+    <button class="submit-btn" id="claimBtn" onclick="submitClaim()">🌿 Submit Claim Request</button>
+    <div style="text-align:center;margin-top:12px;">
+      <a href="#" onclick="resetForm();return false;" style="font-size:13px;color:var(--light);">← Search Again</a>
+    </div>
   </div>
 
-  <!-- STEP 3: Success -->
-  <div class="step" id="step3">
-    <div class="success-icon">🎉</div>
-    <h2>Claim Request Submitted!</h2>
-    <p class="sub">Our team will verify your ownership and approve within 24-48 hours!</p>
-    <div class="info-box">
-      ✅ <strong>What happens next:</strong><br/><br/>
-      1. Our team reviews your claim request<br/>
-      2. We verify you are the business owner<br/>
-      3. You get email with login credentials<br/>
-      4. You can manage your profile & products!
+  <!-- SUCCESS STATE -->
+  <div class="card" id="successCard" style="display:none">
+    <div class="success-state">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Claim Request Submitted!</div>
+      <div class="success-sub">Our team will verify your claim within 24-48 hours.<br/>You'll be notified at your email once approved.<br/><br/>After approval, you can login with your email and manage your profile.</div>
+      <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="/supplier-profile" style="padding:12px 24px;background:var(--g5);color:var(--g2);border-radius:10px;font-size:13px;font-weight:700;">Browse Suppliers</a>
+        <a href="/services" style="padding:12px 24px;background:var(--g2);color:white;border-radius:10px;font-size:13px;font-weight:700;">Browse Services</a>
+      </div>
     </div>
-    <a href="/" style="display:block;text-align:center;padding:12px;background:var(--g2);color:white;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">← Back to Home</a>
   </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card">
+    <div class="card-title">💡 How It Works</div>
+    <div class="card-sub" style="margin-bottom:20px;">Simple 3 step process to claim your profile</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Search Your Business</div>
+          <div class="step-sub">Enter your business name and find your listing on GRS</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Submit Claim Request</div>
+          <div class="step-sub">Fill your details to verify you are the owner</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Get Access in 24-48 Hours</div>
+          <div class="step-sub">Our team verifies and gives you full dashboard access</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
 
-let selectedSupplier = null;
+let currentType='supplier'; // 'supplier' or 'service'
+let selectedId=null;
+let selectedTable=null;
 
-async function searchBusiness() {
-  const q = document.getElementById('searchQuery').value.trim();
-  if(!q) return;
+function setType(type){
+  currentType=type;
+  document.getElementById('typeSupplier').classList.toggle('active',type==='supplier');
+  document.getElementById('typeService').classList.toggle('active',type==='service');
+  document.getElementById('searchTitle').textContent = type==='supplier' ? '🔍 Search for Your Business' : '🔍 Search for Your Service';
+  document.getElementById('searchSub').textContent = type==='supplier'
+    ? 'Enter your business name to check if it\'s already listed on GRS'
+    : 'Enter your service or company name to check if it\'s already listed on GRS';
+  document.getElementById('searchInput').placeholder = type==='supplier'
+    ? 'Enter your business name...'
+    : 'Enter your service or company name...';
+  resetSearch();
+}
 
-  const resultsDiv = document.getElementById('searchResults');
-  resultsDiv.innerHTML = '<p style="color:#7a9a74;font-size:13px;text-align:center;padding:16px;">Searching... 🌿</p>';
+function resetSearch(){
+  document.getElementById('searchResults').innerHTML='';
+  document.getElementById('notListedBox').style.display='none';
+  document.getElementById('searchAlert').style.display='none';
+}
 
-  const { data } = await db.from('suppliers').select('*')
-    .ilike('business_name', `%${q}%`).limit(5);
+function resetForm(){
+  document.getElementById('claimCard').style.display='none';
+  document.getElementById('searchCard').style.display='block';
+  selectedId=null; selectedTable=null;
+  resetSearch();
+}
 
-  if(!data || data.length === 0) {
-    resultsDiv.innerHTML = `<div class="no-results">
-      <div style="font-size:36px;margin-bottom:8px">🔍</div>
-      <div style="font-weight:600;margin-bottom:4px">No businesses found for "${q}"</div>
-      <div>Not listed yet? <a href="/register" style="color:#2d7a3a;font-weight:600;">Register here →</a></div>
-    </div>`;
+async function searchBusiness(){
+  const q=document.getElementById('searchInput').value.trim();
+  if(!q){ showSearchAlert('Please enter your business name!'); return; }
+
+  const btn=document.querySelector('.search-wrap button');
+  btn.textContent='Searching...'; btn.disabled=true;
+
+  try{
+    let results=[];
+    if(currentType==='supplier'){
+      // Search suppliers
+      const {data:s1}=await db.from('suppliers').select('id,business_name,owner_name,category,city,state,manually_added,claimed,claim_requested').ilike('business_name','%'+q+'%').limit(10);
+      results=(s1||[]).map(s=>({...s,_type:'supplier',_name:s.business_name,_sub:(s.owner_name?s.owner_name+' · ':'')+s.category+(s.city?' · '+s.city:'')}));
+    } else {
+      // Search service providers
+      const {data:s2}=await db.from('service_providers').select('id,service_name,name,company,business_name,category,city,state,manually_added,claimed,claim_requested').or(`service_name.ilike.%${q}%,company.ilike.%${q}%,business_name.ilike.%${q}%`).limit(10);
+      results=(s2||[]).map(s=>({...s,_type:'service',_name:s.service_name||s.name||s.company||s.business_name,_sub:(s.company?s.company+' · ':'')+s.category+(s.city?' · '+s.city:'')}));
+    }
+
+    renderResults(results);
+  }catch(e){
+    showSearchAlert('Something went wrong. Please try again.');
+  }
+  btn.textContent='Search 🔍'; btn.disabled=false;
+}
+
+function renderResults(results){
+  const container=document.getElementById('searchResults');
+  const notListed=document.getElementById('notListedBox');
+
+  if(!results.length){
+    container.innerHTML='<p style="font-size:13px;color:var(--light);padding:12px 0;">No results found for your search.</p>';
+    notListed.style.display='block';
     return;
   }
 
-  resultsDiv.innerHTML = data.map(s => {
-    const isClaimed = s.claimed;
-    return `<div class="result-card ${isClaimed ? 'opacity-50' : ''}" onclick="${isClaimed ? '' : `selectBusiness('${s.id}')`}" style="${isClaimed ? 'cursor:default;opacity:0.6' : ''}">
-      <div>
-        <div class="result-name">${s.business_name}</div>
-        <div class="result-cat">${s.category || ''} · ${s.city || ''} ${s.state || ''}</div>
-      </div>
-      ${isClaimed
-        ? '<span class="result-claimed">Already Claimed</span>'
-        : '<span class="result-badge">Claim →</span>'}
+  notListed.style.display='none';
+  container.innerHTML=results.map(r=>{
+    const alreadyClaimed=r.claimed;
+    const pendingClaim=r.claim_requested&&!r.claimed;
+    const isUnclaimed=r.manually_added&&!r.claimed&&!r.claim_requested;
+
+    let statusBadge='';
+    if(alreadyClaimed) statusBadge='<span style="background:#e8f5e2;color:#2d7a3a;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;">✅ Already Claimed</span>';
+    else if(pendingClaim) statusBadge='<span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;">⏳ Claim Pending</span>';
+    else if(isUnclaimed) statusBadge='<span style="background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;">🔔 Unclaimed</span>';
+    else statusBadge='<span style="background:var(--g5);color:var(--g2);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;">🌿 Listed</span>';
+
+    const clickable=!alreadyClaimed&&!pendingClaim;
+
+    return `<div class="result-card ${clickable?'':'result-card-disabled'}" 
+      onclick="${clickable?`selectBusiness('${r.id}','${r._type}','${(r._name||'').replace(/'/g,"\\'")}','${(r._sub||'').replace(/'/g,"\\'")}')`:''}" 
+      style="${!clickable?'opacity:0.6;cursor:not-allowed;':''}" >
+      <div class="result-name">${r._name||'Unknown'}${statusBadge}</div>
+      <div class="result-meta">${r._sub||''}</div>
+      ${alreadyClaimed?'<div style="font-size:11px;color:#2d7a3a;margin-top:6px;">This profile has already been claimed. Please <a href="/login" style="color:var(--g2);font-weight:600;">login</a> to access it.</div>':''}
+      ${pendingClaim?'<div style="font-size:11px;color:#e65100;margin-top:6px;">A claim request is already pending review for this profile.</div>':''}
     </div>`;
   }).join('');
 }
 
-function selectBusiness(id) {
-  db.from('suppliers').select('*').eq('id', id).single().then(({data}) => {
-    if(!data) return;
-    selectedSupplier = data;
-    document.getElementById('selectedBizInfo').innerHTML = `
-      <strong>${data.business_name}</strong><br/>
-      📂 ${data.category || 'N/A'} · 📍 ${data.city || ''} ${data.state || ''}
-      ${data.email && data.email !== 'pending@greenrootssmart.com' ? `<br/>📧 ${data.email}` : ''}
-    `;
-    showStep('step2');
-  });
+function selectBusiness(id, type, name, meta){
+  selectedId=id;
+  selectedTable=type==='service'?'service_providers':'suppliers';
+  document.getElementById('selectedName').textContent=name;
+  document.getElementById('selectedMeta').textContent=meta;
+  document.getElementById('searchCard').style.display='none';
+  document.getElementById('claimCard').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function submitClaim() {
-  const name = document.getElementById('claimName').value.trim();
-  const email = document.getElementById('claimEmail').value.trim();
-  const phone = document.getElementById('claimPhone').value.trim();
+async function submitClaim(){
+  const name=document.getElementById('claimName').value.trim();
+  const email=document.getElementById('claimEmail').value.trim();
+  const phone=document.getElementById('claimPhone').value.trim();
+  if(!name) return showClaimAlert('Please enter your full name!','error');
+  if(!email) return showClaimAlert('Please enter your email address!','error');
+  if(!phone) return showClaimAlert('Please enter your mobile number!','error');
+  if(!selectedId) return showClaimAlert('Please select a business first!','error');
 
-  if(!name || !email || !phone) {
-    showAlert('claimAlert', 'Please fill all required fields!', 'error');
-    return;
+  const btn=document.getElementById('claimBtn');
+  btn.disabled=true; btn.textContent='Submitting...';
+
+  try{
+    const updateData={
+      claim_requested:true,
+      claim_requested_at:new Date().toISOString(),
+      claim_name:name,
+      claim_email:email,
+      claim_phone:phone,
+    };
+    // Add designation and GST if filled
+    const desig=document.getElementById('claimDesignation').value.trim();
+    const gst=document.getElementById('claimGST').value.trim();
+    if(desig) updateData.claim_designation=desig;
+    if(gst) updateData.gst_number=gst;
+
+    const {error}=await db.from(selectedTable).update(updateData).eq('id',selectedId);
+    if(error){ showClaimAlert('Error: '+error.message,'error'); btn.disabled=false; btn.textContent='🌿 Submit Claim Request'; return; }
+
+    // Show success
+    document.getElementById('claimCard').style.display='none';
+    document.getElementById('successCard').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    showClaimAlert('Something went wrong. Please try again.','error');
+    btn.disabled=false; btn.textContent='🌿 Submit Claim Request';
   }
-
-  const btn = document.querySelector('.btn-submit');
-  btn.textContent = 'Submitting...'; btn.disabled = true;
-
-  const { error } = await db.from('suppliers').update({
-    claim_requested: true,
-    claim_name: name,
-    claim_email: email,
-    claim_phone: phone,
-    claim_requested_at: new Date().toISOString(),
-  }).eq('id', selectedSupplier.id);
-
-  if(error) {
-    showAlert('claimAlert', 'Error: ' + error.message, 'error');
-    btn.textContent = '🌿 Submit Claim Request';
-    btn.disabled = false;
-  } else {
-    showStep('step3');
-  }
 }
 
-function showStep(stepId) {
-  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.getElementById(stepId).classList.add('active');
+function showSearchAlert(msg){
+  const el=document.getElementById('searchAlert');
+  el.style.display='block';
+  el.className='alert alert-error';
+  el.textContent=msg;
+  setTimeout(()=>el.style.display='none',4000);
 }
 
-function goBack() { showStep('step1'); }
-
-function showAlert(id, msg, type) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = 'alert alert-' + type;
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 5000);
+function showClaimAlert(msg,type='error'){
+  const el=document.getElementById('claimAlert');
+  el.style.display='block';
+  el.className='alert alert-'+(type==='error'?'error':type==='success'?'success':'warning');
+  el.textContent=msg;
+  if(type!=='success') setTimeout(()=>el.style.display='none',5000);
 }
+
+// Check URL for pre-selected type
+const urlParams=new URLSearchParams(window.location.search);
+if(urlParams.get('type')==='service') setType('service');
 </script>
 </body>
 </html>

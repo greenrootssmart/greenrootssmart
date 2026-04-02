@@ -289,6 +289,14 @@ async function renderProvider(p){
           <div class="about-text">${p.description}</div>
         </div>`:''}
 
+        <!-- UNCLAIMED WARNING (shows only when manually added) -->
+        ${p.manually_added && !p.claimed ? `
+        <div style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:20px;margin-bottom:20px;">
+          <div style="font-size:15px;font-weight:700;color:#e65100;margin-bottom:6px;">👆 Is this your business?</div>
+          <div style="font-size:13px;color:#888;margin-bottom:14px;line-height:1.6;">This profile was added by GRS. Claim it to manage your listing, update details and connect with buyers directly.</div>
+          <a href="/claim-profile?type=service" style="display:inline-block;padding:10px 24px;background:#e65100;color:white;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;">🌿 Claim This Profile →</a>
+        </div>` : ''}
+
         <!-- SERVICE INFO -->
         <div class="card">
           <div class="card-title">ℹ️ Service Details</div>
@@ -379,14 +387,15 @@ async function renderProvider(p){
             ${availText}
           </div>
 
-          ${p.manually_added && !p.claimed ? `
-            <div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:16px;margin-bottom:14px;text-align:center;">
-              <div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px;">🔔 This is an Unclaimed Profile</div>
-              <div style="font-size:12px;color:#888;margin-bottom:12px;">Is this your business? Claim it to manage your profile.</div>
-              <a href="/claim-profile" style="display:block;padding:10px;background:#e65100;color:white;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;">Claim This Profile →</a>
-            </div>
-          ` : `          ${waNum?`<a href="https://wa.me/91${waNum}?text=${waMsg}" target="_blank" class="btn-wa" onclick="grsTrackWA('${(company||name).replace(/'/g,"\\'")}',${p.id},'${name.replace(/'/g,"\\'")}')">💬 WhatsApp Now</a>`:''}
-          <button class="btn-enq" onclick="openModal()">📩 Send Enquiry</button>\`}
+          ${(function(){
+            if(p.manually_added && !p.claimed){
+              return '<div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:16px;margin-bottom:14px;text-align:center;"><div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px;">🔔 Unclaimed Profile</div><div style="font-size:12px;color:#888;margin-bottom:12px;">Is this your business? Claim it to manage your profile.</div><a href=\"/claim-profile\" style=\"display:block;padding:10px;background:#e65100;color:white;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;\">Claim This Profile \u2192</a></div>';
+            }
+            var html = '';
+            if(waNum) html += '<a href="https://wa.me/91'+waNum+'?text='+waMsg+'" target="_blank" class="btn-wa">💬 WhatsApp Now</a>';
+            html += '<button class="btn-enq" onclick="openModal()">📩 Send Enquiry</button>';
+            return html;
+          })()}
 
           <hr class="cc-sep"/>
 
