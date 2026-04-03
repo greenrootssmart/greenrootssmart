@@ -4,69 +4,49 @@
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Eco Service Providers — Green Roots Smart | Find Green Services India</title>
-<meta name="description" content="Find verified eco and environmental service providers on Green Roots Smart. Solar, organic certification, waste management, water treatment and more services across India."/>
+<title>Eco Service Providers — Green Roots Smart</title>
+<meta name="description" content="Find verified eco service providers on Green Roots Smart — India's first eco B2B marketplace."/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://www.greenrootssmart.com/services"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
 a{text-decoration:none;color:inherit;}
-
-/* NAV */
-.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.grs-logo{display:flex;align-items:center;gap:10px;}
-.grs-logo img{height:44px;width:auto;object-fit:contain;}
+nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{height:44px;}
 .logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
 .logo-text span{color:var(--g3);}
-.logo-sub{font-size:9px;color:var(--light);letter-spacing:1px;text-transform:uppercase;}
-.nav-links{display:flex;gap:4px;list-style:none;align-items:center;}
-.nav-links a{padding:8px 12px;font-size:13px;font-weight:500;color:var(--mid);border-radius:8px;}
-.nav-links a:hover{background:var(--g5);color:var(--g2);}
-.nav-btns{display:flex;gap:8px;align-items:center;}
-.btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-size:12px;font-weight:600;}
-.btn-login{padding:7px 14px;border-radius:8px;border:1.5px solid #d4e8cc;color:var(--mid);font-size:12px;font-weight:600;}
-.btn-list{padding:7px 16px;border-radius:8px;background:var(--g2);color:white;font-size:12px;font-weight:600;}
-.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;}
-.mob-nav{display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;}
-.mob-nav a{display:block;padding:10px;color:var(--dark);font-size:14px;font-weight:500;border-radius:8px;}
-
-/* HERO */
+.nav-links{display:flex;gap:16px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--mid);padding:6px 10px;border-radius:8px;}
+.nav-links a:hover{background:var(--g5);}
+.nav-btns{display:flex;gap:8px;}
+.btn-primary{padding:8px 18px;background:var(--g2);color:white;border-radius:8px;font-size:13px;font-weight:600;}
+.btn-outline{padding:8px 16px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;color:var(--mid);}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;}
 .hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:44px 5%;color:white;}
 .hero h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;margin-bottom:8px;}
-.hero p{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:28px;max-width:540px;line-height:1.7;}
-
-/* SEARCH BAR — IDENTICAL ON ALL PAGES */
+.hero p{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:28px;line-height:1.7;}
 .search-bar{display:flex;gap:10px;flex-wrap:wrap;max-width:900px;}
-.search-bar input{flex:2;min-width:200px;padding:13px 18px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);outline:none;}
-.search-bar select{flex:1;min-width:160px;padding:13px 16px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;cursor:pointer;}
-.search-bar button{padding:13px 28px;background:var(--g3);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;}
-.search-bar button:hover{background:var(--g2);}
-
-/* MAIN */
+.search-bar input{flex:2;min-width:200px;padding:13px 18px;border-radius:10px;border:none;font-size:14px;color:var(--dark);outline:none;font-family:'DM Sans',sans-serif;}
+.search-bar select{flex:1;min-width:150px;padding:13px 14px;border-radius:10px;border:none;font-size:13px;color:var(--dark);outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.search-bar button{padding:13px 28px;background:var(--g3);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;}
 .main{max-width:1400px;margin:0 auto;padding:32px 5%;}
-
-/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
 .stat{background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;}
 .stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);}
 .stat-lbl{font-size:12px;color:var(--light);margin-top:3px;}
-
-/* CARD GRID */
 .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-
-/* CARD — IDENTICAL ON ALL PAGES */
-.grs-card{background:white;border-radius:16px;padding:22px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;cursor:pointer;}
+.grs-card{background:white;border-radius:16px;padding:22px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;}
 .grs-card:hover{border-color:var(--g4);box-shadow:0 8px 24px rgba(45,122,58,0.1);transform:translateY(-3px);}
 .card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
 .card-avatar{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .card-name{font-size:15px;font-weight:700;color:var(--dark);line-height:1.3;}
 .card-sub{font-size:12px;color:var(--light);margin-top:2px;}
-.card-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;}
+.card-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
 .badge-listed{background:var(--g5);color:var(--g2);}
 .badge-verified{background:#e3f2fd;color:#1565c0;}
 .badge-unclaimed{background:#fff3e0;color:#e65100;}
@@ -77,17 +57,13 @@ a{text-decoration:none;color:inherit;}
 .card-footer{display:flex;align-items:center;justify-content:space-between;}
 .card-hint{font-size:11px;color:var(--light);}
 .card-btns{display:flex;gap:8px;}
-.btn-wa{padding:7px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
+.btn-wa{padding:7px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
 .btn-enq{padding:7px 14px;background:var(--g2);color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;}
-.btn-claim-card{padding:7px 14px;background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
-
-/* EMPTY */
+.btn-claim-card{padding:7px 14px;background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80;border-radius:7px;font-size:11px;font-weight:600;text-decoration:none;display:inline-block;}
 .empty{grid-column:1/-1;text-align:center;padding:60px 20px;}
 .empty-icon{font-size:56px;margin-bottom:16px;}
 .empty h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:8px;}
-.empty p{font-size:14px;color:var(--light);margin-bottom:20px;}
-
-/* MODAL */
+.empty p{font-size:14px;color:var(--light);}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:flex-end;}
 .modal-bg.show{display:flex;}
 .modal{background:white;border-radius:24px 24px 0 0;padding:28px 24px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
@@ -96,112 +72,93 @@ a{text-decoration:none;color:inherit;}
 .field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
 .field input,.field textarea{width:100%;padding:12px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
 .field input:focus,.field textarea:focus{border-color:var(--g3);}
-.modal-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a24;color:white;padding:12px 24px;border-radius:12px;font-size:14px;display:none;z-index:9999;white-space:nowrap;}
-
-/* FOOTER */
+.modal-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a24;color:white;padding:12px 24px;border-radius:12px;font-size:14px;display:none;z-index:9999;}
 footer{background:var(--g1);color:#a0c8a0;text-align:center;padding:20px 5%;font-size:13px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
 footer a{color:#a0c8a0;}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .card-grid{grid-template-columns:repeat(2,1fr);}
-  .stats-row{grid-template-columns:repeat(2,1fr);}
-  .nav-links,.nav-btns{display:none;}
-  .mob-btn{display:block;}
-  .hero h1{font-size:26px;}
-}
-@media(max-width:540px){
-  .card-grid{grid-template-columns:1fr;}
-  .search-bar{flex-direction:column;}
-  .search-bar select,.search-bar input{width:100%;}
-}
+@media(max-width:900px){.card-grid{grid-template-columns:repeat(2,1fr);}.stats-row{grid-template-columns:repeat(2,1fr);}.nav-links,.nav-btns{display:none;}.mob-btn{display:block;}.hero h1{font-size:26px;}}
+@media(max-width:540px){.card-grid{grid-template-columns:1fr;}.search-bar{flex-direction:column;}}
 </style>
 </head>
 <body>
-
-<nav class="grs-nav">
-  <a href="/" class="grs-logo">
+<nav>
+  <a href="/" class="logo">
     <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS"/>
-    <div><div class="logo-text">Green Roots <span>Smart</span></div><div class="logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div></div>
+    <div><div class="logo-text">Green Roots <span>Smart</span></div></div>
   </a>
   <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/supplier-profile">Suppliers</a></li>
-    <li><a href="/services">Services</a></li>
-    <li><a href="/products">Products</a></li>
+    <li><a href="/">Home</a></li><li><a href="/supplier-profile">Suppliers</a></li>
+    <li><a href="/services">Services</a></li><li><a href="/products">Products</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
   <div class="nav-btns">
-    <a href="/claim-profile" class="btn-claim">🌿 Claim Profile</a>
-    <a href="/login" class="btn-login">Login</a>
-    <a href="/register" class="btn-list">List Free</a>
+    <a href="/claim-profile" class="btn-outline">🌿 Claim Profile</a>
+    <a href="/register" class="btn-primary">List Free</a>
   </div>
-  <button class="mob-btn" onclick="document.getElementById('mobnav').style.display=document.getElementById('mobnav').style.display==='block'?'none':'block'">
+  <button class="mob-btn" onclick="var m=document.getElementById('mobnav');m.style.display=m.style.display==='none'?'block':'none'">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
-<div id="mobnav" class="mob-nav" style="display:none">
-  <a href="/">🏠 Home</a><a href="/supplier-profile">🏪 Suppliers</a>
-  <a href="/services">🔧 Services</a><a href="/products">📦 Products</a>
-  <a href="/claim-profile">🌿 Claim Profile</a>
-  <a href="/login" style="background:#e8f5e2;color:#2d7a3a;text-align:center;margin-top:4px;">Login</a>
-  <a href="/register" style="background:#2d7a3a;color:white;text-align:center;margin-top:4px;">List Free</a>
+<div id="mobnav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;">
+  <a href="/" style="display:block;padding:10px;color:var(--dark);font-size:14px;">🏠 Home</a>
+  <a href="/supplier-profile" style="display:block;padding:10px;color:var(--dark);font-size:14px;">🏪 Suppliers</a>
+  <a href="/services" style="display:block;padding:10px;color:var(--dark);font-size:14px;">🔧 Services</a>
+  <a href="/products" style="display:block;padding:10px;color:var(--dark);font-size:14px;">📦 Products</a>
+  <a href="/claim-profile" style="display:block;padding:10px;color:var(--g2);font-size:14px;font-weight:600;">🌿 Claim Profile</a>
+  <a href="/register" style="display:block;margin-top:8px;padding:10px;background:var(--g2);color:white;text-align:center;border-radius:8px;font-size:14px;font-weight:600;">List Free</a>
 </div>
 
 <div class="hero">
   <h1>🔧 Find Eco Service Providers</h1>
-  <p>Connect with verified eco service experts across India. Testing, consulting, certification, waste management and more!</p>
+  <p>Connect with verified eco service experts across India. Testing, consulting, certification and more!</p>
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search by service, company, city or state..."/>
-    <select id="catFilter" onchange="doSearch()">
+    <select id="catFilter">
       <option value="">All Categories</option>
-              <option value="Testing & Laboratory">🔬 Testing & Laboratory</option>
-              <option value="Consulting & Advisory">📋 Consulting & Advisory</option>
-              <option value="Certification & Compliance">📜 Certification & Compliance</option>
-              <option value="Waste Management">♻️ Waste Management</option>
-              <option value="Water & Wastewater">💧 Water & Wastewater</option>
-              <option value="Renewable Energy">⚡ Renewable Energy</option>
-              <option value="Ecological Services">🌱 Ecological Services</option>
-              <option value="Remediation">🏗️ Remediation</option>
-              <option value="Reporting & Technology">📊 Reporting & Technology</option>
-              <option value="Training & Education">🎓 Training & Education</option>
-              <option value="Eco Tourism">🌄 Eco Tourism</option>
+      <option value="Testing & Laboratory">🔬 Testing & Laboratory</option>
+      <option value="Consulting & Advisory">📋 Consulting & Advisory</option>
+      <option value="Certification & Compliance">📜 Certification & Compliance</option>
+      <option value="Waste Management">♻️ Waste Management</option>
+      <option value="Water & Wastewater">💧 Water & Wastewater</option>
+      <option value="Renewable Energy">⚡ Renewable Energy</option>
+      <option value="Ecological Services">🌱 Ecological Services</option>
+      <option value="Remediation">🏗️ Remediation</option>
+      <option value="Reporting & Technology">📊 Reporting & Technology</option>
+      <option value="Training & Education">🎓 Training & Education</option>
+      <option value="Eco Tourism">🌄 Eco Tourism</option>
     </select>
-    <select id="stateFilter" onchange="doSearch()">
+    <select id="stateFilter">
       <option value="">All States</option>
-              <option value="Andhra Pradesh">Andhra Pradesh</option>
-              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-              <option value="Assam">Assam</option>
-              <option value="Bihar">Bihar</option>
-              <option value="Chhattisgarh">Chhattisgarh</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Goa">Goa</option>
-              <option value="Gujarat">Gujarat</option>
-              <option value="Haryana">Haryana</option>
-              <option value="Himachal Pradesh">Himachal Pradesh</option>
-              <option value="Jharkhand">Jharkhand</option>
-              <option value="Jammu & Kashmir">Jammu & Kashmir</option>
-              <option value="Karnataka">Karnataka</option>
-              <option value="Kerala">Kerala</option>
-              <option value="Madhya Pradesh">Madhya Pradesh</option>
-              <option value="Maharashtra">Maharashtra</option>
-              <option value="Manipur">Manipur</option>
-              <option value="Meghalaya">Meghalaya</option>
-              <option value="Mizoram">Mizoram</option>
-              <option value="Nagaland">Nagaland</option>
-              <option value="Odisha">Odisha</option>
-              <option value="Punjab">Punjab</option>
-              <option value="Rajasthan">Rajasthan</option>
-              <option value="Sikkim">Sikkim</option>
-              <option value="Tamil Nadu">Tamil Nadu</option>
-              <option value="Telangana">Telangana</option>
-              <option value="Tripura">Tripura</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Uttarakhand">Uttarakhand</option>
-              <option value="West Bengal">West Bengal</option>
+      <option value="Andhra Pradesh">Andhra Pradesh</option>
+      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+      <option value="Assam">Assam</option>
+      <option value="Bihar">Bihar</option>
+      <option value="Chhattisgarh">Chhattisgarh</option>
+      <option value="Delhi">Delhi</option>
+      <option value="Goa">Goa</option>
+      <option value="Gujarat">Gujarat</option>
+      <option value="Haryana">Haryana</option>
+      <option value="Himachal Pradesh">Himachal Pradesh</option>
+      <option value="Jharkhand">Jharkhand</option>
+      <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+      <option value="Karnataka">Karnataka</option>
+      <option value="Kerala">Kerala</option>
+      <option value="Madhya Pradesh">Madhya Pradesh</option>
+      <option value="Maharashtra">Maharashtra</option>
+      <option value="Manipur">Manipur</option>
+      <option value="Meghalaya">Meghalaya</option>
+      <option value="Mizoram">Mizoram</option>
+      <option value="Nagaland">Nagaland</option>
+      <option value="Odisha">Odisha</option>
+      <option value="Punjab">Punjab</option>
+      <option value="Rajasthan">Rajasthan</option>
+      <option value="Sikkim">Sikkim</option>
+      <option value="Tamil Nadu">Tamil Nadu</option>
+      <option value="Telangana">Telangana</option>
+      <option value="Tripura">Tripura</option>
+      <option value="Uttar Pradesh">Uttar Pradesh</option>
+      <option value="Uttarakhand">Uttarakhand</option>
+      <option value="West Bengal">West Bengal</option>
     </select>
     <button onclick="doSearch()">Search 🔍</button>
   </div>
@@ -224,11 +181,11 @@ footer a{color:#a0c8a0;}
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--g1);margin-bottom:4px;">Send Enquiry 📩</h3>
     <p id="modalTitle" style="font-size:12px;color:var(--light);margin-bottom:18px;"></p>
-    <div id="modalAlert" style="display:none;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;"></div>
+    <div id="modalAlert" style="display:none;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;background:#fce4ec;color:#c62828;"></div>
     <div class="field"><label>Your Name *</label><input id="enqName" placeholder="Your full name"/></div>
     <div class="field"><label>Mobile *</label><input id="enqMobile" type="tel" placeholder="+91 98765 43210"/></div>
     <div class="field"><label>Email</label><input id="enqEmail" type="email" placeholder="your@email.com"/></div>
-    <div class="field"><label>Message</label><textarea id="enqMsg" style="height:70px" placeholder="What are you looking for?"></textarea></div>
+    <div class="field"><label>Message</label><textarea id="enqMsg" style="height:70px" placeholder="What service do you need?"></textarea></div>
     <button class="modal-submit" id="enqBtn" onclick="submitEnquiry()">Send Enquiry 🌿</button>
   </div>
 </div>
@@ -242,155 +199,126 @@ footer a{color:#a0c8a0;}
 </footer>
 
 <script>
+var SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+var SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+var db = supabase.createClient(SURL, SKEY);
+var catIcons = {'Testing & Laboratory':'🔬','Consulting & Advisory':'📋','Certification & Compliance':'📜','Waste Management':'♻️','Water & Wastewater':'💧','Renewable Energy':'⚡','Ecological Services':'🌱','Remediation':'🏗️','Reporting & Technology':'📊','Training & Education':'🎓','Eco Tourism':'🌄'};
+var catColors = ['#e3f2fd','#f3e5f5','#e8f5e2','#fce4ec','#e1f5fe','#fff3e0','#e8f5e2','#f5f5f5','#ede7f6','#fce4ec','#fff8e1'];
+var allProviders = [];
+var currentEnqTarget = '';
 
-const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
-const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-const db=supabase.createClient(SURL,SKEY);
+function cleanCat(s){ return (s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase(); }
 
-let currentEnqTarget='';
-
-function cleanCat(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();}
-
-function openModal(name){
-  currentEnqTarget=name;
-  document.getElementById('modalTitle').textContent='Send your requirement to '+name;
-  document.getElementById('modalBg').classList.add('show');
+async function loadProviders(){
+  try{
+    var res = await db.from('service_providers').select('*').order('created_at',{ascending:false}).limit(1000);
+    if(res.error){ console.error('DB error:',res.error); return; }
+    allProviders = res.data || [];
+    document.getElementById('totalSvc').textContent = allProviders.length+'+';
+    document.getElementById('activeSvc').textContent = allProviders.filter(function(p){return !p.manually_added||p.claimed;}).length+'+';
+    var up = new URLSearchParams(window.location.search);
+    if(up.get('category')) document.getElementById('catFilter').value = up.get('category');
+    if(up.get('state')) document.getElementById('stateFilter').value = up.get('state');
+    doSearch();
+  }catch(e){
+    console.error('Load error:',e);
+    document.getElementById('servicesGrid').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><h3>Could not load</h3><p>Please refresh</p></div>';
+  }
 }
+
+function doSearch(){
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  var cat = document.getElementById('catFilter').value;
+  var state = document.getElementById('stateFilter').value.toLowerCase();
+  var f = allProviders;
+  if(q) f = f.filter(function(p){
+    return (p.service_name||p.name||'').toLowerCase().includes(q)||
+           (p.company||p.business_name||'').toLowerCase().includes(q)||
+           (p.category||'').toLowerCase().includes(q)||
+           (p.city||'').toLowerCase().includes(q)||
+           (p.state||'').toLowerCase().includes(q)||
+           (p.location||'').toLowerCase().includes(q)||
+           (p.description||'').toLowerCase().includes(q);
+  });
+  if(cat) f = f.filter(function(p){ return cleanCat(p.category)===cleanCat(cat)||(p.category||'').trim()===cat.trim(); });
+  if(state) f = f.filter(function(p){
+    var h=(p.state||'').length>0||(p.city||'').length>0||(p.location||'').length>0;
+    if(!h) return true;
+    return (p.state||'').toLowerCase().includes(state)||(p.city||'').toLowerCase().includes(state)||(p.location||'').toLowerCase().includes(state);
+  });
+  renderProviders(f);
+}
+
+function renderProviders(list){
+  var g = document.getElementById('servicesGrid');
+  if(!list||!list.length){
+    g.innerHTML='<div class="empty"><div class="empty-icon">🔧</div><h3>No service providers found</h3><p>Try a different search or category</p><a href="/register" style="display:inline-block;margin-top:12px;padding:10px 24px;background:#2d7a3a;color:white;border-radius:8px;font-size:13px;font-weight:600;">List Your Service Free</a></div>';
+    return;
+  }
+  var h='';
+  for(var i=0;i<list.length;i++){
+    var p=list[i];
+    var icon=catIcons[p.category]||'🌿';
+    var col=catColors[i%catColors.length];
+    var wa=(p.phone||p.mobile||'').replace(/\D/g,'');
+    var manual=p.manually_added&&!p.claimed;
+    var loc=[p.city,p.state].filter(Boolean).join(', ')||p.location||'India';
+    var avail=p.availability==='available'?' · 🟢 Available':p.availability==='busy'?' · 🟡 Busy':'';
+    var badge=manual?'<span class="card-badge badge-unclaimed">Unclaimed</span>':
+              p.verified?'<span class="card-badge badge-verified">✅ Verified</span>':
+              '<span class="card-badge badge-listed">🌿 Listed</span>';
+    var btns='';
+    if(manual){
+      btns='<a href="/claim-profile?type=service" onclick="event.stopPropagation()" class="btn-claim-card">Claim →</a>';
+    } else {
+      if(wa){
+        var svcname=p.service_name||p.name||'';
+        var wm=encodeURIComponent('Hi! I found "'+svcname+'" on Green Roots Smart. Interested in your service.');
+        btns+='<a href="https://wa.me/91'+wa+'?text='+wm+'" target="_blank" onclick="event.stopPropagation()" class="btn-wa">💬 WA</a>';
+      }
+      var ename=(p.service_name||p.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      btns+='<button class="btn-enq" onclick="event.stopPropagation();openModal(\''+ename+'\')">Enquire</button>';
+    }
+    var click=manual?'void(0)':"window.location.href='/service-detail?id="+p.id+"'";
+    var cur=manual?'default':'pointer';
+    h+='<div class="grs-card" style="cursor:'+cur+'" onclick="'+click+'">';
+    h+='<div class="card-head"><div class="card-avatar" style="background:'+col+'">'+icon+'</div>';
+    h+='<div style="flex:1"><div class="card-name">'+(p.service_name||p.name||'Eco Service')+'</div><div class="card-sub">'+(p.category||'Eco Service')+'</div></div>'+badge+'</div>';
+    h+='<div class="card-loc">📍 '+loc+avail+'</div>';
+    if(p.description) h+='<div class="card-desc">'+p.description+'</div>';
+    h+='<div class="card-tags"><span class="card-tag">'+(p.category||'Eco')+'</span>';
+    if(p.experience) h+='<span class="card-tag">'+p.experience+'</span>';
+    h+='</div>';
+    h+='<div class="card-footer"><span class="card-hint">'+(manual?'👆 This your business?':'🌿 GRS Listed')+'</span>';
+    h+='<div class="card-btns">'+btns+'</div></div></div>';
+  }
+  g.innerHTML=h;
+}
+
+function openModal(n){currentEnqTarget=n;document.getElementById('modalTitle').textContent='Send your requirement to '+n;document.getElementById('modalBg').classList.add('show');}
 function closeModal(){document.getElementById('modalBg').classList.remove('show');}
 document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 async function submitEnquiry(){
-  const name=document.getElementById('enqName').value.trim();
-  const mobile=document.getElementById('enqMobile').value.trim();
-  if(!name)return showModalAlert('Please enter your name!');
-  if(!mobile)return showModalAlert('Please enter your mobile number!');
-  const btn=document.getElementById('enqBtn');
-  btn.disabled=true;btn.textContent='Sending...';
+  var n=document.getElementById('enqName').value.trim();
+  var m=document.getElementById('enqMobile').value.trim();
+  if(!n){showAlert('Please enter your name!');return;}
+  if(!m){showAlert('Please enter your mobile!');return;}
+  var btn=document.getElementById('enqBtn');btn.disabled=true;btn.textContent='Sending...';
   try{
-    await db.from('enquiries').insert([{
-      buyer_name:name,buyer_mobile:mobile,
-      buyer_email:document.getElementById('enqEmail').value.trim(),
-      supplier_name:currentEnqTarget,
-      product_name:'Enquiry — '+currentEnqTarget,
-      message:document.getElementById('enqMsg').value.trim(),
-      enquiry_type:'Page Enquiry',status:'new',
-      created_at:new Date().toISOString()
-    }]);
-    showToast('✅ Enquiry sent! They will contact you soon.');
-    closeModal();
-    ['enqName','enqMobile','enqEmail','enqMsg'].forEach(id=>document.getElementById(id).value='');
-  }catch(e){showModalAlert('Error. Please try WhatsApp directly.');}
+    await db.from('enquiries').insert([{buyer_name:n,buyer_mobile:m,buyer_email:document.getElementById('enqEmail').value.trim(),supplier_name:currentEnqTarget,product_name:'Service Enquiry — '+currentEnqTarget,message:document.getElementById('enqMsg').value.trim(),enquiry_type:'Service Page Enquiry',status:'new',created_at:new Date().toISOString()}]);
+    showToast('✅ Enquiry sent!');closeModal();
+    ['enqName','enqMobile','enqEmail','enqMsg'].forEach(function(id){document.getElementById(id).value='';});
+  }catch(e){showAlert('Error. Try WhatsApp directly.');}
   btn.disabled=false;btn.textContent='Send Enquiry 🌿';
 }
-
-async function trackWA(name,id){
-  try{
-    await fetch(SURL+'/rest/v1/wa_clicks',{
-      method:'POST',
-      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({supplier_name:name,supplier_id:id||null,page:window.location.pathname,clicked_at:new Date().toISOString()})
-    });
-  }catch(e){}
-}
-
-function showModalAlert(msg){
-  const el=document.getElementById('modalAlert');
-  el.style.display='block';el.style.background='#fce4ec';el.style.color='#c62828';el.textContent=msg;
-  setTimeout(()=>el.style.display='none',4000);
-}
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
-  setTimeout(()=>t.style.display='none',3500);
-}
-
-
-const catIcons={'Testing & Laboratory':'🔬','Consulting & Advisory':'📋','Certification & Compliance':'📜','Waste Management':'♻️','Water & Wastewater':'💧','Renewable Energy':'⚡','Ecological Services':'🌱','Remediation':'🏗️','Reporting & Technology':'📊','Training & Education':'🎓','Eco Tourism':'🌄'};
-const catColors=['#e3f2fd','#f3e5f5','#e8f5e2','#fce4ec','#e1f5fe','#fff3e0','#e8f5e2','#f5f5f5','#ede7f6','#fce4ec','#fff8e1'];
-let allProviders=[];
-
-async function loadProviders(){
-  const {data}=await db.from('service_providers').select('*').order('created_at',{ascending:false}).limit(1000);
-  allProviders=data||[];
-  document.getElementById('totalSvc').textContent=allProviders.length+'+';
-  document.getElementById('activeSvc').textContent=allProviders.filter(p=>!p.manually_added||p.claimed).length+'+';
-
-  const urlParams=new URLSearchParams(window.location.search);
-  const urlCat=urlParams.get('category');
-  const urlState=urlParams.get('state');
-  if(urlCat){document.getElementById('catFilter').value=urlCat;const h=document.querySelector('.hero h1');if(h)h.textContent='🔧 '+urlCat+' Providers';}
-  if(urlState) document.getElementById('stateFilter').value=urlState;
-  doSearch();
-}
-
-function doSearch(){
-  const q=document.getElementById('searchInput').value.trim().toLowerCase();
-  const cat=document.getElementById('catFilter').value;
-  const state=document.getElementById('stateFilter').value.toLowerCase();
-  let filtered=allProviders;
-
-  if(q) filtered=filtered.filter(p=>
-    (p.service_name||p.name||'').toLowerCase().includes(q)||
-    (p.company||p.business_name||'').toLowerCase().includes(q)||
-    (p.category||'').toLowerCase().includes(q)||
-    (p.city||'').toLowerCase().includes(q)||
-    (p.state||'').toLowerCase().includes(q)||
-    (p.location||'').toLowerCase().includes(q)||
-    (p.description||'').toLowerCase().includes(q)
-  );
-  if(cat) filtered=filtered.filter(p=>cleanCat(p.category)===cleanCat(cat)||(p.category||'').trim()===cat.trim());
-  if(state) filtered=filtered.filter(p=>{
-    var hasLoc=(p.state||'').length>0||(p.city||'').length>0||(p.location||'').length>0;
-    if(!hasLoc) return true;
-    return (p.state||'').toLowerCase().includes(state)||
-           (p.city||'').toLowerCase().includes(state)||
-           (p.location||'').toLowerCase().includes(state);
-  });
-  renderProviders(filtered);
-}
-
-function renderProviders(providers){
-  const grid=document.getElementById('servicesGrid');
-  if(!providers||!providers.length){
-    grid.innerHTML='<div class="empty"><div class="empty-icon">🔧</div><h3>No service providers found</h3><p>Try a different search or category</p><a href="/register" style="display:inline-block;margin-top:12px;padding:10px 24px;background:#2d7a3a;color:white;border-radius:8px;font-size:13px;font-weight:600;">List Your Service Free →</a></div>';
-    return;
-  }
-  grid.innerHTML=providers.map((p,i)=>{
-    const icon=catIcons[p.category]||'🌿';
-    const color=catColors[i%catColors.length];
-    const waNum=(p.phone||p.mobile||'').replace(/\D/g,'');
-    const waMsg=encodeURIComponent('Hi! I found your service "'+( p.service_name||p.name)+'" on Green Roots Smart. I am interested. Please share details.');
-    const isManual=p.manually_added&&!p.claimed;
-    const availBadge=p.availability==='available'?' · 🟢 Available':p.availability==='busy'?' · 🟡 Busy':'';
-    const badgeHTML=isManual
-      ?'<span class="card-badge badge-unclaimed">Unclaimed</span>'
-      :p.verified?'<span class="card-badge badge-verified">✅ Verified</span>'
-      :'<span class="card-badge badge-listed">🌿 Listed</span>';
-
-    return `<div class="grs-card" onclick="${isManual?'void(0)':'window.location.href=\'/service-detail?id='+p.id+'\''}">
-      <div class="card-head">
-        <div class="card-avatar" style="background:${color};color:var(--g1)">${icon}</div>
-        <div style="flex:1"><div class="card-name">${p.service_name||p.name||'Eco Service'}</div><div class="card-sub">${p.category||'Eco Service'}</div></div>
-        ${badgeHTML}
-      </div>
-      <div class="card-loc">📍 ${[p.city,p.state].filter(Boolean).join(', ')||p.location||'India'}${availBadge}</div>
-      ${p.description?'<div class="card-desc">'+p.description+'</div>':''}
-      <div class="card-tags"><span class="card-tag">${p.category||'Eco Service'}</span>${p.experience?'<span class="card-tag">'+p.experience+'</span>':''}</div>
-      <div class="card-footer">
-        <span class="card-hint">${isManual?'👆 This your business?':'🌿 GRS Listed'}</span>
-        <div class="card-btns">
-          ${isManual
-            ?'<a href="/claim-profile?type=service" onclick="event.stopPropagation()" class="btn-claim-card">Claim →</a>'
-            :(waNum?'<a href="https://wa.me/91'+waNum+'?text='+waMsg+'" target="_blank" onclick="event.stopPropagation();trackWA(''+(p.service_name||p.name||'').replace(/'/g,'\\')+'','+p.id+')" class="btn-wa">💬 WA</a>':'')+
-             '<button class="btn-enq" onclick="event.stopPropagation();openModal(''+(p.service_name||p.name||'').replace(/'/g,'\\')+'')">Enquire</button>'
-          }
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
+function showAlert(m){var e=document.getElementById('modalAlert');e.style.display='block';e.textContent=m;setTimeout(function(){e.style.display='none';},4000);}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3500);}
 
 document.getElementById('searchInput').addEventListener('input',doSearch);
-document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+document.getElementById('catFilter').addEventListener('change',doSearch);
+document.getElementById('stateFilter').addEventListener('change',doSearch);
 
 loadProviders();
 </script>
