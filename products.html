@@ -355,11 +355,20 @@ function toggleMobileMenu() {
 
     <div class="filter-section">
       <h4>Location</h4>
-      <div class="filter-option"><input type="checkbox" id="l1" value="Maharashtra" onchange="doSearch()"/><label for="l1">Maharashtra</label></div>
-      <div class="filter-option"><input type="checkbox" id="l2" value="Gujarat" onchange="doSearch()"/><label for="l2">Gujarat</label></div>
-      <div class="filter-option"><input type="checkbox" id="l3" value="Tamil Nadu" onchange="doSearch()"/><label for="l3">Tamil Nadu</label></div>
-      <div class="filter-option"><input type="checkbox" id="l4" value="Delhi" onchange="doSearch()"/><label for="l4">Delhi NCR</label></div>
-      <div class="filter-option"><input type="checkbox" id="l5" value="Karnataka" onchange="doSearch()"/><label for="l5">Karnataka</label></div>
+      <div class="filter-option"><input type="checkbox" id="l1" value="Maharashtra" class="loc-filter" onchange="doSearch()"/><label for="l1">Maharashtra</label></div>
+      <div class="filter-option"><input type="checkbox" id="l2" value="Gujarat" class="loc-filter" onchange="doSearch()"/><label for="l2">Gujarat</label></div>
+      <div class="filter-option"><input type="checkbox" id="l3" value="Tamil Nadu" class="loc-filter" onchange="doSearch()"/><label for="l3">Tamil Nadu</label></div>
+      <div class="filter-option"><input type="checkbox" id="l4" value="Delhi" class="loc-filter" onchange="doSearch()"/><label for="l4">Delhi NCR</label></div>
+      <div class="filter-option"><input type="checkbox" id="l5" value="Karnataka" class="loc-filter" onchange="doSearch()"/><label for="l5">Karnataka</label></div>
+      <div class="filter-option"><input type="checkbox" id="l6" value="Kerala" class="loc-filter" onchange="doSearch()"/><label for="l6">Kerala</label></div>
+      <div class="filter-option"><input type="checkbox" id="l7" value="Rajasthan" class="loc-filter" onchange="doSearch()"/><label for="l7">Rajasthan</label></div>
+      <div class="filter-option"><input type="checkbox" id="l8" value="Uttar Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l8">Uttar Pradesh</label></div>
+      <div class="filter-option"><input type="checkbox" id="l9" value="Punjab" class="loc-filter" onchange="doSearch()"/><label for="l9">Punjab</label></div>
+      <div class="filter-option"><input type="checkbox" id="l10" value="Telangana" class="loc-filter" onchange="doSearch()"/><label for="l10">Telangana</label></div>
+      <div class="filter-option"><input type="checkbox" id="l11" value="Andhra Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l11">Andhra Pradesh</label></div>
+      <div class="filter-option"><input type="checkbox" id="l12" value="West Bengal" class="loc-filter" onchange="doSearch()"/><label for="l12">West Bengal</label></div>
+      <div class="filter-option"><input type="checkbox" id="l13" value="Madhya Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l13">Madhya Pradesh</label></div>
+      <div class="filter-option"><input type="checkbox" id="l14" value="Haryana" class="loc-filter" onchange="doSearch()"/><label for="l14">Haryana</label></div>
     </div>
   </div>
 
@@ -479,9 +488,7 @@ function getCheckedValues() {
 }
 
 function getCheckedLocations() {
-  return [...document.querySelectorAll(`.filters input[type="checkbox"]:checked`)]
-    .filter(cb => ['l1','l2','l3','l4','l5'].includes(cb.id))
-    .map(cb => cb.value);
+  return [...document.querySelectorAll('.loc-filter:checked')].map(cb => cb.value);
 }
 
 function doSearch() {
@@ -501,11 +508,21 @@ function doSearch() {
     var matchSearch = !query ||
       (p.name && p.name.toLowerCase().includes(query)) ||
       (p.description && p.description.toLowerCase().includes(query)) ||
-      (p.category && p.category.toLowerCase().includes(query));
+      (p.category && p.category.toLowerCase().includes(query)) ||
+      (p.city && p.city.toLowerCase().includes(query)) ||
+      (p.state && p.state.toLowerCase().includes(query)) ||
+      (p.location && p.location.toLowerCase().includes(query)) ||
+      (p.supplier_name && p.supplier_name.toLowerCase().includes(query));
 
     var matchCatDrop = !catDropdown || pCatClean === cleanCat(catDropdown) || (p.category||'').trim() === catDropdown.trim();
     var matchCatCheck = checkedCats.length === 0 || checkedCats.some(function(cc){ return pCatClean === cleanCat(cc) || (p.category||'').trim() === cc.trim(); });
-    var matchLoc = checkedLocs.length === 0 || checkedLocs.some(function(l){ return p.location && p.location.includes(l); });
+    var matchLoc = checkedLocs.length === 0 || checkedLocs.some(function(l){
+      var ll = l.toLowerCase();
+      return (p.location||'').toLowerCase().includes(ll) ||
+             (p.city||'').toLowerCase().includes(ll) ||
+             (p.state||'').toLowerCase().includes(ll) ||
+             ((p.city||'')+' '+(p.state||'')).toLowerCase().includes(ll);
+    });
     var price = parseFloat(p.price) || 0;
     var matchPrice = price >= priceMin && price <= priceMax;
 
@@ -607,6 +624,7 @@ function clearFilters() {
   document.getElementById('priceMax').value = '';
   doSearch();
 }
+document.getElementById('searchInput').addEventListener('input', function(){ doSearch(); });
 
 function openModal(product, productId, supplierId) {
   currentProductName = product;

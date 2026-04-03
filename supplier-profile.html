@@ -250,7 +250,7 @@ function toggleMobileMenu() {
   <h1>🏪 Find Eco Suppliers</h1>
   <p>Connect with verified eco-friendly suppliers across India. Browse, enquire and trade green!</p>
   <div class="search-row">
-    <input type="text" id="searchInput" placeholder="Search suppliers by name or category..."/>
+    <input type="text" id="searchInput" placeholder="Search by name, category, city or state..."/>
     <select id="catFilter">
       <option value="">All Categories</option>
       <option value="Solar Energy">☀️ Solar Energy</option>
@@ -275,6 +275,17 @@ function toggleMobileMenu() {
       <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
       <option value="Certifications">📋 Certifications</option>
       <option value="Global Green Trade">🌐 Global Green Trade</option>
+    </select>
+    <select id="stateFilter" onchange="doSearch()" style="padding:12px 16px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;min-width:150px;">
+      <option value="">All States</option>
+      <option>Andhra Pradesh</option><option>Bihar</option><option>Chhattisgarh</option>
+      <option>Delhi</option><option>Goa</option><option>Gujarat</option>
+      <option>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option>
+      <option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option>
+      <option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option>
+      <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+      <option>Tamil Nadu</option><option>Telangana</option><option>Uttar Pradesh</option>
+      <option>Uttarakhand</option><option>West Bengal</option>
     </select>
     <button onclick="doSearch()">Search 🔍</button>
   </div>
@@ -405,19 +416,35 @@ function renderSuppliers(suppliers) {
 function doSearch() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
   const cat = document.getElementById('catFilter').value;
+  const state = document.getElementById('stateFilter') ? document.getElementById('stateFilter').value.toLowerCase() : '';
   let filtered = allSuppliers;
+
   if(q) filtered = filtered.filter(s =>
     (s.business_name||'').toLowerCase().includes(q) ||
+    (s.owner_name||'').toLowerCase().includes(q) ||
     (s.category||'').toLowerCase().includes(q) ||
-    (s.city||'').toLowerCase().includes(q)
+    (s.city||'').toLowerCase().includes(q) ||
+    (s.state||'').toLowerCase().includes(q) ||
+    (s.location||'').toLowerCase().includes(q) ||
+    (s.description||'').toLowerCase().includes(q) ||
+    (s.mobile||'').includes(q)
   );
-  if(cat) filtered = filtered.filter(s => s.category === cat);
-  renderSuppliers(filtered);
+  if(cat) {
+    const cleanC = s => (s||'').replace(/[^ -]/g,'').trim().toLowerCase();
+    filtered = filtered.filter(s => cleanC(s.category) === cleanC(cat) || (s.category||'').trim() === cat.trim());
+  }
+  if(state) filtered = filtered.filter(s =>
+    (s.state||'').toLowerCase().includes(state) ||
+    (s.city||'').toLowerCase().includes(state) ||
+    (s.location||'').toLowerCase().includes(state)
+  );
+  renderSuppliers(filtered.length > 0 ? filtered : (q||cat||state) ? [] : allSuppliers);
 }
 
 document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 document.getElementById('searchInput').addEventListener('input', () => doSearch());
 document.getElementById('catFilter').addEventListener('change', doSearch);
+if(document.getElementById('stateFilter')) document.getElementById('stateFilter').addEventListener('change', doSearch);
 
 // Modal
 function openModal(name) {
