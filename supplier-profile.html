@@ -430,7 +430,7 @@ function doSearch() {
     (s.mobile||'').includes(q)
   );
   if(cat) {
-    const cleanC = s => (s||'').replace(/[^ -]/g,'').trim().toLowerCase();
+    const cleanC = s => (s||'').replace(/[^-]/g,'').trim().toLowerCase();
     filtered = filtered.filter(s => cleanC(s.category) === cleanC(cat) || (s.category||'').trim() === cat.trim());
   }
   if(state) filtered = filtered.filter(s => {
@@ -440,7 +440,7 @@ function doSearch() {
            (s.city||'').toLowerCase().includes(state) ||
            (s.location||'').toLowerCase().includes(state);
   });
-  renderSuppliers(filtered.length > 0 ? filtered : (q||cat||state) ? [] : allSuppliers);
+  renderSuppliers(filtered);
 }
 
 document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });

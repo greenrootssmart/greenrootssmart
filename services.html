@@ -378,7 +378,7 @@ function doSearch(){
     (p.phone||'').includes(q)
   );
   if(cat){
-    const cleanC=s=>(s||'').replace(/[^ -]/g,'').trim().toLowerCase();
+    const cleanC=s=>(s||'').replace(/[^-]/g,'').trim().toLowerCase();
     filtered=filtered.filter(p=>cleanC(p.category)===cleanC(cat)||(p.category||'').trim()===cat.trim());
   }
   if(state) filtered=filtered.filter(p=>{
