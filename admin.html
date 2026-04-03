@@ -1135,6 +1135,12 @@ async function saveBlog() {
   loadBlogs();
 }
 
+function editBlogById(id) {
+  const b = allBlogs.find(x => String(x.id) === String(id));
+  if(!b) { showBlogMsg('Blog not found!', 'error'); return; }
+  editBlog(b);
+}
+
 function editBlog(b) {
   // Scroll to form
   document.getElementById('section-blogs').scrollIntoView({behavior:'smooth'});
@@ -1145,14 +1151,14 @@ function editBlog(b) {
   document.getElementById('blog-excerpt').value = b.excerpt || '';
   document.getElementById('blog-content').value = b.content || '';
   document.getElementById('blog-author').value = b.author || '';
-  document.getElementById('blog-publish').checked = b.published || false;
+  document.getElementById('blog-publish').checked = b.published !== false;
   document.getElementById('blog-cover-url').value = b.cover_image || '';
   if(b.cover_image) {
     document.getElementById('blog-img-thumb').src = b.cover_image;
     document.getElementById('blog-img-preview').style.display = 'block';
     document.getElementById('blog-img-status').textContent = '✅ Image loaded';
   }
-  // Update button text and show cancel
+  // Update button and show cancel
   document.getElementById('blog-save-btn').textContent = '💾 Update Blog Post';
   document.getElementById('blog-save-btn').style.background = '#1565c0';
   document.getElementById('blog-cancel-btn').style.display = 'inline-block';
@@ -1185,6 +1191,8 @@ function showBlogMsg(msg, type) {
   setTimeout(() => el.style.display = 'none', 5000);
 }
 
+let allBlogs = [];
+
 async function loadBlogs() {
   const { data } = await supabaseClient.from('blogs').select('*').order('created_at', { ascending: false });
   const list = document.getElementById('blogList');
@@ -1194,6 +1202,7 @@ async function loadBlogs() {
     if(count) count.textContent = '0 posts';
     return;
   }
+  allBlogs = data;
   if(count) count.textContent = data.length + ' posts';
   list.innerHTML = data.map(b => `
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8f5e2;">
@@ -1203,7 +1212,7 @@ async function loadBlogs() {
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <a href="/blog-post?slug=${b.slug||b.id}" target="_blank" style="padding:6px 12px;background:#e8f5e2;color:#2d7a3a;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">👁️ View</a>
-        <button onclick="editBlog(${JSON.stringify(b).replace(/'/g,'&#39;')})" style="padding:6px 12px;background:#e3f2fd;color:#1565c0;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">✏️ Edit</button>
+        <button onclick="editBlogById('${b.id}')" style="padding:6px 12px;background:#e3f2fd;color:#1565c0;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">✏️ Edit</button>
         <button onclick="togglePublish('${b.id}',${b.published})" style="padding:6px 12px;background:${b.published ? '#fce4ec' : '#e8f5e2'};color:${b.published ? '#c62828' : '#2d7a3a'};border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">${b.published ? '🚫 Unpublish' : '✅ Publish'}</button>
         <button onclick="deleteBlog('${b.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
       </div>
