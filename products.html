@@ -3,789 +3,442 @@
 <head>
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Eco Products — Green Roots Smart | Buy Green B2B Products India</title>
-<meta name="description" content="Browse eco-friendly B2B products on Green Roots Smart — solar panels, organic produce, eco packaging, water purifiers and 1000+ sustainable products from verified Indian suppliers. Bulk wholesale available."/>
-<meta name="keywords" content="eco products India wholesale, green B2B products, solar panels wholesale India, organic products bulk, eco packaging wholesale, sustainable products supplier India"/>
-<meta name="author" content="Green Roots Smart"/>
+<title>Eco Products — Green Roots Smart | Buy Green Products India B2B</title>
+<meta name="description" content="Browse and buy eco-friendly products on Green Roots Smart — India's first eco B2B marketplace. Solar panels, organic products, eco packaging and more from verified suppliers."/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://www.greenrootssmart.com/products"/>
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="Eco Products — Green Roots Smart"/>
-<meta property="og:description" content="Browse 1000+ eco-friendly B2B products from verified Indian suppliers. Solar, organic, packaging, water tech and more on India's first green marketplace."/>
-<meta property="og:url" content="https://www.greenrootssmart.com/products"/>
-<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
-<meta property="og:site_name" content="Green Roots Smart"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Eco Products — Green Roots Smart"/>
-<meta name="twitter:description" content="Browse eco-friendly B2B products from verified suppliers on India's first green marketplace."/>
-<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;}
+
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--cream:#f7f9f2;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
-nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:34px;height:34px;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.grs-logo{display:flex;align-items:center;gap:10px;}
+.grs-logo img{height:44px;width:auto;object-fit:contain;}
 .logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);}
 .logo-text span{color:var(--g3);}
-.nav-links{display:flex;gap:24px;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;}
-.nav-links a:hover{color:var(--g2);}
-.nav-btns{display:flex;gap:10px;}
-.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
-.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;}
+.logo-sub{font-size:9px;color:var(--light);letter-spacing:1px;text-transform:uppercase;}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center;}
+.nav-links a{padding:8px 12px;font-size:13px;font-weight:500;color:var(--mid);border-radius:8px;}
+.nav-links a:hover{background:var(--g5);color:var(--g2);}
+.nav-btns{display:flex;gap:8px;align-items:center;}
+.btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-size:12px;font-weight:600;}
+.btn-login{padding:7px 14px;border-radius:8px;border:1.5px solid #d4e8cc;color:var(--mid);font-size:12px;font-weight:600;}
+.btn-list{padding:7px 16px;border-radius:8px;background:var(--g2);color:white;font-size:12px;font-weight:600;}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+.mob-nav{display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;}
+.mob-nav a{display:block;padding:10px;color:var(--dark);font-size:14px;font-weight:500;border-radius:8px;}
 
-.page-hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:40px 5%;color:white;}
-.page-hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:8px;}
-.page-hero p{font-size:14px;color:#a0c8a0;margin-bottom:20px;}
-.search-big{display:flex;background:white;border-radius:12px;overflow:hidden;max-width:700px;}
-.search-big input{flex:1;padding:14px 18px;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);}
-.search-big select{padding:0 14px;border:none;border-left:1px solid #e0e8e0;outline:none;background:#f5f5f5;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--mid);}
-.search-big button{padding:0 24px;background:var(--g3);color:white;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;}
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--g1),var(--g2));padding:44px 5%;color:white;}
+.hero h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;margin-bottom:8px;}
+.hero p{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:28px;max-width:540px;line-height:1.7;}
 
-.layout{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:24px 5%;max-width:1400px;margin:0 auto;}
+/* SEARCH BAR — IDENTICAL ON ALL PAGES */
+.search-bar{display:flex;gap:10px;flex-wrap:wrap;max-width:900px;}
+.search-bar input{flex:2;min-width:200px;padding:13px 18px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);outline:none;}
+.search-bar select{flex:1;min-width:160px;padding:13px 16px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;cursor:pointer;}
+.search-bar button{padding:13px 28px;background:var(--g3);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.search-bar button:hover{background:var(--g2);}
 
-.filters{background:white;border-radius:16px;padding:20px;height:fit-content;box-shadow:0 2px 12px #00000008;position:sticky;top:80px;}
-.filter-title{font-size:14px;font-weight:700;color:var(--g1);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
-.filter-title button{font-size:11px;color:var(--g3);background:none;border:none;cursor:pointer;font-weight:600;}
-.filter-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--g5);}
-.filter-section:last-child{border-bottom:none;margin-bottom:0;}
-.filter-section h4{font-size:12px;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
-.filter-option{display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer;}
-.filter-option input[type="checkbox"]{accent-color:var(--g3);width:14px;height:14px;}
-.filter-option label{font-size:13px;color:var(--dark);cursor:pointer;flex:1;}
-.filter-option span{font-size:11px;color:var(--light);}
-.price-range{display:flex;gap:8px;margin-top:8px;}
-.price-range input{flex:1;padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;font-family:'DM Sans',sans-serif;}
-.filter-btn{width:100%;padding:10px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;}
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:32px 5%;}
 
-.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.results-count{font-size:14px;color:var(--mid);}
-.results-count strong{color:var(--g1);}
-.sort-bar{display:flex;align-items:center;gap:10px;}
-.sort-bar label{font-size:13px;color:var(--mid);}
-.sort-bar select{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;background:white;}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat{background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);}
+.stat-lbl{font-size:12px;color:var(--light);margin-top:3px;}
 
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.prod-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px #00000008;transition:all 0.3s;cursor:pointer;border:1.5px solid transparent;}
-.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px #2d7a3a14;border-color:var(--g4);}
-.prod-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;}
-.prod-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;}
-.badge-new{background:#e3f2fd;color:#1565c0;}
-.badge-eco{background:var(--g5);color:var(--g2);}
-.prod-body{padding:16px;}
-.prod-cat{font-size:11px;color:var(--g3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
-.prod-body h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px;line-height:1.4;}
-.prod-supplier{font-size:11px;color:var(--light);margin-bottom:8px;display:flex;align-items:center;gap:4px;}
-.verified-dot{width:6px;height:6px;background:var(--g3);border-radius:50%;display:inline-block;}
-.prod-price{font-size:18px;font-weight:700;color:var(--g2);}
-.prod-unit{font-size:11px;color:var(--light);}
-.prod-moq{font-size:11px;color:var(--earth);font-weight:500;margin-top:2px;}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--g5);}
-.enquire-btn{padding:6px 14px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.enquire-btn:hover{background:var(--g1);}
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 
-/* EMPTY STATE */
-.empty-state{text-align:center;padding:60px 20px;color:var(--mid);}
-.empty-state .empty-icon{font-size:64px;margin-bottom:16px;}
-.empty-state h3{font-size:18px;font-weight:600;color:var(--g1);margin-bottom:8px;}
-.empty-state p{font-size:14px;color:var(--light);}
+/* CARD — IDENTICAL ON ALL PAGES */
+.grs-card{background:white;border-radius:16px;padding:22px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;cursor:pointer;}
+.grs-card:hover{border-color:var(--g4);box-shadow:0 8px 24px rgba(45,122,58,0.1);transform:translateY(-3px);}
+.card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.card-avatar{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.card-name{font-size:15px;font-weight:700;color:var(--dark);line-height:1.3;}
+.card-sub{font-size:12px;color:var(--light);margin-top:2px;}
+.card-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap;}
+.badge-listed{background:var(--g5);color:var(--g2);}
+.badge-verified{background:#e3f2fd;color:#1565c0;}
+.badge-unclaimed{background:#fff3e0;color:#e65100;}
+.card-loc{font-size:12px;color:var(--light);margin-bottom:10px;}
+.card-desc{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.card-tag{padding:3px 10px;background:var(--g5);color:var(--g2);border-radius:20px;font-size:10px;font-weight:600;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-hint{font-size:11px;color:var(--light);}
+.card-btns{display:flex;gap:8px;}
+.btn-wa{padding:7px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
+.btn-enq{padding:7px 14px;background:var(--g2);color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;}
+.btn-claim-card{padding:7px 14px;background:#fff3e0;color:#e65100;border:1.5px solid #ffcc80;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;}
 
-/* LOADING */
-.loading-state{text-align:center;padding:60px 20px;}
-.spinner{width:40px;height:40px;border:3px solid var(--g5);border-top-color:var(--g3);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-.load-more{text-align:center;margin:32px 0;}
-.load-more button{padding:12px 40px;background:white;border:2px solid var(--g3);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--g2);cursor:pointer;transition:all 0.2s;}
-.load-more button:hover{background:var(--g5);}
+/* EMPTY */
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;}
+.empty-icon{font-size:56px;margin-bottom:16px;}
+.empty h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:8px;}
+.empty p{font-size:14px;color:var(--light);margin-bottom:20px;}
 
 /* MODAL */
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
-.modal-overlay.show{display:flex;}
-.modal{background:white;border-radius:20px;padding:32px;width:90%;max-width:480px;position:relative;}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--g5);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;}
-.modal h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:6px;}
-.modal p{font-size:13px;color:var(--mid);margin-bottom:20px;}
-.modal-field{margin-bottom:14px;}
-.modal-field label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
-.modal-field input,.modal-field textarea,.modal-field select{width:100%;padding:10px 14px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
-.modal-field textarea{height:80px;resize:vertical;}
-.modal-submit{width:100%;padding:12px;background:var(--g2);color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:flex-end;}
+.modal-bg.show{display:flex;}
+.modal{background:white;border-radius:24px 24px 0 0;padding:28px 24px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--light);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.field input,.field textarea{width:100%;padding:12px;border:1.5px solid #d4e8cc;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
+.field input:focus,.field textarea:focus{border-color:var(--g3);}
+.modal-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
 
-/* toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--g1);color:white;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:9999;display:none;animation:fadeIn 0.3s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a24;color:white;padding:12px 24px;border-radius:12px;font-size:14px;display:none;z-index:9999;white-space:nowrap;}
 
-/* MOBILE RESPONSIVENESS */
+/* FOOTER */
+footer{background:var(--g1);color:#a0c8a0;text-align:center;padding:20px 5%;font-size:13px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
+footer a{color:#a0c8a0;}
+
+/* RESPONSIVE */
 @media(max-width:900px){
-  .layout{grid-template-columns:1fr;}
-  .filters{position:static;margin-bottom:24px;}
-  .prod-grid{grid-template-columns:repeat(2,1fr);}
+  .card-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .nav-links,.nav-btns{display:none;}
+  .mob-btn{display:block;}
+  .hero h1{font-size:26px;}
 }
-@media(max-width:600px){
-  .prod-grid{grid-template-columns:1fr;}
-  .page-hero{padding:30px 5%;}
-  .search-big{flex-direction:column;border-radius:12px;}
-  .search-big select{border-left:none;border-top:1px solid #e0e8e0;padding:14px 18px;}
+@media(max-width:540px){
+  .card-grid{grid-template-columns:1fr;}
+  .search-bar{flex-direction:column;}
+  .search-bar select,.search-bar input{width:100%;}
 }
+
+
+/* PRODUCT CARD EXTRAS */
+.prod-price{font-size:15px;font-weight:700;color:var(--g2);margin-bottom:6px;}
+.prod-moq{font-size:11px;color:var(--light);}
+.sort-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.sort-row span{font-size:13px;color:var(--light);}
+.sort-select{padding:8px 14px;border:1.5px solid #d4e8cc;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;}
 </style>
 </head>
 <body>
 
-<!-- GRS HEADER — paste this in all pages replacing existing nav -->
-<style>
-.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
-.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.grs-logo img{height:40px;width:auto;object-fit:contain;}
-.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
-.grs-logo-text span{color:#52b043;}
-.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
-.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
-.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
-.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown{position:relative;}
-.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown-btn svg{transition:transform 0.2s;}
-.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
-.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
-.grs-dropdown:hover .grs-dropdown-menu{display:block;}
-.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
-.grs-dropdown-item:hover{background:#e8f5e2;}
-.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.grs-dropdown-item .di-text{}
-.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
-.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
-.grs-coming{opacity:0.5;pointer-events:none;}
-.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
-.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
-.grs-btns{display:flex;align-items:center;gap:8px;}
-.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-out:hover{background:#e8f5e2;}
-.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-pri:hover{background:#1a4a24;}
-.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
-.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
-@media(max-width:900px){
-  .grs-links{display:none;}
-  .grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}
-  .grs-mobile-menu{display:block;}
-}
-</style>
-
 <nav class="grs-nav">
-  <!-- LOGO -->
   <a href="/" class="grs-logo">
-    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS Logo"/>
-    <div>
-      <div class="grs-logo-text">Green Roots <span>Smart</span></div>
-      <div class="grs-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
-    </div>
+    <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS"/>
+    <div><div class="logo-text">Green Roots <span>Smart</span></div><div class="logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div></div>
   </a>
-
-  <!-- NAV LINKS -->
-  <ul class="grs-links">
+  <ul class="nav-links">
     <li><a href="/">Home</a></li>
-
-    <!-- BROWSE DROPDOWN -->
-    <li class="grs-dropdown">
-      <button class="grs-dropdown-btn">
-        Browse
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
-      <div class="grs-dropdown-menu">
-        <a href="/supplier-profile" class="grs-dropdown-item">
-          <div class="di-icon">🏪</div>
-          <div class="di-text">
-            <div class="di-title">Suppliers</div>
-            <div class="di-sub">Browse verified eco suppliers</div>
-          </div>
-        </a>
-        <a href="/services" class="grs-dropdown-item">
-          <div class="di-icon">🔧</div>
-          <div class="di-text">
-            <div class="di-title">Service Providers</div>
-            <div class="di-sub">Find eco service experts</div>
-          </div>
-        </a>
-        <div class="grs-divider"></div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">💼</div>
-          <div class="di-text">
-            <div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Green jobs & careers</div>
-          </div>
-        </div>
-        <div class="grs-dropdown-item grs-coming">
-          <div class="di-icon">🎓</div>
-          <div class="di-text">
-            <div class="di-title">Education <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Eco learning & courses</div>
-          </div>
-        </div>
-      </div>
-    </li>
-
-    <li><a href="/products">Products</a></li>
+    <li><a href="/supplier-profile">Suppliers</a></li>
     <li><a href="/services">Services</a></li>
-    <li><a href="/contact">Contact Us</a></li>
-    <li><a href="/about">About Us</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/contact">Contact</a></li>
   </ul>
-
-  <!-- RIGHT BUTTONS -->
-  <div class="grs-btns">
-    <a href="/claim-profile" class="grs-btn-claim">🌿 Claim Profile</a>
-    <a href="/login" class="grs-btn-out">Login</a>
-    <a href="/register" class="grs-btn-pri">List Business</a>
+  <div class="nav-btns">
+    <a href="/claim-profile" class="btn-claim">🌿 Claim Profile</a>
+    <a href="/login" class="btn-login">Login</a>
+    <a href="/register" class="btn-list">List Free</a>
   </div>
-
-  <!-- MOBILE MENU -->
-  <button class="grs-mobile-menu" onclick="toggleMobileMenu()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+  <button class="mob-btn" onclick="document.getElementById('mobnav').style.display=document.getElementById('mobnav').style.display==='block'?'none':'block'">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div id="grs-mobile-nav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;font-family:'DM Sans',sans-serif;">
-  <div style="display:flex;flex-direction:column;gap:4px;">
-    <a href="/" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏠 Home</a>
-    <a href="/supplier-profile" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🏪 Suppliers</a>
-    <a href="/services" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">🔧 Services</a>
-    <a href="/products" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📦 Products</a>
-    <a href="/contact" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">📞 Contact Us</a>
-    <a href="/about" style="padding:10px;color:#1a4a24;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;">ℹ️ About Us</a>
-    <div style="height:1px;background:#e8f0e8;margin:8px 0;"></div>
-    <a href="/claim-profile" style="padding:10px;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;">🌿 Claim Profile</a>
-    <a href="/login" style="padding:10px;background:#e8f5e2;color:#2d7a3a;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">Login</a>
-    <a href="/register" style="padding:10px;background:#2d7a3a;color:white;text-decoration:none;font-size:14px;font-weight:600;border-radius:8px;text-align:center;">List Business</a>
-  </div>
+<div id="mobnav" class="mob-nav" style="display:none">
+  <a href="/">🏠 Home</a><a href="/supplier-profile">🏪 Suppliers</a>
+  <a href="/services">🔧 Services</a><a href="/products">📦 Products</a>
+  <a href="/claim-profile">🌿 Claim Profile</a>
+  <a href="/login" style="background:#e8f5e2;color:#2d7a3a;text-align:center;margin-top:4px;">Login</a>
+  <a href="/register" style="background:#2d7a3a;color:white;text-align:center;margin-top:4px;">List Free</a>
 </div>
 
-<script>
-function toggleMobileMenu() {
-  var m = document.getElementById('grs-mobile-nav');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-</script>
-
-
-<div class="page-hero">
-  <h1>🌿 Browse Green Products</h1>
-  <p id="heroSubtext">Loading products from verified Indian suppliers...</p>
-  <div class="search-big">
-    <input type="text" id="searchInput" placeholder="Search solar panels, organic seeds, eco packaging..." onkeydown="if(event.key==='Enter')doSearch()"/>
-    <select id="categorySelect" onchange="doSearch()">
+<div class="hero">
+  <h1>📦 Eco Products</h1>
+  <p>Source verified eco-friendly products from trusted suppliers across India. B2B wholesale prices.</p>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search products, categories, suppliers..."/>
+    <select id="catFilter" onchange="doSearch()">
       <option value="">All Categories</option>
-      <option value="Solar Energy">☀️ Solar Energy</option>
-      <option value="Organic Farming">🌾 Organic Farming</option>
-      <option value="Eco Packaging">📦 Eco Packaging</option>
-      <option value="Waste Management">♻️ Waste Management</option>
-      <option value="Water Technology">💧 Water Technology</option>
-      <option value="Energy Storage">🔋 Energy Storage</option>
-      <option value="Green Building">🏗️ Green Building</option>
-      <option value="Herbal Products">🌿 Herbal Products</option>
-      <option value="Herbal & Natural">🌿 Herbal & Natural</option>
-      <option value="Eco Textiles">👗 Eco Textiles</option>
-      <option value="Wind Energy">🌬️ Wind Energy</option>
-      <option value="EV Components">🚗 EV Components</option>
-      <option value="Bioenergy">⚡ Bioenergy</option>
-      <option value="Green Transport">🚌 Green Transport</option>
-      <option value="Smart Agriculture">🌱 Smart Agriculture</option>
-      <option value="Green Chemistry">🧪 Green Chemistry</option>
-      <option value="Urban Green">🏙️ Urban Green</option>
-      <option value="Carbon & Climate">🌍 Carbon & Climate</option>
-      <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
-      <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
-      <option value="Certifications">📋 Certifications</option>
-      <option value="Global Green Trade">🌐 Global Green Trade</option>
+              <option value="Solar Energy">☀️ Solar Energy</option>
+              <option value="Organic Farming">🌾 Organic Farming</option>
+              <option value="Eco Packaging">📦 Eco Packaging</option>
+              <option value="Waste Management">♻️ Waste Management</option>
+              <option value="Water Technology">💧 Water Technology</option>
+              <option value="Wind Energy">🌬️ Wind Energy</option>
+              <option value="Energy Storage">🔋 Energy Storage</option>
+              <option value="Green Building">🏗️ Green Building</option>
+              <option value="Herbal & Natural">🌿 Herbal & Natural</option>
+              <option value="EV Components">🚗 EV Components</option>
+              <option value="Eco Textiles">👗 Eco Textiles</option>
+              <option value="Bioenergy">⚡ Bioenergy</option>
+              <option value="Green Transport">🚌 Green Transport</option>
+              <option value="Smart Agriculture">🌱 Smart Agriculture</option>
+              <option value="Green Chemistry">🧪 Green Chemistry</option>
+              <option value="Urban Green">🏙️ Urban Green</option>
+              <option value="Carbon & Climate">🌍 Carbon & Climate</option>
+              <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
+              <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
+              <option value="Certifications">📋 Certifications</option>
+              <option value="Global Green Trade">🌐 Global Green Trade</option>
+    </select>
+    <select id="stateFilter" onchange="doSearch()">
+      <option value="">All States</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
     </select>
     <button onclick="doSearch()">Search 🔍</button>
   </div>
 </div>
 
-<div class="layout">
-  <!-- FILTERS -->
-  <div class="filters">
-    <div class="filter-title">
-      Filters
-      <button onclick="clearFilters()">Clear All</button>
-    </div>
-
-    <div class="filter-section">
-      <h4>Category</h4>
-      <div class="filter-option"><input type="checkbox" id="f1" value="Solar Energy" class="cat-filter" onchange="doSearch()"/><label for="f1">☀️ Solar Energy</label></div>
-      <div class="filter-option"><input type="checkbox" id="f2" value="Organic Farming" class="cat-filter" onchange="doSearch()"/><label for="f2">🌾 Organic Farming</label></div>
-      <div class="filter-option"><input type="checkbox" id="f3" value="Eco Packaging" class="cat-filter" onchange="doSearch()"/><label for="f3">📦 Eco Packaging</label></div>
-      <div class="filter-option"><input type="checkbox" id="f4" value="Waste Management" class="cat-filter" onchange="doSearch()"/><label for="f4">♻️ Waste Management</label></div>
-      <div class="filter-option"><input type="checkbox" id="f5" value="Water Technology" class="cat-filter" onchange="doSearch()"/><label for="f5">💧 Water Technology</label></div>
-      <div class="filter-option"><input type="checkbox" id="f6" value="Energy Storage" class="cat-filter" onchange="doSearch()"/><label for="f6">🔋 Energy Storage</label></div>
-      <div class="filter-option"><input type="checkbox" id="f7" value="Herbal & Natural" class="cat-filter" onchange="doSearch()"/><label for="f7">🌿 Herbal & Natural</label></div>
-      <div class="filter-option"><input type="checkbox" id="f8" value="Green Building" class="cat-filter" onchange="doSearch()"/><label for="f8">🏗️ Green Building</label></div>
-      <div class="filter-option"><input type="checkbox" id="f9" value="Eco Textiles" class="cat-filter" onchange="doSearch()"/><label for="f9">👗 Eco Textiles</label></div>
-      <div class="filter-option"><input type="checkbox" id="f10" value="Wind Energy" class="cat-filter" onchange="doSearch()"/><label for="f10">🌬️ Wind Energy</label></div>
-      <div class="filter-option"><input type="checkbox" id="f11" value="EV Components" class="cat-filter" onchange="doSearch()"/><label for="f11">🚗 EV Components</label></div>
-      <div class="filter-option"><input type="checkbox" id="f12" value="Bioenergy" class="cat-filter" onchange="doSearch()"/><label for="f12">⚡ Bioenergy</label></div>
-      <div class="filter-option"><input type="checkbox" id="f13" value="Green Transport" class="cat-filter" onchange="doSearch()"/><label for="f13">🚌 Green Transport</label></div>
-      <div class="filter-option"><input type="checkbox" id="f14" value="Smart Agriculture" class="cat-filter" onchange="doSearch()"/><label for="f14">🌱 Smart Agriculture</label></div>
-      <div class="filter-option"><input type="checkbox" id="f15" value="Green Chemistry" class="cat-filter" onchange="doSearch()"/><label for="f15">🧪 Green Chemistry</label></div>
-      <div class="filter-option"><input type="checkbox" id="f16" value="Urban Green" class="cat-filter" onchange="doSearch()"/><label for="f16">🏙️ Urban Green</label></div>
-      <div class="filter-option"><input type="checkbox" id="f17" value="Carbon & Climate" class="cat-filter" onchange="doSearch()"/><label for="f17">🌍 Carbon & Climate</label></div>
-      <div class="filter-option"><input type="checkbox" id="f18" value="Eco Home & Lifestyle" class="cat-filter" onchange="doSearch()"/><label for="f18">🏠 Eco Home & Lifestyle</label></div>
-      <div class="filter-option"><input type="checkbox" id="f19" value="Green Finance & ESG" class="cat-filter" onchange="doSearch()"/><label for="f19">📈 Green Finance & ESG</label></div>
-      <div class="filter-option"><input type="checkbox" id="f20" value="Global Green Trade" class="cat-filter" onchange="doSearch()"/><label for="f20">🌐 Global Green Trade</label></div>
-    </div>
-
-    <div class="filter-section">
-      <h4>Price Range (₹)</h4>
-      <div class="price-range">
-        <input type="number" id="priceMin" placeholder="Min"/>
-        <input type="number" id="priceMax" placeholder="Max"/>
-      </div>
-      <button class="filter-btn" onclick="doSearch()">Apply Price</button>
-    </div>
-
-    <div class="filter-section">
-      <h4>Location</h4>
-      <div class="filter-option"><input type="checkbox" id="l1" value="Maharashtra" class="loc-filter" onchange="doSearch()"/><label for="l1">Maharashtra</label></div>
-      <div class="filter-option"><input type="checkbox" id="l2" value="Gujarat" class="loc-filter" onchange="doSearch()"/><label for="l2">Gujarat</label></div>
-      <div class="filter-option"><input type="checkbox" id="l3" value="Tamil Nadu" class="loc-filter" onchange="doSearch()"/><label for="l3">Tamil Nadu</label></div>
-      <div class="filter-option"><input type="checkbox" id="l4" value="Delhi" class="loc-filter" onchange="doSearch()"/><label for="l4">Delhi NCR</label></div>
-      <div class="filter-option"><input type="checkbox" id="l5" value="Karnataka" class="loc-filter" onchange="doSearch()"/><label for="l5">Karnataka</label></div>
-      <div class="filter-option"><input type="checkbox" id="l6" value="Kerala" class="loc-filter" onchange="doSearch()"/><label for="l6">Kerala</label></div>
-      <div class="filter-option"><input type="checkbox" id="l7" value="Rajasthan" class="loc-filter" onchange="doSearch()"/><label for="l7">Rajasthan</label></div>
-      <div class="filter-option"><input type="checkbox" id="l8" value="Uttar Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l8">Uttar Pradesh</label></div>
-      <div class="filter-option"><input type="checkbox" id="l9" value="Punjab" class="loc-filter" onchange="doSearch()"/><label for="l9">Punjab</label></div>
-      <div class="filter-option"><input type="checkbox" id="l10" value="Telangana" class="loc-filter" onchange="doSearch()"/><label for="l10">Telangana</label></div>
-      <div class="filter-option"><input type="checkbox" id="l11" value="Andhra Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l11">Andhra Pradesh</label></div>
-      <div class="filter-option"><input type="checkbox" id="l12" value="West Bengal" class="loc-filter" onchange="doSearch()"/><label for="l12">West Bengal</label></div>
-      <div class="filter-option"><input type="checkbox" id="l13" value="Madhya Pradesh" class="loc-filter" onchange="doSearch()"/><label for="l13">Madhya Pradesh</label></div>
-      <div class="filter-option"><input type="checkbox" id="l14" value="Haryana" class="loc-filter" onchange="doSearch()"/><label for="l14">Haryana</label></div>
-    </div>
+<div class="main">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num" id="totalProd">...</div><div class="stat-lbl">Total Products</div></div>
+    <div class="stat"><div class="stat-num" id="totalSupProd">...</div><div class="stat-lbl">Suppliers</div></div>
+    <div class="stat"><div class="stat-num">21+</div><div class="stat-lbl">Categories</div></div>
+    <div class="stat"><div class="stat-num">Pan India</div><div class="stat-lbl">Coverage</div></div>
   </div>
 
-  <!-- PRODUCTS -->
-  <div class="products-main">
-    <div class="results-bar">
-      <div class="results-count" id="resultsCount">Loading...</div>
-      <div class="sort-bar">
-        <label>Sort by:</label>
-        <select id="sortSelect" onchange="doSearch()">
-          <option value="newest">Newest First</option>
-          <option value="price_asc">Price: Low to High</option>
-          <option value="price_desc">Price: High to Low</option>
-        </select>
-      </div>
-    </div>
+  <div class="sort-row">
+    <span id="resultCount">Loading products...</span>
+    <select class="sort-select" id="sortSelect" onchange="doSearch()">
+      <option value="">Sort: Newest First</option>
+      <option value="price_asc">Price: Low to High</option>
+      <option value="price_desc">Price: High to Low</option>
+    </select>
+  </div>
 
-    <div id="productsContainer">
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p style="color:var(--mid);font-size:14px;">Loading products...</p>
-      </div>
-    </div>
-
-    <div class="load-more" id="loadMoreSection" style="display:none;">
-      <button onclick="loadMore()">Load More Products ↓</button>
-    </div>
+  <div class="card-grid" id="productsGrid">
+    <div class="empty"><div class="empty-icon">📦</div><p>Loading products...</p></div>
   </div>
 </div>
 
-<!-- ENQUIRY MODAL -->
-<div class="modal-overlay" id="modalOverlay">
+<div class="modal-bg" id="modalBg">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3>Send Enquiry 📩</h3>
-    <p id="modalProduct">Get best price for your requirement</p>
-    <div class="modal-field">
-      <label>Your Name *</label>
-      <input type="text" id="enqName" placeholder="Your full name"/>
-    </div>
-    <div class="modal-field">
-      <label>Mobile / WhatsApp *</label>
-      <input type="tel" id="enqMobile" placeholder="+91 98765 43210"/>
-    </div>
-    <div class="modal-field">
-      <label>Quantity Required</label>
-      <input type="text" id="enqQty" placeholder="e.g. 50 units"/>
-    </div>
-    <div class="modal-field">
-      <label>Message</label>
-      <textarea id="enqMessage" placeholder="Tell supplier your exact requirement..."></textarea>
-    </div>
-    <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry to Supplier 🌿</button>
+    <h3 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--g1);margin-bottom:4px;">Send Enquiry 📩</h3>
+    <p id="modalTitle" style="font-size:12px;color:var(--light);margin-bottom:18px;"></p>
+    <div id="modalAlert" style="display:none;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;"></div>
+    <div class="field"><label>Your Name *</label><input id="enqName" placeholder="Your full name"/></div>
+    <div class="field"><label>Mobile *</label><input id="enqMobile" type="tel" placeholder="+91 98765 43210"/></div>
+    <div class="field"><label>Email</label><input id="enqEmail" type="email" placeholder="your@email.com"/></div>
+    <div class="field"><label>Message</label><textarea id="enqMsg" style="height:70px" placeholder="What are you looking for?"></textarea></div>
+    <button class="modal-submit" id="enqBtn" onclick="submitEnquiry()">Send Enquiry 🌿</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-  emailjs.init("z44cg_jvnLbDjtQzi");
-</script>
+<footer>
+  © 2026 Green Roots Smart 🌿
+  <a href="/">Home</a><a href="/supplier-profile">Suppliers</a>
+  <a href="/services">Services</a><a href="/products">Products</a>
+  <a href="/claim-profile">Claim Profile</a><a href="/register">Register</a>
+</footer>
 
 <script>
-const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
 
-// Category emoji map
-const catEmoji = {
-  'Solar Energy': '☀️', 'Organic Farming': '🌾', 'Eco Packaging': '📦',
-  'Waste Management': '♻️', 'Water Technology': '💧', 'Energy Storage': '🔋',
-  'Green Building': '🏗️', 'Herbal Products': '🌿', 'Eco Textiles': '👗',
-  'Wind Energy': '🌬️', 'EV Components': '🚗', 'Green Chemistry': '🧪'
-};
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const db=supabase.createClient(SURL,SKEY);
 
-const catBg = {
-  'Solar Energy': 'linear-gradient(135deg,#e8f5e2,#c8e6c0)',
-  'Organic Farming': 'linear-gradient(135deg,#fff3e0,#ffe0b2)',
-  'Eco Packaging': 'linear-gradient(135deg,#e0f7fa,#b2ebf2)',
-  'Water Technology': 'linear-gradient(135deg,#e3f2fd,#bbdefb)',
-  'Energy Storage': 'linear-gradient(135deg,#f3e5f5,#e1bee7)',
-  'Herbal Products': 'linear-gradient(135deg,#e8f5e2,#dcedc8)',
-  'Green Building': 'linear-gradient(135deg,#fce4ec,#f8bbd0)',
-  'Waste Management': 'linear-gradient(135deg,#f3e5f5,#ce93d8)',
-  'default': 'linear-gradient(135deg,#e8f5e2,#c8e6c0)'
-};
+let currentEnqTarget='';
 
-let allProducts = [];
-let filteredProducts = [];
-let currentPage = 0;
-const PAGE_SIZE = 9;
-let currentProductName = '';
-let currentProductId = '';
-let currentSupplierId = '';
+function cleanCat(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();}
 
-async function fetchProducts() {
-  try {
-    // Fetch up to 1000 products — remove Supabase default 100 limit
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc&limit=1000`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Range': '0-999'
-      }
-    });
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch(e) {
-    return [];
-  }
+function openModal(name){
+  currentEnqTarget=name;
+  document.getElementById('modalTitle').textContent='Send your requirement to '+name;
+  document.getElementById('modalBg').classList.add('show');
 }
+function closeModal(){document.getElementById('modalBg').classList.remove('show');}
+document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-function getCheckedValues() {
-  // Get all category checkboxes that are checked — dynamically by class not hardcoded IDs
-  return [...document.querySelectorAll(`.filter-section input[type="checkbox"].cat-filter:checked`)]
-    .map(cb => cb.value);
-}
-
-function getCheckedLocations() {
-  return [...document.querySelectorAll('.loc-filter:checked')].map(cb => cb.value);
-}
-
-function doSearch() {
-  const query = document.getElementById('searchInput').value.trim().toLowerCase();
-  const catDropdown = document.getElementById('categorySelect').value;
-  const checkedCats = getCheckedValues();
-  const checkedLocs = getCheckedLocations();
-  const priceMin = parseFloat(document.getElementById('priceMin').value) || 0;
-  const priceMax = parseFloat(document.getElementById('priceMax').value) || Infinity;
-  const sort = document.getElementById('sortSelect').value;
-
-  const cleanCat = function(str){ return (str||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase(); };
-
-  filteredProducts = allProducts.filter(function(p) {
-    var pCatClean = cleanCat(p.category);
-
-    var matchSearch = !query ||
-      (p.name && p.name.toLowerCase().includes(query)) ||
-      (p.description && p.description.toLowerCase().includes(query)) ||
-      (p.category && p.category.toLowerCase().includes(query)) ||
-      (p.city && p.city.toLowerCase().includes(query)) ||
-      (p.state && p.state.toLowerCase().includes(query)) ||
-      (p.location && p.location.toLowerCase().includes(query)) ||
-      (p.supplier_name && p.supplier_name.toLowerCase().includes(query));
-
-    var matchCatDrop = !catDropdown || pCatClean === cleanCat(catDropdown) || (p.category||'').trim() === catDropdown.trim();
-    var matchCatCheck = checkedCats.length === 0 || checkedCats.some(function(cc){ return pCatClean === cleanCat(cc) || (p.category||'').trim() === cc.trim(); });
-    var hasLocData = (p.location||'').length > 0 || (p.city||'').length > 0 || (p.state||'').length > 0;
-    var matchLoc = checkedLocs.length === 0 || !hasLocData || checkedLocs.some(function(l){
-      var ll = l.toLowerCase();
-      return (p.location||'').toLowerCase().includes(ll) ||
-             (p.city||'').toLowerCase().includes(ll) ||
-             (p.state||'').toLowerCase().includes(ll) ||
-             ((p.city||'')+' '+(p.state||'')).toLowerCase().includes(ll);
-    });
-    var price = parseFloat(p.price) || 0;
-    var matchPrice = price >= priceMin && price <= priceMax;
-
-    return matchSearch && matchCatDrop && matchCatCheck && matchLoc && matchPrice;
-  });
-
-  // Sort
-  if (sort === 'price_asc') filteredProducts.sort((a,b) => (parseFloat(a.price)||0) - (parseFloat(b.price)||0));
-  else if (sort === 'price_desc') filteredProducts.sort((a,b) => (parseFloat(b.price)||0) - (parseFloat(a.price)||0));
-
-  currentPage = 0;
-  renderProducts(true);
-}
-
-function renderProducts(reset) {
-  const container = document.getElementById('productsContainer');
-  const start = currentPage * PAGE_SIZE;
-  const pageItems = filteredProducts.slice(start, start + PAGE_SIZE);
-  const total = filteredProducts.length;
-
-  document.getElementById('resultsCount').innerHTML = `Showing <strong>${total}</strong> product${total !== 1 ? 's' : ''}`;
-
-  if (total === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🌿</div>
-        <h3>No products found</h3>
-        <p>Try a different search or category filter</p>
-      </div>`;
-    document.getElementById('loadMoreSection').style.display = 'none';
-    return;
-  }
-
-  const grid = reset ? document.createElement('div') : container.querySelector('.prod-grid');
-  if (reset) { grid.className = 'prod-grid'; container.innerHTML = ''; container.appendChild(grid); }
-
-  pageItems.forEach(p => {
-    const emoji = catEmoji[p.category] || '🌿';
-    const bg = catBg[p.category] || catBg['default'];
-    const price = p.price ? `₹${Number(p.price).toLocaleString('en-IN')}` : 'Price on request';
-    const unit = p.unit ? `/${p.unit}` : '';
-    const moq = p.moq ? `MOQ: ${p.moq}` : '';
-    const supplier = p.supplier_name || p.business_name || 'Verified Supplier';
-    const location = [p.city, p.state].filter(Boolean).join(', ') || p.location || 'India';
-
-    const card = document.createElement('div');
-    card.className = 'prod-card';
-    card.style.cursor = 'pointer';
-
-    const imgSection = p.image_url
-      ? `<div class="prod-img" style="background:${bg};padding:0;overflow:hidden;position:relative;">
-           <img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;"/>
-           <span class="prod-badge badge-eco" style="position:absolute;top:10px;left:10px;">🌿 Eco</span>
-         </div>`
-      : `<div class="prod-img" style="background:${bg};position:relative;">
-           ${emoji}<span class="prod-badge badge-eco">🌿 Eco</span>
-         </div>`;
-
-    const waNumber = (p.whatsapp || '').replace(/\D/g,'');
-    const waMsg = encodeURIComponent('Hi! I found your product "' + (p.name||'') + '" on Green Roots Smart. I am interested. Please share details.');
-    const waBtn = waNumber
-      ? `<a href="https://wa.me/91${waNumber}?text=${waMsg}" target="_blank" onclick="event.stopPropagation()" style="display:inline-flex;align-items:center;gap:4px;background:#25D366;color:white;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">💬 WhatsApp</a>`
-      : '';
-
-    card.innerHTML = `
-      ${imgSection}
-      <div class="prod-body">
-        <div class="prod-cat">${p.category || 'Green Product'}</div>
-        <h3>${p.name || 'Eco Product'}</h3>
-        <div class="prod-supplier"><span class="verified-dot"></span> ${supplier} · ${location}</div>
-        <div class="prod-price">${price} <span class="prod-unit">${unit}</span></div>
-        ${moq ? `<div class="prod-moq">${moq}</div>` : ''}
-        <div class="prod-footer">
-          ${waBtn}
-          <button class="enquire-btn" onclick="event.stopPropagation();openModal('${(p.name||'').replace(/'/g,"\'")}','${p.id||''}','${p.supplier_id||''}')">Enquire</button>
-        </div>
-      </div>`;
-
-    card.addEventListener('click', () => {
-      window.location.href = '/product-detail?id=' + (p.id||'');
-    });
-    grid.appendChild(card);
-  });
-
-  const hasMore = start + PAGE_SIZE < total;
-  document.getElementById('loadMoreSection').style.display = hasMore ? 'block' : 'none';
-}
-
-function loadMore() {
-  currentPage++;
-  renderProducts(false);
-}
-
-function clearFilters() {
-  document.querySelectorAll('.filters input[type="checkbox"]').forEach(cb => cb.checked = false);
-  document.getElementById('searchInput').value = '';
-  document.getElementById('categorySelect').value = '';
-  document.getElementById('priceMin').value = '';
-  document.getElementById('priceMax').value = '';
-  doSearch();
-}
-document.getElementById('searchInput').addEventListener('input', function(){ doSearch(); });
-
-function openModal(product, productId, supplierId) {
-  currentProductName = product;
-  currentProductId = productId;
-  currentSupplierId = supplierId || '';
-  document.getElementById('modalProduct').textContent = '📦 ' + product;
-
-  // Pre-fill if logged in as buyer
-  const buyer = JSON.parse(localStorage.getItem('grs_buyer') || '{}');
-  if (buyer.name) document.getElementById('enqName').value = buyer.name;
-  if (buyer.mobile) document.getElementById('enqMobile').value = buyer.mobile;
-
-  document.getElementById('modalOverlay').classList.add('show');
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('show');
-}
-
-
-// ═══════════════════════════════════════════════════
-// GRS NOTIFICATION SYSTEM
-// ═══════════════════════════════════════════════════
-const GRS_EMAILJS_SERVICE = 'service_clis9zo';
-const GRS_EMAILJS_TEMPLATE = 'template_7gj9klp';
-
-async function grsNotifyAdmin(data){
+async function submitEnquiry(){
+  const name=document.getElementById('enqName').value.trim();
+  const mobile=document.getElementById('enqMobile').value.trim();
+  if(!name)return showModalAlert('Please enter your name!');
+  if(!mobile)return showModalAlert('Please enter your mobile number!');
+  const btn=document.getElementById('enqBtn');
+  btn.disabled=true;btn.textContent='Sending...';
   try{
-    if(typeof emailjs === 'undefined') return;
-    await emailjs.send(GRS_EMAILJS_SERVICE, GRS_EMAILJS_TEMPLATE, {
-      to_name: 'Dinesh — GRS Admin',
-      from_name: data.buyer_name || 'Buyer',
-      buyer_name: data.buyer_name || 'Unknown Buyer',
-      buyer_mobile: data.buyer_mobile || '—',
-      buyer_email: data.buyer_email || '—',
-      product_name: data.product_name || 'General Enquiry',
-      supplier_name: data.supplier_name || '—',
-      quantity: data.quantity || 'Not specified',
-      message: data.message || '—',
-      enquiry_type: data.enquiry_type || 'Form Enquiry',
-      page_source: window.location.href,
-      timestamp: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
-    });
-    console.log('✅ GRS Admin notified!');
-  }catch(e){ console.log('Admin notify (non-critical):', e?.text||e?.message||e); }
+    await db.from('enquiries').insert([{
+      buyer_name:name,buyer_mobile:mobile,
+      buyer_email:document.getElementById('enqEmail').value.trim(),
+      supplier_name:currentEnqTarget,
+      product_name:'Enquiry — '+currentEnqTarget,
+      message:document.getElementById('enqMsg').value.trim(),
+      enquiry_type:'Page Enquiry',status:'new',
+      created_at:new Date().toISOString()
+    }]);
+    showToast('✅ Enquiry sent! They will contact you soon.');
+    closeModal();
+    ['enqName','enqMobile','enqEmail','enqMsg'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){showModalAlert('Error. Please try WhatsApp directly.');}
+  btn.disabled=false;btn.textContent='Send Enquiry 🌿';
 }
 
-async function grsTrackWA(supplierName, supplierId, productName){
+async function trackWA(name,id){
   try{
-    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
     await fetch(SURL+'/rest/v1/wa_clicks',{
       method:'POST',
       headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({supplier_name:supplierName,supplier_id:supplierId||null,product_name:productName||null,page:window.location.pathname,clicked_at:new Date().toISOString()})
+      body:JSON.stringify({supplier_name:name,supplier_id:id||null,page:window.location.pathname,clicked_at:new Date().toISOString()})
     });
   }catch(e){}
 }
-// ═══════════════════════════════════════════════════
 
-async function submitEnquiry() {
-  const name = document.getElementById('enqName').value.trim();
-  const mobile = document.getElementById('enqMobile').value.trim();
-  const qty = document.getElementById('enqQty').value.trim();
-  const message = document.getElementById('enqMessage').value.trim();
+function showModalAlert(msg){
+  const el=document.getElementById('modalAlert');
+  el.style.display='block';el.style.background='#fce4ec';el.style.color='#c62828';el.textContent=msg;
+  setTimeout(()=>el.style.display='none',4000);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.style.display='none',3500);
+}
 
-  if (!name || !mobile) { showToast('⚠️ Please enter your name and mobile'); return; }
 
-  const btn = document.querySelector('.modal-submit');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
+let allProducts=[];
+let filteredProducts=[];
 
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/enquiries`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({
-        buyer_name: name,
-        buyer_mobile: mobile,
-        buyer_email: '',
-        product_name: currentProductName,
-        product_id: currentProductId || null,
-        supplier_id: currentSupplierId || null,
-        quantity: qty || '',
-        message: message || '',
-        status: 'new',
-        created_at: new Date().toISOString()
-      })
+async function fetchProducts(){
+  try{
+    const res=await fetch(SURL+'/rest/v1/products?select=*&order=created_at.desc&limit=1000',{
+      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Range':'0-999'}
     });
-
-    if (res.ok || res.status === 201) {
-      // Send email notification via EmailJS
-      grsNotifyAdmin({buyer_name:name,buyer_mobile:mobile,product_name:currentProductName,quantity:qty||'Not specified',message:message||'—',enquiry_type:'Product Page Enquiry'});
-      closeModal();
-      showToast('✅ Enquiry sent! Supplier will contact you soon.');
-      document.getElementById('enqName').value = '';
-      document.getElementById('enqMobile').value = '';
-      document.getElementById('enqQty').value = '';
-      document.getElementById('enqMessage').value = '';
-    } else {
-      const errText = await res.text();
-      console.error('Enquiry error:', res.status, errText);
-      showToast('⚠️ Error ' + res.status + ': ' + errText.substring(0,80));
-    }
-  } catch(e) {
-    console.error('Network error:', e);
-    showToast('⚠️ Network error: ' + e.message);
-  }
-
-  btn.textContent = 'Send Enquiry to Supplier 🌿';
-  btn.disabled = false;
+    const data=await res.json();
+    return Array.isArray(data)?data:[];
+  }catch(e){return[];}
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 3500);
+function doSearch(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  const cat=document.getElementById('catFilter').value;
+  const state=document.getElementById('stateFilter').value.toLowerCase();
+  const sort=document.getElementById('sortSelect').value;
+
+  filteredProducts=allProducts.filter(p=>{
+    const matchSearch=!q||
+      (p.name||'').toLowerCase().includes(q)||
+      (p.description||'').toLowerCase().includes(q)||
+      (p.category||'').toLowerCase().includes(q)||
+      (p.city||'').toLowerCase().includes(q)||
+      (p.state||'').toLowerCase().includes(q)||
+      (p.supplier_name||'').toLowerCase().includes(q);
+
+    const matchCat=!cat||(cleanCat(p.category)===cleanCat(cat))||(p.category||'').trim()===cat.trim();
+
+    const hasLoc=(p.city||'').length>0||(p.state||'').length>0;
+    const matchState=!state||!hasLoc||
+      (p.city||'').toLowerCase().includes(state)||
+      (p.state||'').toLowerCase().includes(state);
+
+    return matchSearch&&matchCat&&matchState;
+  });
+
+  if(sort==='price_asc') filteredProducts.sort((a,b)=>(parseFloat(a.price)||0)-(parseFloat(b.price)||0));
+  else if(sort==='price_desc') filteredProducts.sort((a,b)=>(parseFloat(b.price)||0)-(parseFloat(a.price)||0));
+
+  document.getElementById('resultCount').textContent=
+    filteredProducts.length+' product'+(filteredProducts.length!==1?'s':'')+ ' found';
+  renderProducts(filteredProducts);
 }
 
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// INIT
-(async () => {
-  allProducts = await fetchProducts();
-  filteredProducts = [...allProducts];
-
-  // Update hero text with real count
-  const count = allProducts.length;
-  document.getElementById('heroSubtext').textContent =
-    count > 0
-      ? `${count} eco-friendly product${count !== 1 ? 's' : ''} from verified Indian suppliers`
-      : 'Be the first to list your eco products!';
-
-  // Pre-select category from URL parameter (e.g. /products?cat=Solar Energy)
-  const urlParams = new URLSearchParams(window.location.search);
-  const catParam = urlParams.get('cat');
-  if(catParam){
-    // Set dropdown
-    const dropdown = document.getElementById('categorySelect');
-    if(dropdown){
-      for(let i=0;i<dropdown.options.length;i++){
-        if(dropdown.options[i].value === catParam){
-          dropdown.selectedIndex = i;
-          break;
-        }
-      }
-    }
-    // Also check matching sidebar checkbox if exists
-    const cbs = document.querySelectorAll('.cat-filter');
-    cbs.forEach(cb=>{ if(cb.value===catParam) cb.checked=true; });
+function renderProducts(products){
+  const grid=document.getElementById('productsGrid');
+  if(!products||!products.length){
+    grid.innerHTML='<div class="empty"><div class="empty-icon">📦</div><h3>No products found</h3><p>Try a different search or category filter</p></div>';
+    return;
   }
+  grid.innerHTML=products.map(p=>{
+    const cat=p.category||'Eco Product';
+    const loc=[p.city,p.state].filter(Boolean).join(', ')||p.location||'India';
+    const img=p.image_url||p.image||'';
+    const price=p.price?'₹'+parseFloat(p.price).toLocaleString('en-IN'):'';
+    const supplierName=p.supplier_name||p.business_name||'';
+    const supplierId=p.supplier_id||'';
 
+    return `<div class="grs-card" onclick="window.location.href='/product-detail?id=${p.id}'">
+      ${img?'<img src="'+img+'" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:14px;" loading="lazy" onerror="this.style.display='none'"/>':''}
+      <div class="card-head" style="margin-bottom:8px;">
+        <div style="flex:1"><div class="card-name">${p.name||'Eco Product'}</div></div>
+        <span class="card-badge badge-listed">${cleanCat(cat)||'Eco'}</span>
+      </div>
+      ${price?'<div class="prod-price">'+price+(p.unit?' / '+p.unit:'')+'</div>':''}
+      ${p.moq?'<div class="prod-moq">MOQ: '+p.moq+'</div>':''}
+      ${p.description?'<div class="card-desc">'+p.description+'</div>':''}
+      <div class="card-footer" style="margin-top:10px;">
+        <span class="card-hint">📍 ${loc}</span>
+        <div class="card-btns">
+          <button class="btn-enq" onclick="event.stopPropagation();openModal('${(supplierName||p.name||'').replace(/'/g,\'\\\'\')}')" >Enquire</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('searchInput').addEventListener('input',doSearch);
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+
+// Load products
+(async()=>{
+  allProducts=await fetchProducts();
+  filteredProducts=[...allProducts];
+
+  // Unique suppliers count
+  const supIds=new Set(allProducts.map(p=>p.supplier_id).filter(Boolean));
+  document.getElementById('totalProd').textContent=allProducts.length+'+';
+  document.getElementById('totalSupProd').textContent=supIds.size||'—';
+
+  // URL params
+  const urlParams=new URLSearchParams(window.location.search);
+  const urlCat=urlParams.get('cat')||urlParams.get('category')||urlParams.get('q');
+  if(urlCat){
+    // Try to set category filter
+    const catEl=document.getElementById('catFilter');
+    Array.from(catEl.options).forEach(o=>{
+      if(o.text.toLowerCase().includes(urlCat.toLowerCase())||o.value.toLowerCase()===urlCat.toLowerCase())
+        catEl.value=o.value;
+    });
+    document.getElementById('searchInput').value=urlCat;
+    const h=document.querySelector('.hero h1');
+    if(h&&urlCat.length>2) h.textContent='📦 '+urlCat;
+  }
   doSearch();
 })();
 </script>

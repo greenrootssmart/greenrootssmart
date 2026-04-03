@@ -1634,6 +1634,9 @@ async function apSaveProduct(status){
     whatsapp: wa, photos: JSON.stringify(apPhotos),
     image_url: apPhotos.length > 0 ? apPhotos[0] : null,
     status, location: u.city||u.state||'India',
+    city: u.city||'',
+    state: u.state||'',
+    supplier_name: u.business_name||'',
   };
 
   try {
