@@ -433,11 +433,13 @@ function doSearch() {
     const cleanC = s => (s||'').replace(/[^ -]/g,'').trim().toLowerCase();
     filtered = filtered.filter(s => cleanC(s.category) === cleanC(cat) || (s.category||'').trim() === cat.trim());
   }
-  if(state) filtered = filtered.filter(s =>
-    (s.state||'').toLowerCase().includes(state) ||
-    (s.city||'').toLowerCase().includes(state) ||
-    (s.location||'').toLowerCase().includes(state)
-  );
+  if(state) filtered = filtered.filter(s => {
+    var hasLoc = (s.state||'').length>0||(s.city||'').length>0||(s.location||'').length>0;
+    if(!hasLoc) return true; // show if no location data
+    return (s.state||'').toLowerCase().includes(state) ||
+           (s.city||'').toLowerCase().includes(state) ||
+           (s.location||'').toLowerCase().includes(state);
+  });
   renderSuppliers(filtered.length > 0 ? filtered : (q||cat||state) ? [] : allSuppliers);
 }
 

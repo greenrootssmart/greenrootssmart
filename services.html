@@ -381,11 +381,13 @@ function doSearch(){
     const cleanC=s=>(s||'').replace(/[^ -]/g,'').trim().toLowerCase();
     filtered=filtered.filter(p=>cleanC(p.category)===cleanC(cat)||(p.category||'').trim()===cat.trim());
   }
-  if(state) filtered=filtered.filter(p=>
-    (p.state||'').toLowerCase().includes(state)||
-    (p.city||'').toLowerCase().includes(state)||
-    (p.location||'').toLowerCase().includes(state)
-  );
+  if(state) filtered=filtered.filter(p=>{
+    var hasLoc=(p.state||'').length>0||(p.city||'').length>0||(p.location||'').length>0;
+    if(!hasLoc) return true;
+    return (p.state||'').toLowerCase().includes(state)||
+           (p.city||'').toLowerCase().includes(state)||
+           (p.location||'').toLowerCase().includes(state);
+  });
   renderProviders(filtered);
 }
 

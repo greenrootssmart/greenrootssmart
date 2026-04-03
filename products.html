@@ -516,7 +516,8 @@ function doSearch() {
 
     var matchCatDrop = !catDropdown || pCatClean === cleanCat(catDropdown) || (p.category||'').trim() === catDropdown.trim();
     var matchCatCheck = checkedCats.length === 0 || checkedCats.some(function(cc){ return pCatClean === cleanCat(cc) || (p.category||'').trim() === cc.trim(); });
-    var matchLoc = checkedLocs.length === 0 || checkedLocs.some(function(l){
+    var hasLocData = (p.location||'').length > 0 || (p.city||'').length > 0 || (p.state||'').length > 0;
+    var matchLoc = checkedLocs.length === 0 || !hasLocData || checkedLocs.some(function(l){
       var ll = l.toLowerCase();
       return (p.location||'').toLowerCase().includes(ll) ||
              (p.city||'').toLowerCase().includes(ll) ||
@@ -566,7 +567,7 @@ function renderProducts(reset) {
     const unit = p.unit ? `/${p.unit}` : '';
     const moq = p.moq ? `MOQ: ${p.moq}` : '';
     const supplier = p.supplier_name || p.business_name || 'Verified Supplier';
-    const location = p.location || p.city || 'India';
+    const location = [p.city, p.state].filter(Boolean).join(', ') || p.location || 'India';
 
     const card = document.createElement('div');
     card.className = 'prod-card';
