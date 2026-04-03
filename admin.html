@@ -640,7 +640,11 @@ tr:hover td{background:#fafffe;}
           </label>
         </div>
         <div id="blog-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
-        <button onclick="saveBlog()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">✍️ Publish Blog Post</button>
+        <input type="hidden" id="blog-edit-id" value=""/>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button id="blog-save-btn" onclick="saveBlog()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">✍️ Publish Blog Post</button>
+          <button id="blog-cancel-btn" onclick="cancelEditBlog()" style="margin-top:14px;padding:10px 20px;background:#f5f5f5;color:#666;border:1.5px solid #ddd;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;display:none;">✕ Cancel Edit</button>
+        </div>
       </div>
       <div class="card">
         <div class="card-header">
@@ -1101,26 +1105,75 @@ async function saveBlog() {
   const cat = document.getElementById('blog-cat').value;
   if(!title || !cat) { showBlogMsg('Please enter title and category!', 'error'); return; }
 
-  // Generate slug
+  const editId = document.getElementById('blog-edit-id').value;
   const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-  const { error } = await supabaseClient.from('blogs').insert([{
-    title, slug, category: cat,
+  const blogData = {
+    title, category: cat,
     excerpt: document.getElementById('blog-excerpt').value.trim(),
     content: document.getElementById('blog-content').value.trim(),
     author: document.getElementById('blog-author').value.trim() || 'Green Roots Smart',
     published: document.getElementById('blog-publish').checked,
     cover_image: document.getElementById('blog-cover-url').value || '',
-  }]);
+  };
+
+  let error;
+  if(editId) {
+    // UPDATE existing blog
+    const res = await supabaseClient.from('blogs').update(blogData).eq('id', editId);
+    error = res.error;
+    if(!error) showBlogMsg('✅ Blog post updated successfully!', 'success');
+  } else {
+    // INSERT new blog
+    blogData.slug = slug;
+    const res = await supabaseClient.from('blogs').insert([blogData]);
+    error = res.error;
+    if(!error) showBlogMsg('✅ Blog post published! View at greenrootssmart.com/blog', 'success');
+  }
 
   if(error) { showBlogMsg('Error: ' + error.message, 'error'); return; }
-  showBlogMsg('✅ Blog post published! View at greenrootssmart.com/blog', 'success');
+  resetBlogForm();
+  loadBlogs();
+}
+
+function editBlog(b) {
+  // Scroll to form
+  document.getElementById('section-blogs').scrollIntoView({behavior:'smooth'});
+  // Fill form with blog data
+  document.getElementById('blog-edit-id').value = b.id;
+  document.getElementById('blog-title').value = b.title || '';
+  document.getElementById('blog-cat').value = b.category || '';
+  document.getElementById('blog-excerpt').value = b.excerpt || '';
+  document.getElementById('blog-content').value = b.content || '';
+  document.getElementById('blog-author').value = b.author || '';
+  document.getElementById('blog-publish').checked = b.published || false;
+  document.getElementById('blog-cover-url').value = b.cover_image || '';
+  if(b.cover_image) {
+    document.getElementById('blog-img-thumb').src = b.cover_image;
+    document.getElementById('blog-img-preview').style.display = 'block';
+    document.getElementById('blog-img-status').textContent = '✅ Image loaded';
+  }
+  // Update button text and show cancel
+  document.getElementById('blog-save-btn').textContent = '💾 Update Blog Post';
+  document.getElementById('blog-save-btn').style.background = '#1565c0';
+  document.getElementById('blog-cancel-btn').style.display = 'inline-block';
+  showBlogMsg('✏️ Editing: ' + b.title, 'success');
+}
+
+function cancelEditBlog() {
+  resetBlogForm();
+  showBlogMsg('Edit cancelled.', 'success');
+}
+
+function resetBlogForm() {
+  document.getElementById('blog-edit-id').value = '';
   ['blog-title','blog-excerpt','blog-content','blog-author'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('blog-cover-url').value = '';
+  document.getElementById('blog-cat').value = '';
   document.getElementById('blog-img-status').textContent = 'No image selected';
   document.getElementById('blog-img-preview').style.display = 'none';
-  document.getElementById('blog-cat').value = '';
-  loadBlogs();
+  document.getElementById('blog-save-btn').textContent = '✍️ Publish Blog Post';
+  document.getElementById('blog-save-btn').style.background = '#2d7a3a';
+  document.getElementById('blog-cancel-btn').style.display = 'none';
 }
 
 function showBlogMsg(msg, type) {
@@ -1148,8 +1201,9 @@ async function loadBlogs() {
         <div style="font-size:14px;font-weight:700;color:#1a4a24">${b.title}</div>
         <div style="font-size:12px;color:#7a9a74">${b.category||''} · ${b.published ? '✅ Published' : '⏳ Draft'} · 👁️ ${b.views||0} views</div>
       </div>
-      <div style="display:flex;gap:8px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <a href="/blog-post?slug=${b.slug||b.id}" target="_blank" style="padding:6px 12px;background:#e8f5e2;color:#2d7a3a;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">👁️ View</a>
+        <button onclick="editBlog(${JSON.stringify(b).replace(/'/g,'&#39;')})" style="padding:6px 12px;background:#e3f2fd;color:#1565c0;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">✏️ Edit</button>
         <button onclick="togglePublish('${b.id}',${b.published})" style="padding:6px 12px;background:${b.published ? '#fce4ec' : '#e8f5e2'};color:${b.published ? '#c62828' : '#2d7a3a'};border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">${b.published ? '🚫 Unpublish' : '✅ Publish'}</button>
         <button onclick="deleteBlog('${b.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
       </div>
