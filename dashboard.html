@@ -1567,9 +1567,16 @@ function apOpenUpload(){
     sources: ['local','camera'], multiple: true,
     maxFiles: 5 - apPhotos.length, maxFileSize: 5000000,
     clientAllowedFormats: ['jpg','jpeg','png','webp'],
+    cropping: false,
   }, function(err, result){
     if(!err && result && result.event === 'success'){
-      apPhotos.push(result.info.secure_url);
+      // Auto-standardize image URL for consistent display
+      var url = result.info.secure_url;
+      // Add Cloudinary transformation for consistent square display
+      if(url.includes('/upload/') && !url.includes('w_600')){
+        url = url.replace('/upload/', '/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/');
+      }
+      apPhotos.push(url);
       apRenderPhotos();
     }
   });
