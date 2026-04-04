@@ -226,17 +226,11 @@ function cleanCat(s){ return (s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerC
 
 async function loadProducts(){
   try{
-    var res = await fetch(SURL+'/rest/v1/products?select=*,suppliers(mobile,business_name)&order=created_at.desc&limit=1000',{
+    var res = await fetch(SURL+'/rest/v1/products?select=*&order=created_at.desc&limit=1000',{
       headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Range':'0-999'}
     });
     var data = await res.json();
-    var rawData = Array.isArray(data) ? data : [];
-    allProducts = rawData.map(function(p){
-      return Object.assign({}, p, {
-        mobile: (p.suppliers && p.suppliers.mobile) || p.mobile || p.whatsapp || '',
-        supplier_name: (p.suppliers && p.suppliers.business_name) || p.supplier_name || '',
-      });
-    });
+    allProducts = Array.isArray(data) ? data : [];
     filteredProducts = allProducts.slice();
     var supIds = new Set(allProducts.map(function(p){return p.supplier_id;}).filter(Boolean));
     document.getElementById('totalProd').textContent = allProducts.length+'+';
