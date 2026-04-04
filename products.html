@@ -57,6 +57,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.98);backdrop
 .card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
 .card-hint{font-size:11px;color:var(--light);}
 .btn-enq{padding:7px 14px;background:var(--g2);color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;}
+.btn-wa{padding:7px 12px;background:#25D366;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
 .empty{grid-column:1/-1;text-align:center;padding:60px 20px;}
 .empty-icon{font-size:56px;margin-bottom:16px;}
 .empty h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);margin-bottom:8px;}
@@ -225,11 +226,17 @@ function cleanCat(s){ return (s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerC
 
 async function loadProducts(){
   try{
-    var res = await fetch(SURL+'/rest/v1/products?select=*&order=created_at.desc&limit=1000',{
+    var res = await fetch(SURL+'/rest/v1/products?select=*,suppliers(mobile,business_name)&order=created_at.desc&limit=1000',{
       headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Range':'0-999'}
     });
     var data = await res.json();
-    allProducts = Array.isArray(data) ? data : [];
+    var rawData = Array.isArray(data) ? data : [];
+    allProducts = rawData.map(function(p){
+      return Object.assign({}, p, {
+        mobile: (p.suppliers && p.suppliers.mobile) || p.mobile || p.whatsapp || '',
+        supplier_name: (p.suppliers && p.suppliers.business_name) || p.supplier_name || '',
+      });
+    });
     filteredProducts = allProducts.slice();
     var supIds = new Set(allProducts.map(function(p){return p.supplier_id;}).filter(Boolean));
     document.getElementById('totalProd').textContent = allProducts.length+'+';
@@ -306,7 +313,14 @@ function renderProducts(list){
     if(p.moq) h+='<div class="prod-moq">MOQ: '+p.moq+'</div>';
     if(p.description) h+='<div class="card-desc">'+p.description+'</div>';
     h+='<div class="card-footer"><span class="card-hint">📍 '+loc+'</span>';
-    h+='<button class="btn-enq" onclick="event.stopPropagation();openModal(\''+ename+'\')">Enquire</button>';
+    h+='<div style="display:flex;gap:8px;">';
+    if(p.mobile){
+      var wm=encodeURIComponent('Hi! I saw your product "'+p.name+'" on Green Roots Smart. I am interested. Please share details and price.');
+      var wnum=p.mobile.replace(/\D/g,'');
+      h+='<a href="https://wa.me/91'+wnum+'?text='+wm+'" target="_blank" onclick="event.stopPropagation()" class="btn-wa">💬 WA</a>';
+    }
+    h+='<button class="btn-enq" onclick="event.stopPropagation();openModal(\''+ename+'\')" >Enquire</button>';
+    h+='</div>';
     h+='</div></div>';
   }
   g.innerHTML=h;
