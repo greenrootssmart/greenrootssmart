@@ -768,7 +768,7 @@ let allProducts = [];
 let allEnquiries = [];
 
 // ADMIN LOGIN CHECK
-function checkAdminAccess() {
+async function checkAdminAccess() {
   // Check grs_admin session first
   const adminData = localStorage.getItem('grs_admin');
   if (adminData) {
@@ -795,7 +795,7 @@ async function initAdmin() {
   await loadBlogs();
 }
 
-async async function loadAllData() {
+async function loadAllData() {
   // Load suppliers
   const { data: suppliers } = await supabaseClient.from('suppliers').select('*').order('created_at', { ascending: false });
   allSuppliers = suppliers || [];
@@ -995,7 +995,7 @@ function renderEnquiriesTable(data) {
 }
 
 // APPROVE / REJECT SUPPLIER
-async async function approveSupplier(id) {
+async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
   var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
   if (res.error) { alert('Error: ' + res.error.message); return; }
@@ -1003,7 +1003,7 @@ async async function approveSupplier(id) {
   showToast('✅ Supplier approved successfully!');
 }
 
-async async function rejectSupplier(id) {
+async function rejectSupplier(id) {
   if (!confirm('Deactivate/Reject this supplier?')) return;
   var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
   if (res.error) { alert('Error: ' + res.error.message); return; }
@@ -1112,7 +1112,7 @@ function showSection(name, el) {
   }
 }
 
-function toggleSidebar(){
+async function toggleSidebar(){
   const sb = document.querySelector('.sidebar');
   const bd = document.getElementById('sidebarBackdrop');
   if(sb && bd) {
@@ -1347,7 +1347,7 @@ function resetBlogForm() {
   document.getElementById('blog-cancel-btn').style.display = 'none';
 }
 
-function showBlogMsg(msg, type) {
+async function showBlogMsg(msg, type) {
   const el = document.getElementById('blog-msg');
   el.style.display = 'block';
   el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
@@ -1622,7 +1622,7 @@ function closeVerifModal(){
   document.getElementById('verifModal').style.display='none';
 }
 
-function showAdminToast(msg, type='success'){
+async function showAdminToast(msg, type='success'){
   const toast = document.createElement('div');
   toast.style.cssText=`position:fixed;bottom:24px;right:24px;background:${type==='success'?'#2d7a3a':'#c62828'};color:white;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:320px;`;
   toast.textContent=msg;
@@ -1817,7 +1817,7 @@ async function addSupplierManually() {
   }
 }
 
-function showManMsg(msg, type) {
+async function showManMsg(msg, type) {
   const el = document.getElementById('man-msg');
   el.style.display = 'block';
   el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
