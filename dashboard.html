@@ -1853,8 +1853,12 @@ function addBulkRow() {
     '<input type="number" id="bulk-moq-' + n + '" placeholder="e.g. 50" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
     '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Unit</label>' +
     '<input type="text" id="bulk-unit-' + n + '" placeholder="e.g. per piece" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Image URL</label>' +
-    '<input type="text" id="bulk-img-' + n + '" placeholder="Paste Cloudinary URL" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
+    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Photo</label>' +
+    '<div style="display:flex;align-items:center;gap:10px;">' +
+    '<button type="button" onclick="bulkUploadPhoto(' + n + ')" style="padding:9px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📷 Upload Photo</button>' +
+    '<span id="bulk-img-preview-' + n + '" style="font-size:12px;color:#7a9a74;">No photo yet</span>' +
+    '<input type="hidden" id="bulk-img-' + n + '" value=""/>' +
+    '</div></div>' +
     '</div>';
   container.appendChild(row);
 }
@@ -1962,6 +1966,38 @@ function showBulkAlert(msg, type) {
   el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
   el.textContent = msg;
   setTimeout(function(){ el.style.display = 'none'; }, 5000);
+}
+
+
+function bulkUploadPhoto(n) {
+  if (!window.cloudinary) {
+    alert('Upload widget not ready. Please refresh the page.');
+    return;
+  }
+  cloudinary.openUploadWidget({
+    cloudName: 'dvbaciabk',
+    uploadPreset: 'grs_products',
+    sources: ['local', 'camera'],
+    multiple: false,
+    maxFiles: 1,
+    maxFileSize: 5000000,
+    clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
+    cropping: false,
+  }, function(err, result) {
+    if (!err && result && result.event === 'success') {
+      var url = result.info.secure_url;
+      // Auto-standardize via Cloudinary
+      if (url.includes('/upload/') && !url.includes('w_600')) {
+        url = url.replace('/upload/', '/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/');
+      }
+      var hiddenInput = document.getElementById('bulk-img-' + n);
+      if (hiddenInput) hiddenInput.value = url;
+      var preview = document.getElementById('bulk-img-preview-' + n);
+      if (preview) {
+        preview.innerHTML = '<img src="' + url + '" style="height:40px;width:40px;object-fit:cover;border-radius:6px;margin-right:6px;"/> <span style="color:#2d7a3a;font-weight:600;">✅ Uploaded!</span>';
+      }
+    }
+  });
 }
 
 </script>
