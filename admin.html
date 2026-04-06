@@ -795,7 +795,7 @@ async function initAdmin() {
   await loadBlogs();
 }
 
-async function loadAllData() {
+async async function loadAllData() {
   // Load suppliers
   const { data: suppliers } = await supabaseClient.from('suppliers').select('*').order('created_at', { ascending: false });
   allSuppliers = suppliers || [];
@@ -995,7 +995,7 @@ function renderEnquiriesTable(data) {
 }
 
 // APPROVE / REJECT SUPPLIER
-async function approveSupplier(id) {
+async async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
   var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
   if (res.error) { alert('Error: ' + res.error.message); return; }
@@ -1003,7 +1003,7 @@ async function approveSupplier(id) {
   showToast('✅ Supplier approved successfully!');
 }
 
-async function rejectSupplier(id) {
+async async function rejectSupplier(id) {
   if (!confirm('Deactivate/Reject this supplier?')) return;
   var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
   if (res.error) { alert('Error: ' + res.error.message); return; }
