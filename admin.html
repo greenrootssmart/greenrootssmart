@@ -154,25 +154,25 @@ tr:hover td{background:#fafffe;}
   <div style="margin-bottom:16px;">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7a9a74;margin-bottom:10px;">🏪 Supplier Overview</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" id="monitorSupplierStats">
-      <div onclick="showMonDetail('all_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_all_suppliers', 'all_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
         <div style="font-size:22px;font-weight:700;color:#1a4a24;" id="monTotalSup">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Registered</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('active_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_active_suppliers', 'active_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
         <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monActiveSup">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Active Suppliers</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('pending_suppliers')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_pending_suppliers', 'pending_suppliers')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ffe0b2'" onmouseout="this.style.background='#fff3e0'">
         <div style="font-size:22px;font-weight:700;color:#e65100;" id="monPendingSup">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Pending Approval</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('claimed_suppliers')" style="background:#e3f2fd;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_claimed_suppliers', 'claimed_suppliers')" style="background:#e3f2fd;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#bbdefb'" onmouseout="this.style.background='#e3f2fd'">
         <div style="font-size:22px;font-weight:700;color:#1565c0;" id="monClaimedSup">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Claimed Profiles</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
     </div>
   </div>
@@ -181,25 +181,25 @@ tr:hover td{background:#fafffe;}
   <div style="margin-bottom:16px;">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7a9a74;margin-bottom:10px;">📦 Products & Enquiries</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-      <div onclick="showMonDetail('all_products')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_all_products', 'all_products')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
         <div style="font-size:22px;font-weight:700;color:#1a4a24;" id="monTotalProd">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('sup_with_prod')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_sup_with_prod', 'sup_with_prod')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
         <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monSupWithProd">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Suppliers With Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('sup_no_prod')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_sup_no_prod', 'sup_no_prod')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ffe0b2'" onmouseout="this.style.background='#fff3e0'">
         <div style="font-size:22px;font-weight:700;color:#e65100;" id="monSupNoProd">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Suppliers Without Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
-      <div onclick="showMonDetail('all_enquiries')" style="background:#e8f5e2;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div onclick="toggleInlineDetail('detail_all_enquiries', 'all_enquiries')" style="background:#e8f5e2;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#c8e6c9'" onmouseout="this.style.background='#e8f5e2'">
         <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monTotalEnq">...</div>
         <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Enquiries</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click for details</div>
+        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
       </div>
     </div>
   </div>
@@ -225,6 +225,16 @@ tr:hover td{background:#fafffe;}
     </div>
   </div>
 </div>
+  <!-- INLINE DETAIL DIVS — expand below stats -->
+  <div id="detail_all_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_active_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_pending_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_claimed_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_all_products" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_sup_with_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_sup_no_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+  <div id="detail_all_enquiries" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
+
 <div class="nav-section">System</div>
     <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
@@ -987,14 +997,16 @@ function renderEnquiriesTable(data) {
 // APPROVE / REJECT SUPPLIER
 async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
-  await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
+  var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
+  if (res.error) { alert('Error: ' + res.error.message); return; }
   await loadAllData();
-  alert('✅ Supplier approved!');
+  showToast('✅ Supplier approved successfully!');
 }
 
 async function rejectSupplier(id) {
-  if (!confirm('Reject this supplier?')) return;
-  await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
+  if (!confirm('Deactivate/Reject this supplier?')) return;
+  var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
+  if (res.error) { alert('Error: ' + res.error.message); return; }
   await loadAllData();
   alert('❌ Supplier rejected!');
 }
@@ -1877,122 +1889,132 @@ async function rejectClaim(id, type='supplier') {
   if(!error){ alert('Claim rejected!'); loadClaimRequests(); }
 }
 
+
+
 // ═══════════════════════════════════════════════════
-// MONITORING DETAIL MODAL
+// INLINE DETAIL EXPAND/COLLAPSE
 // ═══════════════════════════════════════════════════
 var currentMonData = [];
 var currentMonCols = [];
+var currentDetailType = '';
 
-function showMonDetail(type) {
-  var modal = document.getElementById('monDetailModal');
-  var title = document.getElementById('monDetailTitle');
-  var subtitle = document.getElementById('monDetailSubtitle');
-  var tableDiv = document.getElementById('monDetailTable');
+function toggleInlineDetail(divId, type) {
+  // Close all other open details first
+  var allDetails = ['detail_all_suppliers','detail_active_suppliers','detail_pending_suppliers',
+    'detail_claimed_suppliers','detail_all_products','detail_sup_with_prod',
+    'detail_sup_no_prod','detail_all_enquiries'];
 
+  allDetails.forEach(function(id) {
+    if (id !== divId) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+  });
+
+  var div = document.getElementById(divId);
+  if (!div) return;
+
+  // Toggle
+  if (div.style.display !== 'none') {
+    div.style.display = 'none';
+    return;
+  }
+
+  // Build data
   var data = [];
   var cols = [];
+  var title = '';
 
   if (type === 'all_suppliers') {
-    title.textContent = '🏪 All Registered Suppliers (' + allSuppliers.length + ')';
-    subtitle.textContent = 'Complete list of all suppliers registered on GRS';
-    cols = ['#','Business Name','Owner','Category','City','State','Mobile','Status','Claimed','Products'];
+    title = 'All Registered Suppliers';
+    cols = ['#','Business Name','Category','City','State','Mobile','Status','Has Products'];
     var supIdWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }));
     data = allSuppliers.map(function(s,i){
-      return [i+1, s.business_name||'', s.owner_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', s.status||'pending', s.claimed?'Yes':'No', supIdWithProd.has(s.id)?'Yes':'No'];
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.status||'pending', supIdWithProd.has(s.id)?'✅ Yes':'❌ No'];
     });
   } else if (type === 'active_suppliers') {
-    var list = allSuppliers.filter(function(s){ return s.status==='active'; });
-    title.textContent = '✅ Active Suppliers (' + list.length + ')';
-    subtitle.textContent = 'Suppliers with active status on GRS';
-    cols = ['#','Business Name','Owner','Category','City','State','Mobile','Claimed'];
-    data = list.map(function(s,i){
-      return [i+1, s.business_name||'', s.owner_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', s.claimed?'Yes':'No'];
+    title = 'Active Suppliers';
+    cols = ['#','Business Name','Category','City','State','Mobile','Claimed'];
+    data = allSuppliers.filter(function(s){ return s.status==='active'; }).map(function(s,i){
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.claimed?'✅ Yes':'No'];
     });
   } else if (type === 'pending_suppliers') {
-    var list = allSuppliers.filter(function(s){ return !s.status||s.status==='pending'; });
-    title.textContent = '⏳ Pending Approval (' + list.length + ')';
-    subtitle.textContent = 'Suppliers waiting for approval';
-    cols = ['#','Business Name','Owner','Category','City','State','Mobile','Email'];
-    data = list.map(function(s,i){
-      return [i+1, s.business_name||'', s.owner_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', s.email||''];
+    title = 'Pending Approval';
+    cols = ['#','Business Name','Category','City','Mobile','Email'];
+    data = allSuppliers.filter(function(s){ return !s.status||s.status==='pending'; }).map(function(s,i){
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', s.email||'—'];
     });
   } else if (type === 'claimed_suppliers') {
-    var list = allSuppliers.filter(function(s){ return s.claimed; });
-    title.textContent = '🔑 Claimed Profiles (' + list.length + ')';
-    subtitle.textContent = 'Suppliers who have claimed their profiles';
-    cols = ['#','Business Name','Owner','Category','City','State','Mobile','Email'];
-    data = list.map(function(s,i){
-      return [i+1, s.business_name||'', s.owner_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', s.email||''];
+    title = 'Claimed Profiles';
+    cols = ['#','Business Name','Category','City','Mobile','Email'];
+    data = allSuppliers.filter(function(s){ return s.claimed; }).map(function(s,i){
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', s.email||'—'];
     });
   } else if (type === 'all_products') {
-    title.textContent = '📦 All Products (' + allProducts.length + ')';
-    subtitle.textContent = 'Complete list of all products listed on GRS';
-    cols = ['#','Product Name','Category','Price','MOQ','Supplier','City','State','Status'];
+    title = 'All Products';
+    cols = ['#','Product Name','Category','Price','MOQ','Supplier','City'];
     data = allProducts.map(function(p,i){
-      return [i+1, p.name||'', p.category||'', p.price?'₹'+p.price:'', p.moq||'', p.supplier_name||'', p.city||'', p.state||'', p.status||''];
+      return [i+1, p.name||'—', p.category||'—', p.price?'₹'+p.price:'—', p.moq||'—', p.supplier_name||'—', p.city||'—'];
     });
   } else if (type === 'sup_with_prod') {
+    title = 'Suppliers With Products';
+    cols = ['#','Business Name','Category','City','Mobile','Products Count'];
     var supIdsWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }).filter(Boolean));
-    var list = allSuppliers.filter(function(s){ return supIdsWithProd.has(s.id); });
-    title.textContent = '✅ Suppliers With Products (' + list.length + ')';
-    subtitle.textContent = 'Suppliers who have listed at least one product';
-    cols = ['#','Business Name','Category','City','State','Mobile','Products Count'];
-    data = list.map(function(s,i){
-      var count = allProducts.filter(function(p){ return p.supplier_id===s.id; }).length;
-      return [i+1, s.business_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', count];
+    data = allSuppliers.filter(function(s){ return supIdsWithProd.has(s.id); }).map(function(s,i){
+      var cnt = allProducts.filter(function(p){ return p.supplier_id===s.id; }).length;
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', cnt];
     });
   } else if (type === 'sup_no_prod') {
+    title = '⚠️ Suppliers WITHOUT Products — Contact These!';
+    cols = ['#','Business Name','Category','City','State','Mobile','Status'];
     var supIdsWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }).filter(Boolean));
-    var list = allSuppliers.filter(function(s){ return !supIdsWithProd.has(s.id); });
-    title.textContent = '⚠️ Suppliers Without Products (' + list.length + ')';
-    subtitle.textContent = 'These suppliers need to be contacted to add products!';
-    cols = ['#','Business Name','Category','City','State','Mobile','Status','Claimed'];
-    data = list.map(function(s,i){
-      return [i+1, s.business_name||'', s.category||'', s.city||'', s.state||'', s.mobile||'', s.status||'', s.claimed?'Yes':'No'];
+    data = allSuppliers.filter(function(s){ return !supIdsWithProd.has(s.id); }).map(function(s,i){
+      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.status||'—'];
     });
   } else if (type === 'all_enquiries') {
-    title.textContent = '📩 All Enquiries (' + allEnquiries.length + ')';
-    subtitle.textContent = 'All buyer enquiries received on GRS';
-    cols = ['#','Buyer Name','Mobile','Product','Supplier','Message','Type','Status','Date'];
+    title = 'All Enquiries';
+    cols = ['#','Buyer Name','Mobile','Product','Supplier','Status','Date'];
     data = allEnquiries.map(function(e,i){
-      return [i+1, e.buyer_name||'', e.buyer_mobile||'', e.product_name||'', e.supplier_name||'', (e.message||'').slice(0,40), e.enquiry_type||'', e.status||'', e.created_at?(new Date(e.created_at)).toLocaleDateString('en-IN'):''];
+      var d = e.created_at ? new Date(e.created_at).toLocaleDateString('en-IN') : '—';
+      return [i+1, e.buyer_name||'—', e.buyer_mobile||'—', e.product_name||'—', e.supplier_name||'—', e.status||'—', d];
     });
   }
 
   currentMonData = data;
   currentMonCols = cols;
+  currentDetailType = type;
 
-  // Render table
+  // Build inline table
+  var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">';
+  html += '<div style="font-size:14px;font-weight:700;color:#1a4a24;">'+title+' ('+data.length+')</div>';
+  html += '<div style="display:flex;gap:8px;">';
+  html += '<button onclick="downloadMonDetail()" style="padding:6px 14px;background:#2d7a3a;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;">⬇️ Download CSV</button>';
+  html += '<button onclick="document.getElementById(''+divId+'').style.display='none'" style="padding:6px 14px;background:#f5f5f5;color:#666;border:none;border-radius:7px;font-size:11px;cursor:pointer;">✕ Close</button>';
+  html += '</div></div>';
+
   if (!data.length) {
-    tableDiv.innerHTML = '<div style="text-align:center;padding:40px;color:#7a9a74;">No data found</div>';
+    html += '<div style="text-align:center;padding:20px;color:#7a9a74;font-size:13px;">No data found</div>';
   } else {
-    var html = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+    html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">';
     html += '<thead><tr style="background:#1a4a24;color:white;">';
-    cols.forEach(function(c){ html += '<th style="padding:8px 10px;text-align:left;white-space:nowrap;">'+c+'</th>'; });
+    cols.forEach(function(c){ html += '<th style="padding:7px 10px;text-align:left;white-space:nowrap;">'+c+'</th>'; });
     html += '</tr></thead><tbody>';
     data.forEach(function(row, i){
       var bg = i%2===0?'#f8fdf8':'white';
       html += '<tr style="background:'+bg+'">';
       row.forEach(function(cell){
-        var val = cell===true?'✅':cell===false?'—':cell;
-        html += '<td style="padding:7px 10px;border-bottom:1px solid #e8f0e8;white-space:nowrap;">'+val+'</td>';
+        html += '<td style="padding:6px 10px;border-bottom:1px solid #e8f0e8;white-space:nowrap;">'+(cell||'—')+'</td>';
       });
       html += '</tr>';
     });
-    html += '</tbody></table>';
-    tableDiv.innerHTML = html;
+    html += '</tbody></table></div>';
   }
 
-  modal.style.display = 'block';
+  div.innerHTML = html;
+  div.style.display = 'block';
+  // Smooth scroll to detail
+  setTimeout(function(){ div.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
 }
-
-function closeMonDetail() {
-  document.getElementById('monDetailModal').style.display = 'none';
-}
-
-document.getElementById('monDetailModal').addEventListener('click', function(e){
-  if(e.target === this) closeMonDetail();
-});
 
 function downloadMonDetail() {
   if (!currentMonData.length) return;
@@ -2004,36 +2026,20 @@ function downloadMonDetail() {
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.href = url;
-  a.download = 'GRS_Report_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.download = 'GRS_'+currentDetailType+'_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();
   URL.revokeObjectURL(url);
 }
 
-function copyMonDetail() {
-  if (!currentMonData.length) return;
-  var text = currentMonCols.join('\t') + '\n';
-  currentMonData.forEach(function(row){
-    text += row.map(function(c){ return c||''; }).join('\t') + '\n';
-  });
-  navigator.clipboard.writeText(text).then(function(){
-    alert('✅ Table copied to clipboard!');
-  });
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a24;color:white;padding:12px 24px;border-radius:12px;font-size:14px;z-index:9999;';
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3000);
 }
 
 </script>
 
-<!-- MONITORING DETAIL PANEL - inside main content -->
-<div id="monDetailModal" style="display:none;position:fixed;top:60px;right:0;bottom:0;left:240px;background:rgba(0,0,0,0.4);z-index:500;">
-  <div style="position:absolute;top:0;right:0;bottom:0;width:620px;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);overflow-y:auto;padding:28px 24px;">
-    <button onclick="closeMonDetail()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#7a9a74;">✕</button>
-    <h3 id="monDetailTitle" style="font-family:'Playfair Display',serif;font-size:20px;color:#1a4a24;margin-bottom:4px;">Details</h3>
-    <p id="monDetailSubtitle" style="font-size:12px;color:#7a9a74;margin-bottom:16px;"></p>
-    <div style="margin-bottom:16px;display:flex;gap:10px;flex-wrap:wrap;">
-      <button onclick="downloadMonDetail()" style="padding:8px 18px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">⬇️ Download CSV</button>
-      <button onclick="copyMonDetail()" style="padding:8px 18px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 Copy Table</button>
-    </div>
-    <div id="monDetailTable" style="overflow-x:auto;"></div>
-  </div>
-</div>
 </body>
 </html>
