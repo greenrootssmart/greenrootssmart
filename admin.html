@@ -143,7 +143,85 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
     <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
     
-<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="nav-section">System</div>
+    <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="nav-item" onclick="showSection('blogs',this)"><span class="nav-icon">📝</span> Blog Posts</button>
+    <button onclick="adminLogout()" style="width:100%;padding:8px;background:transparent;color:#ff6b6b;border:1px solid rgba(255,107,107,0.4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">🚪 Logout</button>
+  </div>
+</div>
+
+<div class="backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left" style="display:flex;align-items:center;">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div>
+        <h2 id="pageTitle">Platform Overview</h2>
+        <p id="pageSubtitle">Real-time data from Green Roots Smart</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="admin-tag">🔐 ADMIN</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div id="section-overview" class="section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e8f5e2">🏪</div>
+          <div class="s-val" id="totalSuppliers">—</div>
+          <div class="s-lbl">Total Suppliers</div>
+          <div class="s-change" id="pendingSuppliersStat">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e3f2fd">📦</div>
+          <div class="s-val" id="totalProducts">—</div>
+          <div class="s-lbl">Total Products</div>
+          <div class="s-change">on marketplace</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fff3e0">📩</div>
+          <div class="s-val" id="totalEnquiries">—</div>
+          <div class="s-lbl">Total Enquiries</div>
+          <div class="s-change" id="newEnquiriesStat">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fce4ec">⏳</div>
+          <div class="s-val" id="pendingApprovals">—</div>
+          <div class="s-lbl">Pending Approvals</div>
+          <div class="s-change" style="color:var(--orange)">needs action!</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- RECENT SUPPLIERS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🏪 Recent Suppliers</div>
+            <button class="btn btn-view" onclick="showSection('suppliers', document.querySelector('[onclick*=suppliers]'))">View All →</button>
+          </div>
+          <div id="recentSuppliersList"><div class="loading-row">Loading... 🌿</div></div>
+        </div>
+        <!-- RECENT ENQUIRIES -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📩 Recent Enquiries</div>
+            <button class="btn btn-view" onclick="showSection('enquiries', document.querySelector('[onclick*=enquiries]'))">View All →</button>
+          </div>
+          <div id="recentEnquiriesList"><div class="loading-row">Loading... 🌿</div></div>
+        </div>
+      
+      <!-- ═══════════════════════════════════════════════════ -->
 <!-- KEY MONITORING PARAMETERS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div style="background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1.5px solid #e8f0e8;">
@@ -234,89 +312,14 @@ tr:hover td{background:#fafffe;}
   <div id="detail_sup_with_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
   <div id="detail_sup_no_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
   <div id="detail_all_enquiries" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-
-<div class="nav-section">System</div>
-    <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
-    <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
-    <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
-  </nav>
-  <div class="sidebar-bottom">
-    <button class="nav-item" onclick="showSection('blogs',this)"><span class="nav-icon">📝</span> Blog Posts</button>
-    <button onclick="adminLogout()" style="width:100%;padding:8px;background:transparent;color:#ff6b6b;border:1px solid rgba(255,107,107,0.4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">🚪 Logout</button>
-  </div>
 </div>
-
-<div class="backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
-
-<!-- MAIN -->
-<div class="main">
-  <div class="topbar">
-    <div class="topbar-left" style="display:flex;align-items:center;">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <div>
-        <h2 id="pageTitle">Platform Overview</h2>
-        <p id="pageSubtitle">Real-time data from Green Roots Smart</p>
-      </div>
-    </div>
-    <div class="topbar-right">
-      <span class="admin-tag">🔐 ADMIN</span>
-    </div>
-  </div>
-
-  <div class="content">
-
-    <!-- OVERVIEW -->
-    <div id="section-overview" class="section active">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="s-icon" style="background:#e8f5e2">🏪</div>
-          <div class="s-val" id="totalSuppliers">—</div>
-          <div class="s-lbl">Total Suppliers</div>
-          <div class="s-change" id="pendingSuppliersStat">loading...</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#e3f2fd">📦</div>
-          <div class="s-val" id="totalProducts">—</div>
-          <div class="s-lbl">Total Products</div>
-          <div class="s-change">on marketplace</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#fff3e0">📩</div>
-          <div class="s-val" id="totalEnquiries">—</div>
-          <div class="s-lbl">Total Enquiries</div>
-          <div class="s-change" id="newEnquiriesStat">loading...</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#fce4ec">⏳</div>
-          <div class="s-val" id="pendingApprovals">—</div>
-          <div class="s-lbl">Pending Approvals</div>
-          <div class="s-change" style="color:var(--orange)">needs action!</div>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <!-- RECENT SUPPLIERS -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">🏪 Recent Suppliers</div>
-            <button class="btn btn-view" onclick="showSection('suppliers', document.querySelector('[onclick*=suppliers]'))">View All →</button>
-          </div>
-          <div id="recentSuppliersList"><div class="loading-row">Loading... 🌿</div></div>
-        </div>
-        <!-- RECENT ENQUIRIES -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">📩 Recent Enquiries</div>
-            <button class="btn btn-view" onclick="showSection('enquiries', document.querySelector('[onclick*=enquiries]'))">View All →</button>
-          </div>
-          <div id="recentEnquiriesList"><div class="loading-row">Loading... 🌿</div></div>
-        </div>
-      </div>
     </div>
 
     <!-- SUPPLIERS -->
     <div id="section-suppliers" class="section">
       <!-- ADD SUPPLIER MANUALLY -->
+      
+
       <div class="card" style="margin-bottom:20px">
         <div class="card-header">
           <div class="card-title">➕ Add Supplier Manually</div>
