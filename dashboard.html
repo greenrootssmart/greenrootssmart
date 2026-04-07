@@ -1803,7 +1803,7 @@ var bulkRowCount = 0;
 
 function setListingMode(mode) {
   var singleForm = document.querySelector('#section-add-product .card');
-  var publishBtn = document.getElementById('apPublishBtn');
+  var publishBtn = document.getElementById('ap-publish-btn');
   var bulkSection = document.getElementById('bulkSection');
   var modeSingleBtn = document.getElementById('modeSingleBtn');
   var modeBulkBtn = document.getElementById('modeBulkBtn');
@@ -1812,7 +1812,7 @@ function setListingMode(mode) {
   if (mode === 'bulk') {
     // Hide single form fields except toggle
     document.querySelectorAll('#section-add-product > .card').forEach(function(c){ c.style.display = 'none'; });
-    if (publishBtn) publishBtn.parentElement.parentElement.style.display = 'none';
+    if (publishBtn) publishBtn.style.display = 'none';
     bulkSection.style.display = 'block';
     modeBulkBtn.style.background = '#2d7a3a';
     modeBulkBtn.style.color = 'white';
@@ -1826,7 +1826,7 @@ function setListingMode(mode) {
     }
   } else {
     document.querySelectorAll('#section-add-product > .card').forEach(function(c){ c.style.display = ''; });
-    if (publishBtn) publishBtn.parentElement.parentElement.style.display = '';
+    if (publishBtn) publishBtn.style.display = '';
     bulkSection.style.display = 'none';
     modeSingleBtn.style.background = '#2d7a3a';
     modeSingleBtn.style.color = 'white';
