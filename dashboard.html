@@ -1861,6 +1861,8 @@ function addBulkRow() {
     '<input type="number" id="bulk-moq-' + n + '" placeholder="e.g. 50" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
     '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Unit</label>' +
     '<input type="text" id="bulk-unit-' + n + '" placeholder="e.g. per piece" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
+    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Variations (Optional) <span style="font-weight:400;font-size:10px;">e.g. Small|200, Medium|250, Large|300</span></label>' +
+    '<input type="text" id="bulk-variations-' + n + '" placeholder="Small|200, Medium|250, Large|300" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
     '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Photo</label>' +
     '<div style="display:flex;align-items:center;gap:10px;">' +
     '<button type="button" onclick="bulkUploadPhoto(' + n + ')" style="padding:9px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📷 Upload Photo</button>' +
@@ -1910,6 +1912,16 @@ async function publishAllBulk() {
     var unit = (document.getElementById('bulk-unit-' + id) || {}).value || '';
     var img = (document.getElementById('bulk-img-' + id) || {}).value || '';
 
+    // Parse variations from "Name|Price, Name|Price" format
+    var varInput = (document.getElementById('bulk-variations-' + id) || {}).value || '';
+    var parsedVars = [];
+    if (varInput.trim()) {
+      varInput.split(',').forEach(function(v) {
+        var parts = v.trim().split('|');
+        if (parts[0]) parsedVars.push({ name: parts[0].trim(), price: parseFloat(parts[1]) || 0 });
+      });
+    }
+
     products.push({
       name: name.trim(),
       category: cat,
@@ -1922,6 +1934,7 @@ async function publishAllBulk() {
       delivery_time: delivery,
       shipping: shipping,
       image_url: img || null,
+      variations: parsedVars.length ? JSON.stringify(parsedVars) : '[]',
       supplier_id: u.id || null,
       supplier_name: u.business_name || '',
       city: u.city || '',
@@ -1994,10 +2007,6 @@ function bulkUploadPhoto(n) {
   }, function(err, result) {
     if (!err && result && result.event === 'success') {
       var url = result.info.secure_url;
-      // Auto-standardize via Cloudinary
-      if (url.includes('/upload/') && !url.includes('w_600')) {
-        url = url.replace('/upload/', '/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/');
-      }
       var hiddenInput = document.getElementById('bulk-img-' + n);
       if (hiddenInput) hiddenInput.value = url;
       var preview = document.getElementById('bulk-img-preview-' + n);
