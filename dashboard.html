@@ -424,6 +424,17 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
           </div>
         </div>
       </div>
+      <!-- PRODUCT VARIATIONS -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-header">
+          <div class="card-title">🎨 Product Variations <span style="font-size:11px;font-weight:400;color:var(--light);">Optional — for size, color, type variants</span></div>
+        </div>
+        <div id="variationsContainer">
+          <div style="font-size:12px;color:var(--light);margin-bottom:10px;">e.g. Small / Medium / Large with different prices</div>
+        </div>
+        <button type="button" onclick="addVariation()" style="padding:8px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px dashed #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;width:100%;">➕ Add Variation (Size / Color / Type)</button>
+      </div>
+
       <div class="card" style="margin-bottom:16px">
         <div class="card-header"><div class="card-title">🚚 Shipping & WhatsApp</div></div>
         <div class="form-grid">
@@ -950,7 +961,7 @@ async function addService() {
   btn.textContent = '🔧 List My Service'; btn.disabled = false;
 }
 
-function showSvcMsg(msg, type) {
+async function showSvcMsg(msg, type) {
   const el = document.getElementById('svc-msg');
   el.style.display = 'block';
   el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
@@ -1243,7 +1254,7 @@ function showSection(name, el){
   if(name === 'verification') loadVerificationSection();
 }
 
-function toggleSidebar(){
+async function toggleSidebar(){
   const sb = document.querySelector('.sidebar');
   const bd = document.getElementById('sidebarBackdrop');
   if(sb && bd) {
@@ -1252,7 +1263,7 @@ function toggleSidebar(){
   }
 }
 
-function doLogout(){ localStorage.removeItem('grs_user'); window.location.href = '/'; }
+async function doLogout(){ localStorage.removeItem('grs_user'); window.location.href = '/'; }
 
 async function loadMyProducts2(){
   const { data: products } = await supabaseClient.from('products').select('*').eq('supplier_id', currentUser.id).order('created_at', { ascending: false });
@@ -1410,7 +1421,7 @@ const CONDUCT_PLEDGES = [
   'I accept GRS may revoke verification if I violate these rules',
 ];
 
-function loadVerificationSection(){
+async function loadVerificationSection(){
   // Check existing verification status
   loadVerifStatus();
   // Load conduct pledges
@@ -1646,10 +1657,6 @@ function apOpenUpload(){
     if(!err && result && result.event === 'success'){
       // Auto-standardize image URL for consistent display
       var url = result.info.secure_url;
-      // Add Cloudinary transformation for consistent square display
-      if(url.includes('/upload/') && !url.includes('w_600')){
-        url = url.replace('/upload/', '/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/');
-      }
       apPhotos.push(url);
       apRenderPhotos();
     }
@@ -1713,6 +1720,7 @@ async function apSaveProduct(status){
     delivery_time: document.getElementById('ap-delivery').value,
     shipping: document.getElementById('ap-shipping').value,
     whatsapp: wa, photos: JSON.stringify(apPhotos),
+    variations: JSON.stringify(getVariations()),
     image_url: apPhotos.length > 0 ? apPhotos[0] : null,
     status, location: u.city||u.state||'India',
     city: u.city||'',
@@ -1773,7 +1781,7 @@ function apCancelEdit(){
   document.getElementById('ap-publish-btn').textContent = '🌿 Publish Product';
   document.getElementById('ap-draft-btn').style.display = 'inline-flex';
   ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
-  apPhotos=[]; apCerts=[];
+  apPhotos=[]; apCerts=[]; clearVariations();
   try{ apRenderPhotos(); }catch(e){}
 }
 
@@ -1998,6 +2006,62 @@ function bulkUploadPhoto(n) {
       }
     }
   });
+}
+
+
+// ═══════════════════════════════════════════════════
+// PRODUCT VARIATIONS
+// ═══════════════════════════════════════════════════
+var varCount = 0;
+
+function addVariation() {
+  varCount++;
+  var n = varCount;
+  var container = document.getElementById('variationsContainer');
+  var div = document.createElement('div');
+  div.id = 'var_' + n;
+  div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;';
+  div.innerHTML =
+    '<input type="text" placeholder="Name (e.g. Small)" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-name-'+n+'"/>' +
+    '<input type="number" placeholder="Price ₹" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-price-'+n+'"/>' +
+    '<input type="number" placeholder="Stock qty" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-stock-'+n+'"/>' +
+    '<button type="button" onclick="removeVariation('+n+')" style="padding:8px;background:#fce4ec;color:#c62828;border:none;border-radius:8px;cursor:pointer;font-size:14px;">✕</button>';
+  container.appendChild(div);
+}
+
+function removeVariation(n) {
+  var el = document.getElementById('var_' + n);
+  if (el) el.remove();
+}
+
+function getVariations() {
+  var vars = [];
+  var container = document.getElementById('variationsContainer');
+  if (!container) return vars;
+  var rows = container.querySelectorAll('[id^="var_"]');
+  rows.forEach(function(row) {
+    var n = row.id.replace('var_', '');
+    var name = document.getElementById('var-name-'+n);
+    var price = document.getElementById('var-price-'+n);
+    var stock = document.getElementById('var-stock-'+n);
+    if (name && name.value.trim()) {
+      vars.push({
+        name: name.value.trim(),
+        price: parseFloat(price && price.value) || 0,
+        stock: parseInt(stock && stock.value) || 0
+      });
+    }
+  });
+  return vars;
+}
+
+function clearVariations() {
+  var container = document.getElementById('variationsContainer');
+  if (container) {
+    var rows = container.querySelectorAll('[id^="var_"]');
+    rows.forEach(function(r){ r.remove(); });
+  }
+  varCount = 0;
 }
 
 </script>

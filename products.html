@@ -306,6 +306,19 @@ function renderProducts(list){
     if(price) h+='<div class="prod-price">'+price+(p.unit?' / '+p.unit:'')+'</div>';
     if(p.moq) h+='<div class="prod-moq">MOQ: '+p.moq+'</div>';
     if(p.description) h+='<div class="card-desc">'+p.description+'</div>';
+    // Show variations
+    if(p.variations){
+      try{
+        var vars=JSON.parse(p.variations);
+        if(vars&&vars.length){
+          h+='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">';
+          vars.forEach(function(v){
+            h+='<span style="padding:2px 8px;background:#e8f5e2;color:#1a4a24;border-radius:20px;font-size:10px;font-weight:600;">'+v.name+(v.price?' ₹'+v.price:'')+'</span>';
+          });
+          h+='</div>';
+        }
+      }catch(e){}
+    }
     h+='<div class="card-footer"><span class="card-hint">📍 '+loc+'</span>';
     h+='<div style="display:flex;gap:8px;">';
     if(p.mobile){
