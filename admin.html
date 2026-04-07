@@ -191,7 +191,7 @@ tr:hover td{background:#fafffe;}
         </div>
         <div class="stat-card">
           <div class="s-icon" style="background:#fff3e0">📩</div>
-          <div class="s-val" id="overviewTotalEnq">—</div>
+          <div class="s-val" id="overviewEnqCount">—</div>
           <div class="s-lbl">Total Enquiries</div>
           <div class="s-change" id="newEnquiriesStat">loading...</div>
         </div>
@@ -222,100 +222,7 @@ tr:hover td{background:#fafffe;}
         </div>
       
       <!-- ═══════════════════════════════════════════════════ -->
-<!-- KEY MONITORING PARAMETERS -->
-<!-- ═══════════════════════════════════════════════════ -->
-<div style="background:white;border-radius:16px;padding:24px;margin-bottom:24px;border:1.5px solid #e8f0e8;">
-  <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#1a4a24;margin-bottom:6px;">📊 Key Monitoring Parameters</h3>
-  <p style="font-size:12px;color:#7a9a74;margin-bottom:20px;">Live snapshot of GRS platform health</p>
-
-  <!-- Row 1: Supplier Stats -->
-  <div style="margin-bottom:16px;">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7a9a74;margin-bottom:10px;">🏪 Supplier Overview</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" id="monitorSupplierStats">
-      <div onclick="toggleInlineDetail('detail_all_suppliers', 'all_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
-        <div style="font-size:22px;font-weight:700;color:#1a4a24;" id="monTotalSup">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Registered</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_active_suppliers', 'active_suppliers')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
-        <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monActiveSup">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Active Suppliers</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_pending_suppliers', 'pending_suppliers')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ffe0b2'" onmouseout="this.style.background='#fff3e0'">
-        <div style="font-size:22px;font-weight:700;color:#e65100;" id="monPendingSup">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Pending Approval</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_claimed_suppliers', 'claimed_suppliers')" style="background:#e3f2fd;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#bbdefb'" onmouseout="this.style.background='#e3f2fd'">
-        <div style="font-size:22px;font-weight:700;color:#1565c0;" id="monClaimedSup">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Claimed Profiles</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Row 2: Product & Enquiry Stats -->
-  <div style="margin-bottom:16px;">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7a9a74;margin-bottom:10px;">📦 Products & Enquiries</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-      <div onclick="toggleInlineDetail('detail_all_products', 'all_products')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
-        <div style="font-size:22px;font-weight:700;color:#1a4a24;" id="monTotalProd">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_sup_with_prod', 'sup_with_prod')" style="background:#f0faf0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#dff0df'" onmouseout="this.style.background='#f0faf0'">
-        <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monSupWithProd">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Suppliers With Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_sup_no_prod', 'sup_no_prod')" style="background:#fff3e0;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#ffe0b2'" onmouseout="this.style.background='#fff3e0'">
-        <div style="font-size:22px;font-weight:700;color:#e65100;" id="monSupNoProd">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Suppliers Without Products</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-      <div onclick="toggleInlineDetail('detail_all_enquiries', 'all_enquiries')" style="background:#e8f5e2;border-radius:10px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='#c8e6c9'" onmouseout="this.style.background='#e8f5e2'">
-        <div style="font-size:22px;font-weight:700;color:#2d7a3a;" id="monTotalEnq">...</div>
-        <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Total Enquiries</div>
-        <div style="font-size:10px;color:#52b043;margin-top:4px;">👆 Click</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Row 3: Category Breakdown -->
-  <div>
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7a9a74;margin-bottom:10px;">🗂️ Category Wise Breakdown</div>
-    <div id="monCategoryTable" style="overflow-x:auto;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead>
-          <tr style="background:#1a4a24;color:white;">
-            <th style="padding:8px 12px;text-align:left;border-radius:8px 0 0 0;">Category</th>
-            <th style="padding:8px 12px;text-align:center;">Suppliers</th>
-            <th style="padding:8px 12px;text-align:center;">Active</th>
-            <th style="padding:8px 12px;text-align:center;">Products</th>
-            <th style="padding:8px 12px;text-align:center;border-radius:0 8px 0 0;">Enquiries</th>
-          </tr>
-        </thead>
-        <tbody id="monCatBody">
-          <tr><td colspan="5" style="text-align:center;padding:20px;color:#7a9a74;">Loading...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-  <!-- INLINE DETAIL DIVS — expand below stats -->
-  <div id="detail_all_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_active_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_pending_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_claimed_suppliers" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_all_products" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_sup_with_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_sup_no_prod" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-  <div id="detail_all_enquiries" style="display:none;margin-top:16px;border-top:2px solid #e8f0e8;padding-top:16px;"></div>
-</div>
-    </div>
-
-    <!-- SUPPLIERS -->
+<!-- SUPPLIERS -->
     <div id="section-suppliers" class="section">
       <!-- ADD SUPPLIER MANUALLY -->
       
@@ -824,11 +731,9 @@ function updateStats() {
   const newEnq = allEnquiries.filter(e => e.status === 'new').length;
 
   document.getElementById('totalSuppliers').textContent = allSuppliers.length;
-  updateMonitoring();
   document.getElementById('totalProducts').textContent = allProducts.length;
   document.getElementById('totalEnquiries').textContent = allEnquiries.length;
-  var ov2 = document.getElementById('overviewTotalEnq');
-  if(ov2) ov2.textContent = allEnquiries.length;
+  var ovEnq = document.getElementById('overviewEnqCount'); if(ovEnq) ovEnq.textContent = allEnquiries.length;
   document.getElementById('pendingApprovals').textContent = pending;
   document.getElementById('pendingSuppliersStat').textContent = pending + ' pending approval';
   document.getElementById('newEnquiriesStat').textContent = newEnq + ' new today';
@@ -867,75 +772,8 @@ function renderRecentEnquiries() {
         <div style="font-size:11px;color:var(--light)">${e.product_name} · ${e.quantity} units</div>
       </div>
       <span class="badge badge-new">${e.status || 'new'}</span>
-    </div>`).join('');
-}
-
-
-
-function updateMonitoring() {
-  // Supplier stats
-  var total = allSuppliers.length;
-  var active = allSuppliers.filter(function(s){ return s.status === 'active'; }).length;
-  var pending = allSuppliers.filter(function(s){ return !s.status || s.status === 'pending'; }).length;
-  var claimed = allSuppliers.filter(function(s){ return s.claimed; }).length;
-
-  var el = document.getElementById('monTotalSup');
-  if(el) el.textContent = total;
-  el = document.getElementById('monActiveSup');
-  if(el) el.textContent = active;
-  el = document.getElementById('monPendingSup');
-  if(el) el.textContent = pending;
-  el = document.getElementById('monClaimedSup');
-  if(el) el.textContent = claimed;
-
-  // Product stats
-  var totalProd = allProducts.length;
-  var supIdsWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }).filter(Boolean));
-  var supWithProd = supIdsWithProd.size;
-  var supNoProd = allSuppliers.filter(function(s){ return !supIdsWithProd.has(s.id); }).length;
-
-  el = document.getElementById('monTotalProd');
-  if(el) el.textContent = totalProd;
-  el = document.getElementById('monSupWithProd');
-  if(el) el.textContent = supWithProd;
-  el = document.getElementById('monSupNoProd');
-  if(el) el.textContent = supNoProd;
-  el = document.getElementById('monTotalEnq');
-  if(el) el.textContent = allEnquiries.length;
-
-  // Category breakdown
-  var cats = {};
-  allSuppliers.forEach(function(s){
-    var c = s.category || 'Uncategorized';
-    if(!cats[c]) cats[c] = { suppliers:0, active:0, products:0, enquiries:0 };
-    cats[c].suppliers++;
-    if(s.status === 'active') cats[c].active++;
-  });
-  allProducts.forEach(function(p){
-    var c = p.category || 'Uncategorized';
-    if(!cats[c]) cats[c] = { suppliers:0, active:0, products:0, enquiries:0 };
-    cats[c].products++;
-  });
-  allEnquiries.forEach(function(e){
-    var c = e.category || 'General';
-    if(cats[c]) cats[c].enquiries++;
-  });
-
-  var sorted = Object.entries(cats).sort(function(a,b){ return b[1].suppliers - a[1].suppliers; });
-  var tbody = document.getElementById('monCatBody');
-  if(tbody){
-    tbody.innerHTML = sorted.map(function(entry, i){
-      var c = entry[0], d = entry[1];
-      var bg = i%2===0 ? '#f8fdf8' : '#ffffff';
-      return '<tr style="background:'+bg+'">' +
-        '<td style="padding:8px 12px;font-weight:600;color:#1a4a24;">'+c+'</td>' +
-        '<td style="padding:8px 12px;text-align:center;">'+d.suppliers+'</td>' +
-        '<td style="padding:8px 12px;text-align:center;color:#2d7a3a;font-weight:600;">'+d.active+'</td>' +
-        '<td style="padding:8px 12px;text-align:center;">'+d.products+'</td>' +
-        '<td style="padding:8px 12px;text-align:center;color:'+(d.enquiries>0?'#2d7a3a':'#aaa')+'">'+d.enquiries+'</td>' +
-        '</tr>';
-    }).join('');
-  }
+    </div>
+  </div>`).join('');
 }
 
 function renderSuppliersTable(data) {
@@ -1899,143 +1737,6 @@ async function rejectClaim(id, type='supplier') {
 // ═══════════════════════════════════════════════════
 // INLINE DETAIL EXPAND/COLLAPSE
 // ═══════════════════════════════════════════════════
-var currentMonData = [];
-var currentMonCols = [];
-var currentDetailType = '';
-
-function toggleInlineDetail(divId, type) {
-  // Close all other open details first
-  var allDetails = ['detail_all_suppliers','detail_active_suppliers','detail_pending_suppliers',
-    'detail_claimed_suppliers','detail_all_products','detail_sup_with_prod',
-    'detail_sup_no_prod','detail_all_enquiries'];
-
-  allDetails.forEach(function(id) {
-    if (id !== divId) {
-      var el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    }
-  });
-
-  var div = document.getElementById(divId);
-  if (!div) return;
-
-  // Toggle
-  if (div.style.display !== 'none') {
-    div.style.display = 'none';
-    return;
-  }
-
-  // Build data
-  var data = [];
-  var cols = [];
-  var title = '';
-
-  if (type === 'all_suppliers') {
-    title = 'All Registered Suppliers';
-    cols = ['#','Business Name','Category','City','State','Mobile','Status','Has Products'];
-    var supIdWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }));
-    data = allSuppliers.map(function(s,i){
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.status||'pending', supIdWithProd.has(s.id)?'✅ Yes':'❌ No'];
-    });
-  } else if (type === 'active_suppliers') {
-    title = 'Active Suppliers';
-    cols = ['#','Business Name','Category','City','State','Mobile','Claimed'];
-    data = allSuppliers.filter(function(s){ return s.status==='active'; }).map(function(s,i){
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.claimed?'✅ Yes':'No'];
-    });
-  } else if (type === 'pending_suppliers') {
-    title = 'Pending Approval';
-    cols = ['#','Business Name','Category','City','Mobile','Email'];
-    data = allSuppliers.filter(function(s){ return !s.status||s.status==='pending'; }).map(function(s,i){
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', s.email||'—'];
-    });
-  } else if (type === 'claimed_suppliers') {
-    title = 'Claimed Profiles';
-    cols = ['#','Business Name','Category','City','Mobile','Email'];
-    data = allSuppliers.filter(function(s){ return s.claimed; }).map(function(s,i){
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', s.email||'—'];
-    });
-  } else if (type === 'all_products') {
-    title = 'All Products';
-    cols = ['#','Product Name','Category','Price','MOQ','Supplier','City'];
-    data = allProducts.map(function(p,i){
-      return [i+1, p.name||'—', p.category||'—', p.price?'₹'+p.price:'—', p.moq||'—', p.supplier_name||'—', p.city||'—'];
-    });
-  } else if (type === 'sup_with_prod') {
-    title = 'Suppliers With Products';
-    cols = ['#','Business Name','Category','City','Mobile','Products Count'];
-    var supIdsWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }).filter(Boolean));
-    data = allSuppliers.filter(function(s){ return supIdsWithProd.has(s.id); }).map(function(s,i){
-      var cnt = allProducts.filter(function(p){ return p.supplier_id===s.id; }).length;
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.mobile||'—', cnt];
-    });
-  } else if (type === 'sup_no_prod') {
-    title = '⚠️ Suppliers WITHOUT Products — Contact These!';
-    cols = ['#','Business Name','Category','City','State','Mobile','Status'];
-    var supIdsWithProd = new Set(allProducts.map(function(p){ return p.supplier_id; }).filter(Boolean));
-    data = allSuppliers.filter(function(s){ return !supIdsWithProd.has(s.id); }).map(function(s,i){
-      return [i+1, s.business_name||'—', s.category||'—', s.city||'—', s.state||'—', s.mobile||'—', s.status||'—'];
-    });
-  } else if (type === 'all_enquiries') {
-    title = 'All Enquiries';
-    cols = ['#','Buyer Name','Mobile','Product','Supplier','Status','Date'];
-    data = allEnquiries.map(function(e,i){
-      var d = e.created_at ? new Date(e.created_at).toLocaleDateString('en-IN') : '—';
-      return [i+1, e.buyer_name||'—', e.buyer_mobile||'—', e.product_name||'—', e.supplier_name||'—', e.status||'—', d];
-    });
-  }
-
-  currentMonData = data;
-  currentMonCols = cols;
-  currentDetailType = type;
-
-  // Build inline table
-  var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">';
-  html += '<div style="font-size:14px;font-weight:700;color:#1a4a24;">'+title+' ('+data.length+')</div>';
-  html += '<div style="display:flex;gap:8px;">';
-  html += '<button onclick="downloadMonDetail()" style="padding:6px 14px;background:#2d7a3a;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;">⬇️ Download CSV</button>';
-  html += '<button onclick="document.getElementById(''+divId+'').style.display='none'" style="padding:6px 14px;background:#f5f5f5;color:#666;border:none;border-radius:7px;font-size:11px;cursor:pointer;">✕ Close</button>';
-  html += '</div></div>';
-
-  if (!data.length) {
-    html += '<div style="text-align:center;padding:20px;color:#7a9a74;font-size:13px;">No data found</div>';
-  } else {
-    html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">';
-    html += '<thead><tr style="background:#1a4a24;color:white;">';
-    cols.forEach(function(c){ html += '<th style="padding:7px 10px;text-align:left;white-space:nowrap;">'+c+'</th>'; });
-    html += '</tr></thead><tbody>';
-    data.forEach(function(row, i){
-      var bg = i%2===0?'#f8fdf8':'white';
-      html += '<tr style="background:'+bg+'">';
-      row.forEach(function(cell){
-        html += '<td style="padding:6px 10px;border-bottom:1px solid #e8f0e8;white-space:nowrap;">'+(cell||'—')+'</td>';
-      });
-      html += '</tr>';
-    });
-    html += '</tbody></table></div>';
-  }
-
-  div.innerHTML = html;
-  div.style.display = 'block';
-  // Smooth scroll to detail
-  setTimeout(function(){ div.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
-}
-
-function downloadMonDetail() {
-  if (!currentMonData.length) return;
-  var csv = currentMonCols.join(',') + '\n';
-  currentMonData.forEach(function(row){
-    csv += row.map(function(c){ return '"'+(c||'').toString().replace(/"/g,'""')+'"'; }).join(',') + '\n';
-  });
-  var blob = new Blob([csv], { type: 'text/csv' });
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'GRS_'+currentDetailType+'_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
 function showToast(msg) {
   var t = document.createElement('div');
   t.textContent = msg;
