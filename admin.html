@@ -191,7 +191,7 @@ tr:hover td{background:#fafffe;}
         </div>
         <div class="stat-card">
           <div class="s-icon" style="background:#fff3e0">📩</div>
-          <div class="s-val" id="totalEnquiries">—</div>
+          <div class="s-val" id="overviewTotalEnq">—</div>
           <div class="s-lbl">Total Enquiries</div>
           <div class="s-change" id="newEnquiriesStat">loading...</div>
         </div>
@@ -827,6 +827,8 @@ function updateStats() {
   updateMonitoring();
   document.getElementById('totalProducts').textContent = allProducts.length;
   document.getElementById('totalEnquiries').textContent = allEnquiries.length;
+  var ov2 = document.getElementById('overviewTotalEnq');
+  if(ov2) ov2.textContent = allEnquiries.length;
   document.getElementById('pendingApprovals').textContent = pending;
   document.getElementById('pendingSuppliersStat').textContent = pending + ' pending approval';
   document.getElementById('newEnquiriesStat').textContent = newEnq + ' new today';
