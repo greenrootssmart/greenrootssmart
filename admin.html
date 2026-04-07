@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="keywords" content="Green Roots Smart admin, eco marketplace admin panel"/>
+<meta name="description" content="Green Roots Smart admin dashboard."/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Admin Panel — Green Roots Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<style>
+:root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--cream:#f7f9f2;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--orange:#e65100;--blue:#1565c0;--purple:#6a1b9a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--dark);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
+.sidebar-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
+.logo-text span{color:var(--g3);}
+.logo-sub{font-size:10px;color:#80b080;margin-top:2px;}
+.admin-badge{background:var(--red);color:white;font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;display:inline-block;margin-top:6px;letter-spacing:1px;}
+.sidebar-nav{flex:1;padding:12px 0;}
+.nav-section{padding:8px 20px 4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1.5px;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{background:rgba(255,255,255,0.06);color:white;}
+.nav-item.active{background:rgba(82,176,67,0.15);color:white;border-right:3px solid var(--g3);}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;}
+.sidebar-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.1);}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
+.topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
+.topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
+.topbar-left p{font-size:12px;color:var(--light);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.admin-tag{background:var(--red);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.content{padding:24px 28px;flex:1;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:white;border-radius:14px;padding:20px;border:1px solid #e8f0e8;}
+.s-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;}
+.s-val{font-size:28px;font-weight:700;color:var(--dark);}
+.s-lbl{font-size:12px;color:var(--light);margin-top:2px;}
+.s-change{font-size:11px;font-weight:600;margin-top:6px;color:var(--g2);}
+
+/* CARDS */
+.card{background:white;border-radius:14px;padding:20px;border:1px solid #e8f0e8;margin-bottom:20px;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.card-title{font-size:14px;font-weight:700;color:var(--g1);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;padding:10px 12px;color:var(--mid);font-weight:600;border-bottom:2px solid var(--g5);white-space:nowrap;}
+td{padding:10px 12px;border-bottom:1px solid var(--g5);vertical-align:middle;}
+tr:hover td{background:#fafffe;}
+.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-active{background:#e8f5e2;color:#2d7a3a;}
+.badge-pending{background:#fff3e0;color:#e65100;}
+.badge-new{background:#e8f5e2;color:#2d7a3a;}
+.badge-rejected{background:#ffebee;color:#c62828;}
+.badge-verified{background:#e3f2fd;color:#1565c0;}
+
+/* ACTION BUTTONS */
+.btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.btn-approve{background:#e8f5e2;color:#2d7a3a;}
+.btn-approve:hover{background:#2d7a3a;color:white;}
+.btn-reject{background:#ffebee;color:#c62828;}
+.btn-reject:hover{background:#c62828;color:white;}
+.btn-view{background:#e3f2fd;color:#1565c0;}
+.btn-view:hover{background:#1565c0;color:white;}
+
+/* SEARCH */
+.search-bar{display:flex;gap:10px;margin-bottom:16px;}
+.search-input{flex:1;padding:8px 14px;border:1px solid #d4e8cc;border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;}
+.search-input:focus{border-color:var(--g2);}
+.filter-select{padding:8px 12px;border:1px solid #d4e8cc;border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;background:white;}
+
+/* LOADING */
+.loading-row{text-align:center;padding:40px;color:var(--light);font-size:13px;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:16px;padding:28px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;}
+.modal h3{font-size:16px;font-weight:700;color:var(--g1);margin-bottom:16px;}
+.modal-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g5);font-size:13px;}
+.modal-row b{color:var(--mid);}
+.modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--light);}
+.modal-actions{display:flex;gap:10px;margin-top:16px;}
+.modal-btn{flex:1;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+
+/* SECTIONS */
+.section{display:none;}
+.section.active{display:block;}
+/* MOBILE RESPONSIVENESS */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,0.15);}
+  .main{margin-left:0;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .grid-2,.grid-3{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr;}
+  .topbar{padding:0 16px;}
+  .content{padding:16px;}
+  .search-bar{flex-direction:column;}
+}
+.menu-toggle{display:none;background:none;border:none;font-size:24px;color:var(--g1);cursor:pointer;margin-right:12px;padding:0;}
+@media(max-width:900px){
+  .menu-toggle{display:block;}
+}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
+.backdrop.show{display:block;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Green Roots <span>Smart</span></div>
+    <div class="logo-sub">Rooted in Sustainability</div>
+    <div class="admin-badge">⚡ ADMIN PANEL</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span> Overview</button>
+    <div class="nav-section">Manage</div>
+    <button class="nav-item" onclick="showSection('suppliers',this)"><span class="nav-icon">🏪</span> Suppliers <span class="nav-badge" id="pendingSuppliersCount" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('suppliers',this);setTimeout(()=>document.getElementById('man-business').focus(),300)"><span class="nav-icon">➕</span> Add Supplier</button>
+    <button class="nav-item" onclick="showSection('products',this)"><span class="nav-icon">📦</span> Products</button>
+    <button class="nav-item" onclick="showSection('service_providers',this)"><span class="nav-icon">🔧</span> Service Providers <span class="nav-badge" id="svcBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
+    <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
+    <div class="nav-section">System</div>
+    <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="nav-item" onclick="showSection('blogs',this)"><span class="nav-icon">📝</span> Blog Posts</button>
+    <button onclick="adminLogout()" style="width:100%;padding:8px;background:transparent;color:#ff6b6b;border:1px solid rgba(255,107,107,0.4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">🚪 Logout</button>
+  </div>
+</div>
+
+<div class="backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left" style="display:flex;align-items:center;">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div>
+        <h2 id="pageTitle">Platform Overview</h2>
+        <p id="pageSubtitle">Real-time data from Green Roots Smart</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="admin-tag">🔐 ADMIN</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OVERVIEW -->
+    <div id="section-overview" class="section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e8f5e2">🏪</div>
+          <div class="s-val" id="totalSuppliers">—</div>
+          <div class="s-lbl">Total Suppliers</div>
+          <div class="s-change" id="pendingSuppliersStat">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#e3f2fd">📦</div>
+          <div class="s-val" id="totalProducts">—</div>
+          <div class="s-lbl">Total Products</div>
+          <div class="s-change">on marketplace</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fff3e0">📩</div>
+          <div class="s-val" id="totalEnquiries">—</div>
+          <div class="s-lbl">Total Enquiries</div>
+          <div class="s-change" id="newEnquiriesStat">loading...</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon" style="background:#fce4ec">⏳</div>
+          <div class="s-val" id="pendingApprovals">—</div>
+          <div class="s-lbl">Pending Approvals</div>
+          <div class="s-change" style="color:var(--orange)">needs action!</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- RECENT SUPPLIERS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🏪 Recent Suppliers</div>
+            <button class="btn btn-view" onclick="showSection('suppliers', document.querySelector('[onclick*=suppliers]'))">View All →</button>
+          </div>
+          <div id="recentSuppliersList"><div class="loading-row">Loading... 🌿</div></div>
+        </div>
+        <!-- RECENT ENQUIRIES -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📩 Recent Enquiries</div>
+            <button class="btn btn-view" onclick="showSection('enquiries', document.querySelector('[onclick*=enquiries]'))">View All →</button>
+          </div>
+          <div id="recentEnquiriesList"><div class="loading-row">Loading... 🌿</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPLIERS -->
+    <div id="section-suppliers" class="section">
+      <!-- ADD SUPPLIER MANUALLY -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">➕ Add Supplier Manually</div>
+          <span style="font-size:12px;color:var(--light)">Admin adds business — supplier claims later</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:4px 0">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Business Name *</label>
+            <input type="text" id="man-business" placeholder="e.g. EcoSolar India Pvt Ltd" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Owner Name</label>
+            <input type="text" id="man-owner" placeholder="e.g. Ravi Kumar" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Category *</label>
+            <select id="man-category" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="">Select Category</option>
+              <option>☀️ Solar Energy</option>
+              <option>🌾 Organic Farming</option>
+              <option>📦 Eco Packaging</option>
+              <option>♻️ Waste Management</option>
+              <option>💧 Water Technology</option>
+              <option>🌬️ Wind Energy</option>
+              <option>🔋 Energy Storage</option>
+              <option>🏗️ Green Building</option>
+              <option>🌿 Herbal & Natural</option>
+              <option>🚗 Electric Vehicles</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Email</label>
+            <input type="email" id="man-email" placeholder="business@email.com" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Mobile</label>
+            <input type="tel" id="man-mobile" placeholder="9876543210" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">City</label>
+            <input type="text" id="man-city" placeholder="e.g. Chennai" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">State</label>
+            <input type="text" id="man-state" placeholder="e.g. Tamil Nadu" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Website</label>
+            <input type="text" id="man-website" placeholder="e.g. www.ecosolar.in" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Description</label>
+            <input type="text" id="man-desc" placeholder="Brief about business" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+        </div>
+        <div id="man-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        <button onclick="addSupplierManually()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">➕ Add Supplier to GRS</button>
+      </div>
+
+      <!-- CLAIM REQUESTS -->
+      <div class="card" style="margin-bottom:20px" id="claimRequestsCard">
+        <div class="card-header">
+          <div class="card-title">🔔 Claim Requests</div>
+          <span style="font-size:12px;color:var(--light)" id="claimCount">loading...</span>
+        </div>
+        <div id="claimRequestsList"><p style="color:#7a9a74;font-size:13px;padding:16px 0">Loading claim requests...</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🏪 All Suppliers</div>
+          <span style="font-size:12px;color:var(--light)" id="supplierCount">loading...</span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" placeholder="🔍 Search suppliers..." oninput="filterSuppliers(this.value)"/>
+          <select class="filter-select" onchange="filterSuppliersByStatus(this.value)">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="active">Active</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Business Name</th>
+                <th>Owner</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>City</th>
+                <th>Category</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="suppliersTableBody"><tr><td colspan="9" class="loading-row">Loading... 🌿</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="section-products" class="section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 All Products</div>
+          <span style="font-size:12px;color:var(--light)" id="productCount">loading...</span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" placeholder="🔍 Search products..." oninput="filterProducts(this.value)"/>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Supplier</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>MOQ</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody"><tr><td colspan="7" class="loading-row">Loading... 🌿</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENQUIRIES -->
+    <div id="section-enquiries" class="section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📩 All Enquiries</div>
+          <span style="font-size:12px;color:var(--light)" id="enquiryCount">loading...</span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" placeholder="🔍 Search enquiries..." oninput="filterEnquiries(this.value)"/>
+          <select class="filter-select" onchange="filterEnquiriesByStatus(this.value)">
+            <option value="">All Status</option>
+            <option value="new">New</option>
+            <option value="replied">Replied</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Buyer</th>
+                <th>Product</th>
+                <th>Supplier</th>
+                <th>Qty</th>
+                <th>Mobile</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="enquiriesTableBody"><tr><td colspan="9" class="loading-row">Loading... 🌿</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICE PROVIDERS -->
+    <div id="section-service_providers" class="section">
+
+      <!-- ADD SERVICE PROVIDER -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">➕ Add Service Provider Manually</div>
+          <span style="font-size:12px;color:var(--light)">Admin adds service provider to GRS platform</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:4px 0">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Service Name *</label>
+            <input type="text" id="svc-name" placeholder="e.g. Solar Panel Installation" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Business / Company *</label>
+            <input type="text" id="svc-company" placeholder="e.g. SolarTech India Pvt Ltd" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Category *</label>
+            <select id="svc-category" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="">Select Category</option>
+              <option>Testing & Laboratory</option>
+              <option>Consulting & Advisory</option>
+              <option>Certification & Compliance</option>
+              <option>Waste Management</option>
+              <option>Water & Wastewater</option>
+              <option>Renewable Energy</option>
+              <option>Ecological Services</option>
+              <option>Remediation</option>
+              <option>Reporting & Technology</option>
+              <option>Training & Education</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Contact Person</label>
+            <input type="text" id="svc-person" placeholder="e.g. Ravi Kumar" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Phone / WhatsApp</label>
+            <input type="tel" id="svc-phone" placeholder="9876543210" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">City</label>
+            <input type="text" id="svc-city" placeholder="e.g. Chennai" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">State</label>
+            <input type="text" id="svc-state" placeholder="e.g. Tamil Nadu" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Experience</label>
+            <input type="text" id="svc-exp" placeholder="e.g. 5+ Years" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Availability</label>
+            <select id="svc-avail" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="available">🟢 Available</option>
+              <option value="busy">🟡 Busy</option>
+              <option value="booked">🔴 Booked</option>
+            </select>
+          </div>
+          <div style="grid-column:1/-1">
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Description</label>
+            <textarea id="svc-desc" placeholder="Brief about the service, expertise, coverage area..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:80px;resize:vertical;font-family:'DM Sans',sans-serif;"></textarea>
+          </div>
+        </div>
+        <div id="svc-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        <button onclick="addServiceProvider()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔧 Add Service Provider to GRS</button>
+      </div>
+
+      <!-- ALL SERVICE PROVIDERS TABLE -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🔧 All Service Providers</div>
+          <span style="font-size:12px;color:var(--light)" id="svcCount">loading...</span>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" placeholder="🔍 Search service providers..." oninput="filterSvcProviders(this.value)"/>
+          <select class="filter-select" onchange="filterSvcByCategory(this.value)">
+            <option value="">All Categories</option>
+            <option>Testing & Laboratory</option>
+            <option>Consulting & Advisory</option>
+            <option>Certification & Compliance</option>
+            <option>Waste Management</option>
+            <option>Water & Wastewater</option>
+            <option>Renewable Energy</option>
+            <option>Ecological Services</option>
+            <option>Training & Education</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Company</th>
+                <th>Category</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Availability</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="svcProvidersTableBody"><tr><td colspan="7" class="loading-row">Loading... 🌿</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+
+
+    <!-- ═══════ LEAD ANALYTICS SECTION ═══════ -->
+    <div id="section-analytics_section" class="section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);">📊 Lead Analytics</h2>
+          <p style="font-size:13px;color:var(--light);">All buyer enquiries + WhatsApp clicks across GRS</p>
+        </div>
+        <button onclick="sendWeeklySummary()" style="padding:10px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">📧 Send Weekly Summary to Email</button>
+      </div>
+
+      <!-- STATS ROW -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;" id="leadStatsRow">
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--g1);" id="totalEnquiries">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">Total Enquiries</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#25D366;" id="totalWAClicks">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">WhatsApp Clicks</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#f59e0b;" id="thisWeekLeads">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">This Week</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px;text-align:center;border:1.5px solid #e8f0e8;">
+          <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#7e57c2;" id="uniqueSuppliers">—</div>
+          <div style="font-size:12px;color:var(--light);margin-top:4px;">Suppliers Contacted</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <button onclick="loadLeadTab('enquiries')" id="ltab-enq" style="padding:8px 18px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📩 Form Enquiries</button>
+        <button onclick="loadLeadTab('wa')" id="ltab-wa" style="padding:8px 18px;background:#e8f5e2;color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">💬 WhatsApp Clicks</button>
+      </div>
+
+      <div id="leadsList">
+        <div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading leads...</div>
+      </div>
+    </div>
+    <!-- ═══════ END LEAD ANALYTICS ═══════ -->
+
+    <!-- ═══════ VERIFICATIONS SECTION ═══════ -->
+    <div id="section-verifications" class="section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--g1);">🏆 Verification Applications</h2>
+          <p style="font-size:13px;color:var(--light);">Review and approve GRS Verified supplier applications</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="loadVerifications('pending')" id="vbtn-pending" style="padding:7px 16px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">⏳ Pending</button>
+          <button onclick="loadVerifications('approved')" id="vbtn-approved" style="padding:7px 16px;background:#e8f5e2;color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approved</button>
+          <button onclick="loadVerifications('rejected')" id="vbtn-rejected" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">❌ Rejected</button>
+          <button onclick="loadVerifications('all')" id="vbtn-all" style="padding:7px 16px;background:#f5f5f5;color:#555;border:1.5px solid #ddd;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 All</button>
+        </div>
+      </div>
+      <div id="verif-list">
+        <div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading applications...</div>
+      </div>
+    </div>
+
+    <!-- VERIFICATION DETAIL MODAL -->
+    <div id="verifModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;overflow-y:auto;">
+      <div style="background:white;border-radius:16px;max-width:680px;margin:40px auto;padding:0;overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#1a4a24,#2d7a3a);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;">🏆 Verification Application</div>
+          <button onclick="closeVerifModal()" style="background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer;">✕</button>
+        </div>
+        <div id="verifModalContent" style="padding:24px;max-height:70vh;overflow-y:auto;"></div>
+        <div id="verifModalActions" style="padding:16px 24px;border-top:1px solid #e8f0e8;display:flex;gap:10px;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+    <!-- ═══════ END VERIFICATIONS ═══════ -->
+
+    <div id="section-settings" class="section">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⚙️ Admin Settings</div></div>
+        <p style="color:var(--light);font-size:13px;padding:12px 0">Admin configuration and platform settings coming soon!</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SUPPLIER DETAIL MODAL -->
+<!-- BLOG SECTION -->
+    <div id="section-blogs" class="section">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">✍️ Add New Blog Post</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Title *</label>
+            <input type="text" id="blog-title" placeholder="Blog post title" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Category *</label>
+            <select id="blog-cat" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="">Select Category</option>
+              <option>Solar Energy</option><option>Organic Farming</option>
+              <option>Eco Packaging</option><option>Waste Management</option>
+              <option>Water Technology</option><option>Green Business</option>
+              <option>Wind Energy</option><option>Energy Storage</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Excerpt</label>
+          <textarea id="blog-excerpt" placeholder="2-3 line summary..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:70px;resize:vertical;"></textarea>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Full Content (HTML allowed)</label>
+          <textarea id="blog-content" placeholder="Write full article here. Use HTML tags like &lt;h2&gt;, &lt;p&gt;, &lt;strong&gt;" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:200px;resize:vertical;font-family:monospace;"></textarea>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:6px;">Cover Image (Optional)</label>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button type="button" onclick="uploadBlogImage()" style="padding:9px 18px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📸 Upload Cover Image</button>
+            <span id="blog-img-status" style="font-size:12px;color:#7a9a74;">No image selected</span>
+          </div>
+          <input type="hidden" id="blog-cover-url"/>
+          <div id="blog-img-preview" style="margin-top:10px;display:none;">
+            <img id="blog-img-thumb" src="" style="height:120px;border-radius:8px;object-fit:cover;border:2px solid #a8d8a0;"/>
+            <button onclick="removeBlogImage()" style="display:block;margin-top:6px;padding:4px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;cursor:pointer;">✕ Remove</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <input type="text" id="blog-author" placeholder="Author name" style="width:200px;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;cursor:pointer;">
+            <input type="checkbox" id="blog-publish" checked/> Publish immediately
+          </label>
+        </div>
+        <div id="blog-msg" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px;"></div>
+        <input type="hidden" id="blog-edit-id" value=""/>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button id="blog-save-btn" onclick="saveBlog()" style="margin-top:14px;padding:10px 28px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">✍️ Publish Blog Post</button>
+          <button id="blog-cancel-btn" onclick="cancelEditBlog()" style="margin-top:14px;padding:10px 20px;background:#f5f5f5;color:#666;border:1.5px solid #ddd;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;display:none;">✕ Cancel Edit</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📝 All Blog Posts</div>
+          <span style="font-size:12px;color:#7a9a74" id="blogCount">loading...</span>
+        </div>
+        <div id="blogList"><p style="color:#7a9a74;font-size:13px;padding:16px 0">Loading posts...</p></div>
+      </div>
+    </div>
+
+<div class="modal-overlay" id="supplierModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('supplierModal')">✕</button>
+    <h3>🏪 Supplier Details</h3>
+    <div id="supplierModalContent"></div>
+    <div class="modal-actions" id="supplierModalActions"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const ADMIN_EMAIL = 'greenrootssmart@gmail.com';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let allSuppliers = [];
+let allProducts = [];
+let allEnquiries = [];
+
+// ADMIN LOGIN CHECK
+function checkAdminAccess() {
+  // Check grs_admin session first
+  const adminData = localStorage.getItem('grs_admin');
+  if (adminData) {
+    return true; // Valid admin session
+  }
+  // Fallback: check grs_user with admin email
+  const user = localStorage.getItem('grs_user');
+  if (user) {
+    const parsed = JSON.parse(user);
+    if (parsed.email === ADMIN_EMAIL) return true;
+  }
+  // No valid admin session
+  window.location.href = '/admin-login';
+  return false;
+}
+
+async function initAdmin() {
+  loadVerifBadgeCount();
+  loadLeadAnalyticsBadge();
+  if (!checkAdminAccess()) return;
+  await loadAllData();
+  await loadSvcProviders();
+  await loadClaimRequests();
+  await loadBlogs();
+}
+
+async function loadAllData() {
+  // Load suppliers
+  const { data: suppliers } = await supabaseClient.from('suppliers').select('*').order('created_at', { ascending: false });
+  allSuppliers = suppliers || [];
+
+  // Load products
+  const { data: products } = await supabaseClient.from('products').select('*').order('created_at', { ascending: false });
+  allProducts = products || [];
+
+  // Load enquiries
+  const { data: enquiries } = await supabaseClient.from('enquiries').select('*').order('created_at', { ascending: false });
+  allEnquiries = enquiries || [];
+
+  updateStats();
+  renderRecentSuppliers();
+  renderRecentEnquiries();
+  renderSuppliersTable(allSuppliers);
+  renderProductsTable(allProducts);
+  renderEnquiriesTable(allEnquiries);
+}
+
+function updateStats() {
+  const pending = allSuppliers.filter(s => !s.status || s.status === 'pending').length;
+  const newEnq = allEnquiries.filter(e => e.status === 'new').length;
+
+  document.getElementById('totalSuppliers').textContent = allSuppliers.length;
+  document.getElementById('totalProducts').textContent = allProducts.length;
+  document.getElementById('totalEnquiries').textContent = allEnquiries.length;
+  document.getElementById('pendingApprovals').textContent = pending;
+  document.getElementById('pendingSuppliersStat').textContent = pending + ' pending approval';
+  document.getElementById('newEnquiriesStat').textContent = newEnq + ' new today';
+  document.getElementById('supplierCount').textContent = allSuppliers.length + ' total';
+  document.getElementById('productCount').textContent = allProducts.length + ' total';
+  document.getElementById('enquiryCount').textContent = allEnquiries.length + ' total';
+
+  if (pending > 0) {
+    document.getElementById('pendingSuppliersCount').textContent = pending;
+    document.getElementById('pendingSuppliersCount').style.display = 'inline';
+  }
+}
+
+function renderRecentSuppliers() {
+  const list = allSuppliers.slice(0, 5);
+  const el = document.getElementById('recentSuppliersList');
+  if (list.length === 0) { el.innerHTML = '<div class="loading-row">No suppliers yet!</div>'; return; }
+  el.innerHTML = list.map(s => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g5)">
+      <div>
+        <div style="font-size:13px;font-weight:600">${s.business_name}</div>
+        <div style="font-size:11px;color:var(--light)">${s.city}, ${s.state} · ${s.category}</div>
+      </div>
+      <span class="badge ${s.status === 'active' ? 'badge-active' : s.status === 'rejected' ? 'badge-rejected' : 'badge-pending'}">${s.status || 'pending'}</span>
+    </div>`).join('');
+}
+
+function renderRecentEnquiries() {
+  const list = allEnquiries.slice(0, 5);
+  const el = document.getElementById('recentEnquiriesList');
+  if (list.length === 0) { el.innerHTML = '<div class="loading-row">No enquiries yet!</div>'; return; }
+  el.innerHTML = list.map(e => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--g5)">
+      <div>
+        <div style="font-size:13px;font-weight:600">${e.buyer_name}</div>
+        <div style="font-size:11px;color:var(--light)">${e.product_name} · ${e.quantity} units</div>
+      </div>
+      <span class="badge badge-new">${e.status || 'new'}</span>
+    </div>`).join('');
+}
+
+function renderSuppliersTable(data) {
+  const tbody = document.getElementById('suppliersTableBody');
+  if (data.length === 0) { tbody.innerHTML = '<tr><td colspan="9" class="loading-row">No suppliers found!</td></tr>'; return; }
+  tbody.innerHTML = data.map(s => `
+    <tr>
+      <td><b>${s.business_name}</b></td>
+      <td>${s.owner_name}</td>
+      <td style="font-size:12px">${s.email}</td>
+      <td>${s.mobile}</td>
+      <td>${s.city}</td>
+      <td>${s.category}</td>
+      <td><span class="badge badge-verified">${s.plan || 'Starter'}</span></td>
+      <td><span class="badge ${s.status === 'active' ? 'badge-active' : s.status === 'rejected' ? 'badge-rejected' : 'badge-pending'}">${s.status || 'pending'}</span></td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-view" onclick="viewSupplier('${s.id}')">👁 View</button>
+        ${(!s.status || s.status === 'pending') ? `
+        <button class="btn btn-approve" onclick="approveSupplier('${s.id}')">✅ Approve</button>
+        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` : ''}
+      </td>
+    </tr>`).join('');
+}
+
+function renderProductsTable(data) {
+  const tbody = document.getElementById('productsTableBody');
+  if (data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No products found!</td></tr>'; return; }
+  tbody.innerHTML = data.map(p => `
+    <tr>
+      <td><b>${p.emoji || '🌿'} ${p.name}</b></td>
+      <td>${p.supplier_name}</td>
+      <td>${p.category}</td>
+      <td>₹${p.price}/${p.price_unit}</td>
+      <td>${p.moq} units</td>
+      <td><span class="badge ${p.status === 'active' ? 'badge-active' : 'badge-pending'}">${p.status || 'active'}</span></td>
+      <td>
+        <button class="btn btn-approve" onclick="updateProductStatus('${p.id}','active')">✅ Active</button>
+        <button class="btn btn-reject" onclick="updateProductStatus('${p.id}','inactive')">🚫 Hide</button>
+      </td>
+    </tr>`).join('');
+}
+
+function renderEnquiriesTable(data) {
+  const tbody = document.getElementById('enquiriesTableBody');
+  if (data.length === 0) { tbody.innerHTML = '<tr><td colspan="9" class="loading-row">No enquiries found!</td></tr>'; return; }
+  tbody.innerHTML = data.map(e => `
+    <tr>
+      <td><b>${e.buyer_name}</b><br><span style="font-size:11px;color:var(--light)">${e.buyer_email}</span></td>
+      <td>${e.product_name}</td>
+      <td>${e.supplier_name}</td>
+      <td>${e.quantity}</td>
+      <td>${e.buyer_mobile}</td>
+      <td>${e.buyer_location}</td>
+      <td style="font-size:11px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+      <td><span class="badge ${e.status === 'new' ? 'badge-new' : e.status === 'replied' ? 'badge-verified' : 'badge-pending'}">${e.status || 'new'}</span></td>
+      <td style="white-space:nowrap">
+        <a href="tel:${e.buyer_mobile}" class="btn btn-view">📞 Call</a>
+        <a href="https://wa.me/91${e.buyer_mobile}" target="_blank" class="btn btn-approve">💬 WA</a>
+      </td>
+    </tr>`).join('');
+}
+
+// APPROVE / REJECT SUPPLIER
+async function approveSupplier(id) {
+  if (!confirm('Approve this supplier?')) return;
+  await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
+  await loadAllData();
+  alert('✅ Supplier approved!');
+}
+
+async function rejectSupplier(id) {
+  if (!confirm('Reject this supplier?')) return;
+  await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
+  await loadAllData();
+  alert('❌ Supplier rejected!');
+}
+
+async function updateProductStatus(id, status) {
+  await supabaseClient.from('products').update({ status }).eq('id', id);
+  await loadAllData();
+}
+
+// VIEW SUPPLIER DETAIL
+function viewSupplier(id) {
+  const s = allSuppliers.find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('supplierModalContent').innerHTML = `
+    <div class="modal-row"><b>Business</b><span>${s.business_name}</span></div>
+    <div class="modal-row"><b>Owner</b><span>${s.owner_name}</span></div>
+    <div class="modal-row"><b>Email</b><span>${s.email}</span></div>
+    <div class="modal-row"><b>Mobile</b><span>${s.mobile}</span></div>
+    <div class="modal-row"><b>City</b><span>${s.city}, ${s.state}</span></div>
+    <div class="modal-row"><b>Category</b><span>${s.category}</span></div>
+    <div class="modal-row"><b>Plan</b><span>${s.plan || 'Starter'}</span></div>
+    <div class="modal-row"><b>GST</b><span>${s.gst_number || 'Not provided'}</span></div>
+    <div class="modal-row"><b>Status</b><span>${s.status || 'pending'}</span></div>
+    <div class="modal-row"><b>Joined</b><span>${new Date(s.created_at).toLocaleDateString('en-IN')}</span></div>
+    ${s.description ? `<div style="margin-top:12px;font-size:13px;color:var(--mid)"><b>Description:</b><br>${s.description}</div>` : ''}
+  `;
+  document.getElementById('supplierModalActions').innerHTML = (!s.status || s.status === 'pending') ? `
+    <button class="modal-btn" style="background:#e8f5e2;color:#2d7a3a" onclick="approveSupplier('${s.id}');closeModal('supplierModal')">✅ Approve</button>
+    <button class="modal-btn" style="background:#ffebee;color:#c62828" onclick="rejectSupplier('${s.id}');closeModal('supplierModal')">❌ Reject</button>
+  ` : `<button class="modal-btn" style="background:var(--g5);color:var(--g1)" onclick="closeModal('supplierModal')">Close</button>`;
+  document.getElementById('supplierModal').classList.add('show');
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// FILTER FUNCTIONS
+function filterSuppliers(q) {
+  const filtered = allSuppliers.filter(s =>
+    s.business_name?.toLowerCase().includes(q.toLowerCase()) ||
+    s.owner_name?.toLowerCase().includes(q.toLowerCase()) ||
+    s.email?.toLowerCase().includes(q.toLowerCase()) ||
+    s.city?.toLowerCase().includes(q.toLowerCase())
+  );
+  renderSuppliersTable(filtered);
+}
+
+function filterSuppliersByStatus(status) {
+  const filtered = status ? allSuppliers.filter(s => (s.status || 'pending') === status) : allSuppliers;
+  renderSuppliersTable(filtered);
+}
+
+function filterProducts(q) {
+  const filtered = allProducts.filter(p =>
+    p.name?.toLowerCase().includes(q.toLowerCase()) ||
+    p.supplier_name?.toLowerCase().includes(q.toLowerCase()) ||
+    p.category?.toLowerCase().includes(q.toLowerCase())
+  );
+  renderProductsTable(filtered);
+}
+
+function filterEnquiries(q) {
+  const filtered = allEnquiries.filter(e =>
+    e.buyer_name?.toLowerCase().includes(q.toLowerCase()) ||
+    e.product_name?.toLowerCase().includes(q.toLowerCase()) ||
+    e.supplier_name?.toLowerCase().includes(q.toLowerCase())
+  );
+  renderEnquiriesTable(filtered);
+}
+
+function filterEnquiriesByStatus(status) {
+  const filtered = status ? allEnquiries.filter(e => (e.status || 'new') === status) : allEnquiries;
+  renderEnquiriesTable(filtered);
+}
+
+// SECTION NAVIGATION
+const pageTitles = {
+  overview: ['Platform Overview', 'Real-time data from Green Roots Smart'],
+  suppliers: ['Manage Suppliers', 'Approve, reject and manage all suppliers'],
+  products: ['Manage Products', 'Review and control all product listings'],
+  enquiries: ['All Enquiries', 'Monitor all buyer-supplier enquiries'],
+  service_providers: ['Service Providers', 'Manage eco service providers on GRS'],
+  settings: ['Admin Settings', 'Platform configuration'],
+  blogs: ['Blog Posts', 'Manage blog content'],
+};
+
+function showSection(name, el) {
+  if(name==='verifications') setTimeout(()=>loadVerifications('pending'),100);
+  if(name==='analytics_section') setTimeout(()=>loadLeadAnalytics(),100);
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = pageTitles[name][0];
+  document.getElementById('pageSubtitle').textContent = pageTitles[name][1];
+  
+  if(window.innerWidth <= 900) {
+    const sb = document.querySelector('.sidebar');
+    const bd = document.getElementById('sidebarBackdrop');
+    if(sb && bd && sb.classList.contains('open')) {
+      sb.classList.remove('open');
+      bd.classList.remove('show');
+    }
+  }
+}
+
+function toggleSidebar(){
+  const sb = document.querySelector('.sidebar');
+  const bd = document.getElementById('sidebarBackdrop');
+  if(sb && bd) {
+    sb.classList.toggle('open');
+    bd.classList.toggle('show');
+  }
+}
+
+// ── SERVICE PROVIDERS ───────────────────────────────────────────────────────
+let allSvcProviders = [];
+
+async function loadSvcProviders() {
+  const { data } = await supabaseClient.from('service_providers').select('*').order('created_at', { ascending: false });
+  allSvcProviders = data || [];
+  document.getElementById('svcCount').textContent = allSvcProviders.length + ' total';
+  renderSvcTable(allSvcProviders);
+}
+
+function renderSvcTable(data) {
+  const tbody = document.getElementById('svcProvidersTableBody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-row">No service providers yet! Add one above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(s => {
+    const availColor = s.availability === 'available' ? 'badge-active' : s.availability === 'busy' ? 'badge-pending' : 'badge-rejected';
+    const availText = s.availability === 'available' ? '🟢 Available' : s.availability === 'busy' ? '🟡 Busy' : '🔴 Booked';
+    return `<tr>
+      <td><b>${s.service_name || s.name || '—'}</b></td>
+      <td>${s.company || s.business_name || '—'}</td>
+      <td><span class="badge badge-verified">${s.category || '—'}</span></td>
+      <td>${s.phone || '—'}</td>
+      <td>${s.city || '—'}</td>
+      <td><span class="badge ${availColor}">${availText}</span></td>
+      <td style="white-space:nowrap">
+        <select onchange="updateSvcAvailability('${s.id}',this.value)" style="padding:4px 8px;border:1px solid #d4e8cc;border-radius:6px;font-size:11px;">
+          <option value="available" ${s.availability==='available'?'selected':''}>🟢 Available</option>
+          <option value="busy" ${s.availability==='busy'?'selected':''}>🟡 Busy</option>
+          <option value="booked" ${s.availability==='booked'?'selected':''}>🔴 Booked</option>
+        </select>
+        <button class="btn btn-reject" onclick="deleteSvcProvider('${s.id}')">🗑️ Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function addServiceProvider() {
+  const name = document.getElementById('svc-name').value.trim();
+  const company = document.getElementById('svc-company').value.trim();
+  const category = document.getElementById('svc-category').value;
+  if (!name) { showSvcMsg('Please enter Service Name!', 'error'); return; }
+  if (!category) { showSvcMsg('Please select Category!', 'error'); return; }
+
+  const data = {
+    service_name: name,
+    company: company,
+    business_name: company,
+    category: category,
+    name: document.getElementById('svc-person').value.trim() || company,
+    phone: document.getElementById('svc-phone').value.trim(),
+    city: document.getElementById('svc-city').value.trim(),
+    state: document.getElementById('svc-state').value.trim(),
+    experience: document.getElementById('svc-exp').value.trim(),
+    availability: document.getElementById('svc-avail').value,
+    description: document.getElementById('svc-desc').value.trim(),
+    verified: false,
+    manually_added: true,
+    claimed: false,
+    status: 'unclaimed',
+    created_at: new Date().toISOString(),
+  };
+
+  const { error } = await supabaseClient.from('service_providers').insert([data]);
+  if (error) { showSvcMsg('Error: ' + error.message, 'error'); return; }
+
+  showSvcMsg('✅ Service provider added successfully!', 'success');
+  ['svc-name','svc-company','svc-person','svc-phone','svc-city','svc-state','svc-exp','svc-desc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('svc-category').value = '';
+  await loadSvcProviders();
+}
+
+async function updateSvcAvailability(id, status) {
+  await supabaseClient.from('service_providers').update({ availability: status }).eq('id', id);
+  await loadSvcProviders();
+}
+
+async function deleteSvcProvider(id) {
+  if (!confirm('Delete this service provider?')) return;
+  await supabaseClient.from('service_providers').delete().eq('id', id);
+  await loadSvcProviders();
+}
+
+function filterSvcProviders(q) {
+  const filtered = allSvcProviders.filter(s =>
+    (s.service_name || '').toLowerCase().includes(q.toLowerCase()) ||
+    (s.company || '').toLowerCase().includes(q.toLowerCase()) ||
+    (s.city || '').toLowerCase().includes(q.toLowerCase())
+  );
+  renderSvcTable(filtered);
+}
+
+function filterSvcByCategory(cat) {
+  const filtered = cat ? allSvcProviders.filter(s => s.category === cat) : allSvcProviders;
+  renderSvcTable(filtered);
+}
+
+function showSvcMsg(msg, type) {
+  const el = document.getElementById('svc-msg');
+  el.style.display = 'block';
+  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
+  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
+  el.textContent = msg;
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+function adminLogout() {
+  localStorage.removeItem('grs_admin');
+  localStorage.removeItem('grs_user');
+  window.location.href = '/admin-login';
+}
+
+function uploadBlogImage() {
+  const widget = cloudinary.createUploadWidget({
+    cloudName: 'dvbaciabk',
+    uploadPreset: 'grs_products',
+    sources: ['local','url','camera'],
+    multiple: false,
+    maxFileSize: 5000000,
+    clientAllowedFormats: ['jpg','jpeg','png','webp'],
+    cropping: true,
+    croppingAspectRatio: 16/9,
+    folder: 'grs-blog'
+  }, (error, result) => {
+    if(!error && result.event === 'success') {
+      const url = result.info.secure_url;
+      document.getElementById('blog-cover-url').value = url;
+      document.getElementById('blog-img-status').textContent = '✅ Image uploaded!';
+      document.getElementById('blog-img-status').style.color = '#2d7a3a';
+      document.getElementById('blog-img-thumb').src = url;
+      document.getElementById('blog-img-preview').style.display = 'block';
+    }
+  });
+  widget.open();
+}
+
+function removeBlogImage() {
+  document.getElementById('blog-cover-url').value = '';
+  document.getElementById('blog-img-status').textContent = 'No image selected';
+  document.getElementById('blog-img-status').style.color = '#7a9a74';
+  document.getElementById('blog-img-preview').style.display = 'none';
+}
+
+async function saveBlog() {
+  const title = document.getElementById('blog-title').value.trim();
+  const cat = document.getElementById('blog-cat').value;
+  if(!title || !cat) { showBlogMsg('Please enter title and category!', 'error'); return; }
+
+  const editId = document.getElementById('blog-edit-id').value;
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const blogData = {
+    title, category: cat,
+    excerpt: document.getElementById('blog-excerpt').value.trim(),
+    content: document.getElementById('blog-content').value.trim(),
+    author: document.getElementById('blog-author').value.trim() || 'Green Roots Smart',
+    published: document.getElementById('blog-publish').checked,
+    cover_image: document.getElementById('blog-cover-url').value || '',
+  };
+
+  let error;
+  if(editId) {
+    // UPDATE existing blog
+    const res = await supabaseClient.from('blogs').update(blogData).eq('id', editId);
+    error = res.error;
+    if(!error) showBlogMsg('✅ Blog post updated successfully!', 'success');
+  } else {
+    // INSERT new blog
+    blogData.slug = slug;
+    const res = await supabaseClient.from('blogs').insert([blogData]);
+    error = res.error;
+    if(!error) showBlogMsg('✅ Blog post published! View at greenrootssmart.com/blog', 'success');
+  }
+
+  if(error) { showBlogMsg('Error: ' + error.message, 'error'); return; }
+  resetBlogForm();
+  loadBlogs();
+}
+
+function editBlogById(id) {
+  const b = allBlogs.find(x => String(x.id) === String(id));
+  if(!b) { showBlogMsg('Blog not found!', 'error'); return; }
+  editBlog(b);
+}
+
+function editBlog(b) {
+  // Scroll to form
+  document.getElementById('section-blogs').scrollIntoView({behavior:'smooth'});
+  // Fill form with blog data
+  document.getElementById('blog-edit-id').value = b.id;
+  document.getElementById('blog-title').value = b.title || '';
+  document.getElementById('blog-cat').value = b.category || '';
+  document.getElementById('blog-excerpt').value = b.excerpt || '';
+  document.getElementById('blog-content').value = b.content || '';
+  document.getElementById('blog-author').value = b.author || '';
+  document.getElementById('blog-publish').checked = b.published !== false;
+  document.getElementById('blog-cover-url').value = b.cover_image || '';
+  if(b.cover_image) {
+    document.getElementById('blog-img-thumb').src = b.cover_image;
+    document.getElementById('blog-img-preview').style.display = 'block';
+    document.getElementById('blog-img-status').textContent = '✅ Image loaded';
+  }
+  // Update button and show cancel
+  document.getElementById('blog-save-btn').textContent = '💾 Update Blog Post';
+  document.getElementById('blog-save-btn').style.background = '#1565c0';
+  document.getElementById('blog-cancel-btn').style.display = 'inline-block';
+  showBlogMsg('✏️ Editing: ' + b.title, 'success');
+}
+
+function cancelEditBlog() {
+  resetBlogForm();
+  showBlogMsg('Edit cancelled.', 'success');
+}
+
+function resetBlogForm() {
+  document.getElementById('blog-edit-id').value = '';
+  ['blog-title','blog-excerpt','blog-content','blog-author'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('blog-cover-url').value = '';
+  document.getElementById('blog-cat').value = '';
+  document.getElementById('blog-img-status').textContent = 'No image selected';
+  document.getElementById('blog-img-preview').style.display = 'none';
+  document.getElementById('blog-save-btn').textContent = '✍️ Publish Blog Post';
+  document.getElementById('blog-save-btn').style.background = '#2d7a3a';
+  document.getElementById('blog-cancel-btn').style.display = 'none';
+}
+
+function showBlogMsg(msg, type) {
+  const el = document.getElementById('blog-msg');
+  el.style.display = 'block';
+  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
+  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
+  el.textContent = msg;
+  setTimeout(() => el.style.display = 'none', 5000);
+}
+
+let allBlogs = [];
+
+async function loadBlogs() {
+  const { data } = await supabaseClient.from('blogs').select('*').order('created_at', { ascending: false });
+  const list = document.getElementById('blogList');
+  const count = document.getElementById('blogCount');
+  if(!data || data.length === 0) {
+    list.innerHTML = '<p style="color:#7a9a74;font-size:13px;padding:16px 0">No blog posts yet! Add your first post above.</p>';
+    if(count) count.textContent = '0 posts';
+    return;
+  }
+  allBlogs = data;
+  if(count) count.textContent = data.length + ' posts';
+  list.innerHTML = data.map(b => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8f5e2;">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a4a24">${b.title}</div>
+        <div style="font-size:12px;color:#7a9a74">${b.category||''} · ${b.published ? '✅ Published' : '⏳ Draft'} · 👁️ ${b.views||0} views</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/blog-post?slug=${b.slug||b.id}" target="_blank" style="padding:6px 12px;background:#e8f5e2;color:#2d7a3a;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">👁️ View</a>
+        <button onclick="editBlogById('${b.id}')" style="padding:6px 12px;background:#e3f2fd;color:#1565c0;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">✏️ Edit</button>
+        <button onclick="togglePublish('${b.id}',${b.published})" style="padding:6px 12px;background:${b.published ? '#fce4ec' : '#e8f5e2'};color:${b.published ? '#c62828' : '#2d7a3a'};border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">${b.published ? '🚫 Unpublish' : '✅ Publish'}</button>
+        <button onclick="deleteBlog('${b.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+async function togglePublish(id, current) {
+  await supabaseClient.from('blogs').update({ published: !current }).eq('id', id);
+  loadBlogs();
+}
+
+async function deleteBlog(id) {
+  if(!confirm('Delete this blog post?')) return;
+  await supabaseClient.from('blogs').delete().eq('id', id);
+  loadBlogs();
+}
+
+
+// ═══════════════════════════════════════
+// VERIFICATION ADMIN FUNCTIONS
+// ═══════════════════════════════════════
+
+let currentVerifFilter = 'pending';
+
+async function loadVerifications(filter='pending'){
+  currentVerifFilter = filter;
+  // Update button styles
+  ['pending','approved','rejected','all'].forEach(f=>{
+    const btn = document.getElementById('vbtn-'+f);
+    if(!btn) return;
+    if(f===filter){
+      const colors = {pending:'var(--g2)',approved:'#2d7a3a',rejected:'#c62828',all:'#555'};
+      btn.style.background = colors[f];
+      btn.style.color = 'white';
+      btn.style.border = 'none';
+    } else {
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.border = '';
+    }
+  });
+
+  const list = document.getElementById('verif-list');
+  list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">Loading...</div>';
+
+  try{
+    let query = supabaseClient.from('verifications').select('*').order('applied_at',{ascending:false});
+    if(filter!=='all') query = query.eq('status', filter);
+    const {data, error} = await query;
+
+    if(error){ list.innerHTML=`<div style="color:#c62828;padding:20px;">Error: ${error.message}</div>`; return; }
+    if(!data||!data.length){
+      list.innerHTML=`<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No ${filter} applications found 🌿</div>`;
+      return;
+    }
+
+    const levelEmoji = {bronze:'🥉',silver:'🥈',gold:'🥇'};
+    const statusColor = {pending:'#fff3e0',approved:'#e8f5e2',rejected:'#fce4ec'};
+    const statusText = {pending:'⏳ Pending Review',approved:'✅ Approved',rejected:'❌ Rejected'};
+
+    list.innerHTML = data.map(v=>`
+      <div style="background:white;border-radius:14px;border:1.5px solid #e8f0e8;margin-bottom:12px;overflow:hidden;">
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;border-radius:12px;background:var(--g5);display:flex;align-items:center;justify-content:center;font-size:24px;">${levelEmoji[v.level]||'🥉'}</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--dark);">${v.supplier_name||'Unknown Supplier'}</div>
+              <div style="font-size:12px;color:var(--light);">${v.category||'—'} · Applied ${new Date(v.applied_at).toLocaleDateString('en-IN')}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="background:${statusColor[v.status]||'#f5f5f5'};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;">${statusText[v.status]||v.status}</span>
+            <span style="background:${v.level==='gold'?'#fffbf0':v.level==='silver'?'#f8f8f8':'#fff8f0'};padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;color:${v.level==='gold'?'#b8860b':v.level==='silver'?'#888':'#cd7f32'};">${(v.level||'bronze').toUpperCase()}</span>
+            <button onclick="viewVerifDetail(${v.id})" style="padding:7px 16px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">👁️ Review</button>
+            ${v.status==='pending'?`
+            <button onclick="quickApprove(${v.id},'${v.supplier_id}','${v.level||'bronze'}')" style="padding:7px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approve</button>
+            <button onclick="quickReject(${v.id})" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">❌ Reject</button>`:''}
+          </div>
+        </div>
+      </div>`).join('');
+
+  }catch(e){ list.innerHTML=`<div style="color:#c62828;padding:20px;">Error loading: ${e.message}</div>`; }
+}
+
+async function viewVerifDetail(id){
+  document.getElementById('verifModal').style.display='block';
+  document.getElementById('verifModalContent').innerHTML='<div style="text-align:center;padding:40px;"><div style="width:32px;height:32px;border:3px solid #e8f5e2;border-top-color:#52b043;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto;"></div></div>';
+  document.getElementById('verifModalActions').innerHTML='';
+
+  try{
+    const {data} = await supabaseClient.from('verifications').select('*').eq('id',id);
+    if(!data||!data.length){ document.getElementById('verifModalContent').innerHTML='<p style="color:#c62828;">Application not found.</p>'; return; }
+    const v = data[0];
+    const levelEmoji = {bronze:'🥉',silver:'🥈',gold:'🥇'};
+    let catAnswers = {};
+    try{ catAnswers = JSON.parse(v.cat_answers||'{}'); }catch(e){}
+
+    document.getElementById('verifModalContent').innerHTML = `
+      <!-- HEADER INFO -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #e8f0e8;">
+        <div style="font-size:48px;">${levelEmoji[v.level]||'🥉'}</div>
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--dark);">${v.supplier_name}</div>
+          <div style="font-size:13px;color:var(--light);">${v.category||'—'} · Applying for ${(v.level||'bronze').toUpperCase()}</div>
+          <div style="font-size:12px;color:var(--light);">Applied: ${new Date(v.applied_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</div>
+        </div>
+      </div>
+
+      <!-- BUSINESS PROOF -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Business Proof</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>GST Number:</strong> ${v.gst_number||'—'}</div>
+          <div style="font-size:13px;margin-bottom:8px;"><strong>Registration Type:</strong> ${v.reg_type||'—'}</div>
+          ${v.gst_doc_url?`<a href="${v.gst_doc_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#e8f5e2;color:#2d7a3a;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">📄 View Business Document</a>`:'<span style="font-size:12px;color:#c62828;">No document uploaded</span>'}
+        </div>
+      </div>
+
+      <!-- PRODUCT PROOF -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📦 Product Proof</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>Product:</strong> ${v.product_name||'—'}</div>
+          <div style="font-size:13px;margin-bottom:8px;"><strong>Why Eco-Friendly:</strong> ${v.eco_reason||'—'}</div>
+          ${v.product_photo_url?`<div style="margin-top:8px;"><img src="${v.product_photo_url}" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;" alt="Product"/></div>`:'<span style="font-size:12px;color:#c62828;">No product photo</span>'}
+        </div>
+      </div>
+
+      <!-- ECO CERTIFICATION -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🌿 Eco Certification</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          <div style="font-size:13px;margin-bottom:6px;"><strong>Type:</strong> ${v.cert_type==='none'?'None — Bronze application':v.cert_type}</div>
+          ${v.cert_name?`<div style="font-size:13px;margin-bottom:8px;"><strong>Cert Number:</strong> ${v.cert_name}</div>`:''}
+          ${v.cert_doc_url?`<a href="${v.cert_doc_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#e8f5e2;color:#2d7a3a;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">🏅 View Certification</a>`:'<span style="font-size:12px;color:var(--light);">No certification document</span>'}
+        </div>
+      </div>
+
+      <!-- SUPPLY CAPABILITY -->
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🚚 Supply Capability</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="font-size:13px;"><strong>Reach:</strong> ${v.supply_reach||'—'}</div>
+          <div style="font-size:13px;"><strong>MOQ:</strong> ${v.moq||'—'}</div>
+          <div style="font-size:13px;"><strong>Delivery:</strong> ${v.delivery_time||'—'}</div>
+          <div style="font-size:13px;"><strong>Response:</strong> ${v.response_time||'—'}</div>
+        </div>
+      </div>
+
+      <!-- CATEGORY ANSWERS -->
+      ${Object.keys(catAnswers).length>0?`
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">📋 Category Answers</div>
+        <div style="background:#f8faf8;border-radius:10px;padding:14px;">
+          ${Object.values(catAnswers).map((a,i)=>`<div style="font-size:13px;margin-bottom:6px;"><strong>Q${i+1}:</strong> ${a}</div>`).join('')}
+        </div>
+      </div>`:''}
+
+      <!-- CODE OF CONDUCT -->
+      <div style="background:${v.code_signed?'#e8f5e2':'#fce4ec'};border-radius:10px;padding:12px;font-size:13px;font-weight:600;color:${v.code_signed?'#2d7a3a':'#c62828'};">
+        ${v.code_signed?'✅ Supplier has signed the GRS Eco Code of Conduct':'❌ Code of Conduct NOT signed'}
+      </div>
+
+      ${v.status==='rejected'&&v.rejection_reason?`
+      <div style="margin-top:12px;background:#fce4ec;border-radius:10px;padding:12px;font-size:13px;color:#c62828;">
+        <strong>Rejection Reason:</strong> ${v.rejection_reason}
+      </div>`:''}
+    `;
+
+    // Action buttons
+    if(v.status==='pending'){
+      document.getElementById('verifModalActions').innerHTML=`
+        <div style="flex:1;">
+          <input id="reject-reason-input" type="text" placeholder="Rejection reason (required for rejection)" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;margin-bottom:10px;"/>
+          <div style="display:flex;gap:10px;">
+            <button onclick="approveVerification(${v.id},'${v.supplier_id}','${v.level||'bronze'}')" style="flex:1;padding:12px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">✅ Approve — Grant ${(v.level||'bronze').toUpperCase()} Badge</button>
+            <button onclick="rejectVerification(${v.id})" style="padding:12px 20px;background:#fce4ec;color:#c62828;border:1.5px solid #f5c6c6;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">❌ Reject</button>
+          </div>
+        </div>`;
+    } else {
+      document.getElementById('verifModalActions').innerHTML=`<button onclick="closeVerifModal()" style="padding:10px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Close</button>`;
+    }
+
+  }catch(e){ document.getElementById('verifModalContent').innerHTML=`<p style="color:#c62828;">Error: ${e.message}</p>`; }
+}
+
+async function approveVerification(id, supplierId, level){
+  if(!confirm(`Approve this application and grant ${level.toUpperCase()} verified status?`)) return;
+  const certNo = `GRS-2026-${String(supplierId).padStart(4,'0')}`;
+  try{
+    // Update verification status
+    await supabaseClient.from('verifications').update({
+      status:'approved', reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    // Update supplier verified status
+    await supabaseClient.from('suppliers').update({
+      verified_status: level,
+      verified_at: new Date().toISOString(),
+      cert_number: certNo,
+      status: 'active'
+    }).eq('id', supplierId);
+    closeVerifModal();
+    loadVerifications(currentVerifFilter);
+    showAdminToast(`✅ ${level.toUpperCase()} badge granted! Certificate: ${certNo}`,'success');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+async function rejectVerification(id){
+  const reason = document.getElementById('reject-reason-input')?.value.trim();
+  if(!reason) return alert('Please enter a rejection reason before rejecting.');
+  if(!confirm('Reject this application?')) return;
+  try{
+    await supabaseClient.from('verifications').update({
+      status:'rejected', rejection_reason:reason,
+      reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    closeVerifModal();
+    loadVerifications(currentVerifFilter);
+    showAdminToast('Application rejected. Supplier has been notified.','error');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+async function quickApprove(id, supplierId, level){
+  if(!confirm(`Quick approve — grant ${level.toUpperCase()} badge to this supplier?`)) return;
+  await approveVerification(id, supplierId, level);
+}
+
+async function quickReject(id){
+  const reason = prompt('Enter rejection reason:');
+  if(!reason) return;
+  try{
+    await supabaseClient.from('verifications').update({
+      status:'rejected', rejection_reason:reason,
+      reviewed_at:new Date().toISOString(), reviewed_by:'GRS Admin'
+    }).eq('id',id);
+    loadVerifications(currentVerifFilter);
+    showAdminToast('Application rejected.','error');
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+function closeVerifModal(){
+  document.getElementById('verifModal').style.display='none';
+}
+
+function showAdminToast(msg, type='success'){
+  const toast = document.createElement('div');
+  toast.style.cssText=`position:fixed;bottom:24px;right:24px;background:${type==='success'?'#2d7a3a':'#c62828'};color:white;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:320px;`;
+  toast.textContent=msg;
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(), 4000);
+}
+
+async function loadLeadAnalyticsBadge(){
+  try{
+    const {data} = await supabaseClient.from('enquiries').select('id').eq('status','new');
+    const badge = document.getElementById('newLeadsBadge');
+    if(badge && data && data.length>0){ badge.style.display='inline-block'; badge.textContent=data.length; }
+  }catch(e){}
+}
+
+async function loadVerifBadgeCount(){
+  try{
+    const {data} = await supabaseClient.from('verifications').select('id',{count:'exact'}).eq('status','pending');
+    const badge = document.getElementById('verifBadge');
+    if(badge && data && data.length>0){
+      badge.style.display='inline-block';
+      badge.textContent=data.length;
+    }
+  }catch(e){}
+}
+// END VERIFICATION ADMIN
+
+
+// ═══════════════════════════════════════════════════
+// LEAD ANALYTICS
+// ═══════════════════════════════════════════════════
+let currentLeadTab = 'enquiries';
+
+async function loadLeadAnalytics(){
+  try{
+    // Load enquiries count
+    const {data:enqs} = await supabaseClient.from('enquiries').select('id,created_at,supplier_name,buyer_name,buyer_mobile,product_name,status,enquiry_type').order('created_at',{ascending:false}).limit(200);
+    const enquiries = enqs||[];
+
+    // Load WA clicks
+    let waClicks = [];
+    try{
+      const {data:wa} = await supabaseClient.from('wa_clicks').select('*').order('clicked_at',{ascending:false}).limit(200);
+      waClicks = wa||[];
+    }catch(e){}
+
+    // This week
+    const weekAgo = new Date(Date.now()-7*24*60*60*1000).toISOString();
+    const thisWeek = enquiries.filter(e=>e.created_at>weekAgo).length + waClicks.filter(w=>w.clicked_at>weekAgo).length;
+
+    // Unique suppliers contacted
+    const suppSet = new Set([
+      ...enquiries.map(e=>e.supplier_name).filter(Boolean),
+      ...waClicks.map(w=>w.supplier_name).filter(Boolean)
+    ]);
+
+    document.getElementById('totalEnquiries').textContent = enquiries.length;
+    document.getElementById('totalWAClicks').textContent = waClicks.length;
+    document.getElementById('thisWeekLeads').textContent = thisWeek;
+    document.getElementById('uniqueSuppliers').textContent = suppSet.size;
+
+    // Update badge
+    const newLeads = enquiries.filter(e=>e.status==='new').length;
+    const badge = document.getElementById('newLeadsBadge');
+    if(badge && newLeads>0){ badge.style.display='inline-block'; badge.textContent=newLeads; }
+
+    // Store for tab switching
+    window._grsEnquiries = enquiries;
+    window._grsWAClicks = waClicks;
+
+    loadLeadTab('enquiries');
+  }catch(e){ console.error('Lead analytics error:',e); }
+}
+
+function loadLeadTab(tab){
+  currentLeadTab = tab;
+  // Update tab buttons
+  document.getElementById('ltab-enq').style.background = tab==='enquiries'?'var(--g2)':'#e8f5e2';
+  document.getElementById('ltab-enq').style.color = tab==='enquiries'?'white':'var(--g2)';
+  document.getElementById('ltab-wa').style.background = tab==='wa'?'#25D366':'#e8f5e2';
+  document.getElementById('ltab-wa').style.color = tab==='wa'?'white':'var(--g2)';
+
+  const list = document.getElementById('leadsList');
+
+  if(tab==='enquiries'){
+    const data = window._grsEnquiries||[];
+    if(!data.length){ list.innerHTML='<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No enquiries yet 🌿</div>'; return; }
+    list.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:2px solid var(--g5)">
+        <th style="text-align:left;padding:10px;color:var(--mid)">Buyer</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Mobile</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Product / Supplier</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Type</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Date</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
+      </tr></thead>
+      <tbody>${data.map(e=>`
+        <tr style="border-bottom:1px solid var(--g5)">
+          <td style="padding:10px;font-weight:600">${e.buyer_name||'—'}</td>
+          <td style="padding:10px"><a href="tel:${e.buyer_mobile}" style="color:var(--g2)">${e.buyer_mobile||'—'}</a></td>
+          <td style="padding:10px;color:var(--mid)">${e.product_name||e.supplier_name||'—'}</td>
+          <td style="padding:10px;font-size:11px;color:#666">${e.enquiry_type||'Form'}</td>
+          <td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
+          <td style="padding:10px"><span style="background:${e.status==='new'?'#e8f5e2':'#f5f5f5'};color:${e.status==='new'?'#2d7a3a':'#666'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${e.status||'new'}</span></td>
+        </tr>`).join('')}
+      </tbody></table>`;
+  } else {
+    const data = window._grsWAClicks||[];
+    if(!data.length){ list.innerHTML='<div style="text-align:center;padding:40px;color:var(--light);font-size:13px;">No WhatsApp clicks tracked yet 🌿</div>'; return; }
+    list.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead><tr style="border-bottom:2px solid var(--g5)">
+        <th style="text-align:left;padding:10px;color:var(--mid)">Supplier</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Page</th>
+        <th style="text-align:left;padding:10px;color:var(--mid)">Date & Time</th>
+      </tr></thead>
+      <tbody>${data.map(w=>`
+        <tr style="border-bottom:1px solid var(--g5)">
+          <td style="padding:10px;font-weight:600">${w.supplier_name||'—'}</td>
+          <td style="padding:10px;color:var(--mid)">${w.product_name||'—'}</td>
+          <td style="padding:10px;font-size:11px;color:#666">${w.page||'—'}</td>
+          <td style="padding:10px;color:var(--light)">${new Date(w.clicked_at).toLocaleString('en-IN')}</td>
+        </tr>`).join('')}
+      </tbody></table>`;
+  }
+}
+
+async function sendWeeklySummary(){
+  const enqs = window._grsEnquiries||[];
+  const wa = window._grsWAClicks||[];
+  const weekAgo = new Date(Date.now()-7*24*60*60*1000).toISOString();
+  const weekEnqs = enqs.filter(e=>e.created_at>weekAgo);
+  const weekWA = wa.filter(w=>w.clicked_at>weekAgo);
+
+  try{
+    await emailjs.send('service_clis9zo','template_7gj9klp',{
+      to_name: 'Dinesh — GRS Admin',
+      from_name: 'GRS System',
+      buyer_name: 'Weekly Summary Report',
+      buyer_mobile: weekEnqs.length + ' form enquiries this week',
+      buyer_email: 'greenrootssmart@gmail.com',
+      product_name: weekWA.length + ' WhatsApp clicks this week',
+      supplier_name: 'Total leads: ' + (weekEnqs.length + weekWA.length),
+      quantity: 'All time enquiries: ' + enqs.length,
+      message: weekEnqs.map(e=>`${e.buyer_name||'Buyer'} enquired about ${e.product_name||e.supplier_name||'—'} on ${new Date(e.created_at).toLocaleDateString('en-IN')}`).join('\n') || 'No enquiries this week',
+      enquiry_type: 'Weekly Summary',
+      page_source: 'GRS Admin Panel',
+      timestamp: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+    });
+    showAdminToast('✅ Weekly summary sent to greenrootssmart@gmail.com!','success');
+  }catch(e){
+    showAdminToast('Error sending email: '+JSON.stringify(e),'error');
+  }
+}
+// ═══════════════════════════════════════════════════
+
+window.onload = initAdmin;
+
+async function addSupplierManually() {
+  const business = document.getElementById('man-business').value.trim();
+  const category = document.getElementById('man-category').value;
+  if(!business) { showManMsg('Please enter Business Name!', 'error'); return; }
+  if(!category) { showManMsg('Please select Category!', 'error'); return; }
+
+  const data = {
+    business_name: business,
+    owner_name: document.getElementById('man-owner').value.trim(),
+    category: category,
+    email: document.getElementById('man-email').value.trim() || 'pending@greenrootssmart.com',
+    mobile: document.getElementById('man-mobile').value.trim() || '0000000000',
+    city: document.getElementById('man-city').value.trim(),
+    state: document.getElementById('man-state').value.trim(),
+    website: document.getElementById('man-website').value.trim(),
+    description: document.getElementById('man-desc').value.trim(),
+    manually_added: true,
+    claimed: false,
+    status: 'active',
+    password: 'UNCLAIMED',
+    plan: 'free',
+  };
+
+  const { error } = await supabaseClient.from('suppliers').insert([data]);
+  if(error) {
+    showManMsg('Error: ' + error.message, 'error');
+  } else {
+    showManMsg('✅ Supplier added successfully! They can now claim this profile.', 'success');
+    ['man-business','man-owner','man-email','man-mobile','man-city','man-state','man-website','man-desc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('man-category').value = '';
+    await loadData();
+  await loadClaimRequests();
+  await loadBlogs();
+  }
+}
+
+function showManMsg(msg, type) {
+  const el = document.getElementById('man-msg');
+  el.style.display = 'block';
+  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
+  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
+  el.textContent = msg;
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+async function loadClaimRequests() {
+  // Load both supplier AND service provider claim requests
+  const [supRes, svcRes] = await Promise.all([
+    supabaseClient.from('suppliers').select('*').eq('claim_requested', true).eq('claimed', false).order('claim_requested_at',{ascending:false}),
+    supabaseClient.from('service_providers').select('*').eq('claim_requested', true).eq('claimed', false).order('claim_requested_at',{ascending:false})
+  ]);
+
+  const list = document.getElementById('claimRequestsList');
+  const count = document.getElementById('claimCount');
+  const supClaims = supRes.data||[];
+  const svcClaims = svcRes.data||[];
+  const total = supClaims.length + svcClaims.length;
+
+  if(total === 0) {
+    list.innerHTML = '<p style="color:#7a9a74;font-size:13px;padding:16px 0">No pending claim requests! 🌿</p>';
+    if(count) count.textContent = '0 pending';
+    return;
+  }
+  if(count) count.textContent = total + ' pending';
+
+  const supHTML = supClaims.map(s => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8f5e2;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a4a24">${s.business_name} <span style="background:#e8f5e2;color:#2d7a3a;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Supplier</span></div>
+        <div style="font-size:12px;color:#7a9a74">Claimed by: ${s.claim_name||'-'} · ${s.claim_email||'-'} · ${s.claim_phone||'-'}</div>
+        <div style="font-size:11px;color:#a0a0a0">Requested: ${s.claim_requested_at ? new Date(s.claim_requested_at).toLocaleDateString() : '-'}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="approveClaim('${s.id}','${s.claim_email||s.email||''}','supplier')" style="padding:7px 16px;background:#2d7a3a;color:white;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approve</button>
+        <button onclick="rejectClaim('${s.id}','supplier')" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">❌ Reject</button>
+      </div>
+    </div>`).join('');
+
+  const svcHTML = svcClaims.map(s => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8f5e2;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a4a24">${s.service_name||s.name||s.company} <span style="background:#e3f2fd;color:#1565c0;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Service Provider</span></div>
+        <div style="font-size:12px;color:#7a9a74">Claimed by: ${s.claim_name||'-'} · ${s.claim_email||'-'} · ${s.claim_phone||'-'}</div>
+        <div style="font-size:11px;color:#a0a0a0">Requested: ${s.claim_requested_at ? new Date(s.claim_requested_at).toLocaleDateString() : '-'}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="approveClaim('${s.id}','${s.claim_email||s.email||''}','service')" style="padding:7px 16px;background:#2d7a3a;color:white;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">✅ Approve</button>
+        <button onclick="rejectClaim('${s.id}','service')" style="padding:7px 16px;background:#fce4ec;color:#c62828;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">❌ Reject</button>
+      </div>
+    </div>`).join('');
+
+  list.innerHTML = supHTML + svcHTML;
+}
+
+async function approveClaim(id, email, type='supplier') {
+  const table = type==='service'?'service_providers':'suppliers';
+  const updateData = {claimed:true, claim_requested:false, status:'active'};
+  if(type==='supplier'){ updateData.email=email; updateData.password='GRS@2024'; }
+  const {error} = await supabaseClient.from(table).update(updateData).eq('id',id);
+  if(!error){ alert(`✅ Claim approved! ${type==='service'?'Service provider':'Supplier'} can now manage their profile.`); loadClaimRequests(); loadData(); }
+}
+
+async function rejectClaim(id, type='supplier') {
+  const table = type==='service'?'service_providers':'suppliers';
+  const {error} = await supabaseClient.from(table).update({claim_requested:false}).eq('id',id);
+  if(!error){ alert('Claim rejected!'); loadClaimRequests(); }
+}
+</script>
+</body>
+</html>
