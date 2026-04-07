@@ -835,14 +835,17 @@ function renderEnquiriesTable(data) {
 // APPROVE / REJECT SUPPLIER
 async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
-  await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
+  var numId = parseInt(id) || id;
+  var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', numId);
+  if (res.error) { alert('Error: ' + res.error.message); return; }
   await loadAllData();
   alert('✅ Supplier approved!');
 }
 
 async function rejectSupplier(id) {
-  if (!confirm('Reject this supplier?')) return;
-  await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
+  if (!confirm('Deactivate this supplier?')) return;
+  var numId = parseInt(id) || id;
+  var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', numId);
   await loadAllData();
   alert('❌ Supplier rejected!');
 }
