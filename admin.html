@@ -786,9 +786,10 @@ function renderSuppliersTable(data) {
       <td><span class="badge ${s.status === 'active' ? 'badge-active' : s.status === 'rejected' ? 'badge-rejected' : 'badge-pending'}">${s.status || 'pending'}</span></td>
       <td style="white-space:nowrap">
         <button class="btn btn-view" onclick="viewSupplier('${s.id}')">👁 View</button>
-        ${(!s.status || s.status === 'pending') ? `
+        ${s.status !== 'active' ? `
         <button class="btn btn-approve" onclick="approveSupplier('${s.id}')">✅ Approve</button>
-        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` : ''}
+        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` :
+        `<button class="btn" style="background:#fce4ec;color:#c62828;" onclick="rejectSupplier('${s.id}')">🚫 Deactivate</button>`}
       </td>
     </tr>`).join('');
 }
