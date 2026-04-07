@@ -142,9 +142,7 @@ tr:hover td{background:#fafffe;}
     <button class="nav-item" onclick="showSection('service_providers',this)"><span class="nav-icon">🔧</span> Service Providers <span class="nav-badge" id="svcBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('service_providers',this);setTimeout(()=>document.getElementById('svc-name').focus(),300)"><span class="nav-icon">➕</span> Add Service Provider</button>
     <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries</button>
-    
-
-<div class="nav-section">System</div>
+    <div class="nav-section">System</div>
     <button class="nav-item" onclick="showSection('analytics_section',this)"><span class="nav-icon">📊</span> Lead Analytics <span class="nav-badge" id="newLeadsBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('verifications',this)"><span class="nav-icon">🏆</span> Verifications <span class="nav-badge" id="verifBadge" style="display:none">0</span></button>
     <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
@@ -191,7 +189,7 @@ tr:hover td{background:#fafffe;}
         </div>
         <div class="stat-card">
           <div class="s-icon" style="background:#fff3e0">📩</div>
-          <div class="s-val" id="overviewEnqCount">—</div>
+          <div class="s-val" id="totalEnquiries">—</div>
           <div class="s-lbl">Total Enquiries</div>
           <div class="s-change" id="newEnquiriesStat">loading...</div>
         </div>
@@ -220,13 +218,12 @@ tr:hover td{background:#fafffe;}
           </div>
           <div id="recentEnquiriesList"><div class="loading-row">Loading... 🌿</div></div>
         </div>
-      
-      <!-- ═══════════════════════════════════════════════════ -->
-<!-- SUPPLIERS -->
+      </div>
+    </div>
+
+    <!-- SUPPLIERS -->
     <div id="section-suppliers" class="section">
       <!-- ADD SUPPLIER MANUALLY -->
-      
-
       <div class="card" style="margin-bottom:20px">
         <div class="card-header">
           <div class="card-title">➕ Add Supplier Manually</div>
@@ -678,7 +675,7 @@ let allProducts = [];
 let allEnquiries = [];
 
 // ADMIN LOGIN CHECK
-async function checkAdminAccess() {
+function checkAdminAccess() {
   // Check grs_admin session first
   const adminData = localStorage.getItem('grs_admin');
   if (adminData) {
@@ -733,7 +730,6 @@ function updateStats() {
   document.getElementById('totalSuppliers').textContent = allSuppliers.length;
   document.getElementById('totalProducts').textContent = allProducts.length;
   document.getElementById('totalEnquiries').textContent = allEnquiries.length;
-  var ovEnq = document.getElementById('overviewEnqCount'); if(ovEnq) ovEnq.textContent = allEnquiries.length;
   document.getElementById('pendingApprovals').textContent = pending;
   document.getElementById('pendingSuppliersStat').textContent = pending + ' pending approval';
   document.getElementById('newEnquiriesStat').textContent = newEnq + ' new today';
@@ -790,10 +786,9 @@ function renderSuppliersTable(data) {
       <td><span class="badge ${s.status === 'active' ? 'badge-active' : s.status === 'rejected' ? 'badge-rejected' : 'badge-pending'}">${s.status || 'pending'}</span></td>
       <td style="white-space:nowrap">
         <button class="btn btn-view" onclick="viewSupplier('${s.id}')">👁 View</button>
-        ${s.status !== 'active' ? `
+        ${(!s.status || s.status === 'pending') ? `
         <button class="btn btn-approve" onclick="approveSupplier('${s.id}')">✅ Approve</button>
-        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` :
-        `<button class="btn" style="background:#e3f2fd;color:#1565c0;" onclick="rejectSupplier('${s.id}')">🚫 Deactivate</button>`}
+        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` : ''}
       </td>
     </tr>`).join('');
 }
@@ -839,16 +834,14 @@ function renderEnquiriesTable(data) {
 // APPROVE / REJECT SUPPLIER
 async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
-  var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
-  if (res.error) { alert('Error: ' + res.error.message); return; }
+  await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
   await loadAllData();
-  showToast('✅ Supplier approved successfully!');
+  alert('✅ Supplier approved!');
 }
 
 async function rejectSupplier(id) {
-  if (!confirm('Deactivate/Reject this supplier?')) return;
-  var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
-  if (res.error) { alert('Error: ' + res.error.message); return; }
+  if (!confirm('Reject this supplier?')) return;
+  await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
   await loadAllData();
   alert('❌ Supplier rejected!');
 }
@@ -954,7 +947,7 @@ function showSection(name, el) {
   }
 }
 
-async function toggleSidebar(){
+function toggleSidebar(){
   const sb = document.querySelector('.sidebar');
   const bd = document.getElementById('sidebarBackdrop');
   if(sb && bd) {
@@ -1189,7 +1182,7 @@ function resetBlogForm() {
   document.getElementById('blog-cancel-btn').style.display = 'none';
 }
 
-async function showBlogMsg(msg, type) {
+function showBlogMsg(msg, type) {
   const el = document.getElementById('blog-msg');
   el.style.display = 'block';
   el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
@@ -1460,11 +1453,11 @@ async function quickReject(id){
   }catch(e){ alert('Error: '+e.message); }
 }
 
-async function closeVerifModal(){
+function closeVerifModal(){
   document.getElementById('verifModal').style.display='none';
 }
 
-async function showAdminToast(msg, type='success'){
+function showAdminToast(msg, type='success'){
   const toast = document.createElement('div');
   toast.style.cssText=`position:fixed;bottom:24px;right:24px;background:${type==='success'?'#2d7a3a':'#c62828'};color:white;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:320px;`;
   toast.textContent=msg;
@@ -1633,8 +1626,8 @@ async function addSupplierManually() {
     business_name: business,
     owner_name: document.getElementById('man-owner').value.trim(),
     category: category,
-    email: document.getElementById('man-email').value.trim() || null,
-    mobile: document.getElementById('man-mobile').value.trim() || null,
+    email: document.getElementById('man-email').value.trim() || 'pending@greenrootssmart.com',
+    mobile: document.getElementById('man-mobile').value.trim() || '0000000000',
     city: document.getElementById('man-city').value.trim(),
     state: document.getElementById('man-state').value.trim(),
     website: document.getElementById('man-website').value.trim(),
@@ -1659,7 +1652,7 @@ async function addSupplierManually() {
   }
 }
 
-async function showManMsg(msg, type) {
+function showManMsg(msg, type) {
   const el = document.getElementById('man-msg');
   el.style.display = 'block';
   el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
@@ -1730,21 +1723,6 @@ async function rejectClaim(id, type='supplier') {
   const {error} = await supabaseClient.from(table).update({claim_requested:false}).eq('id',id);
   if(!error){ alert('Claim rejected!'); loadClaimRequests(); }
 }
-
-
-
-// ═══════════════════════════════════════════════════
-// INLINE DETAIL EXPAND/COLLAPSE
-// ═══════════════════════════════════════════════════
-function showToast(msg) {
-  var t = document.createElement('div');
-  t.textContent = msg;
-  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a4a24;color:white;padding:12px 24px;border-radius:12px;font-size:14px;z-index:9999;';
-  document.body.appendChild(t);
-  setTimeout(function(){ t.remove(); }, 3000);
-}
-
 </script>
-
 </body>
 </html>
