@@ -373,7 +373,7 @@ footer{background:#0f1f10;padding:52px 5% 24px;}
         <option value="Water Technology">💧 Water Technology</option>
         <option value="Energy Storage">🔋 Energy Storage</option>
         <option value="Green Building">🏗️ Green Building</option>
-        <option value="Herbal Products">🌿 Herbal Products</option>
+        <option value="Herbal & Natural">🌿 Herbal & Natural</option>
         <option value="Eco Textiles">👗 Eco Textiles</option>
         <option value="Wind Energy">🌬️ Wind Energy</option>
         <option value="EV Components">🚗 EV Components</option>
@@ -595,7 +595,7 @@ const PROD_CATS=[
   {name:'Water Technology',    emoji:'💧', color:'#42a5f5', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/water-technology.jpg_ymxpit.png'},
   {name:'Energy Storage',      emoji:'🔋', color:'#ab47bc', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622969/energy-storage.jpg_jmhosb.png'},
   {name:'Green Building',      emoji:'🏗️', color:'#8d6e63', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622980/green-building.jpg_vvzhkl.png'},
-  {name:'Herbal Products',     emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
+  {name:'Herbal & Natural',     emoji:'🌿', color:'#66bb6a', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622977/herbal-products.jpg_lrzqfj.png'},
   {name:'Eco Textiles',        emoji:'👗', color:'#f06292', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622971/eco-textiles.jpg_iqcvus.png'},
   {name:'Wind Energy',         emoji:'🌬️', color:'#4dd0e1', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622983/wind-energy.jpg_rwzfmw.png'},
   {name:'EV Components',       emoji:'🚗', color:'#5c6bc0', img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_400,h_200,c_fill,q_auto,f_auto/v1774622979/ev-components.jpg_owmws0.png'},
@@ -624,8 +624,8 @@ const SVC_CATS=[
   {name:'Training',         emoji:'🎓', color:'#ef5350', key:'Training & Education',         img:'https://res.cloudinary.com/dvbaciabk/image/upload/w_300,h_160,c_fill,q_auto,f_auto/v1774626718/Training-Education.PNG_pi0jgw.png'},
 ];
 
-const catBg={'Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal Products':'linear-gradient(135deg,#e8f5e9,#c8e6c9)','Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)','Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
-const catEmoji={'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Energy Storage':'🔋','Green Building':'🏗️','Herbal Products':'🌿','Eco Textiles':'👗','Wind Energy':'🌬️','EV Components':'🚗'};
+const catBg={'Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal & Natural':'linear-gradient(135deg,#e8f5e9,#c8e6c9)','Green Building':'linear-gradient(135deg,#efebe9,#d7ccc8)','Waste Management':'linear-gradient(135deg,#fce4ec,#f8bbd0)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
+const catEmoji={'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Energy Storage':'🔋','Green Building':'🏗️','Herbal & Natural':'🌿','Eco Textiles':'👗','Wind Energy':'🌬️','EV Components':'🚗'};
 const supColors=['linear-gradient(135deg,#52b043,#2d7a3a)','linear-gradient(135deg,#1565c0,#0d47a1)','linear-gradient(135deg,#e65100,#bf360c)','linear-gradient(135deg,#6a1b9a,#4a148c)','linear-gradient(135deg,#00838f,#006064)','linear-gradient(135deg,#558b2f,#33691e)','linear-gradient(135deg,#c62828,#b71c1c)','linear-gradient(135deg,#f57f17,#e65100)'];
 
 // ── CAROUSEL STATE ─────────────────────────────────────────────────────────
@@ -825,8 +825,15 @@ async function loadProducts(){
     track.innerHTML=data.map(p=>{
       const bg=catBg[p.category]||catBg['default'];
       const emoji=catEmoji[p.category]||'🌿';
-      const imgSec=p.image_url
-        ?`<div class="prod-im" style="background:${bg};padding:0"><img src="${p.image_url}" alt="${p.name||''}"/><span class="prod-eco">🌿 Eco</span></div>`
+      // Get all photos
+      var allPhotos = [];
+      try{ if(p.photos) allPhotos = JSON.parse(p.photos); }catch(e){}
+      if(allPhotos.length === 0 && p.image_url) allPhotos = [p.image_url];
+      // Fix broken transformation URLs
+      allPhotos = allPhotos.map(function(u){ return u ? u.replace('/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/', '/upload/') : u; }).filter(Boolean);
+      var mainImg = allPhotos[0] || '';
+      const imgSec=mainImg
+        ?`<div class="prod-im" style="background:${bg};padding:0"><img src="${mainImg}" alt="${p.name||''}" onerror="this.parentElement.innerHTML='${emoji}<span class=\'prod-eco\'>🌿 Eco</span>'"/><span class="prod-eco">🌿 Eco</span></div>`
         :`<div class="prod-im" style="background:${bg}">${emoji}<span class="prod-eco">🌿 Eco</span></div>`;
       const waNum=(p.whatsapp||'').replace(/\D/g,'');
       const waMsg=encodeURIComponent('Hi! I found "'+( p.name||'')+'" on Green Roots Smart. I am interested.');
