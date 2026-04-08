@@ -45,9 +45,18 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.98);backdrop
 .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .grs-card{background:white;border-radius:16px;padding:22px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;cursor:pointer;}
 .grs-card:hover{border-color:var(--g4);box-shadow:0 8px 24px rgba(45,122,58,0.1);transform:translateY(-3px);}
-.prod-img-wrap{width:100%;height:180px;border-radius:10px;margin-bottom:14px;overflow:hidden;background:#f0faf0;display:flex;align-items:center;justify-content:center;}
-.prod-img-placeholder{font-size:48px;color:#a8d8a0;}
+.prod-img-wrap{width:100%;height:180px;border-radius:10px;margin-bottom:14px;overflow:hidden;background:#f0faf0;position:relative;}
+.prod-img-placeholder{font-size:48px;color:#a8d8a0;display:flex;align-items:center;justify-content:center;height:100%;}
 .prod-img{width:100%;height:100%;object-fit:contain;padding:8px;}
+.slide-wrap{position:relative;width:100%;height:180px;border-radius:10px;margin-bottom:14px;overflow:hidden;background:#f0faf0;}
+.slide-img{width:100%;height:100%;object-fit:contain;padding:8px;display:none;}
+.slide-img.active{display:block;}
+.slide-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px;}
+.slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.2);cursor:pointer;border:none;padding:0;}
+.slide-dot.active{background:#2d7a3a;}
+.slide-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.8);border:none;border-radius:50%;width:24px;height:24px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.slide-prev{left:4px;}
+.slide-next{right:4px;}
 .card-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
 .card-name{font-size:15px;font-weight:700;color:var(--dark);line-height:1.3;flex:1;}
 .card-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:var(--g5);color:var(--g2);white-space:nowrap;flex-shrink:0;}
@@ -295,9 +304,29 @@ function renderProducts(list){
     var price=p.price?'₹'+parseFloat(p.price).toLocaleString('en-IN'):'';
     var ename=(p.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     h+='<div class="grs-card" onclick="window.location.href=\'/product-detail?id='+p.id+'\'">';
-    var imgUrl = p.image_url||p.image||'';
-    if(imgUrl){
-      h+='<div class="prod-img-wrap"><img class="prod-img" src="'+imgUrl+'" loading="lazy" onerror="this.style.display=\'none\'"/></div>';
+    // Build photo slideshow
+    var allPhotos = [];
+    try{ if(p.photos) allPhotos = JSON.parse(p.photos); }catch(e){}
+    if(allPhotos.length === 0 && (p.image_url||p.image)) allPhotos = [p.image_url||p.image];
+    // Fix broken transformation URLs
+    allPhotos = allPhotos.map(function(u){ return u ? u.replace('/upload/w_600,h_600,c_pad,b_f0faf0,q_auto,f_auto/', '/upload/') : u; }).filter(Boolean);
+
+    if(allPhotos.length > 1){
+      var sid = 'slide_'+p.id;
+      h+='<div class="slide-wrap" id="'+sid+'">';
+      allPhotos.forEach(function(url, idx){
+        h+='<img class="slide-img'+(idx===0?' active':'')+'" src="'+url+'" loading="lazy" onerror="this.remove()"/>';
+      });
+      h+='<button class="slide-arrow slide-prev" onclick="event.stopPropagation();slidePrev(\''+sid+'\')">❮</button>';
+      h+='<button class="slide-arrow slide-next" onclick="event.stopPropagation();slideNext(\''+sid+'\')">❯</button>';
+      h+='<div class="slide-dots">';
+      allPhotos.forEach(function(url, idx){
+        h+='<button class="slide-dot'+(idx===0?' active':'')+'" onclick="event.stopPropagation();slideTo(\''+sid+'\','+idx+')"></button>';
+      });
+      h+='</div>';
+      h+='</div>';
+        } else if(allPhotos.length === 1){
+      h+='<div class="prod-img-wrap"><img class="prod-img" src="'+allPhotos[0]+'" loading="lazy" onerror="this.style.display=\'none\'"/></div>';
     } else {
       h+='<div class="prod-img-wrap prod-img-placeholder">📦</div>';
     }
@@ -359,6 +388,36 @@ document.getElementById('catFilter').addEventListener('change',doSearch);
 document.getElementById('stateFilter').addEventListener('change',doSearch);
 
 loadProducts();
+
+// ═══════════════════════
+// PRODUCT PHOTO SLIDESHOW
+// ═══════════════════════
+function slideNav(sid, dir) {
+  var wrap = document.getElementById(sid);
+  if (!wrap) return;
+  var imgs = wrap.querySelectorAll('.slide-img');
+  var dots = wrap.querySelectorAll('.slide-dot');
+  var current = 0;
+  imgs.forEach(function(img, i){ if(img.classList.contains('active')) current = i; });
+  imgs[current].classList.remove('active');
+  if(dots[current]) dots[current].classList.remove('active');
+  current = (current + dir + imgs.length) % imgs.length;
+  imgs[current].classList.add('active');
+  if(dots[current]) dots[current].classList.add('active');
+}
+function slidePrev(sid){ slideNav(sid, -1); }
+function slideNext(sid){ slideNav(sid, 1); }
+function slideTo(sid, idx) {
+  var wrap = document.getElementById(sid);
+  if (!wrap) return;
+  var imgs = wrap.querySelectorAll('.slide-img');
+  var dots = wrap.querySelectorAll('.slide-dot');
+  imgs.forEach(function(img){ img.classList.remove('active'); });
+  dots.forEach(function(dot){ dot.classList.remove('active'); });
+  if(imgs[idx]) imgs[idx].classList.add('active');
+  if(dots[idx]) dots[idx].classList.add('active');
+}
+
 </script>
 </body>
 </html>
