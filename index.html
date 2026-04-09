@@ -547,7 +547,7 @@ footer{background:#0f1f10;padding:52px 5% 24px;}
   <div class="cta-h gr">
     <div class="cta-ico">🏪</div>
     <div class="cta-t">Browse Verified Suppliers</div>
-    <div class="cta-d">Find eco-friendly suppliers across 11+ categories. All verified by GRS. Direct contact. Zero commission.</div>
+    <div class="cta-d">Find eco-friendly suppliers across 20+ categories. All verified by GRS. Direct contact. Zero commission.</div>
     <a href="/supplier-profile" class="cta-btn w">Find Suppliers →</a>
   </div>
   <div class="cta-h or">
@@ -699,7 +699,8 @@ async function loadCats(){
     if(!grid) return;
 
     // Build cards with Cloudinary image + real supplier count
-    const cards=PROD_CATS.map(c=>{
+    const cats8 = PROD_CATS.slice(0, 8);
+    const cards=cats8.map(c=>{
       // Count suppliers for this category
       const cleanCI=function(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();};
       const supCount=sa.filter(s=>cleanCI(s.category)===cleanCI(c.name)||(s.category||'').trim()===c.name.trim()).length;
@@ -731,8 +732,8 @@ async function loadCats(){
         <div class="cat-emoji-bg">🗂️</div>
       </div>
       <div class="cat-body">
-        <div class="cat-name">🗂️ View All Categories</div>
-        <div class="cat-info"><span class="cat-sup-count">11+ categories</span><span class="cat-arrow">→</span></div>
+        <div class="cat-name">🗂️ Explore More</div>
+        <div class="cat-info"><span class="cat-sup-count">20+ categories →</span></div>
       </div>
     </div>`);
     grid.innerHTML=cards.join('');
@@ -746,7 +747,7 @@ async function loadSvcCats(){
     const arr=data||[];
     const grid=document.getElementById('svcCatsGrid');
     if(!grid) return;
-    grid.innerHTML=SVC_CATS.map(c=>{
+    grid.innerHTML=SVC_CATS.slice(0,4).map(c=>{
       const cnt=arr.filter(s=>(s.category||'').toLowerCase().includes(c.key.split(' ')[0].toLowerCase())).length;
       const ct=cnt>0?`${cnt} provider${cnt>1?'s':''}`:arr.length>0?'Coming soon':'Be first!';
       return `<div class="svc-cat-card" onclick="window.location.href='/services?cat=${encodeURIComponent(c.key)}'" style="border-top:3px solid ${c.color}">

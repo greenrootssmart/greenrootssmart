@@ -462,7 +462,7 @@ const CAT_CONFIG = {
     keywords:'eco textiles wholesale India, organic cotton B2B, bamboo fabric suppliers, organic linen India, organic hemp fabric, recycled fabric India, sustainable fashion India, natural dye fabric, GOTS certification textile, fairtrade textile, upcycled fabric, tencel fabric, lyocell fabric, recycled polyester India, PET fabric, sustainable yarn, biodegradable textile, low impact dye',
     chips:['Organic Cotton','Bamboo Fabric','Organic Linen','Organic Hemp','Recycled Fabric','Natural Dye','GOTS Certified','Fairtrade Textile','Tencel Fabric','Lyocell Fabric','Recycled Polyester','Sustainable Yarn','Upcycled Fabric','Biodegradable Textile','Deadstock Fabric']
   },
-  'Herbal Products':{
+  'Herbal & Natural':{
     emoji:'🌿', color:'linear-gradient(150deg,#003a10,#007a30)', badge:'HERBAL & NATURAL',
     desc:'Source herbal extracts, Ayurvedic products, natural cosmetics, essential oils and plant-based materials from verified Indian herbal and natural product suppliers.',
     keywords:'herbal products wholesale India, Ayurvedic products B2B, natural cosmetics India, organic skincare wholesale, essential oils India, herbal extract suppliers, botanical extract India, natural soap wholesale, organic soap India, herbal shampoo, nutraceuticals India, organic spices wholesale, herbal tea India, medicinal plants, phytonutrients, plant-based products India',
@@ -497,6 +497,11 @@ const CAT_CONFIG = {
     desc:'Find rooftop gardens, vertical gardens, green walls, urban composting and city farming solutions from verified Indian urban green and landscaping suppliers.',
     keywords:'urban composting India, rooftop garden suppliers, vertical garden India, community garden, green wall India, edible garden, food forest India, city farming, green roof India, permeable pavement, urban biodiversity, tree planting India, urban forestry, green corridor, eco city solutions, urban farming B2B',
     chips:['Urban Composting','Rooftop Gardens','Vertical Gardens','Green Walls','Community Gardens','Edible Gardens','Food Forest','City Farming','Green Roof','Permeable Pavement','Tree Planting','Urban Forestry','Green Corridor','Urban Biodiversity']
+  },
+  'Eco Home & Lifestyle':{
+    color:'#66bb6a', emoji:'🏠',
+    desc:'Find eco-friendly home products, sustainable lifestyle goods and green living solutions from verified Indian suppliers.',
+    chips:['Eco Furniture','Bamboo Products','Organic Bedding','Natural Cleaning','Eco Kitchenware','Sustainable Decor','Natural Candles','Organic Cotton','Zero Waste Products','Eco Tableware','Natural Paints','Recycled Products','Upcycled Goods','Biodegradable Products','Organic Textiles']
   },
   'Carbon & Climate':{
     emoji:'🌍', color:'linear-gradient(150deg,#002a00,#005a00)', badge:'CARBON & CLIMATE',
@@ -552,7 +557,14 @@ async function init() {
   currentCat = params.get('cat') || 'Solar Energy';
 
   // Validate category
-  if (!CAT_CONFIG[currentCat]) currentCat = 'Solar Energy';
+  if (!CAT_CONFIG[currentCat]) {
+    // Use a generic config for unknown categories instead of defaulting to Solar
+    CAT_CONFIG[currentCat] = {
+      color:'#2d7a3a', emoji:'🌿',
+      desc:'Find verified eco suppliers and products in this category.',
+      chips:[]
+    };
+  }
 
   const cfg = CAT_CONFIG[currentCat];
 
@@ -691,8 +703,8 @@ function clearFilters() {
 }
 
 // ── RENDER PRODUCTS ────────────────────────────────────────────────────────
-const catEmoji = {'Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Energy Storage':'🔋','Green Building':'🏗️','Herbal Products':'🌿','Eco Textiles':'👗','Wind Energy':'🌬️','EV Components':'🚗'};
-const catBg = {'Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal Products':'linear-gradient(135deg,#e8f5e2,#c8e6c0)','Green Building':'linear-gradient(135deg,#fce4ec,#f8bbd0)','Waste Management':'linear-gradient(135deg,#ede7f6,#d1c4e9)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
+const catEmoji = {'Eco Home & Lifestyle':'🏠','Solar Energy':'☀️','Organic Farming':'🌾','Eco Packaging':'📦','Waste Management':'♻️','Water Technology':'💧','Energy Storage':'🔋','Green Building':'🏗️','Herbal & Natural':'🌿','Eco Textiles':'👗','Wind Energy':'🌬️','EV Components':'🚗'};
+const catBg = {'Eco Home & Lifestyle':'linear-gradient(135deg,#e8f5e2,#c8e6c9)','Solar Energy':'linear-gradient(135deg,#fffde7,#fff9c4)','Organic Farming':'linear-gradient(135deg,#f1f8e9,#dcedc8)','Eco Packaging':'linear-gradient(135deg,#e0f7fa,#b2ebf2)','Water Technology':'linear-gradient(135deg,#e3f2fd,#bbdefb)','Energy Storage':'linear-gradient(135deg,#f3e5f5,#e1bee7)','Herbal & Natural':'linear-gradient(135deg,#e8f5e2,#c8e6c0)','Green Building':'linear-gradient(135deg,#fce4ec,#f8bbd0)','Waste Management':'linear-gradient(135deg,#ede7f6,#d1c4e9)','default':'linear-gradient(135deg,#e8f5e2,#c8e6c0)'};
 
 function renderProducts(reset) {
   const grid = document.getElementById('productsGrid');
