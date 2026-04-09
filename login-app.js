@@ -8,6 +8,77 @@ let userType = 'supplier';
 
 // ── ATTACH ALL EVENT LISTENERS ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
+  // ── GOOGLE OAUTH REDIRECT HANDLER ──────────────────────────────
+  handleGoogleRedirect();
+});
+
+async function handleGoogleRedirect() {
+  try {
+    const sb = window.supabase.createClient(
+      'https://qrwhsygcblgbibogiecm.supabase.co',
+      'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB'
+    );
+
+    // Check if this is a Google OAuth redirect
+    const { data: { session }, error } = await sb.auth.getSession();
+
+    if (session && session.user) {
+      const email = session.user.email;
+      const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || email.split('@')[0];
+
+      // Check if supplier exists
+      const { data: supplier } = await sb.from('suppliers')
+        .select('*').eq('email', email).limit(1);
+
+      if (supplier && supplier.length > 0) {
+        const d = supplier[0];
+        localStorage.setItem('grs_user', JSON.stringify({
+          id: d.id, name: d.owner_name || name,
+          business: d.business_name, email: d.email,
+          mobile: d.mobile || '', plan: d.plan || 'free',
+          status: d.status, city: d.city || '',
+          state: d.state || '', category: d.category || '',
+          type: 'supplier'
+        }));
+        window.location.href = '/dashboard';
+        return;
+      }
+
+      // Check if buyer exists
+      const { data: buyer } = await sb.from('buyers')
+        .select('*').eq('email', email).limit(1);
+
+      if (buyer && buyer.length > 0) {
+        const b = buyer[0];
+        localStorage.setItem('grs_buyer', JSON.stringify({
+          id: b.id, name: b.name || name, email: b.email,
+          mobile: b.mobile || '', company: b.company || '',
+          city: b.city || '', state: b.state || '', type: 'buyer'
+        }));
+        window.location.href = '/buyer-dashboard';
+        return;
+      }
+
+      // New Google user — save to buyers table and redirect
+      const { data: newBuyer } = await sb.from('buyers').insert([{
+        name: name, email: email,
+        status: 'active', created_at: new Date().toISOString()
+      }]).select();
+
+      if (newBuyer && newBuyer.length > 0) {
+        localStorage.setItem('grs_buyer', JSON.stringify({
+          id: newBuyer[0].id, name: name, email: email, type: 'buyer'
+        }));
+      }
+      window.location.href = '/buyer-dashboard';
+      return;
+    }
+  } catch(e) {
+    console.log('Google session check:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
 
   // Tab switching
   var tabLogin = document.getElementById('tabLogin');
