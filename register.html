@@ -492,15 +492,18 @@ async function submitRegistration(){
 // ═══════════════════════════════════
 async function signInWithGoogle() {
   try {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+    const sb = window.supabase.createClient(SURL, SKEY);
+    const { data, error } = await sb.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin + '/login'
+        redirectTo: 'https://greenrootssmart.com/login'
       }
     });
     if (error) alert('Google sign in error: ' + error.message);
   } catch(e) {
-    alert('Something went wrong. Please try again!');
+    alert('Something went wrong: ' + e.message);
   }
 }
 
