@@ -63,15 +63,6 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 .loading{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle;}
 @keyframes spin{to{transform:rotate(360deg);}}
 @media(max-width:768px){.page{grid-template-columns:1fr;}.left{display:none;}.right{padding:28px 24px;}.register-options{grid-template-columns:1fr;}}
-
-/* GOOGLE SIGN IN */
-.divider-or{display:flex;align-items:center;gap:12px;margin:16px 0;}
-.divider-or span{font-size:12px;color:#7a9a74;white-space:nowrap;}
-.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:#e8f0e8;}
-.btn-google{width:100%;padding:12px;background:white;border:1.5px solid #dadce0;border-radius:10px;font-size:14px;font-weight:600;color:#3c4043;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.btn-google:hover{background:#f8f9fa;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.btn-google svg{width:20px;height:20px;flex-shrink:0;}
-
 </style>
 </head>
 <body>
@@ -126,11 +117,6 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
           <button class="toggle-pass" id="toggleLoginPass">👁️</button>
         </div>
       </div>
-            <div class="divider-or"><span>OR</span></div>
-      <button class="btn-google" onclick="signInWithGoogle()">
-        <svg viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
-        Continue with Google
-      </button>
       <button class="btn-submit" id="loginBtn" >🌿 Login to Dashboard</button>
       <div class="forgot-link"><a href="#" id="forgotLink">Forgot Password? Reset here →</a></div>
       <div class="switch-text">Don't have an account? <a id="goToRegister">Register Free →</a></div>
@@ -179,27 +165,5 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
 </div>
 
 <script data-cfasync="false" src="/login-app.js"></script>
-<script>
-// ═══════════════════════════════════
-// GOOGLE SIGN IN
-// ═══════════════════════════════════
-async function signInWithGoogle() {
-  try {
-    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-    const sb = window.supabase.createClient(SURL, SKEY);
-    const { data, error } = await sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'https://greenrootssmart.com/login'
-      }
-    });
-    if (error) alert('Google sign in error: ' + error.message);
-  } catch(e) {
-    alert('Something went wrong: ' + e.message);
-  }
-}
-
-</script>
 </body>
 </html>

@@ -98,15 +98,6 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
   .stats-row{flex-direction:column;}
   .btn-row{flex-direction:column;}
 }
-
-/* GOOGLE SIGN IN */
-.divider-or{display:flex;align-items:center;gap:12px;margin:16px 0;}
-.divider-or span{font-size:12px;color:#7a9a74;white-space:nowrap;}
-.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:#e8f0e8;}
-.btn-google{width:100%;padding:12px;background:white;border:1.5px solid #dadce0;border-radius:10px;font-size:14px;font-weight:600;color:#3c4043;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.btn-google:hover{background:#f8f9fa;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.btn-google svg{width:20px;height:20px;flex-shrink:0;}
-
 </style>
 </head>
 <body>
@@ -183,23 +174,6 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Business Type *</label>
-          <div class="input-wrap">
-            <span class="input-icon">🏭</span>
-            <select id="business_type" style="padding-left:36px">
-              <option value="">Select Business Type</option>
-              <option value="Manufacturer">🏭 Manufacturer</option>
-              <option value="Exporter">🌐 Exporter</option>
-              <option value="Trader">🤝 Trader</option>
-              <option value="Wholesaler">📦 Wholesaler</option>
-              <option value="Distributor">🚚 Distributor</option>
-              <option value="Retailer">🏪 Retailer</option>
-              <option value="Startup / Innovator">🚀 Startup / Innovator</option>
-              <option value="Service Provider">🔧 Service Provider</option>
-            </select>
-          </div>
-        </div>
-      <div class="form-group">
           <label>City *</label>
           <div class="input-wrap">
             <span class="input-icon">📍</span>
@@ -337,11 +311,6 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
       </div>
       <div class="btn-row">
         <button class="btn-back" onclick="goStep(2)">← Back</button>
-              <div class="divider-or"><span>OR</span></div>
-      <button class="btn-google" onclick="signInWithGoogle()">
-        <svg viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/></svg>
-        Continue with Google
-      </button>
         <button class="btn-submit" id="submitBtn" onclick="submitRegistration()">🌿 Register My Business</button>
       </div>
     </div>
@@ -391,7 +360,6 @@ function goStep(step){
     }
     if(currentStep === 3){
       if(!document.getElementById('category').value){return showAlert('Please select Product Category!');}
-  if(!document.getElementById('business_type').value){return showAlert('Please select Business Type!');}
     }
   }
 
@@ -427,7 +395,6 @@ async function submitRegistration(){
     city: document.getElementById('city').value.trim(),
     state: document.getElementById('state').value,
     category: document.getElementById('category').value,
-    business_type: document.getElementById('business_type').value || 'Manufacturer',
     description: document.getElementById('description').value.trim(),
     gst_number: document.getElementById('gst_number').value.trim(),
     website: document.getElementById('website').value.trim(),
@@ -472,7 +439,6 @@ async function submitRegistration(){
       <div class="success-detail-row"><span>Email</span><span>${data.email}</span></div>
       <div class="success-detail-row"><span>Location</span><span>${data.city}, ${data.state}</span></div>
       <div class="success-detail-row"><span>Category</span><span>${data.category}</span></div>
-      <div class="success-detail-row"><span>Business Type</span><span>${data.business_type}</span></div>
       <div class="success-detail-row"><span>Plan</span><span>${data.plan.toUpperCase()}</span></div>
       <div class="success-detail-row"><span>Status</span><span>⏳ Pending Verification</span></div>
     `;
@@ -486,27 +452,6 @@ async function submitRegistration(){
     btn.innerHTML = '🌿 Register My Business';
   }
 }
-
-// ═══════════════════════════════════
-// GOOGLE SIGN IN
-// ═══════════════════════════════════
-async function signInWithGoogle() {
-  try {
-    const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-    const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-    const sb = window.supabase.createClient(SURL, SKEY);
-    const { data, error } = await sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'https://greenrootssmart.com/login'
-      }
-    });
-    if (error) alert('Google sign in error: ' + error.message);
-  } catch(e) {
-    alert('Something went wrong: ' + e.message);
-  }
-}
-
 </script>
 </body>
 </html>
