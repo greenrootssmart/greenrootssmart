@@ -3,26 +3,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Register as Eco Supplier — Green Roots Smart | List Free</title>
-<meta name="description" content="Register your eco-friendly business on Green Roots Smart for free. List your green products, reach buyers across India and grow your sustainable business on India's first eco B2B marketplace."/>
-<meta name="keywords" content="register eco supplier India, list green business free, eco B2B supplier registration, green product listing India, sustainable business registration"/>
-<meta name="author" content="Green Roots Smart"/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://www.greenrootssmart.com/register"/>
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="Register as Eco Supplier — Green Roots Smart"/>
-<meta property="og:description" content="Register your eco-friendly business for free on Green Roots Smart. List products and reach verified buyers across India."/>
-<meta property="og:url" content="https://www.greenrootssmart.com/register"/>
-<meta property="og:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
-<meta property="og:site_name" content="Green Roots Smart"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Register as Eco Supplier — Green Roots Smart"/>
-<meta name="twitter:description" content="Register free and list your eco business on India's first green B2B marketplace."/>
-<meta name="twitter:image" content="https://res.cloudinary.com/dvbaciabk/image/upload/v1773899367/logo_jsry2v.jpg"/>
+<title>Supplier Registration — Green Roots Smart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -136,19 +118,19 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
   <!-- LEFT PANEL -->
   <div class="left">
     <h1>Join India's <span>Green</span> B2B Revolution! 🌿</h1>
-    <p>List your eco-friendly products for free and get discovered by eco-conscious buyers across India on India's first dedicated green B2B marketplace.</p>
+    <p>List your eco-friendly products and connect with thousands of buyers across India and 50+ countries worldwide.</p>
     <div class="benefit-list">
-      <div class="benefit"><div class="benefit-icon">🌍</div>Reach eco buyers across India</div>
-      <div class="benefit"><div class="benefit-icon">📦</div>List your eco products for free</div>
+      <div class="benefit"><div class="benefit-icon">🌍</div>Reach buyers across India & 50+ countries</div>
+      <div class="benefit"><div class="benefit-icon">📦</div>List unlimited eco products</div>
       <div class="benefit"><div class="benefit-icon">📩</div>Receive direct buyer enquiries</div>
       <div class="benefit"><div class="benefit-icon">✅</div>Get verified supplier badge</div>
       <div class="benefit"><div class="benefit-icon">📊</div>Real-time analytics dashboard</div>
       <div class="benefit"><div class="benefit-icon">💰</div>Start FREE — no credit card needed</div>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-num">FREE</div><div class="stat-lbl">To List</div></div>
-      <div class="stat"><div class="stat-num">21+</div><div class="stat-lbl">Eco Categories</div></div>
-      <div class="stat"><div class="stat-num">Pan India</div><div class="stat-lbl">Reach</div></div>
+      <div class="stat"><div class="stat-num">12,400+</div><div class="stat-lbl">Suppliers</div></div>
+      <div class="stat"><div class="stat-num">86,000+</div><div class="stat-lbl">Products</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Countries</div></div>
     </div>
   </div>
 
@@ -192,6 +174,23 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
       </div>
       <div class="form-row">
         <div class="form-group">
+          <label>Business Type *</label>
+          <div class="input-wrap">
+            <span class="input-icon">🏭</span>
+            <select id="business_type" style="padding-left:36px">
+              <option value="">Select Business Type</option>
+              <option value="Manufacturer">🏭 Manufacturer</option>
+              <option value="Exporter">🌐 Exporter</option>
+              <option value="Trader">🤝 Trader</option>
+              <option value="Wholesaler">📦 Wholesaler</option>
+              <option value="Distributor">🚚 Distributor</option>
+              <option value="Retailer">🏪 Retailer</option>
+              <option value="Startup / Innovator">🚀 Startup / Innovator</option>
+              <option value="Service Provider">🔧 Service Provider</option>
+            </select>
+          </div>
+        </div>
+      <div class="form-group">
           <label>City *</label>
           <div class="input-wrap">
             <span class="input-icon">📍</span>
@@ -281,42 +280,18 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
           <span class="input-icon">📦</span>
           <select id="category">
             <option value="">Select Category</option>
-            <optgroup label="🌿 Product Categories">
-            <option value="Solar Energy">☀️ Solar Energy</option>
-            <option value="Organic Farming">🌾 Organic Farming</option>
-            <option value="Eco Packaging">📦 Eco Packaging</option>
-            <option value="Waste Management">♻️ Waste Management</option>
-            <option value="Water Technology">💧 Water Technology</option>
-            <option value="Wind Energy">🌬️ Wind Energy</option>
-            <option value="Energy Storage">🔋 Energy Storage</option>
-            <option value="Green Building">🏗️ Green Building</option>
-            <option value="Herbal & Natural">🌿 Herbal & Natural</option>
-            <option value="EV Components">🚗 EV Components</option>
-            <option value="Eco Textiles">👗 Eco Textiles</option>
-            <option value="Bioenergy">⚡ Bioenergy</option>
-            <option value="Green Transport">🚌 Green Transport</option>
-            <option value="Smart Agriculture">🌱 Smart Agriculture</option>
-            <option value="Green Chemistry">🧪 Green Chemistry</option>
-            <option value="Urban Green">🏙️ Urban Green</option>
-            <option value="Carbon & Climate">🌍 Carbon & Climate</option>
-            <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
-            <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
-            <option value="Certifications">📋 Certifications</option>
-            <option value="Global Green Trade">🌐 Global Green Trade</option>
-            </optgroup>
-            <optgroup label="🔧 Service Categories">
-            <option value="Testing & Laboratory">🔬 Testing & Laboratory</option>
-            <option value="Consulting & Advisory">📋 Consulting & Advisory</option>
-            <option value="Certification & Compliance">📜 Certification & Compliance</option>
-            <option value="Waste Management Services">♻️ Waste Management Services</option>
-            <option value="Water & Wastewater">💧 Water & Wastewater Services</option>
-            <option value="Renewable Energy">⚡ Renewable Energy Services</option>
-            <option value="Ecological Services">🌱 Ecological Services</option>
-            <option value="Remediation">🏗️ Remediation</option>
-            <option value="Reporting & Technology">📊 Reporting & Technology</option>
-            <option value="Training & Education">🎓 Training & Education</option>
-            <option value="Eco Tourism">🌄 Eco Tourism</option>
-            </optgroup>
+            <option>☀️ Solar Energy</option>
+            <option>🌾 Organic Farming</option>
+            <option>📦 Eco Packaging</option>
+            <option>♻️ Waste Management</option>
+            <option>💧 Water Technology</option>
+            <option>🌬️ Wind Energy</option>
+            <option>🔋 Energy Storage</option>
+            <option>🏗️ Green Building</option>
+            <option>🌿 Herbal & Natural</option>
+            <option>🚗 Electric Vehicles</option>
+            <option>🌱 Sustainable Agriculture</option>
+            <option>♻️ Recycled Products</option>
           </select>
         </div>
       </div>
@@ -339,7 +314,10 @@ nav{background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1
         <div class="input-wrap">
           <span class="input-icon">⭐</span>
           <select id="plan">
-            <option value="free">🌱 Free Listing — List your products FREE</option>
+            <option value="free">🌱 Starter — FREE (10 products)</option>
+            <option value="basic">🌿 Basic — ₹999/mo (50 products)</option>
+            <option value="pro">🌳 Pro — ₹2,499/mo (200 products)</option>
+            <option value="premium">🏆 Premium — ₹4,999/mo (Unlimited)</option>
           </select>
         </div>
       </div>
@@ -398,7 +376,8 @@ function goStep(step){
       if(!document.getElementById('password').value || document.getElementById('password').value.length < 8){return showAlert('Password must be at least 8 characters!');}
     }
     if(currentStep === 3){
-      if(!document.getElementById('category').value){return showAlert('Please select your Business Category!');}
+      if(!document.getElementById('category').value){return showAlert('Please select Product Category!');}
+  if(!document.getElementById('business_type').value){return showAlert('Please select Business Type!');}
     }
   }
 
@@ -434,6 +413,7 @@ async function submitRegistration(){
     city: document.getElementById('city').value.trim(),
     state: document.getElementById('state').value,
     category: document.getElementById('category').value,
+    business_type: document.getElementById('business_type').value || 'Manufacturer',
     description: document.getElementById('description').value.trim(),
     gst_number: document.getElementById('gst_number').value.trim(),
     website: document.getElementById('website').value.trim(),
@@ -478,6 +458,7 @@ async function submitRegistration(){
       <div class="success-detail-row"><span>Email</span><span>${data.email}</span></div>
       <div class="success-detail-row"><span>Location</span><span>${data.city}, ${data.state}</span></div>
       <div class="success-detail-row"><span>Category</span><span>${data.category}</span></div>
+      <div class="success-detail-row"><span>Business Type</span><span>${data.business_type}</span></div>
       <div class="success-detail-row"><span>Plan</span><span>${data.plan.toUpperCase()}</span></div>
       <div class="success-detail-row"><span>Status</span><span>⏳ Pending Verification</span></div>
     `;

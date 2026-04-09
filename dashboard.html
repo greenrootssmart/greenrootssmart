@@ -1287,6 +1287,7 @@ async function loadProfileForm(){
   setVal('bp-city', u.city);
   setVal('bp-state', u.state);
   setVal('bp-category', u.category);
+  setVal('bp-business-type', u.business_type);
   // Load full supplier data for extra fields
   try{
     const {data} = await supabaseClient.from('suppliers').select('*').eq('id', u.id);

@@ -259,6 +259,19 @@ tr:hover td{background:#fafffe;}
             <input type="email" id="man-email" placeholder="business@email.com" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
           </div>
           <div>
+            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Business Type</label>
+            <select id="man-business-type" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
+              <option value="Manufacturer">🏭 Manufacturer</option>
+              <option value="Exporter">🌐 Exporter</option>
+              <option value="Trader">🤝 Trader</option>
+              <option value="Wholesaler">📦 Wholesaler</option>
+              <option value="Distributor">🚚 Distributor</option>
+              <option value="Retailer">🏪 Retailer</option>
+              <option value="Startup / Innovator">🚀 Startup / Innovator</option>
+              <option value="Service Provider">🔧 Service Provider</option>
+            </select>
+          </div>
+          <div>
             <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Mobile</label>
             <input type="tel" id="man-mobile" placeholder="9876543210" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
           </div>
@@ -866,6 +879,7 @@ function viewSupplier(id) {
     <div class="modal-row"><b>Mobile</b><span>${s.mobile}</span></div>
     <div class="modal-row"><b>City</b><span>${s.city}, ${s.state}</span></div>
     <div class="modal-row"><b>Category</b><span>${s.category}</span></div>
+    <div class="modal-row"><b>Business Type</b><span>${s.business_type||'Not specified'}</span></div>
     <div class="modal-row"><b>Plan</b><span>${s.plan || 'Starter'}</span></div>
     <div class="modal-row"><b>GST</b><span>${s.gst_number || 'Not provided'}</span></div>
     <div class="modal-row"><b>Status</b><span>${s.status || 'pending'}</span></div>
@@ -1019,6 +1033,7 @@ async function addServiceProvider() {
     description: document.getElementById('svc-desc').value.trim(),
     verified: false,
     manually_added: true,
+    business_type: document.getElementById('man-business-type') ? document.getElementById('man-business-type').value : 'Manufacturer',
     claimed: false,
     status: 'unclaimed',
     created_at: new Date().toISOString(),

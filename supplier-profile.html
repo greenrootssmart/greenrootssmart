@@ -294,6 +294,7 @@ function renderSuppliers(list){
     h+='<div class="card-loc">📍 '+loc+'</div>';
     if(s.description) h+='<div class="card-desc">'+s.description+'</div>';
     h+='<div class="card-tags"><span class="card-tag">'+(s.category||'Eco')+'</span>';
+    if(s.business_type) h+='<span class="card-tag" style="background:#e3f2fd;color:#1565c0;">'+s.business_type+'</span>';
     if(s.plan==='pro') h+='<span class="card-tag">⭐ Pro</span>';
     h+='</div>';
     h+='<div class="card-footer"><span class="card-hint">'+(manual?'👆 This your business?':'🌿 GRS Listed')+'</span>';
