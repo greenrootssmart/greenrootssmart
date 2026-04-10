@@ -259,19 +259,6 @@ tr:hover td{background:#fafffe;}
             <input type="email" id="man-email" placeholder="business@email.com" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
           </div>
           <div>
-            <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Business Type</label>
-            <select id="man-business-type" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-              <option value="Manufacturer">🏭 Manufacturer</option>
-              <option value="Exporter">🌐 Exporter</option>
-              <option value="Trader">🤝 Trader</option>
-              <option value="Wholesaler">📦 Wholesaler</option>
-              <option value="Distributor">🚚 Distributor</option>
-              <option value="Retailer">🏪 Retailer</option>
-              <option value="Startup / Innovator">🚀 Startup / Innovator</option>
-              <option value="Service Provider">🔧 Service Provider</option>
-            </select>
-          </div>
-          <div>
             <label style="font-size:11px;font-weight:700;color:#4a6645;display:block;margin-bottom:4px;">Mobile</label>
             <input type="tel" id="man-mobile" placeholder="9876543210" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
           </div>
@@ -799,10 +786,9 @@ function renderSuppliersTable(data) {
       <td><span class="badge ${s.status === 'active' ? 'badge-active' : s.status === 'rejected' ? 'badge-rejected' : 'badge-pending'}">${s.status || 'pending'}</span></td>
       <td style="white-space:nowrap">
         <button class="btn btn-view" onclick="viewSupplier('${s.id}')">👁 View</button>
-        ${s.status !== 'active' ? `
+        ${(!s.status || s.status === 'pending') ? `
         <button class="btn btn-approve" onclick="approveSupplier('${s.id}')">✅ Approve</button>
-        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` :
-        `<button class="btn" style="background:#fce4ec;color:#c62828;" onclick="rejectSupplier('${s.id}')">🚫 Deactivate</button>`}
+        <button class="btn btn-reject" onclick="rejectSupplier('${s.id}')">❌ Reject</button>` : ''}
       </td>
     </tr>`).join('');
 }
@@ -848,53 +834,46 @@ function renderEnquiriesTable(data) {
 // APPROVE / REJECT SUPPLIER
 async function approveSupplier(id) {
   if (!confirm('Approve this supplier?')) return;
-  var numId = parseInt(id) || id;
-  var res = await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', numId);
-  if (res.error) { alert('Error: ' + res.error.message); return; }
+  await supabaseClient.from('suppliers').update({ status: 'active' }).eq('id', id);
   await loadAllData();
   alert('✅ Supplier approved!');
 }
 
 async function rejectSupplier(id) {
-  if (!confirm('Deactivate this supplier?')) return;
-  var numId = parseInt(id) || id;
-  var res = await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', numId);
+  if (!confirm('Reject this supplier?')) return;
+  await supabaseClient.from('suppliers').update({ status: 'rejected' }).eq('id', id);
   await loadAllData();
   alert('❌ Supplier rejected!');
 }
 
 async function updateProductStatus(id, status) {
   try {
-    // Use direct REST API call to bypass any column cache issues
-    var SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-    var SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-    
-    var res = await fetch(SURL + '/rest/v1/products?id=eq.' + id, {
-      method: 'PATCH',
-      headers: {
-        'apikey': SKEY,
-        'Authorization': 'Bearer ' + SKEY,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ status: status })
-    });
-
+    // Use direct REST API to bypass Supabase schema cache
+    var res = await fetch(
+      'https://qrwhsygcblgbibogiecm.supabase.co/rest/v1/products?id=eq.' + id,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB',
+          'Authorization': 'Bearer sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB',
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ status: status })
+      }
+    );
     if (!res.ok) {
       var err = await res.text();
-      // If status column missing, add it first
-      if (err.includes('status') || res.status === 400) {
-        showAdminToast('Run this SQL first: ALTER TABLE products ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active'', 'error');
-      } else {
-        showAdminToast('Error: ' + err, 'error');
-      }
+      alert('Error: ' + err + '
+
+Please run this SQL in Supabase first:
+ALTER TABLE products ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active';');
       return;
     }
-
     await loadAllData();
-    showAdminToast(status === 'inactive' ? '🚫 Product hidden from site!' : '✅ Product now active!', 'success');
+    alert(status === 'inactive' ? '✅ Product hidden from site!' : '✅ Product is now active!');
   } catch(e) {
-    showAdminToast('Error: ' + e.message, 'error');
+    alert('Error: ' + e.message);
   }
 }
 
@@ -909,7 +888,6 @@ function viewSupplier(id) {
     <div class="modal-row"><b>Mobile</b><span>${s.mobile}</span></div>
     <div class="modal-row"><b>City</b><span>${s.city}, ${s.state}</span></div>
     <div class="modal-row"><b>Category</b><span>${s.category}</span></div>
-    <div class="modal-row"><b>Business Type</b><span>${s.business_type||'Not specified'}</span></div>
     <div class="modal-row"><b>Plan</b><span>${s.plan || 'Starter'}</span></div>
     <div class="modal-row"><b>GST</b><span>${s.gst_number || 'Not provided'}</span></div>
     <div class="modal-row"><b>Status</b><span>${s.status || 'pending'}</span></div>
@@ -1063,7 +1041,6 @@ async function addServiceProvider() {
     description: document.getElementById('svc-desc').value.trim(),
     verified: false,
     manually_added: true,
-    business_type: document.getElementById('man-business-type') ? document.getElementById('man-business-type').value : 'Manufacturer',
     claimed: false,
     status: 'unclaimed',
     created_at: new Date().toISOString(),
