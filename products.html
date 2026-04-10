@@ -243,7 +243,7 @@ let allProducts=[];
 let currentEnqProduct='';
 let currentEnqSupplier='';
 
-function cleanCat(s){return(s||'').replace(/[^ -]/g,'').trim().toLowerCase();}
+function cleanCat(s){return(s||'').toLowerCase().trim();}
 
 async function loadProducts(){
   try{
