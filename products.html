@@ -317,11 +317,12 @@ function renderProducts(products){
       photos.forEach(function(url,i){
         imgHtml+='<img class="slide-img'+(i===0?' active':'')+'" src="'+url+'" loading="lazy" onerror="this.remove()"/>';
       });
-      imgHtml+='<button class="slide-arrow slide-prev" onclick="event.stopPropagation();slidePrev(''+sid+'')">❮</button>';
-      imgHtml+='<button class="slide-arrow slide-next" onclick="event.stopPropagation();slideNext(''+sid+'')">❯</button>';
+      var sidq="'"+sid+"'";
+      imgHtml+='<button class="slide-arrow slide-prev" onclick="event.stopPropagation();slidePrev('+sidq+')">❮</button>';
+      imgHtml+='<button class="slide-arrow slide-next" onclick="event.stopPropagation();slideNext('+sidq+')">❯</button>';
       imgHtml+='<div class="slide-dots">';
       photos.forEach(function(_,i){
-        imgHtml+='<button class="slide-dot'+(i===0?' active':'')+'" onclick="event.stopPropagation();slideTo(''+sid+'','+i+')"></button>';
+        imgHtml+='<button class="slide-dot'+(i===0?' active':'')+'" onclick="event.stopPropagation();slideTo('+sidq+','+i+')"></button>';
       });
       imgHtml+='</div></div>';
     }else if(photos.length===1){
@@ -333,7 +334,7 @@ function renderProducts(products){
     var price=p.price?'₹'+Number(p.price).toLocaleString('en-IN'):'';
     var unit=p.price_unit?'/'+p.price_unit:'';
     var loc=p.location||p.city||'India';
-    var waNum=(p.whatsapp||p.mobile||'').replace(/\D/g,'');
+    var waNum=(p.whatsapp||p.mobile||'').replace(/[^0-9]/g,'');
     var waMsg=encodeURIComponent('Hi! I found "'+( p.name||'')+'" on Green Roots Smart. Please share details and pricing.');
 
     // Variations
