@@ -326,7 +326,7 @@ function renderProducts(products){
       });
       imgHtml+='</div></div>';
     }else if(photos.length===1){
-      imgHtml='<div class="prod-img-wrap"><img class="prod-img" src="'+photos[0]+'" loading="lazy" onerror="this.parentElement.innerHTML='<div class=prod-img-placeholder>📦</div>'"/></div>';
+      imgHtml='<div class="prod-img-wrap"><img class="prod-img" src="'+photos[0]+'" loading="lazy" onerror="this.style.display='none'"/></div>';
     }else{
       imgHtml='<div class="prod-img-wrap"><div class="prod-img-placeholder">📦</div></div>';
     }
