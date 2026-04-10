@@ -235,7 +235,7 @@ function cleanCat(s){ return (s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerC
 
 async function loadProducts(){
   try{
-    var res = await fetch(SURL+'/rest/v1/products?select=*&order=created_at.desc&limit=1000',{
+    var res = await fetch(SURL+'/rest/v1/products?select=*&status=neq.inactive&order=created_at.desc&limit=1000',{
       headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Range':'0-999'}
     });
     var data = await res.json();

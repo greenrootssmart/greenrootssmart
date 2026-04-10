@@ -864,11 +864,38 @@ async function rejectSupplier(id) {
 }
 
 async function updateProductStatus(id, status) {
-  var numId = parseInt(id) || id;
-  var { error } = await supabaseClient.from('products').update({ status }).eq('id', numId);
-  if(error){ alert('Error: ' + error.message); return; }
-  await loadAllData();
-  showAdminToast(status === 'inactive' ? '🚫 Product hidden!' : '✅ Product active!', 'success');
+  try {
+    // Use direct REST API call to bypass any column cache issues
+    var SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
+    var SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+    
+    var res = await fetch(SURL + '/rest/v1/products?id=eq.' + id, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SKEY,
+        'Authorization': 'Bearer ' + SKEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ status: status })
+    });
+
+    if (!res.ok) {
+      var err = await res.text();
+      // If status column missing, add it first
+      if (err.includes('status') || res.status === 400) {
+        showAdminToast('Run this SQL first: ALTER TABLE products ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active'', 'error');
+      } else {
+        showAdminToast('Error: ' + err, 'error');
+      }
+      return;
+    }
+
+    await loadAllData();
+    showAdminToast(status === 'inactive' ? '🚫 Product hidden from site!' : '✅ Product now active!', 'success');
+  } catch(e) {
+    showAdminToast('Error: ' + e.message, 'error');
+  }
 }
 
 // VIEW SUPPLIER DETAIL
