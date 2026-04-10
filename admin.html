@@ -847,34 +847,8 @@ async function rejectSupplier(id) {
 }
 
 async function updateProductStatus(id, status) {
-  try {
-    // Use direct REST API to bypass Supabase schema cache
-    var res = await fetch(
-      'https://qrwhsygcblgbibogiecm.supabase.co/rest/v1/products?id=eq.' + id,
-      {
-        method: 'PATCH',
-        headers: {
-          'apikey': 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB',
-          'Authorization': 'Bearer sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB',
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ status: status })
-      }
-    );
-    if (!res.ok) {
-      var err = await res.text();
-      alert('Error: ' + err + '
-
-Please run this SQL in Supabase first:
-ALTER TABLE products ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'active';');
-      return;
-    }
-    await loadAllData();
-    alert(status === 'inactive' ? '✅ Product hidden from site!' : '✅ Product is now active!');
-  } catch(e) {
-    alert('Error: ' + e.message);
-  }
+  await supabaseClient.from('products').update({ status }).eq('id', id);
+  await loadAllData();
 }
 
 // VIEW SUPPLIER DETAIL
