@@ -864,8 +864,11 @@ async function rejectSupplier(id) {
 }
 
 async function updateProductStatus(id, status) {
-  await supabaseClient.from('products').update({ status }).eq('id', id);
+  var numId = parseInt(id) || id;
+  var { error } = await supabaseClient.from('products').update({ status }).eq('id', numId);
+  if(error){ alert('Error: ' + error.message); return; }
   await loadAllData();
+  showAdminToast(status === 'inactive' ? '🚫 Product hidden!' : '✅ Product active!', 'success');
 }
 
 // VIEW SUPPLIER DETAIL

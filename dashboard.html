@@ -1691,6 +1691,40 @@ function apShowAlert(msg, type){
   setTimeout(()=>b.style.display='none', 5000);
 }
 
+// ═══════════════════════════════════════
+// PRODUCT LIMITS PER PLAN
+// ═══════════════════════════════════════
+const PLAN_LIMITS = {
+  'free': 5,
+  'starter': 15,
+  'pro': 50,
+  'premium': 999,
+  'enterprise': 9999
+};
+
+async function checkProductLimit() {
+  const plan = (currentUser.plan || 'free').toLowerCase();
+  const limit = PLAN_LIMITS[plan] || 5;
+
+  const { data } = await supabaseClient
+    .from('products')
+    .select('id', { count: 'exact' })
+    .eq('supplier_id', currentUser.id);
+
+  const count = data ? data.length : 0;
+
+  if (count >= limit) {
+    const planName = plan.charAt(0).toUpperCase() + plan.slice(1);
+    apShowAlert(
+      `⚠️ You have reached your ${planName} plan limit of ${limit} products. ` +
+      `Upgrade your plan to list more products!`,
+      'error'
+    );
+    return false;
+  }
+  return true;
+}
+
 async function apSaveProduct(status){
   const name = document.getElementById('ap-name').value.trim();
   const cat = document.getElementById('ap-category').value;
@@ -1707,6 +1741,13 @@ async function apSaveProduct(status){
 
   const editId = document.getElementById('ap-edit-id').value;
   const isEdit = editId !== '';
+  // Check product limit for new products only
+  const isNewProduct = !document.getElementById('ap-publish-btn').dataset.editId;
+  if (isNewProduct) {
+    const withinLimit = await checkProductLimit();
+    if (!withinLimit) return;
+  }
+
   const btn = document.getElementById('ap-publish-btn');
   btn.disabled = true;
   btn.textContent = isEdit ? 'Updating...' : 'Publishing...';
@@ -1949,6 +1990,23 @@ async function publishAllBulk() {
 
   if (products.length === 0) {
     showBulkAlert('Please add at least one product with a name!', 'error');
+    return;
+  }
+
+  // Check product limit
+  var plan = (currentUser.plan || 'free').toLowerCase();
+  var limit = PLAN_LIMITS[plan] || 5;
+  var { data: existing } = await supabaseClient
+    .from('products').select('id').eq('supplier_id', currentUser.id);
+  var currentCount = existing ? existing.length : 0;
+  var remaining = limit - currentCount;
+
+  if (remaining <= 0) {
+    showBulkAlert('You have reached your ' + plan + ' plan limit of ' + limit + ' products. Please upgrade to list more!', 'error');
+    return;
+  }
+  if (products.length > remaining) {
+    showBulkAlert('You can only add ' + remaining + ' more product(s) on your ' + plan + ' plan. Please reduce your list or upgrade!', 'error');
     return;
   }
 
