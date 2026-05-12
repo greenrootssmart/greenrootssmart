@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Supplier Dashboard — Green Roots Smart"/>
@@ -21,15 +20,14 @@
 :root{--g1:#1a4a24;--g2:#2d7a3a;--g3:#52b043;--g4:#a8d8a0;--g5:#e8f5e2;--earth:#7a4f2d;--cream:#f7f9f2;--white:#fff;--dark:#1a2e1a;--mid:#4a6645;--light:#7a9a74;--red:#c62828;--blue:#1565c0;--orange:#e65100;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);display:flex;min-height:100vh;}
-
-/* SIDEBAR */
 .sidebar{width:240px;background:var(--g1);min-height:100vh;position:fixed;left:0;top:0;display:flex;flex-direction:column;z-index:100;}
 .sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);}
 .logo-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:white;}
 .logo-text span{color:var(--g3);}
 .logo-sub{font-size:10px;color:#80b080;margin-top:2px;}
 .sidebar-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
-.user-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;}
+.user-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;overflow:hidden;}
+.user-av img{width:100%;height:100%;object-fit:cover;}
 .user-name{font-size:13px;font-weight:600;color:white;}
 .user-plan{font-size:10px;color:var(--g4);margin-top:1px;}
 .sidebar-nav{flex:1;padding:12px 0;}
@@ -43,23 +41,16 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .upgrade-card{background:rgba(82,176,67,0.15);border:1px solid rgba(82,176,67,0.3);border-radius:10px;padding:12px;text-align:center;}
 .upgrade-card p{font-size:11px;color:#a0c8a0;margin-bottom:8px;}
 .upgrade-btn{width:100%;padding:7px;background:var(--g3);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-
-/* MAIN */
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;}
-
-/* TOPBAR */
 .topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e0e8e0;position:sticky;top:0;z-index:50;}
 .topbar-left h2{font-size:16px;font-weight:700;color:var(--g1);}
 .topbar-left p{font-size:12px;color:var(--light);}
 .topbar-right{display:flex;align-items:center;gap:16px;}
 .notif-btn{width:36px;height:36px;border-radius:8px;background:var(--g5);border:none;cursor:pointer;font-size:16px;position:relative;}
 .notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
-.topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;cursor:pointer;}
-
-/* CONTENT */
+.topbar-avatar{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:13px;cursor:pointer;overflow:hidden;}
+.topbar-avatar img{width:100%;height:100%;object-fit:cover;}
 .content{padding:24px 28px;flex:1;}
-
-/* STATS CARDS */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
 .stat-card{background:white;border-radius:14px;padding:20px;display:flex;flex-direction:column;box-shadow:0 2px 8px #00000008;}
 .stat-card .s-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
@@ -68,18 +59,12 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .stat-card .s-change{font-size:11px;font-weight:600;margin-top:8px;display:flex;align-items:center;gap:4px;}
 .s-change.up{color:#2e7d32;}
 .s-change.down{color:var(--red);}
-
-/* GRID 2 COL */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
 .grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px;}
-
-/* CARDS */
 .card{background:white;border-radius:14px;padding:20px;box-shadow:0 2px 8px #00000008;}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .card-title{font-size:14px;font-weight:700;color:var(--g1);}
 .card-action{font-size:12px;color:var(--g2);font-weight:600;cursor:pointer;text-decoration:none;border:none;background:none;}
-
-/* ENQUIRIES */
 .enquiry-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0f4f0;}
 .enquiry-item:last-child{border-bottom:none;}
 .enq-av{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
@@ -90,8 +75,6 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .badge-new{background:#e3f2fd;color:var(--blue);}
 .badge-replied{background:var(--g5);color:var(--g2);}
 .badge-pending{background:#fff3e0;color:var(--orange);}
-
-/* PRODUCTS TABLE */
 .prod-table{width:100%;border-collapse:collapse;}
 .prod-table th{font-size:11px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:0.5px;padding:8px 12px;text-align:left;border-bottom:2px solid #f0f4f0;}
 .prod-table td{padding:12px;border-bottom:1px solid #f8f8f8;font-size:13px;}
@@ -106,33 +89,16 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .action-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
 .btn-edit{background:var(--g5);color:var(--g2);}
 .btn-del{background:#fce4ec;color:var(--red);}
-
-/* CHART PLACEHOLDER */
-.chart-area{height:160px;background:linear-gradient(180deg,var(--g5) 0%,white 100%);border-radius:10px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 16px 16px;gap:8px;}
-.bar{border-radius:6px 6px 0 0;background:var(--g3);transition:height 0.3s;min-width:28px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;}
-.bar span{font-size:9px;color:white;font-weight:700;}
-.bar-label{text-align:center;font-size:10px;color:var(--light);margin-top:4px;}
-.chart-wrap{display:flex;flex-direction:column;}
-.bars-row{display:flex;align-items:flex-end;justify-content:space-around;height:140px;padding:0 8px;gap:6px;}
-.bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
-
-/* QUICK ACTIONS */
 .quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 .qa-btn{padding:12px;border-radius:10px;border:1.5px solid #e0e8e0;background:white;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dark);transition:all 0.2s;}
 .qa-btn:hover{border-color:var(--g4);background:var(--g5);}
 .qa-icon{font-size:20px;}
-
-/* PERFORMANCE */
 .perf-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f4f0;}
 .perf-item:last-child{border-bottom:none;}
 .perf-label{font-size:13px;color:var(--mid);}
 .perf-bar-wrap{flex:1;margin:0 12px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;}
 .perf-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g3),var(--g2));}
 .perf-val{font-size:12px;font-weight:700;color:var(--g1);white-space:nowrap;}
-
-/* ADD PRODUCT FORM */
-.add-form{display:none;}
-.add-form.show{display:block;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .form-group{margin-bottom:0;}
 .form-group label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px;}
@@ -140,7 +106,12 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 .form-group input:focus,.form-group select:focus{border-color:var(--g3);}
 .form-group textarea{height:70px;resize:vertical;}
 .form-submit{padding:10px 24px;background:var(--g2);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:14px;}
-/* MOBILE RESPONSIVENESS */
+
+/* LOGO UPLOAD */
+.logo-upload-box{background:var(--g5);border-radius:14px;padding:20px;margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;border:1.5px solid #d4e8cc;}
+.logo-preview-circle{width:80px;height:80px;border-radius:14px;background:linear-gradient(135deg,var(--g3),var(--g2));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:white;flex-shrink:0;overflow:hidden;border:3px solid var(--g4);}
+.logo-preview-circle img{width:100%;height:100%;object-fit:cover;}
+
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;}
   .sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,0.15);}
@@ -154,13 +125,15 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
   .quick-actions{grid-template-columns:1fr;}
   .topbar{padding:0 16px;}
   .content{padding:16px;}
+  .logo-upload-box{flex-direction:column;align-items:flex-start;}
 }
 .menu-toggle{display:none;background:none;border:none;font-size:24px;color:var(--g1);cursor:pointer;margin-right:12px;padding:0;}
-@media(max-width:900px){
-  .menu-toggle{display:block;}
-}
+@media(max-width:900px){.menu-toggle{display:block;}}
 .backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90;}
 .backdrop.show{display:block;}
+.cert-item{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s;text-align:center;}
+.cert-item:hover{border-color:#52b043;}
+.cert-item.selected{border-color:#52b043;background:#e8f5e2;color:#2d7a3a;}
 </style>
 </head>
 <body>
@@ -171,7 +144,6 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
     <div class="logo-text">Green Roots <span>Smart</span></div>
     <div class="logo-sub">Seller Dashboard</div>
   </div>
-
   <div class="sidebar-user">
     <div class="user-av" id="sidebarInitial">S</div>
     <div>
@@ -179,50 +151,22 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
       <div class="user-plan" id="sidebarPlan">🌿 Free Plan</div>
     </div>
   </div>
-
   <nav class="sidebar-nav">
     <div class="nav-section">Main</div>
-    <button class="nav-item active" onclick="showSection('overview', this)">
-      <span class="nav-icon">📊</span> Overview
-    </button>
-    <button class="nav-item" onclick="showSection('enquiries', this)">
-      <span class="nav-icon">📩</span> Enquiries
-      <span class="nav-badge" id="enquiryBadge" style="display:none">0</span>
-    </button>
-    <button class="nav-item" onclick="showSection('products', this)">
-      <span class="nav-icon">📦</span> My Products
-    </button>
-    <button class="nav-item" onclick="showSection('add-product', this)">
-      <span class="nav-icon">➕</span> Add Product
-    </button>
-    <button class="nav-item" onclick="showSection('services', this)">
-      <span class="nav-icon">🔧</span> My Services
-    </button>
-
+    <button class="nav-item active" onclick="showSection('overview',this)"><span class="nav-icon">📊</span> Overview</button>
+    <button class="nav-item" onclick="showSection('enquiries',this)"><span class="nav-icon">📩</span> Enquiries<span class="nav-badge" id="enquiryBadge" style="display:none">0</span></button>
+    <button class="nav-item" onclick="showSection('products',this)"><span class="nav-icon">📦</span> My Products</button>
+    <button class="nav-item" onclick="showSection('add-product',this)"><span class="nav-icon">➕</span> Add Product</button>
+    <button class="nav-item" onclick="showSection('services',this)"><span class="nav-icon">🔧</span> My Services</button>
     <div class="nav-section">Business</div>
-    <button class="nav-item" onclick="showSection('verification', this)">
-      <span class="nav-icon">🏆</span> GRS Verification
-      <span id="verif-nav-badge" style="display:none;background:#52b043;color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:4px;">NEW</span>
-    </button>
-    <button class="nav-item" onclick="showSection('analytics', this)">
-      <span class="nav-icon">📈</span> Analytics
-    </button>
-    <button class="nav-item" onclick="showSection('profile', this)">
-      <span class="nav-icon">🏢</span> Business Profile
-    </button>
-    <button class="nav-item" onclick="showSection('reviews', this)">
-      <span class="nav-icon">⭐</span> Reviews
-    </button>
-
+    <button class="nav-item" onclick="showSection('verification',this)"><span class="nav-icon">🏆</span> GRS Verification<span id="verif-nav-badge" style="display:none;background:#52b043;color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:4px;">NEW</span></button>
+    <button class="nav-item" onclick="showSection('analytics',this)"><span class="nav-icon">📈</span> Analytics</button>
+    <button class="nav-item" onclick="showSection('profile',this)"><span class="nav-icon">🏢</span> Business Profile</button>
+    <button class="nav-item" onclick="showSection('reviews',this)"><span class="nav-icon">⭐</span> Reviews</button>
     <div class="nav-section">Account</div>
-    <button class="nav-item" onclick="showSection('settings', this)">
-      <span class="nav-icon">⚙️</span> Settings
-    </button>
-    <button class="nav-item" onclick="doLogout()">
-      <span class="nav-icon">🚪</span> Logout
-    </button>
+    <button class="nav-item" onclick="showSection('settings',this)"><span class="nav-icon">⚙️</span> Settings</button>
+    <button class="nav-item" onclick="doLogout()"><span class="nav-icon">🚪</span> Logout</button>
   </nav>
-
   <div class="sidebar-bottom">
     <div class="upgrade-card">
       <p>Upgrade to Pro — get 10x more leads!</p>
@@ -235,154 +179,88 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 
 <!-- MAIN -->
 <div class="main">
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left" style="display:flex;align-items:center;">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
       <div>
         <h2 id="pageTitle">Dashboard Overview</h2>
-        <p id="pageSubtitle">Welcome back, Dinesh! Here's your business summary.</p>
+        <p id="pageSubtitle">Welcome back! Here's your business summary.</p>
       </div>
     </div>
     <div class="topbar-right">
       <button class="notif-btn">🔔<span class="notif-dot"></span></button>
-      <div class="topbar-avatar" id="topbarInitial">S</div>
+      <div class="topbar-avatar" id="topbarAvatar">S</div>
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="content">
 
-    <!-- OVERVIEW SECTION -->
+    <!-- OVERVIEW -->
     <div id="section-overview">
-      <!-- STATS -->
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="s-icon" style="background:#e8f5e2">📩</div>
-          <div class="s-val" id="statEnquiries">...</div>
-          <div class="s-lbl">Total Enquiries</div>
-          <div class="s-change up" id="statNew">loading...</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#e3f2fd">📦</div>
-          <div class="s-val" id="statProducts">...</div>
-          <div class="s-lbl">Active Products</div>
-          <div class="s-change up">on your listings</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#fff3e0">👀</div>
-          <div class="s-val">—</div>
-          <div class="s-lbl">Profile Views</div>
-          <div class="s-change" style="color:#7a9a74">coming soon</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon" style="background:#fce4ec">⭐</div>
-          <div class="s-val">—</div>
-          <div class="s-lbl">Average Rating</div>
-          <div class="s-change" style="color:#7a9a74">based on reviews</div>
-        </div>
+        <div class="stat-card"><div class="s-icon" style="background:#e8f5e2">📩</div><div class="s-val" id="statEnquiries">...</div><div class="s-lbl">Total Enquiries</div><div class="s-change up" id="statNew">loading...</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#e3f2fd">📦</div><div class="s-val" id="statProducts">...</div><div class="s-lbl">Active Products</div><div class="s-change up">on your listings</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#fff3e0">👀</div><div class="s-val">—</div><div class="s-lbl">Profile Views</div><div class="s-change" style="color:#7a9a74">coming soon</div></div>
+        <div class="stat-card"><div class="s-icon" style="background:#fce4ec">⭐</div><div class="s-val">—</div><div class="s-lbl">Average Rating</div><div class="s-change" style="color:#7a9a74">based on reviews</div></div>
       </div>
-
       <div class="grid-3">
-        <!-- ENQUIRIES -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">📩 Recent Enquiries</div>
-            <a class="card-action">View All →</a>
-          </div>
+          <div class="card-header"><div class="card-title">📩 Recent Enquiries</div><a class="card-action">View All →</a></div>
           <div id="recentEnquiries"><p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">Loading enquiries... 🌿</p></div>
         </div>
-
-        <!-- QUICK ACTIONS -->
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">⚡ Quick Actions</div>
-          </div>
+          <div class="card-header"><div class="card-title">⚡ Quick Actions</div></div>
           <div class="quick-actions">
-            <button class="qa-btn" onclick="showSection('add-product', this)"><span class="qa-icon">➕</span> Add Product</button>
-            <button class="qa-btn"><span class="qa-icon">📸</span> Upload Photos</button>
-            <button class="qa-btn"><span class="qa-icon">🏢</span> Edit Profile</button>
+            <button class="qa-btn" onclick="showSection('add-product',this)"><span class="qa-icon">➕</span> Add Product</button>
+            <button class="qa-btn" onclick="showSection('profile',this)"><span class="qa-icon">🖼️</span> Upload Logo</button>
+            <button class="qa-btn" onclick="showSection('profile',this)"><span class="qa-icon">🏢</span> Edit Profile</button>
             <button class="qa-btn"><span class="qa-icon">📊</span> View Reports</button>
             <button class="qa-btn"><span class="qa-icon">💬</span> Messages</button>
             <button class="qa-btn"><span class="qa-icon">⬆️</span> Upgrade Plan</button>
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- PRODUCTS SECTION -->
+    <!-- PRODUCTS -->
     <div id="section-products" style="display:none">
       <div class="card" style="margin-bottom:20px">
         <div class="card-header"><div class="card-title">📦 My Products</div><span style="font-size:12px;color:var(--light)">Live from database</span></div>
         <div id="myProductsList" style="overflow-x:auto"><p style="color:var(--light);font-size:13px;padding:20px;text-align:center">Loading... 🌿</p></div>
       </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">📦 My Products</div>
-          <button class="card-action" onclick="showSection('add-product', this)">+ Add New Product</button>
-        </div>
-        <div id="myProductsList2"><p style="color:#7a9a74;font-size:13px;padding:20px;text-align:center">Loading products... 🌿</p></div>
-      </div>
     </div>
 
-    <!-- ADD PRODUCT SECTION -->
+    <!-- ADD PRODUCT -->
     <div id="section-add-product" style="display:none">
       <input type="hidden" id="ap-edit-id" value=""/>
       <div id="ap-edit-banner" style="display:none;background:#e8f5e2;border:1.5px solid #a8d8a0;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;font-weight:600;color:#2d7a3a;">
         ✏️ Editing Product — make your changes and click Update Product
         <button onclick="apCancelEdit()" style="float:right;background:none;border:none;color:#c0392b;font-size:13px;font-weight:600;cursor:pointer;">✕ Cancel Edit</button>
       </div>
-      <!-- BULK MODE TOGGLE -->
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;background:white;padding:14px 18px;border-radius:12px;border:1.5px solid #e8f0e8;">
         <span style="font-size:13px;font-weight:600;color:#1a4a24;">Listing Mode:</span>
         <button id="modeSingleBtn" onclick="setListingMode('single')" style="padding:7px 18px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📦 Single Product</button>
         <button id="modeBulkBtn" onclick="setListingMode('bulk')" style="padding:7px 18px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 Bulk (Multiple Products)</button>
         <span id="bulkCountLabel" style="font-size:12px;color:#7a9a74;display:none;"></span>
       </div>
-
       <div class="card" style="margin-bottom:16px">
         <div class="card-header"><div class="card-title" id="ap-form-title">📦 Basic Product Information</div></div>
         <div class="form-grid">
-          <div class="form-group" style="grid-column:span 2">
-            <label>Product Name *</label>
-            <input type="text" id="ap-name" placeholder="e.g. Solar Panel 400W Monocrystalline PERC"/>
-          </div>
-          <div class="form-group">
-            <label>Category *</label>
+          <div class="form-group" style="grid-column:span 2"><label>Product Name *</label><input type="text" id="ap-name" placeholder="e.g. Solar Panel 400W Monocrystalline PERC"/></div>
+          <div class="form-group"><label>Category *</label>
             <select id="ap-category">
               <option value="">Select Category</option>
-              <option value="Solar Energy">☀️ Solar Energy</option>
-              <option value="Organic Farming">🌾 Organic Farming</option>
-              <option value="Eco Packaging">📦 Eco Packaging</option>
-              <option value="Waste Management">♻️ Waste Management</option>
-              <option value="Water Technology">💧 Water Technology</option>
-              <option value="Wind Energy">🌬️ Wind Energy</option>
-              <option value="Energy Storage">🔋 Energy Storage</option>
-              <option value="Green Building">🏗️ Green Building</option>
-              <option value="Herbal & Natural">🌿 Herbal & Natural</option>
-              <option value="EV Components">🚗 EV Components</option>
-              <option value="Smart Agriculture">🌱 Smart Agriculture</option>
-              <option value="Bioenergy">⚡ Bioenergy</option>
-              <option value="Green Transport">🚌 Green Transport</option>
-              <option value="Green Chemistry">🧪 Green Chemistry</option>
-              <option value="Urban Green">🏙️ Urban Green</option>
-              <option value="Carbon & Climate">🌍 Carbon & Climate</option>
-              <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
-              <option value="Green Finance & ESG">📈 Green Finance & ESG</option>
-              <option value="Certifications">📋 Certifications</option>
-              <option value="Global Green Trade">🌐 Global Green Trade</option>
-              <option value="Eco Textiles">👗 Eco Textiles</option>
+              <option>Solar Energy</option><option>Organic Farming</option><option>Eco Packaging</option>
+              <option>Waste Management</option><option>Water Technology</option><option>Wind Energy</option>
+              <option>Energy Storage</option><option>Green Building</option><option>Herbal & Natural</option>
+              <option>EV Components</option><option>Smart Agriculture</option><option>Bioenergy</option>
+              <option>Green Transport</option><option>Green Chemistry</option><option>Urban Green</option>
+              <option>Carbon & Climate</option><option>Eco Home & Lifestyle</option><option>Green Finance & ESG</option>
+              <option>Certifications</option><option>Global Green Trade</option><option>Eco Textiles</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Brand / Model</label>
-            <input type="text" id="ap-brand" placeholder="e.g. SunGrow SGS-400M"/>
-          </div>
-          <div class="form-group" style="grid-column:span 2">
-            <label>Product Description *</label>
-            <textarea id="ap-desc" style="height:80px" placeholder="Describe your product details..."></textarea>
-          </div>
+          <div class="form-group"><label>Brand / Model</label><input type="text" id="ap-brand" placeholder="e.g. SunGrow SGS-400M"/></div>
+          <div class="form-group" style="grid-column:span 2"><label>Product Description *</label><textarea id="ap-desc" style="height:80px" placeholder="Describe your product details..."></textarea></div>
         </div>
       </div>
       <div class="card" style="margin-bottom:16px">
@@ -399,63 +277,23 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
       <div class="card" style="margin-bottom:16px">
         <div class="card-header"><div class="card-title">💰 Pricing & Quantity</div></div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Price (₹) *</label>
-            <input type="number" id="ap-price" placeholder="e.g. 8200"/>
-          </div>
-          <div class="form-group">
-            <label>Price Unit</label>
-            <select id="ap-unit">
-              <option>per unit</option><option>per kg</option><option>per piece</option>
-              <option>per litre</option><option>per set</option><option>per ton</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Min Order Qty *</label>
-            <input type="number" id="ap-moq" placeholder="e.g. 10"/>
-          </div>
-          <div class="form-group">
-            <label>Availability</label>
-            <select id="ap-availability">
-              <option value="in_stock">✅ In Stock</option>
-              <option value="made_to_order">🏭 Made to Order</option>
-              <option value="out_of_stock">❌ Out of Stock</option>
-            </select>
-          </div>
+          <div class="form-group"><label>Price (₹) *</label><input type="number" id="ap-price" placeholder="e.g. 8200"/></div>
+          <div class="form-group"><label>Price Unit</label><select id="ap-unit"><option>per unit</option><option>per kg</option><option>per piece</option><option>per litre</option><option>per set</option><option>per ton</option></select></div>
+          <div class="form-group"><label>Min Order Qty *</label><input type="number" id="ap-moq" placeholder="e.g. 10"/></div>
+          <div class="form-group"><label>Availability</label><select id="ap-availability"><option value="in_stock">✅ In Stock</option><option value="made_to_order">🏭 Made to Order</option><option value="out_of_stock">❌ Out of Stock</option></select></div>
         </div>
       </div>
-      <!-- PRODUCT VARIATIONS -->
       <div class="card" style="margin-bottom:16px">
-        <div class="card-header">
-          <div class="card-title">🎨 Product Variations <span style="font-size:11px;font-weight:400;color:var(--light);">Optional — for size, color, type variants</span></div>
-        </div>
-        <div id="variationsContainer">
-          <div style="font-size:12px;color:var(--light);margin-bottom:10px;">e.g. Small / Medium / Large with different prices</div>
-        </div>
-        <button type="button" onclick="addVariation()" style="padding:8px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px dashed #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;width:100%;">➕ Add Variation (Size / Color / Type)</button>
+        <div class="card-header"><div class="card-title">🎨 Product Variations <span style="font-size:11px;font-weight:400;color:var(--light);">Optional</span></div></div>
+        <div id="variationsContainer"><div style="font-size:12px;color:var(--light);margin-bottom:10px;">e.g. Small / Medium / Large with different prices</div></div>
+        <button type="button" onclick="addVariation()" style="padding:8px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px dashed #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;width:100%;">➕ Add Variation</button>
       </div>
-
       <div class="card" style="margin-bottom:16px">
         <div class="card-header"><div class="card-title">🚚 Shipping & WhatsApp</div></div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Delivery Time</label>
-            <select id="ap-delivery">
-              <option>1-3 days</option><option>3-7 days</option>
-              <option>7-15 days</option><option>15-30 days</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Shipping</label>
-            <select id="ap-shipping">
-              <option>Pan India</option><option>Pan India + Export</option>
-              <option>South India only</option>
-            </select>
-          </div>
-          <div class="form-group" style="grid-column:span 2">
-            <label>WhatsApp Number *</label>
-            <input type="tel" id="ap-whatsapp" placeholder="e.g. 9876543210"/>
-          </div>
+          <div class="form-group"><label>Delivery Time</label><select id="ap-delivery"><option>1-3 days</option><option>3-7 days</option><option>7-15 days</option><option>15-30 days</option></select></div>
+          <div class="form-group"><label>Shipping</label><select id="ap-shipping"><option>Pan India</option><option>Pan India + Export</option><option>South India only</option></select></div>
+          <div class="form-group" style="grid-column:span 2"><label>WhatsApp Number *</label><input type="tel" id="ap-whatsapp" placeholder="e.g. 9876543210"/></div>
         </div>
       </div>
       <div id="ap-alert" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:12px;"></div>
@@ -463,98 +301,42 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
         <button onclick="apSaveProduct('draft')" id="ap-draft-btn" style="padding:12px 24px;background:var(--g5);color:var(--g2);border:1.5px solid var(--g4);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">💾 Save Draft</button>
         <button id="ap-publish-btn" onclick="apSaveProduct('published')" style="flex:1;padding:12px;background:linear-gradient(135deg,var(--g3),var(--g2));color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">🌿 Publish Product</button>
       </div>
-
-      <!-- BULK PRODUCTS SECTION -->
+      <!-- BULK SECTION -->
       <div id="bulkSection" style="display:none">
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header">
-            <div class="card-title">📋 Bulk Product Listing — Common Details</div>
-            <div style="font-size:11px;color:#7a9a74;margin-top:2px;">Set these once — applies to all products below</div>
-          </div>
+          <div class="card-header"><div class="card-title">📋 Bulk Product Listing — Common Details</div></div>
           <div class="form-grid">
-            <div class="form-group">
-              <label>Category *</label>
-              <select id="bulk-category">
-                <option value="">Select Category</option>
-                <option value="Solar Energy">☀️ Solar Energy</option>
-                <option value="Organic Farming">🌾 Organic Farming</option>
-                <option value="Eco Packaging">📦 Eco Packaging</option>
-                <option value="Waste Management">♻️ Waste Management</option>
-                <option value="Water Technology">💧 Water Technology</option>
-                <option value="Wind Energy">🌬️ Wind Energy</option>
-                <option value="Energy Storage">🔋 Energy Storage</option>
-                <option value="Green Building">🏗️ Green Building</option>
-                <option value="Herbal & Natural">🌿 Herbal & Natural</option>
-                <option value="EV Components">🚗 EV Components</option>
-                <option value="Smart Agriculture">🌱 Smart Agriculture</option>
-                <option value="Bioenergy">⚡ Bioenergy</option>
-                <option value="Eco Home & Lifestyle">🏠 Eco Home & Lifestyle</option>
-                <option value="Eco Textiles">👗 Eco Textiles</option>
-                <option value="Global Green Trade">🌐 Global Green Trade</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Brand / Manufacturer</label>
-              <input type="text" id="bulk-brand" placeholder="e.g. Saravana Bamboo"/>
-            </div>
-            <div class="form-group">
-              <label>Availability</label>
-              <select id="bulk-availability">
-                <option value="in_stock">In Stock</option>
-                <option value="made_to_order">Made to Order</option>
-                <option value="pre_order">Pre Order</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Delivery Time</label>
-              <input type="text" id="bulk-delivery" placeholder="e.g. 7-10 days"/>
-            </div>
-            <div class="form-group">
-              <label>Shipping</label>
-              <input type="text" id="bulk-shipping" placeholder="e.g. Pan India"/>
-            </div>
+            <div class="form-group"><label>Category *</label><select id="bulk-category"><option value="">Select Category</option><option>Solar Energy</option><option>Organic Farming</option><option>Eco Packaging</option><option>Waste Management</option><option>Water Technology</option><option>Herbal & Natural</option><option>EV Components</option><option>Eco Home & Lifestyle</option><option>Eco Textiles</option><option>Global Green Trade</option></select></div>
+            <div class="form-group"><label>Brand / Manufacturer</label><input type="text" id="bulk-brand" placeholder="e.g. Saravana Bamboo"/></div>
+            <div class="form-group"><label>Availability</label><select id="bulk-availability"><option value="in_stock">In Stock</option><option value="made_to_order">Made to Order</option><option value="pre_order">Pre Order</option></select></div>
+            <div class="form-group"><label>Delivery Time</label><input type="text" id="bulk-delivery" placeholder="e.g. 7-10 days"/></div>
+            <div class="form-group"><label>Shipping</label><input type="text" id="bulk-shipping" placeholder="e.g. Pan India"/></div>
           </div>
         </div>
-
-        <!-- Product Rows -->
         <div id="bulkProductRows"></div>
-
-        <button onclick="addBulkRow()" style="width:100%;padding:12px;background:#e8f5e2;color:#2d7a3a;border:2px dashed #a8d8a0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;">
-          ➕ Add Another Product
-        </button>
-
+        <button onclick="addBulkRow()" style="width:100%;padding:12px;background:#e8f5e2;color:#2d7a3a;border:2px dashed #a8d8a0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;">➕ Add Another Product</button>
         <div id="bulkAlert" style="display:none;padding:12px;border-radius:8px;margin-bottom:12px;font-size:13px;"></div>
-        <button onclick="publishAllBulk()" id="bulkPublishBtn" style="width:100%;padding:14px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">
-          🌿 Publish All Products
-        </button>
+        <button onclick="publishAllBulk()" id="bulkPublishBtn" style="width:100%;padding:14px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">🌿 Publish All Products</button>
       </div>
     </div>
-    </div>
 
-    <!-- OTHER SECTIONS -->
+    <!-- ENQUIRIES -->
     <div id="section-enquiries" style="display:none">
       <div class="card">
         <div class="card-header"><div class="card-title">📩 All Enquiries</div><span style="font-size:12px;color:var(--light)">Live from database</span></div>
         <div id="allEnquiriesList" style="overflow-x:auto"><p style="color:var(--light);font-size:13px;padding:20px;text-align:center">Loading... 🌿</p></div>
       </div>
     </div>
+
+    <!-- ANALYTICS -->
     <div id="section-analytics" style="display:none">
-      <div class="card">
-        <div class="card-header"><div class="card-title">📈 Analytics</div></div>
-        <p style="color:var(--light);font-size:13px;padding:20px 0">Detailed analytics coming soon in next update!</p>
-      </div>
+      <div class="card"><div class="card-header"><div class="card-title">📈 Analytics</div></div><p style="color:var(--light);font-size:13px;padding:20px 0">Detailed analytics coming soon!</p></div>
     </div>
 
-    <!-- ════════ GRS VERIFICATION SECTION ════════ -->
+    <!-- VERIFICATION -->
     <div id="section-verification" style="display:none">
-
-      <!-- STATUS CARD — shown based on current status -->
       <div id="verif-status-card" style="margin-bottom:20px"></div>
-
-      <!-- APPLY FORM -->
       <div id="verif-apply-form">
-
-        <!-- WHY GET VERIFIED -->
         <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,#1a4a24,#2d7a3a);border:none;">
           <div style="padding:20px">
             <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:8px;">🏆 Why Get GRS Verified?</div>
@@ -564,238 +346,70 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
               <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">🌿 Verified tick on bio page</div>
               <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:white;font-size:12px;">📈 Higher buyer trust</div>
             </div>
-            <!-- LEVELS -->
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-              <div style="background:rgba(205,127,50,0.2);border:1px solid rgba(205,127,50,0.5);border-radius:10px;padding:12px;text-align:center;">
-                <div style="font-size:24px;margin-bottom:4px;">🥉</div>
-                <div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">GST + Product Photo + Pledge</div>
-              </div>
-              <div style="background:rgba(192,192,192,0.2);border:1px solid rgba(192,192,192,0.5);border-radius:10px;padding:12px;text-align:center;">
-                <div style="font-size:24px;margin-bottom:4px;">🥈</div>
-                <div style="font-size:13px;font-weight:700;color:#c0c0c0;">Silver</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Bronze + Eco Certification</div>
-              </div>
-              <div style="background:rgba(255,215,0,0.2);border:1px solid rgba(255,215,0,0.5);border-radius:10px;padding:12px;text-align:center;">
-                <div style="font-size:24px;margin-bottom:4px;">🥇</div>
-                <div style="font-size:13px;font-weight:700;color:#ffd700;">Gold</div>
-                <div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Silver + References + Call</div>
-              </div>
+              <div style="background:rgba(205,127,50,0.2);border:1px solid rgba(205,127,50,0.5);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🥉</div><div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div><div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">GST + Product Photo + Pledge</div></div>
+              <div style="background:rgba(192,192,192,0.2);border:1px solid rgba(192,192,192,0.5);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🥈</div><div style="font-size:13px;font-weight:700;color:#c0c0c0;">Silver</div><div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Bronze + Eco Certification</div></div>
+              <div style="background:rgba(255,215,0,0.2);border:1px solid rgba(255,215,0,0.5);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🥇</div><div style="font-size:13px;font-weight:700;color:#ffd700;">Gold</div><div style="font-size:10px;color:rgba(255,255,255,0.6);margin-top:4px;">Silver + References + Call</div></div>
             </div>
           </div>
         </div>
-
-        <!-- STEP 1 — BUSINESS PROOF -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header">
-            <div class="card-title">📋 Step 1 — Business Proof</div>
-            <span style="font-size:11px;color:var(--light)">Required for all levels</span>
-          </div>
-          <div style="padding:16px 0">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>GST Number *</label>
-                <input type="text" id="vf-gst" placeholder="e.g. 33AABCG1234F1Z5" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-              </div>
-              <div class="form-group">
-                <label>Business Registration Type *</label>
-                <select id="vf-reg-type" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-                  <option value="">Select Type</option>
-                  <option>GST Registered</option>
-                  <option>MSME / Udyam Registered</option>
-                  <option>Trade Licence</option>
-                  <option>Shop Establishment Certificate</option>
-                  <option>Company Registration (Pvt Ltd / LLP)</option>
-                </select>
-              </div>
-              <div class="form-group" style="grid-column:span 2">
-                <label>Upload Business Registration Document * (GST / MSME / Trade Licence)</label>
-                <div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('gst')">
-                  <div style="font-size:28px;margin-bottom:6px">📄</div>
-                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload Document</div>
-                  <div style="font-size:11px;color:var(--light)">PDF or Image • Max 5MB</div>
-                </div>
-                <div id="vf-gst-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
-              </div>
-            </div>
+          <div class="card-header"><div class="card-title">📋 Step 1 — Business Proof</div><span style="font-size:11px;color:var(--light)">Required for all levels</span></div>
+          <div class="form-grid">
+            <div class="form-group"><label>GST Number *</label><input type="text" id="vf-gst" placeholder="e.g. 33AABCG1234F1Z5"/></div>
+            <div class="form-group"><label>Registration Type *</label><select id="vf-reg-type"><option value="">Select Type</option><option>GST Registered</option><option>MSME / Udyam Registered</option><option>Trade Licence</option><option>Shop Establishment Certificate</option><option>Company Registration (Pvt Ltd / LLP)</option></select></div>
+            <div class="form-group" style="grid-column:span 2"><label>Upload Business Document *</label><div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('gst')"><div style="font-size:28px;margin-bottom:6px">📄</div><div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload</div><div style="font-size:11px;color:var(--light)">PDF or Image • Max 5MB</div></div><div id="vf-gst-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div></div>
           </div>
         </div>
-
-        <!-- STEP 2 — PRODUCT PROOF -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header">
-            <div class="card-title">📦 Step 2 — Product Proof</div>
-            <span style="font-size:11px;color:var(--light)">Show us your eco products</span>
-          </div>
-          <div style="padding:16px 0">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Main Product Name *</label>
-                <input type="text" id="vf-product-name" placeholder="e.g. Organic Turmeric Powder" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-              </div>
-              <div class="form-group">
-                <label>Why is this product eco-friendly? *</label>
-                <input type="text" id="vf-eco-reason" placeholder="e.g. Chemical free, biodegradable, solar powered" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-              </div>
-              <div class="form-group" style="grid-column:span 2">
-                <label>Upload Product Photo * (Real photo of your actual product)</label>
-                <div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('product')">
-                  <div style="font-size:28px;margin-bottom:6px">📸</div>
-                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload Product Photo</div>
-                  <div style="font-size:11px;color:var(--light)">JPG or PNG • Real product photo only</div>
-                </div>
-                <div id="vf-product-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
-              </div>
-            </div>
+          <div class="card-header"><div class="card-title">📦 Step 2 — Product Proof</div></div>
+          <div class="form-grid">
+            <div class="form-group"><label>Main Product Name *</label><input type="text" id="vf-product-name" placeholder="e.g. Organic Turmeric Powder"/></div>
+            <div class="form-group"><label>Why eco-friendly? *</label><input type="text" id="vf-eco-reason" placeholder="e.g. Chemical free, biodegradable"/></div>
+            <div class="form-group" style="grid-column:span 2"><label>Upload Product Photo *</label><div style="border:2px dashed #d4e8cc;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('product')"><div style="font-size:28px;margin-bottom:6px">📸</div><div style="font-size:13px;font-weight:600;color:var(--g2)">Click to Upload Photo</div></div><div id="vf-product-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div></div>
           </div>
         </div>
-
-        <!-- STEP 3 — ECO CERTIFICATION (Silver/Gold) -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header">
-            <div class="card-title">🌿 Step 3 — Eco Certification</div>
-            <span style="font-size:11px;color:#52b043;font-weight:600">Required for Silver & Gold • Optional for Bronze</span>
-          </div>
-          <div style="padding:16px 0">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Do you have any eco certification?</label>
-                <select id="vf-cert-type" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;" onchange="vfCertTypeChange(this.value)">
-                  <option value="none">No certification — applying for Bronze</option>
-                  <option value="organic">India Organic / NPOP</option>
-                  <option value="fssai">FSSAI Organic</option>
-                  <option value="iso14001">ISO 14001 — Environmental Management</option>
-                  <option value="bis">BIS Certification</option>
-                  <option value="gots">GOTS — Organic Textiles</option>
-                  <option value="usda">USDA Organic</option>
-                  <option value="eu">EU Organic</option>
-                  <option value="ecocert">Ecocert</option>
-                  <option value="other">Other eco certification</option>
-                </select>
-              </div>
-              <div class="form-group" id="vf-cert-name-wrap" style="display:none">
-                <label>Certification Name / Number</label>
-                <input type="text" id="vf-cert-name" placeholder="e.g. NPOP-2024-12345" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-              </div>
-              <div class="form-group" id="vf-cert-upload-wrap" style="display:none;grid-column:span 2">
-                <label>Upload Eco Certification Document</label>
-                <div style="border:2px dashed #52b043;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('cert')">
-                  <div style="font-size:28px;margin-bottom:6px">🏅</div>
-                  <div style="font-size:13px;font-weight:600;color:var(--g2)">Upload Certification Document</div>
-                  <div style="font-size:11px;color:var(--light)">PDF or Image • Max 5MB</div>
-                </div>
-                <div id="vf-cert-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div>
-              </div>
-            </div>
+          <div class="card-header"><div class="card-title">🌿 Step 3 — Eco Certification</div><span style="font-size:11px;color:#52b043;font-weight:600">Required for Silver & Gold</span></div>
+          <div class="form-grid">
+            <div class="form-group"><label>Certification Type</label><select id="vf-cert-type" onchange="vfCertTypeChange(this.value)"><option value="none">No certification — applying for Bronze</option><option value="organic">India Organic / NPOP</option><option value="fssai">FSSAI Organic</option><option value="iso14001">ISO 14001</option><option value="bis">BIS Certification</option><option value="other">Other eco certification</option></select></div>
+            <div class="form-group" id="vf-cert-name-wrap" style="display:none"><label>Certification Number</label><input type="text" id="vf-cert-name" placeholder="e.g. NPOP-2024-12345"/></div>
+            <div class="form-group" id="vf-cert-upload-wrap" style="display:none;grid-column:span 2"><label>Upload Certification</label><div style="border:2px dashed #52b043;border-radius:10px;padding:20px;text-align:center;background:var(--g5);cursor:pointer;" onclick="vfUpload('cert')"><div style="font-size:28px;margin-bottom:6px">🏅</div><div style="font-size:13px;font-weight:600;color:var(--g2)">Upload Certificate</div></div><div id="vf-cert-preview" style="margin-top:8px;font-size:12px;color:var(--g2);"></div></div>
           </div>
         </div>
-
-        <!-- STEP 4 — CATEGORY SPECIFIC -->
-        <div class="card" style="margin-bottom:16px" id="vf-category-specific">
-          <div class="card-header">
-            <div class="card-title" id="vf-cat-title">📋 Step 4 — Category Specific</div>
-          </div>
-          <div style="padding:16px 0" id="vf-cat-content">
-            <p style="font-size:13px;color:var(--light)">Loading category-specific questions...</p>
-          </div>
-        </div>
-
-        <!-- STEP 5 — DELIVERY & SUPPLY -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header">
-            <div class="card-title">🚚 Step 5 — Supply Capability</div>
-            <span style="font-size:11px;color:var(--light)">Tell buyers where and how you supply</span>
-          </div>
-          <div style="padding:16px 0">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>States You Supply To *</label>
-                <select id="vf-supply-reach" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-                  <option value="">Select reach</option>
-                  <option>Local — City / District only</option>
-                  <option>State — Tamil Nadu only</option>
-                  <option>South India — TN, KL, KA, AP, TS</option>
-                  <option>Pan India — All states</option>
-                  <option>Pan India + Export</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Minimum Order Quantity *</label>
-                <input type="text" id="vf-moq" placeholder="e.g. 10 kg, 50 units, 1 tonne" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-              </div>
-              <div class="form-group">
-                <label>Typical Delivery Time *</label>
-                <select id="vf-delivery" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-                  <option>1-3 days</option>
-                  <option>3-7 days</option>
-                  <option>7-15 days</option>
-                  <option>15-30 days</option>
-                  <option>Made to order — 30+ days</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Enquiry Response Time *</label>
-                <select id="vf-response" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-                  <option>Within 2 hours</option>
-                  <option>Within 4 hours</option>
-                  <option>Within 24 hours</option>
-                  <option>Within 48 hours</option>
-                </select>
-              </div>
-            </div>
+          <div class="card-header"><div class="card-title">🚚 Step 4 — Supply Capability</div></div>
+          <div class="form-grid">
+            <div class="form-group"><label>Supply Reach *</label><select id="vf-supply-reach"><option value="">Select reach</option><option>Local — City / District only</option><option>State only</option><option>South India</option><option>Pan India</option><option>Pan India + Export</option></select></div>
+            <div class="form-group"><label>Minimum Order Qty *</label><input type="text" id="vf-moq" placeholder="e.g. 10 kg, 50 units"/></div>
+            <div class="form-group"><label>Delivery Time *</label><select id="vf-delivery"><option>1-3 days</option><option>3-7 days</option><option>7-15 days</option><option>15-30 days</option></select></div>
+            <div class="form-group"><label>Response Time *</label><select id="vf-response"><option>Within 2 hours</option><option>Within 4 hours</option><option>Within 24 hours</option><option>Within 48 hours</option></select></div>
           </div>
         </div>
-
-        <!-- STEP 6 — GRS ECO CODE OF CONDUCT -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header"><div class="card-title">🤝 Step 6 — GRS Eco Code of Conduct</div></div>
-          <div style="padding:16px 0">
-            <div style="background:var(--g5);border-radius:10px;padding:16px;margin-bottom:16px;">
-              <div style="font-size:12px;font-weight:700;color:var(--g1);margin-bottom:10px;">By applying I confirm and agree:</div>
-              <div id="conduct-checks" style="display:flex;flex-direction:column;gap:8px;"></div>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;background:#fff3e0;border-radius:10px;border:1px solid #ffcc02;">
-              <input type="checkbox" id="vf-pledge" style="margin-top:3px;width:16px;height:16px;accent-color:#2d7a3a;flex-shrink:0;"/>
-              <label for="vf-pledge" style="font-size:13px;color:#e65100;font-weight:600;cursor:pointer;">I have read and agree to the GRS Eco Code of Conduct. I confirm all information submitted is accurate. I understand that false information will result in permanent removal from GRS. *</label>
-            </div>
+          <div class="card-header"><div class="card-title">🤝 Step 5 — GRS Eco Code of Conduct</div></div>
+          <div style="background:var(--g5);border-radius:10px;padding:16px;margin-bottom:16px;"><div id="conduct-checks"></div></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;background:#fff3e0;border-radius:10px;border:1px solid #ffcc02;">
+            <input type="checkbox" id="vf-pledge" style="margin-top:3px;width:16px;height:16px;accent-color:#2d7a3a;flex-shrink:0;"/>
+            <label for="vf-pledge" style="font-size:13px;color:#e65100;font-weight:600;cursor:pointer;">I agree to the GRS Eco Code of Conduct and confirm all information is accurate. *</label>
           </div>
         </div>
-
-        <!-- WHICH LEVEL -->
         <div class="card" style="margin-bottom:16px">
-          <div class="card-header"><div class="card-title">🏅 Which Level Are You Applying For?</div></div>
-          <div style="padding:16px 0">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;" id="vf-level-select">
-              <div class="vf-level-btn" data-level="bronze" onclick="selectLevel('bronze')" style="border:2px solid #cd7f32;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fff8f0;">
-                <div style="font-size:28px;margin-bottom:6px;">🥉</div>
-                <div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div>
-                <div style="font-size:10px;color:#888;margin-top:4px;">GST + Photo + Pledge</div>
-              </div>
-              <div class="vf-level-btn" data-level="silver" onclick="selectLevel('silver')" style="border:2px solid #c0c0c0;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#f8f8f8;">
-                <div style="font-size:28px;margin-bottom:6px;">🥈</div>
-                <div style="font-size:13px;font-weight:700;color:#888;">Silver</div>
-                <div style="font-size:10px;color:#888;margin-top:4px;">+ Eco Certification</div>
-              </div>
-              <div class="vf-level-btn" data-level="gold" onclick="selectLevel('gold')" style="border:2px solid #ffd700;border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:#fffbf0;">
-                <div style="font-size:28px;margin-bottom:6px;">🥇</div>
-                <div style="font-size:13px;font-weight:700;color:#b8860b;">Gold</div>
-                <div style="font-size:10px;color:#888;margin-top:4px;">+ References + Call</div>
-              </div>
-            </div>
-            <div id="vf-selected-level" style="margin-top:10px;text-align:center;font-size:13px;color:var(--g2);font-weight:600;"></div>
+          <div class="card-header"><div class="card-title">🏅 Apply For Level</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;" id="vf-level-select">
+            <div class="vf-level-btn" data-level="bronze" onclick="selectLevel('bronze')" style="border:2px solid #cd7f32;border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:#fff8f0;"><div style="font-size:28px;margin-bottom:6px;">🥉</div><div style="font-size:13px;font-weight:700;color:#cd7f32;">Bronze</div></div>
+            <div class="vf-level-btn" data-level="silver" onclick="selectLevel('silver')" style="border:2px solid #c0c0c0;border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:#f8f8f8;"><div style="font-size:28px;margin-bottom:6px;">🥈</div><div style="font-size:13px;font-weight:700;color:#888;">Silver</div></div>
+            <div class="vf-level-btn" data-level="gold" onclick="selectLevel('gold')" style="border:2px solid #ffd700;border-radius:12px;padding:14px;text-align:center;cursor:pointer;background:#fffbf0;"><div style="font-size:28px;margin-bottom:6px;">🥇</div><div style="font-size:13px;font-weight:700;color:#b8860b;">Gold</div></div>
           </div>
+          <div id="vf-selected-level" style="margin-top:10px;text-align:center;font-size:13px;color:var(--g2);font-weight:600;"></div>
         </div>
-
         <div id="vf-alert" style="display:none;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:12px;"></div>
         <button onclick="submitVerification()" id="vf-submit-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#52b043,#2d7a3a);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:24px;">🏆 Submit Verification Application</button>
       </div>
-
     </div>
-    <!-- ════════ END VERIFICATION SECTION ════════ -->
 
+    <!-- PROFILE — with logo upload -->
     <div id="section-profile" style="display:none">
-
-      <!-- BIO PAGE BANNER -->
       <div id="bioPageBanner" style="display:none;background:linear-gradient(135deg,#1a4a24,#2d7a3a);border-radius:14px;padding:16px 20px;margin-bottom:16px;color:white;">
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">🌿 Your GRS Supplier Bio Page is Live!</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-bottom:10px;">Share this link on WhatsApp, Instagram, LinkedIn — everywhere!</div>
@@ -808,7 +422,28 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 
       <div class="card">
         <div class="card-header"><div class="card-title">🏢 Business Profile</div></div>
-        <div style="padding:20px 0">
+
+        <!-- ══ LOGO UPLOAD ══ -->
+        <div class="logo-upload-box">
+          <div class="logo-preview-circle" id="logoPreviewCircle">
+            <span id="logoInitialText">S</span>
+          </div>
+          <div style="flex:1;min-width:180px;">
+            <div style="font-size:14px;font-weight:700;color:var(--g1);margin-bottom:4px;">🖼️ Business Logo</div>
+            <div style="font-size:12px;color:var(--mid);margin-bottom:12px;line-height:1.5;">
+              Upload your company logo — shown on your supplier card and bio page.<br/>
+              <span style="color:var(--g2);font-weight:600;">Square image recommended • JPG or PNG • Max 2MB</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <button onclick="uploadSupplierLogo()" style="padding:9px 20px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">📤 Upload Logo</button>
+              <button id="removeLogoBtn" onclick="removeSupplierLogo()" style="display:none;padding:9px 16px;background:#fce4ec;color:#c62828;border:1.5px solid #f48fb1;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🗑️ Remove</button>
+              <span id="logoStatus" style="font-size:12px;color:var(--mid);"></span>
+            </div>
+          </div>
+        </div>
+        <!-- ══ END LOGO UPLOAD ══ -->
+
+        <div style="padding:0 0 20px 0">
           <div class="form-grid">
             <div class="form-group"><label>Business Name</label><input type="text" id="bp-business" placeholder="Your business name"/></div>
             <div class="form-group"><label>Owner Name</label><input type="text" id="bp-owner" placeholder="Your name"/></div>
@@ -821,9 +456,9 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
             <div class="form-group"><label>Email</label><input type="email" id="bp-email" placeholder="business@email.com"/></div>
           </div>
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--g5)">
-            <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">📱 Social Media — Shown on Your Bio Page</div>
+            <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">📱 Social Media</div>
             <div class="form-grid">
-              <div class="form-group"><label>📸 Instagram</label><input type="text" id="bp-instagram" placeholder="@yourbusiness or full URL"/></div>
+              <div class="form-group"><label>📸 Instagram</label><input type="text" id="bp-instagram" placeholder="@yourbusiness"/></div>
               <div class="form-group"><label>💼 LinkedIn</label><input type="text" id="bp-linkedin" placeholder="linkedin.com/company/yourco"/></div>
               <div class="form-group"><label>▶️ YouTube</label><input type="text" id="bp-youtube" placeholder="youtube.com/@yourchannel"/></div>
               <div class="form-group"><label>👥 Facebook</label><input type="text" id="bp-facebook" placeholder="facebook.com/yourpage"/></div>
@@ -834,83 +469,31 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
         </div>
       </div>
     </div>
-    <div id="section-reviews" style="display:none">
-      <div class="card">
-        <div class="card-header"><div class="card-title">⭐ Reviews</div></div>
-        <p style="color:var(--light);font-size:13px;padding:20px 0">Your buyer reviews and ratings will appear here!</p>
-      </div>
-    </div>
-    <div id="section-settings" style="display:none">
-      <div class="card">
-        <div class="card-header"><div class="card-title">⚙️ Settings</div></div>
-        <p style="color:var(--light);font-size:13px;padding:20px 0">Account settings, notifications and preferences!</p>
-      </div>
-    </div>
 
-    <!-- SERVICES SECTION -->
+    <!-- REVIEWS -->
+    <div id="section-reviews" style="display:none"><div class="card"><div class="card-header"><div class="card-title">⭐ Reviews</div></div><p style="color:var(--light);font-size:13px;padding:20px 0">Your buyer reviews will appear here!</p></div></div>
+
+    <!-- SETTINGS -->
+    <div id="section-settings" style="display:none"><div class="card"><div class="card-header"><div class="card-title">⚙️ Settings</div></div><p style="color:var(--light);font-size:13px;padding:20px 0">Account settings coming soon!</p></div></div>
+
+    <!-- SERVICES -->
     <div id="section-services" style="display:none">
-      <!-- Add Service Form -->
       <div class="card" style="margin-bottom:20px">
-        <div class="card-header">
-          <div class="card-title">🔧 Add New Service</div>
-          <span style="font-size:12px;color:var(--light)">Your service will appear on greenrootssmart.com/services</span>
-        </div>
+        <div class="card-header"><div class="card-title">🔧 Add New Service</div><span style="font-size:12px;color:var(--light)">Appears on greenrootssmart.com/services</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Service Name *</label>
-            <input type="text" id="svc-name" placeholder="e.g. Soil Testing, EIA Report, Solar Installation" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Category *</label>
-            <select id="svc-cat" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-              <option value="">Select Category</option>
-              <option>Testing & Laboratory</option>
-              <option>Consulting & Advisory</option>
-              <option>Certification & Compliance</option>
-              <option>Waste Management</option>
-              <option>Water & Wastewater</option>
-              <option>Renewable Energy</option>
-              <option>Ecological Services</option>
-              <option>Remediation</option>
-              <option>Reporting & Technology</option>
-              <option>Training & Education</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Company Name</label>
-            <input type="text" id="svc-company" placeholder="Your company name" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Contact Phone *</label>
-            <input type="tel" id="svc-phone" placeholder="Your WhatsApp number" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">City</label>
-            <input type="text" id="svc-city" placeholder="e.g. Chennai" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>
-          </div>
-          <div>
-            <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Availability</label>
-            <select id="svc-avail" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">
-              <option value="available">🟢 Available Now</option>
-              <option value="busy">🟡 Busy — Limited Slots</option>
-              <option value="booked">🔴 Fully Booked</option>
-            </select>
-          </div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Service Name *</label><input type="text" id="svc-name" placeholder="e.g. Soil Testing, EIA Report" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Category *</label><select id="svc-cat" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"><option value="">Select Category</option><option>Testing & Laboratory</option><option>Consulting & Advisory</option><option>Certification & Compliance</option><option>Waste Management</option><option>Water & Wastewater</option><option>Renewable Energy</option><option>Ecological Services</option><option>Remediation</option><option>Reporting & Technology</option><option>Training & Education</option></select></div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Company Name</label><input type="text" id="svc-company" placeholder="Your company name" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Contact Phone *</label><input type="tel" id="svc-phone" placeholder="Your WhatsApp number" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">City</label><input type="text" id="svc-city" placeholder="e.g. Chennai" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>
+          <div><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Availability</label><select id="svc-avail" style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"><option value="available">🟢 Available Now</option><option value="busy">🟡 Busy — Limited Slots</option><option value="booked">🔴 Fully Booked</option></select></div>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Service Description *</label>
-          <textarea id="svc-desc" placeholder="Describe your service in detail — what you offer, your experience, certifications..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:90px;resize:vertical;"></textarea>
-        </div>
+        <div style="margin-bottom:14px;"><label style="font-size:11px;font-weight:700;color:var(--dark);display:block;margin-bottom:5px;">Service Description *</label><textarea id="svc-desc" placeholder="Describe your service..." style="width:100%;padding:9px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;height:90px;resize:vertical;font-family:inherit;"></textarea></div>
         <div id="svc-msg" style="display:none;padding:10px;border-radius:8px;font-size:13px;margin-bottom:10px;"></div>
         <button onclick="addService()" style="padding:10px 28px;background:var(--g2);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🔧 List My Service</button>
       </div>
-
-      <!-- My Services List -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">🔧 My Services</div>
-          <span style="font-size:12px;color:var(--light)" id="svcCount">loading...</span>
-        </div>
+        <div class="card-header"><div class="card-title">🔧 My Services</div><span style="font-size:12px;color:var(--light)" id="svcCount">loading...</span></div>
         <div id="myServicesList"><p style="color:var(--light);font-size:13px;padding:20px 0">Loading your services...</p></div>
       </div>
     </div>
@@ -919,1219 +502,579 @@ body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--dark);displ
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
 <script>
-const SUPABASE_URL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SUPABASE_KEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const AP_CLOUD='dvbaciabk', AP_PRESET='grs_products';
+let currentUser=null;
+let apPhotos=[], varCount=0, bulkRowCount=0;
+let vfLevel='bronze', vfGstUrl='', vfProductUrl='', vfCertUrl='';
+const PLAN_LIMITS={free:5,starter:15,pro:50,premium:999,enterprise:9999};
 
-let currentUser = null;
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
+async function initDashboard(){
+  const userData=localStorage.getItem('grs_user');
+  if(!userData){window.location.href='/login';return;}
+  const localUser=JSON.parse(userData);
+  if(!localUser||!localUser.id){window.location.href='/login';return;}
+  try{
+    const{data:freshData}=await supabaseClient.from('suppliers').select('*').eq('id',localUser.id).single();
+    if(freshData){
+      currentUser={id:freshData.id,name:freshData.owner_name||freshData.business_name,business:freshData.business_name,email:freshData.email,mobile:freshData.mobile||'',plan:freshData.plan||'free',status:freshData.status,city:freshData.city||'',state:freshData.state||'',category:freshData.category||'',type:'supplier',logo_url:freshData.logo_url||null};
+      localStorage.setItem('grs_user',JSON.stringify(currentUser));
+    } else {currentUser=localUser;}
+  }catch(e){currentUser=localUser;}
 
-async function addService() {
-  const name = document.getElementById('svc-name').value.trim();
-  const cat = document.getElementById('svc-cat').value;
-  const desc = document.getElementById('svc-desc').value.trim();
-  const phone = document.getElementById('svc-phone').value.trim();
-  if(!name || !cat || !desc) { showSvcMsg('Please fill service name, category and description!', 'error'); return; }
-
-  const btn = event.target;
-  btn.textContent = 'Saving...'; btn.disabled = true;
-
-  const { error } = await supabaseClient.from('service_providers').insert([{
-    service_name: name,
-    category: cat,
-    description: desc,
-    phone: phone || currentUser.mobile || '',
-    company: document.getElementById('svc-company').value.trim() || currentUser.business || '',
-    city: document.getElementById('svc-city').value.trim() || currentUser.city || '',
-    state: currentUser.state || '',
-    availability: document.getElementById('svc-avail').value,
-    status: 'active',
-    verified: false,
-    supplier_id: currentUser.id
-  }]);
-
-  if(error) {
-    showSvcMsg('Error: ' + error.message, 'error');
-  } else {
-    showSvcMsg('✅ Service listed! It will appear on greenrootssmart.com/services', 'success');
-    ['svc-name','svc-company','svc-phone','svc-city','svc-desc'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('svc-cat').value = '';
-    loadMyServices();
-  }
-  btn.textContent = '🔧 List My Service'; btn.disabled = false;
-}
-
-async function showSvcMsg(msg, type) {
-  const el = document.getElementById('svc-msg');
-  el.style.display = 'block';
-  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
-  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
-  el.textContent = msg;
-  setTimeout(() => el.style.display = 'none', 5000);
-}
-
-async function loadMyServices() {
-  if(!currentUser) return;
-  const { data } = await supabaseClient.from('service_providers')
-    .select('*').eq('supplier_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
-  const list = document.getElementById('myServicesList');
-  const count = document.getElementById('svcCount');
-  if(!data || data.length === 0) {
-    if(list) list.innerHTML = '<p style="color:var(--light);font-size:13px;padding:20px 0">No services listed yet! Add your first service above. 🔧</p>';
-    if(count) count.textContent = '0 services';
-    return;
-  }
-  if(count) count.textContent = data.length + ' service' + (data.length !== 1 ? 's' : '');
-  if(list) list.innerHTML = data.map(s => `
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0f4f0;">
-      <div style="flex:1">
-        <div style="font-size:14px;font-weight:700;color:var(--dark)">${s.service_name}</div>
-        <div style="font-size:12px;color:var(--light);margin-top:2px">${s.category} · ${s.city || ''} · ${s.availability === 'available' ? '🟢 Available' : s.availability === 'busy' ? '🟡 Busy' : '🔴 Booked'}</div>
-        <div style="font-size:12px;color:var(--mid);margin-top:4px">${(s.description||'').substring(0,80)}...</div>
-      </div>
-      <div style="display:flex;gap:8px;margin-left:16px;">
-        <button onclick="toggleSvcAvail('${s.id}','${s.availability}')" style="padding:6px 12px;background:#e8f5e2;color:#2d7a3a;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">Toggle Availability</button>
-        <button onclick="deleteSvc('${s.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
-      </div>
-    </div>`).join('');
-}
-
-async function toggleSvcAvail(id, current) {
-  const next = current === 'available' ? 'busy' : current === 'busy' ? 'booked' : 'available';
-  await supabaseClient.from('service_providers').update({ availability: next }).eq('id', id);
-  loadMyServices();
-}
-
-async function deleteSvc(id) {
-  if(!confirm('Delete this service?')) return;
-  await supabaseClient.from('service_providers').delete().eq('id', id);
-  loadMyServices();
-}
-
-async function initDashboard() {
-  const userData = localStorage.getItem('grs_user');
-  if (!userData) { window.location.href = '/login'; return; }
-  const localUser = JSON.parse(userData);
-  if(!localUser || !localUser.id) { window.location.href = '/login'; return; }
-
-  // Always fetch FRESH data from Supabase to avoid stale localStorage
-  try {
-    const { data: freshData } = await supabaseClient
-      .from('suppliers')
-      .select('*')
-      .eq('id', localUser.id)
-      .single();
-
-    if(freshData) {
-      // Update localStorage with fresh data
-      currentUser = {
-        id: freshData.id,
-        name: freshData.owner_name || freshData.business_name,
-        business: freshData.business_name,
-        email: freshData.email,
-        mobile: freshData.mobile || '',
-        plan: freshData.plan || 'free',
-        status: freshData.status,
-        city: freshData.city || '',
-        state: freshData.state || '',
-        category: freshData.category || '',
-        type: 'supplier'
-      };
-      localStorage.setItem('grs_user', JSON.stringify(currentUser));
-    } else {
-      currentUser = localUser;
-    }
-  } catch(e) {
-    currentUser = localUser;
-  }
-
-  // Set user info in sidebar
   const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  setEl('sidebarName', currentUser.name||currentUser.business||'Supplier');
-  setEl('sidebarPlan', ((currentUser.plan||'Free').toUpperCase())+' PLAN');
-  setEl('sidebarInitial', (currentUser.name||currentUser.business||'S')[0].toUpperCase());
-  setEl('topbarInitial', (currentUser.name||currentUser.business||'S')[0].toUpperCase());
-  setEl('pageSubtitle', 'Welcome back, '+(currentUser.name||currentUser.business||'Supplier')+'! Here\'s your business summary.');
+  setEl('sidebarName',currentUser.name||currentUser.business||'Supplier');
+  setEl('sidebarPlan',((currentUser.plan||'Free').toUpperCase())+' PLAN');
 
+  // Set sidebar initial or logo
+  updateSidebarAvatar(currentUser.logo_url);
+  updateTopbarAvatar(currentUser.logo_url);
+
+  setEl('pageSubtitle','Welcome back, '+(currentUser.name||currentUser.business||'Supplier')+'! Here\'s your business summary.');
   await loadStats();
   await loadRecentEnquiries();
   await loadMyProducts();
-  await loadMyProducts2();
   await loadAllEnquiries();
   loadProfileForm();
   loadMyServices();
 }
 
-async function loadStats() {
-  try {
-    const { data: products } = await supabaseClient.from('products').select('id').eq('supplier_id', currentUser.id);
-    const productCount = products ? products.length : 0;
-    document.getElementById('statProducts').textContent = productCount;
-    
-    const { data: enquiries } = await supabaseClient.from('enquiries').select('id,status,product_id,supplier_id');
-    const myIds = products ? products.map(p => p.id) : [];
-    const myEnq = enquiries ? enquiries.filter(e => myIds.includes(e.product_id) || String(e.supplier_id) === String(currentUser.id)) : [];
-    const newCount = myEnq.filter(e => e.status === 'new').length;
-    document.getElementById('statEnquiries').textContent = myEnq.length;
-    if(document.getElementById('statNew')) document.getElementById('statNew').textContent = newCount + ' new';
-    if(newCount > 0){ const b = document.getElementById('enquiryBadge'); if(b){ b.textContent = newCount; b.style.display='inline'; }}
-  } catch(e){ console.error('loadStats:', e); }
-}
-
-async function loadRecentEnquiries() {
-  const { data: myProds2 } = await supabaseClient.from('products').select('id').eq('supplier_id', currentUser.id);
-  const myIds2 = myProds2 ? myProds2.map(p => p.id) : [];
-  const { data: allEnq2 } = await supabaseClient.from('enquiries').select('*').order('created_at', { ascending: false }).limit(50);
-  const enquiries = allEnq2 ? allEnq2.filter(e => myIds2.includes(e.product_id) || String(e.supplier_id) === String(currentUser.id)).slice(0,4) : [];
-
-  const container = document.getElementById('recentEnquiries');
-  if (!enquiries || enquiries.length === 0) {
-    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">No enquiries yet! Share your profile to get enquiries! 🌿</p>';
-    return;
-  }
-
-  container.innerHTML = enquiries.map(e => {
-    const initials = e.buyer_name ? e.buyer_name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) : 'B';
-    const colors = ['#1565c0','#6a1b9a','#e65100','#2d7a3a','#c62828','#00695c'];
-    const color = colors[Math.floor(Math.random()*colors.length)];
-    const timeAgo = getTimeAgo(e.created_at);
-    const badgeClass = e.status === 'new' ? 'badge-new' : e.status === 'replied' ? 'badge-replied' : 'badge-pending';
-    const badgeText = e.status === 'new' ? 'New' : e.status === 'replied' ? 'Replied' : 'Pending';
-    return `
-      <div class="enquiry-item">
-        <div class="enq-av" style="background:${color}">${initials}</div>
-        <div style="flex:1">
-          <div class="enq-name">${e.buyer_name}</div>
-          <div class="enq-product">${e.product_name} · ${e.quantity} units</div>
-        </div>
-        <div style="text-align:right">
-          <span class="enq-badge ${badgeClass}">${badgeText}</span>
-          <div class="enq-time">${timeAgo}</div>
-        </div>
-      </div>`;
-  }).join('');
-}
-
-async function loadMyProducts() {
-  const { data: products } = await supabaseClient
-    .from('products')
-    .select('*')
-    .eq('supplier_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
-  const container = document.getElementById('myProductsList');
-  if (!products || products.length === 0) {
-    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No products yet! Add your first product! 🌿</p>';
-    return;
-  }
-
-  container.innerHTML = `
-    <table style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="border-bottom:2px solid var(--g5)">
-          <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Category</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Price</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">MOQ</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${products.map(p => `
-          <tr style="border-bottom:1px solid var(--g5)">
-            <td style="padding:10px"><b>${p.emoji || '🌿'} ${p.name}</b></td>
-            <td style="padding:10px;color:var(--mid)">${p.category}</td>
-            <td style="padding:10px">₹${p.price}/${p.price_unit}</td>
-            <td style="padding:10px">${p.moq} units</td>
-            <td style="padding:10px"><span style="background:${p.status==='active'||p.status==='published'?'#e8f5e2':'#fff3e0'};color:${p.status==='active'||p.status==='published'?'#2d7a3a':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${p.status || 'active'}</span></td>
-            <td style="padding:10px;white-space:nowrap">
-              <button onclick="editProduct(${JSON.stringify(p).replace(/"/g,'&quot;')})" style="padding:5px 12px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;margin-right:6px;">✏️ Edit</button>
-              <button onclick="deleteProduct(${p.id},'${p.name.replace(/'/g,"\\\'")}')" style="padding:5px 12px;background:#fff0f0;color:#c0392b;border:1.5px solid #f5c6c6;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">🗑️ Delete</button>
-            </td>
-          </tr>`).join('')}
-      </tbody>
-    </table>`;
-}
-
-async function loadAllEnquiries() {
-  const { data: enquiries } = await supabaseClient
-    .from('enquiries')
-    .select('*')
-    .eq('supplier_name', currentUser.business)
-    .order('created_at', { ascending: false });
-
-  const container = document.getElementById('allEnquiriesList');
-  if (!enquiries || enquiries.length === 0) {
-    container.innerHTML = '<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No enquiries yet! 🌿</p>';
-    return;
-  }
-
-  container.innerHTML = `
-    <table style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="border-bottom:2px solid var(--g5)">
-          <th style="text-align:left;padding:10px;color:var(--mid)">Buyer</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Product</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Qty</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Mobile</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Location</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Date</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Status</th>
-          <th style="text-align:left;padding:10px;color:var(--mid)">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${enquiries.map(e => `
-          <tr style="border-bottom:1px solid var(--g5)">
-            <td style="padding:10px"><b>${e.buyer_name}</b><br><span style="color:var(--light);font-size:11px">${e.buyer_email}</span></td>
-            <td style="padding:10px">${e.product_name}</td>
-            <td style="padding:10px">${e.quantity}</td>
-            <td style="padding:10px">${e.buyer_mobile}</td>
-            <td style="padding:10px">${e.buyer_location}</td>
-            <td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
-            <td style="padding:10px"><span style="background:${e.status==='new'?'#e8f5e2':e.status==='replied'?'#e3f2fd':'#fff3e0'};color:${e.status==='new'?'#2d7a3a':e.status==='replied'?'#1565c0':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${e.status || 'new'}</span></td>
-            <td style="padding:10px">
-              <a href="tel:${e.buyer_mobile}" style="background:var(--g2);color:white;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:600">📞 Call</a>
-              <a href="https://wa.me/91${e.buyer_mobile}" target="_blank" style="background:#25d366;color:white;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:600;margin-left:4px">💬 WA</a>
-            </td>
-          </tr>`).join('')}
-      </tbody>
-    </table>`;
-}
-
-function getTimeAgo(dateStr) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const mins = Math.floor(diff/60000);
-  const hrs = Math.floor(mins/60);
-  const days = Math.floor(hrs/24);
-  if (days > 0) return days + ' day' + (days>1?'s':'') + ' ago';
-  if (hrs > 0) return hrs + ' hr' + (hrs>1?'s':'') + ' ago';
-  return mins + ' min ago';
-}
-
-function logout() {
-  localStorage.removeItem('grs_user');
-  window.location.href = '/login';
-}
-
-const sections = ['overview','enquiries','products','add-product','analytics','verification','profile','reviews','settings'];
-const titles = {
-  'overview': ['Dashboard Overview', ''],
-  'enquiries': ['My Enquiries', 'Manage all buyer enquiries from here.'],
-  'products': ['My Products', 'Manage your product listings.'],
-  'add-product': ['Add New Product', 'Add a new eco product to your listing.'],
-  'analytics': ['Analytics', 'Track your business performance.'],
-  'verification': ['GRS Verification', 'Apply for your GRS Verified badge and certificate.'],
-  'profile': ['Business Profile', 'Manage your business details.'],
-  'reviews': ['Reviews & Ratings', 'See what buyers say about you.'],
-  'settings': ['Settings', 'Manage your account settings.'],
-};
-
-function showSection(name, el){
-  sections.forEach(s => {
-    const sec = document.getElementById('section-' + s);
-    if(sec) sec.style.display = 'none';
-  });
-  const sec = document.getElementById('section-' + name);
-  if(sec) sec.style.display = 'block';
-  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-  if(el) el.classList.add('active');
-  document.getElementById('pageTitle').textContent = titles[name][0];
-  if(name !== 'overview') document.getElementById('pageSubtitle').textContent = titles[name][1];
-  
-  if(window.innerWidth <= 900) {
-    const sb = document.querySelector('.sidebar');
-    const bd = document.getElementById('sidebarBackdrop');
-    if(sb && bd && sb.classList.contains('open')) {
-      sb.classList.remove('open');
-      bd.classList.remove('show');
-    }
-  }
-  if(name === 'profile') loadProfileForm();
-  if(name === 'verification') loadVerificationSection();
-}
-
-async function toggleSidebar(){
-  const sb = document.querySelector('.sidebar');
-  const bd = document.getElementById('sidebarBackdrop');
-  if(sb && bd) {
-    sb.classList.toggle('open');
-    bd.classList.toggle('show');
-  }
-}
-
-async function doLogout(){ localStorage.removeItem('grs_user'); window.location.href = '/'; }
-
-async function loadMyProducts2(){
-  const { data: products } = await supabaseClient.from('products').select('*').eq('supplier_id', currentUser.id).order('created_at', { ascending: false });
-  const container = document.getElementById('myProductsList2');
-  if(!container) return;
-  if(!products || products.length === 0){
-    container.innerHTML = '<p style="color:#7a9a74;font-size:13px;padding:20px;text-align:center">No products yet! Add your first product! 🌿</p>';
-    return;
-  }
-  container.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="border-bottom:2px solid #e8f5e2"><th style="text-align:left;padding:10px;color:#4a6645">Product</th><th style="text-align:left;padding:10px;color:#4a6645">Category</th><th style="text-align:left;padding:10px;color:#4a6645">Price</th><th style="text-align:left;padding:10px;color:#4a6645">MOQ</th><th style="text-align:left;padding:10px;color:#4a6645">Status</th></tr></thead><tbody>' +
-    products.map(p => '<tr style="border-bottom:1px solid #e8f5e2"><td style="padding:10px"><b>🌿 '+p.name+'</b></td><td style="padding:10px;color:#4a6645">'+p.category+'</td><td style="padding:10px">₹'+p.price+'</td><td style="padding:10px">'+(p.moq||'-')+' units</td><td style="padding:10px"><span style="background:'+(p.status==='published'?'#e8f5e2':'#fff3e0')+';color:'+(p.status==='published'?'#2d7a3a':'#e65100')+';padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">'+(p.status||'active')+'</span></td></tr>').join('') +
-    '</tbody></table>';
-}
-
-async function loadProfileForm(){
-  const u = currentUser;
-  const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
-  setVal('bp-business', u.business);
-  setVal('bp-owner', u.name);
-  setVal('bp-mobile', u.mobile);
-  setVal('bp-city', u.city);
-  setVal('bp-state', u.state);
-  setVal('bp-category', u.category);
-  setVal('bp-business-type', u.business_type);
-  // Load full supplier data for extra fields
-  try{
-    const {data} = await supabaseClient.from('suppliers').select('*').eq('id', u.id);
-    if(data&&data.length>0){
-      const s=data[0];
-      setVal('bp-description', s.description);
-      setVal('bp-website', s.website);
-      setVal('bp-email', s.email);
-      setVal('bp-instagram', s.instagram);
-      setVal('bp-linkedin', s.linkedin);
-      setVal('bp-youtube', s.youtube);
-      setVal('bp-facebook', s.facebook);
-    }
-  }catch(e){}
-  // Show bio page banner
-  const bioUrl = `https://www.greenrootssmart.com/store?id=${u.id}`;
-  const banner = document.getElementById('bioPageBanner');
-  const urlEl = document.getElementById('bioPageUrl');
-  if(banner){ banner.style.display='block'; }
-  if(urlEl){ urlEl.textContent = bioUrl; }
-}
-
-function copyBioLink(){
-  const u = currentUser;
-  const bioUrl = `https://www.greenrootssmart.com/store?id=${u.id}`;
-  navigator.clipboard.writeText(bioUrl).then(()=>{
-    const btn = event.target;
-    btn.textContent='✅ Copied!';
-    setTimeout(()=>btn.textContent='📋 Copy', 2000);
-  });
-}
-
-function openBioPage(){
-  const u = currentUser;
-  window.open(`https://www.greenrootssmart.com/store?id=${u.id}`, '_blank');
-}
-
-async function saveProfile(){
-  const updates = {
-    business_name: document.getElementById('bp-business').value.trim(),
-    owner_name: document.getElementById('bp-owner').value.trim(),
-    mobile: document.getElementById('bp-mobile').value.trim(),
-    city: document.getElementById('bp-city').value.trim(),
-    state: document.getElementById('bp-state').value.trim(),
-    category: document.getElementById('bp-category').value.trim(),
-    description: document.getElementById('bp-description').value.trim(),
-    website: document.getElementById('bp-website').value.trim(),
-    email: document.getElementById('bp-email').value.trim(),
-    instagram: document.getElementById('bp-instagram').value.trim(),
-    linkedin: document.getElementById('bp-linkedin').value.trim(),
-    youtube: document.getElementById('bp-youtube').value.trim(),
-    facebook: document.getElementById('bp-facebook').value.trim(),
-  };
-  const { error } = await supabaseClient.from('suppliers').update(updates).eq('id', currentUser.id);
-  const msg = document.getElementById('bp-msg');
-  if(error){
-    msg.style.display='block'; msg.style.background='#fce4ec'; msg.style.color='#c62828'; msg.textContent='Error: '+error.message;
+function updateSidebarAvatar(logoUrl){
+  const el=document.getElementById('sidebarInitial');
+  if(!el)return;
+  if(logoUrl){
+    el.innerHTML='<img src="'+logoUrl+'" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/>';
   } else {
-    msg.style.display='block'; msg.style.background='#e8f5e2'; msg.style.color='#2d7a3a'; msg.textContent='✅ Profile & Bio Page updated! Share your bio link now 🌿';
-    currentUser.business = updates.business_name;
-    currentUser.name = updates.owner_name;
-    localStorage.setItem('grs_user', JSON.stringify(currentUser));
-  }
-  setTimeout(()=>msg.style.display='none', 4000);
-}
-
-window.onload = initDashboard;
-
-// ══════════════════════════════════════
-// GRS VERIFICATION SYSTEM
-// ══════════════════════════════════════
-
-let vfLevel = 'bronze';
-let vfGstUrl = '';
-let vfProductUrl = '';
-let vfCertUrl = '';
-
-// Category specific questions
-const CAT_QUESTIONS = {
-  'Solar Energy': [
-    {id:'vf-cat-1', q:'What solar products do you sell? (panels, inverters, batteries, EPC)', type:'text', placeholder:'e.g. Monocrystalline panels, hybrid inverters'},
-    {id:'vf-cat-2', q:'Do your solar panels have BIS / IEC certification?', type:'select', options:['Yes — BIS certified','Yes — IEC certified','No — but manufacturer certified','Planning to get certified']},
-    {id:'vf-cat-3', q:'Annual supply capacity (in MW or units)?', type:'text', placeholder:'e.g. 5 MW/year or 1000 units/year'},
-  ],
-  'Organic Farming': [
-    {id:'vf-cat-1', q:'What organic products do you supply?', type:'text', placeholder:'e.g. Vermicompost, bio fertilizers, organic seeds'},
-    {id:'vf-cat-2', q:'Are your products certified organic?', type:'select', options:['Yes — India Organic (NPOP)','Yes — PGS India','Yes — FSSAI Organic','No — natural/chemical free but not certified','Applying for certification']},
-    {id:'vf-cat-3', q:'Do you supply to FPOs or work with farmer groups?', type:'select', options:['Yes — part of FPO','Yes — work with multiple farmers','No — individual supplier']},
-  ],
-  'Eco Packaging': [
-    {id:'vf-cat-1', q:'What eco packaging materials do you work with?', type:'text', placeholder:'e.g. Bagasse, kraft paper, biodegradable bags, bamboo'},
-    {id:'vf-cat-2', q:'Is your packaging compostable/biodegradable certified?', type:'select', options:['Yes — IS 17088 certified','Yes — EN 13432 certified','No — but made from natural materials','Not certified yet']},
-    {id:'vf-cat-3', q:'Can you do custom printing/branding on packaging?', type:'select', options:['Yes — full custom printing','Yes — basic printing','No — plain packaging only']},
-  ],
-  'Water Technology': [
-    {id:'vf-cat-1', q:'What water technology products/services do you offer?', type:'text', placeholder:'e.g. RO systems, water treatment plants, rainwater harvesting'},
-    {id:'vf-cat-2', q:'Do your products have any quality certifications?', type:'select', options:['Yes — BIS certified','Yes — NSF/ANSI certified','Yes — ISO certified','No formal certification']},
-    {id:'vf-cat-3', q:'Do you offer installation and after-sales service?', type:'select', options:['Yes — full installation + AMC','Yes — installation only','No — product supply only']},
-  ],
-  'Waste Management': [
-    {id:'vf-cat-1', q:'What waste management solutions do you provide?', type:'text', placeholder:'e.g. Composting, biogas, recycling equipment, e-waste'},
-    {id:'vf-cat-2', q:'Are you registered with any pollution control board?', type:'select', options:['Yes — CPCB registered','Yes — State PCB registered','No — but compliant','Not applicable']},
-    {id:'vf-cat-3', q:'Do you provide waste audit or consultancy services?', type:'select', options:['Yes','No','Planning to offer']},
-  ],
-  'Green Building': [
-    {id:'vf-cat-1', q:'What green building products/services do you offer?', type:'text', placeholder:'e.g. Fly ash bricks, bamboo construction, low VOC paints'},
-    {id:'vf-cat-2', q:'Do your products contribute to LEED/GRIHA points?', type:'select', options:['Yes — LEED certified','Yes — GRIHA rated','Yes — BEE rated','Not certified but eco materials']},
-    {id:'vf-cat-3', q:'Minimum project size you can serve?', type:'select', options:['Any size — individual homes','Small commercial — up to 5000 sqft','Medium commercial — up to 50000 sqft','Large commercial/industrial projects']},
-  ],
-  'EV Components': [
-    {id:'vf-cat-1', q:'What EV components do you supply?', type:'text', placeholder:'e.g. Lithium batteries, BMS, motors, charging stations'},
-    {id:'vf-cat-2', q:'Are your EV components AIS/BIS certified?', type:'select', options:['Yes — AIS certified','Yes — BIS certified','Yes — manufacturer certified','Not certified yet']},
-    {id:'vf-cat-3', q:'Which EV segments do you cater to?', type:'select', options:['Two wheelers','Three wheelers / auto','Cars / four wheelers','Buses / commercial','All segments']},
-  ],
-};
-
-function getDefaultCatQuestions(cat){
-  return [
-    {id:'vf-cat-1', q:`What specific ${cat} products/services do you offer?`, type:'text', placeholder:'Describe your main offerings'},
-    {id:'vf-cat-2', q:'How long have you been in this eco business?', type:'select', options:['Less than 1 year','1-3 years','3-5 years','More than 5 years']},
-    {id:'vf-cat-3', q:'Do you supply to other businesses (B2B)?', type:'select', options:['Yes — primarily B2B','Yes — both B2B and B2C','Mostly B2C but open to B2B']},
-  ];
-}
-
-const CONDUCT_PLEDGES = [
-  'My products are genuinely eco-friendly — no greenwashing',
-  'All product descriptions on GRS are honest and accurate',
-  'I will respond to buyer enquiries within 48 hours',
-  'I will not list non-eco products on GRS',
-  'I will inform GRS if my product or business changes significantly',
-  'I will not misuse the GRS Verified badge',
-  'I accept GRS may revoke verification if I violate these rules',
-];
-
-async function loadVerificationSection(){
-  // Check existing verification status
-  loadVerifStatus();
-  // Load conduct pledges
-  const cc = document.getElementById('conduct-checks');
-  if(cc){
-    cc.innerHTML = CONDUCT_PLEDGES.map((p,i)=>`
-      <div style="display:flex;align-items:flex-start;gap:8px;">
-        <span style="color:#52b043;font-size:14px;flex-shrink:0;">✅</span>
-        <span style="font-size:12px;color:var(--mid);">${p}</span>
-      </div>`).join('');
-  }
-  // Load category questions
-  loadCatQuestions();
-  // Set default level
-  selectLevel('bronze');
-  // Pre-fill GST if available
-  if(currentUser){
-    const gstEl = document.getElementById('vf-gst');
-    if(gstEl && currentUser.gst) gstEl.value = currentUser.gst;
+    el.textContent=(currentUser.name||currentUser.business||'S')[0].toUpperCase();
   }
 }
 
-async function loadVerifStatus(){
-  try{
-    const {data} = await supabaseClient.from('verifications').select('*').eq('supplier_id', currentUser.id).order('applied_at', {ascending:false}).limit(1);
-    const card = document.getElementById('verif-status-card');
-    if(!data||!data.length){
-      card.innerHTML = `<div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;"><div style="font-size:28px;">🏅</div><div><div style="font-size:13px;font-weight:700;color:#e65100;">Not Verified Yet</div><div style="font-size:12px;color:#888;">Fill the form below and apply for your GRS Verified badge!</div></div></div>`;
-      document.getElementById('verif-nav-badge').style.display='inline-block';
-      return;
-    }
-    const v=data[0];
-    const statusColor = v.status==='approved'?'#e8f5e2':v.status==='rejected'?'#fce4ec':'#fff3e0';
-    const statusTextColor = v.status==='approved'?'#2d7a3a':v.status==='rejected'?'#c62828':'#e65100';
-    const statusIcon = v.status==='approved'?getBadgeEmoji(v.level):v.status==='rejected'?'❌':'⏳';
-    const statusText = v.status==='approved'?`🎉 You are GRS ${capitalize(v.level||'Bronze')} Verified!`:v.status==='rejected'?'Application Rejected':'Application Under Review';
-    const statusSub = v.status==='approved'?`Certificate No: GRS-2026-${String(currentUser.id).padStart(4,'0')} · Share your bio page proudly!`:v.status==='rejected'?`Reason: ${v.rejection_reason||'Please reapply with correct documents.'}`:'Our team will review within 48 hours. You will be notified.';
-    card.innerHTML = `
-      <div style="background:${statusColor};border-radius:12px;padding:16px 18px;margin-bottom:12px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:${v.status==='approved'?'12':'0'}px">
-          <div style="font-size:36px;">${statusIcon}</div>
-          <div><div style="font-size:14px;font-weight:700;color:${statusTextColor};">${statusText}</div><div style="font-size:12px;color:#666;">${statusSub}</div></div>
-        </div>
-        ${v.status==='approved'?`
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button onclick="copyBioLink()" style="padding:8px 16px;background:#2d7a3a;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📋 Copy Bio Link</button>
-          <button onclick="openBioPage()" style="padding:8px 16px;background:white;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">👁️ View Bio Page</button>
-        </div>`:''}
-      </div>
-      ${v.status==='rejected'?'<div style="margin-bottom:12px;font-size:13px;color:var(--mid);font-weight:600;">You can reapply by filling the form below:</div>':''}
-      ${v.status==='pending'?'<div style="display:none">' : ''}`;
-    if(v.status==='approved'){
-      document.getElementById('verif-apply-form').style.display='none';
-      document.getElementById('verif-nav-badge').style.display='none';
-    }
-  }catch(e){console.error('Verif status error:',e);}
-}
-
-function getBadgeEmoji(level){
-  if(level==='gold') return '🥇';
-  if(level==='silver') return '🥈';
-  return '🥉';
-}
-
-function capitalize(s){return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
-
-function loadCatQuestions(){
-  const cat = currentUser?.category?.replace(/[☀️🌾📦♻️💧🏗️🚗🔋👗🌿🌬️⚡🚌🌱🧪🏙️🌍🌄📈📋🌐]\s*/g,'').trim();
-  const questions = CAT_QUESTIONS[cat] || getDefaultCatQuestions(cat||'Eco Products');
-  const titleEl = document.getElementById('vf-cat-title');
-  const contentEl = document.getElementById('vf-cat-content');
-  if(titleEl) titleEl.textContent = `📋 Step 4 — ${cat||'Your Category'} Specific Questions`;
-  if(contentEl){
-    contentEl.innerHTML = `<div class="form-grid">${questions.map(q=>`
-      <div class="form-group">
-        <label>${q.q} *</label>
-        ${q.type==='text'
-          ?`<input type="text" id="${q.id}" placeholder="${q.placeholder}" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/>`
-          :`<select id="${q.id}" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;">${q.options.map(o=>`<option>${o}</option>`).join('')}</select>`
-        }
-      </div>`).join('')}</div>`;
-  }
-}
-
-function vfCertTypeChange(val){
-  const nameWrap = document.getElementById('vf-cert-name-wrap');
-  const uploadWrap = document.getElementById('vf-cert-upload-wrap');
-  if(val==='none'){
-    if(nameWrap) nameWrap.style.display='none';
-    if(uploadWrap) uploadWrap.style.display='none';
+function updateTopbarAvatar(logoUrl){
+  const el=document.getElementById('topbarAvatar');
+  if(!el)return;
+  if(logoUrl){
+    el.innerHTML='<img src="'+logoUrl+'" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>';
   } else {
-    if(nameWrap) nameWrap.style.display='block';
-    if(uploadWrap) uploadWrap.style.display='block';
+    el.textContent=(currentUser.name||currentUser.business||'S')[0].toUpperCase();
   }
 }
 
-function selectLevel(level){
-  vfLevel = level;
-  document.querySelectorAll('.vf-level-btn').forEach(btn=>{
-    const l = btn.getAttribute('data-level');
-    btn.style.transform = l===level?'scale(1.05)':'scale(1)';
-    btn.style.boxShadow = l===level?'0 4px 16px rgba(45,122,58,0.2)':'none';
-  });
-  const info = {
-    bronze:'🥉 Bronze — GST + Product Photo + Code of Conduct pledge',
-    silver:'🥈 Silver — All Bronze requirements + Any eco certification',
-    gold:'🥇 Gold — All Silver requirements + Customer references + GRS video call'
-  };
-  const el = document.getElementById('vf-selected-level');
-  if(el) el.textContent = info[level]||'';
+// ══════════════════════════════════
+// LOGO UPLOAD FUNCTIONS
+// ══════════════════════════════════
+async function loadSupplierLogo(){
+  if(!currentUser)return;
+  try{
+    const{data}=await supabaseClient.from('suppliers').select('logo_url').eq('id',currentUser.id).single();
+    if(data&&data.logo_url){
+      showLogoPreview(data.logo_url);
+      currentUser.logo_url=data.logo_url;
+    } else {
+      showLogoInitial();
+    }
+  }catch(e){showLogoInitial();}
 }
 
-function vfUpload(type){
-  if(!window.cloudinary) return vfShowAlert('Upload not ready. Please try again.','error');
-  const widget = cloudinary.createUploadWidget({
-    cloudName:'dvbaciabk', uploadPreset:'grs_products',
-    sources:['local'], multiple:false,
-    clientAllowedFormats:['jpg','png','pdf','jpeg'],
-    maxFileSize:5000000,
-  }, (error, result)=>{
+function showLogoPreview(url){
+  const circle=document.getElementById('logoPreviewCircle');
+  const initText=document.getElementById('logoInitialText');
+  const removeBtn=document.getElementById('removeLogoBtn');
+  if(circle){circle.innerHTML='<img src="'+url+'" alt="Logo" style="width:100%;height:100%;object-fit:cover;border-radius:11px;"/>';}
+  if(removeBtn)removeBtn.style.display='inline-block';
+  updateSidebarAvatar(url);
+  updateTopbarAvatar(url);
+}
+
+function showLogoInitial(){
+  const circle=document.getElementById('logoPreviewCircle');
+  const removeBtn=document.getElementById('removeLogoBtn');
+  if(circle){circle.innerHTML='<span id="logoInitialText" style="font-size:28px;font-weight:700;color:white;">'+(currentUser.business||currentUser.name||'S')[0].toUpperCase()+'</span>';}
+  if(removeBtn)removeBtn.style.display='none';
+  updateSidebarAvatar(null);
+  updateTopbarAvatar(null);
+}
+
+function uploadSupplierLogo(){
+  if(!window.cloudinary){alert('Upload not ready. Please refresh.');return;}
+  const widget=cloudinary.createUploadWidget({
+    cloudName:'dvbaciabk',uploadPreset:'grs_products',
+    sources:['local','camera'],multiple:false,maxFiles:1,
+    maxFileSize:2000000,clientAllowedFormats:['jpg','jpeg','png','webp'],
+    cropping:true,croppingAspectRatio:1,showSkipCropButton:false,
+  },async(error,result)=>{
+    if(error)return;
     if(result.event==='success'){
-      const url = result.info.secure_url;
-      if(type==='gst'){ vfGstUrl=url; document.getElementById('vf-gst-preview').innerHTML=`✅ Document uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
-      if(type==='product'){ vfProductUrl=url; document.getElementById('vf-product-preview').innerHTML=`✅ Photo uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
-      if(type==='cert'){ vfCertUrl=url; document.getElementById('vf-cert-preview').innerHTML=`✅ Certificate uploaded <a href="${url}" target="_blank" style="color:var(--g2)">View</a>`; }
+      const url=result.info.secure_url;
+      const statusEl=document.getElementById('logoStatus');
+      if(statusEl)statusEl.textContent='Saving...';
+      const{error:dbErr}=await supabaseClient.from('suppliers').update({logo_url:url}).eq('id',currentUser.id);
+      if(dbErr){if(statusEl)statusEl.textContent='❌ Error saving.';return;}
+      currentUser.logo_url=url;
+      localStorage.setItem('grs_user',JSON.stringify(currentUser));
+      showLogoPreview(url);
+      if(statusEl){statusEl.textContent='✅ Logo uploaded!';setTimeout(()=>statusEl.textContent='',3000);}
     }
   });
   widget.open();
 }
 
-function vfShowAlert(msg, type='error'){
-  const el = document.getElementById('vf-alert');
-  if(!el) return;
-  el.style.display='block';
-  el.style.background = type==='success'?'#e8f5e2':'#fce4ec';
-  el.style.color = type==='success'?'#2d7a3a':'#c62828';
-  el.textContent = msg;
-  if(type!=='success') setTimeout(()=>el.style.display='none',5000);
+async function removeSupplierLogo(){
+  if(!confirm('Remove your business logo?'))return;
+  const{error}=await supabaseClient.from('suppliers').update({logo_url:null}).eq('id',currentUser.id);
+  if(!error){
+    currentUser.logo_url=null;
+    localStorage.setItem('grs_user',JSON.stringify(currentUser));
+    showLogoInitial();
+    const statusEl=document.getElementById('logoStatus');
+    if(statusEl){statusEl.textContent='✅ Logo removed.';setTimeout(()=>statusEl.textContent='',3000);}
+  }
 }
 
-async function submitVerification(){
-  // Validate required fields
-  const gst = document.getElementById('vf-gst')?.value.trim();
-  const regType = document.getElementById('vf-reg-type')?.value;
-  const productName = document.getElementById('vf-product-name')?.value.trim();
-  const ecoReason = document.getElementById('vf-eco-reason')?.value.trim();
-  const supplyReach = document.getElementById('vf-supply-reach')?.value;
-  const moq = document.getElementById('vf-moq')?.value.trim();
-  const pledge = document.getElementById('vf-pledge')?.checked;
-
-  if(!gst) return vfShowAlert('Please enter your GST number!');
-  if(!regType) return vfShowAlert('Please select your registration type!');
-  if(!vfGstUrl) return vfShowAlert('Please upload your business registration document!');
-  if(!productName) return vfShowAlert('Please enter your main product name!');
-  if(!ecoReason) return vfShowAlert('Please explain why your product is eco-friendly!');
-  if(!vfProductUrl) return vfShowAlert('Please upload a product photo!');
-  if(!supplyReach) return vfShowAlert('Please select your supply reach!');
-  if(!moq) return vfShowAlert('Please enter your minimum order quantity!');
-  if(!pledge) return vfShowAlert('Please agree to the GRS Eco Code of Conduct!');
-
-  // Silver/Gold requires certification
-  if((vfLevel==='silver'||vfLevel==='gold') && document.getElementById('vf-cert-type')?.value==='none'){
-    return vfShowAlert('Silver and Gold levels require an eco certification. Please upload your certification or apply for Bronze.');
-  }
-
-  const btn = document.getElementById('vf-submit-btn');
-  btn.disabled=true; btn.textContent='Submitting...';
-
-  // Collect cat questions
-  const catAnswers = {};
-  ['vf-cat-1','vf-cat-2','vf-cat-3'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) catAnswers[id]=el.value;
-  });
-
-  const data = {
-    supplier_id: currentUser.id,
-    supplier_name: currentUser.business,
-    category: currentUser.category,
-    level: vfLevel,
-    gst_number: gst,
-    reg_type: regType,
-    gst_doc_url: vfGstUrl,
-    product_name: productName,
-    eco_reason: ecoReason,
-    product_photo_url: vfProductUrl,
-    cert_type: document.getElementById('vf-cert-type')?.value||'none',
-    cert_name: document.getElementById('vf-cert-name')?.value||'',
-    cert_doc_url: vfCertUrl||null,
-    supply_reach: supplyReach,
-    moq: moq,
-    delivery_time: document.getElementById('vf-delivery')?.value||'',
-    response_time: document.getElementById('vf-response')?.value||'',
-    cat_answers: JSON.stringify(catAnswers),
-    code_signed: true,
-    status: 'pending',
-    applied_at: new Date().toISOString(),
-  };
-
+// ══════════════════════════════════
+// STATS
+// ══════════════════════════════════
+async function loadStats(){
   try{
-    const {error} = await supabaseClient.from('verifications').insert([data]);
-    if(error){ vfShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent='🏆 Submit Verification Application'; return; }
-    vfShowAlert('🎉 Application submitted successfully! Our team will review within 48 hours.','success');
-    btn.textContent='✅ Application Submitted!';
-    setTimeout(()=>loadVerifStatus(), 2000);
-  }catch(e){
-    vfShowAlert('Something went wrong. Please try again.');
-    btn.disabled=false; btn.textContent='🏆 Submit Verification Application';
-  }
-}
-// END VERIFICATION SYSTEM
-
-</script>
-
-
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-<style>.cert-item{padding:8px 12px;border:1.5px solid #d4e8cc;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.2s;text-align:center;}.cert-item:hover{border-color:#52b043;}.cert-item.selected{border-color:#52b043;background:#e8f5e2;color:#2d7a3a;}</style>
-<script>
-const AP_CLOUD = 'dvbaciabk';
-const AP_PRESET = 'grs_products';
-let apPhotos = [];
-let apCerts = [];
-
-function apOpenUpload(){
-  if(apPhotos.length >= 5){ apShowAlert('Max 5 photos!'); return; }
-  cloudinary.openUploadWidget({
-    cloudName: AP_CLOUD, uploadPreset: AP_PRESET,
-    sources: ['local','camera'], multiple: true,
-    maxFiles: 5 - apPhotos.length, maxFileSize: 5000000,
-    clientAllowedFormats: ['jpg','jpeg','png','webp'],
-    cropping: false,
-  }, function(err, result){
-    if(!err && result && result.event === 'success'){
-      // Auto-standardize image URL for consistent display
-      var url = result.info.secure_url;
-      apPhotos.push(url);
-      apRenderPhotos();
-    }
-  });
+    const{data:products}=await supabaseClient.from('products').select('id').eq('supplier_id',currentUser.id);
+    const productCount=products?products.length:0;
+    document.getElementById('statProducts').textContent=productCount;
+    const{data:enquiries}=await supabaseClient.from('enquiries').select('id,status,product_id,supplier_id');
+    const myIds=products?products.map(p=>p.id):[];
+    const myEnq=enquiries?enquiries.filter(e=>myIds.includes(e.product_id)||String(e.supplier_id)===String(currentUser.id)):[];
+    const newCount=myEnq.filter(e=>e.status==='new').length;
+    document.getElementById('statEnquiries').textContent=myEnq.length;
+    if(document.getElementById('statNew'))document.getElementById('statNew').textContent=newCount+' new';
+    if(newCount>0){const b=document.getElementById('enquiryBadge');if(b){b.textContent=newCount;b.style.display='inline';}}
+  }catch(e){console.error('loadStats:',e);}
 }
 
-function apRenderPhotos(){
-  const p = document.getElementById('ap-photos-preview');
-  const c = document.getElementById('ap-photo-count');
-  if(!p) return;
-  p.innerHTML = '';
-  apPhotos.forEach((url, i) => {
-    const w = document.createElement('div');
-    w.style.cssText = 'position:relative;display:inline-block;';
-    w.innerHTML = '<img src="'+url+'" style="width:80px;height:80px;border-radius:8px;object-fit:cover;border:2px solid #a8d8a0;"/><button onclick="apRemovePhoto('+i+')" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#c62828;color:white;border-radius:50%;font-size:10px;border:none;cursor:pointer;font-weight:700;">x</button>';
-    p.appendChild(w);
-  });
-  if(c) c.textContent = apPhotos.length > 0 ? apPhotos.length+'/5 photos uploaded' : '';
+// ══════════════════════════════════
+// ENQUIRIES
+// ══════════════════════════════════
+async function loadRecentEnquiries(){
+  const{data:myProds}=await supabaseClient.from('products').select('id').eq('supplier_id',currentUser.id);
+  const myIds=myProds?myProds.map(p=>p.id):[];
+  const{data:allEnq}=await supabaseClient.from('enquiries').select('*').order('created_at',{ascending:false}).limit(50);
+  const enquiries=allEnq?allEnq.filter(e=>myIds.includes(e.product_id)||String(e.supplier_id)===String(currentUser.id)).slice(0,4):[];
+  const container=document.getElementById('recentEnquiries');
+  if(!enquiries||enquiries.length===0){container.innerHTML='<p style="color:var(--light);font-size:13px;padding:16px 0;text-align:center">No enquiries yet! 🌿</p>';return;}
+  container.innerHTML=enquiries.map(e=>{
+    const initials=e.buyer_name?e.buyer_name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2):'B';
+    const colors=['#1565c0','#6a1b9a','#e65100','#2d7a3a','#c62828'];
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const timeAgo=getTimeAgo(e.created_at);
+    const badgeClass=e.status==='new'?'badge-new':e.status==='replied'?'badge-replied':'badge-pending';
+    return`<div class="enquiry-item"><div class="enq-av" style="background:${color}">${initials}</div><div style="flex:1"><div class="enq-name">${e.buyer_name}</div><div class="enq-product">${e.product_name}</div></div><div style="text-align:right"><span class="enq-badge ${badgeClass}">${e.status||'new'}</span><div class="enq-time">${timeAgo}</div></div></div>`;
+  }).join('');
 }
 
-function apRemovePhoto(i){ apPhotos.splice(i,1); apRenderPhotos(); }
-
-function apShowAlert(msg, type){
-  const b = document.getElementById('ap-alert');
-  if(!b) return;
-  b.textContent = msg;
-  b.style.display = 'block';
-  b.style.background = type==='success' ? '#e8f5e2' : '#fce4ec';
-  b.style.color = type==='success' ? '#2d7a3a' : '#c62828';
-  b.style.border = type==='success' ? '1px solid #a8d8a0' : '1px solid #f48fb1';
-  setTimeout(()=>b.style.display='none', 5000);
+async function loadAllEnquiries(){
+  const{data:enquiries}=await supabaseClient.from('enquiries').select('*').eq('supplier_name',currentUser.business).order('created_at',{ascending:false});
+  const container=document.getElementById('allEnquiriesList');
+  if(!enquiries||enquiries.length===0){container.innerHTML='<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No enquiries yet! 🌿</p>';return;}
+  container.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="border-bottom:2px solid var(--g5)"><th style="text-align:left;padding:10px;color:var(--mid)">Buyer</th><th style="text-align:left;padding:10px;color:var(--mid)">Product</th><th style="text-align:left;padding:10px;color:var(--mid)">Mobile</th><th style="text-align:left;padding:10px;color:var(--mid)">Date</th><th style="text-align:left;padding:10px;color:var(--mid)">Action</th></tr></thead><tbody>${enquiries.map(e=>`<tr style="border-bottom:1px solid var(--g5)"><td style="padding:10px"><b>${e.buyer_name}</b></td><td style="padding:10px">${e.product_name}</td><td style="padding:10px">${e.buyer_mobile}</td><td style="padding:10px;color:var(--light)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td><td style="padding:10px"><a href="https://wa.me/91${e.buyer_mobile}" target="_blank" style="background:#25d366;color:white;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:600;">💬 WA</a></td></tr>`).join('')}</tbody></table>`;
 }
 
-// ═══════════════════════════════════════
-// PRODUCT LIMITS PER PLAN
-// ═══════════════════════════════════════
-const PLAN_LIMITS = {
-  'free': 5,
-  'starter': 15,
-  'pro': 50,
-  'premium': 999,
-  'enterprise': 9999
-};
+// ══════════════════════════════════
+// PRODUCTS
+// ══════════════════════════════════
+async function loadMyProducts(){
+  const{data:products}=await supabaseClient.from('products').select('*').eq('supplier_id',currentUser.id).order('created_at',{ascending:false});
+  const container=document.getElementById('myProductsList');
+  if(!products||products.length===0){container.innerHTML='<p style="color:var(--light);font-size:13px;padding:20px;text-align:center">No products yet! 🌿</p>';return;}
+  container.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="border-bottom:2px solid var(--g5)"><th style="text-align:left;padding:10px;color:var(--mid)">Product</th><th style="text-align:left;padding:10px;color:var(--mid)">Category</th><th style="text-align:left;padding:10px;color:var(--mid)">Price</th><th style="text-align:left;padding:10px;color:var(--mid)">MOQ</th><th style="text-align:left;padding:10px;color:var(--mid)">Status</th><th style="text-align:left;padding:10px;color:var(--mid)">Actions</th></tr></thead><tbody>${products.map(p=>`<tr style="border-bottom:1px solid var(--g5)"><td style="padding:10px"><b>🌿 ${p.name}</b></td><td style="padding:10px;color:var(--mid)">${p.category}</td><td style="padding:10px">₹${p.price}/${p.price_unit}</td><td style="padding:10px">${p.moq} units</td><td style="padding:10px"><span style="background:${p.status==='active'||p.status==='published'?'#e8f5e2':'#fff3e0'};color:${p.status==='active'||p.status==='published'?'#2d7a3a':'#e65100'};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600">${p.status||'active'}</span></td><td style="padding:10px;white-space:nowrap"><button onclick="editProduct(${JSON.stringify(p).replace(/"/g,'&quot;')})" style="padding:5px 12px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;margin-right:6px;">✏️ Edit</button><button onclick="deleteProduct(${p.id},'${p.name.replace(/'/g,"\\\'")}')" style="padding:5px 12px;background:#fff0f0;color:#c0392b;border:1.5px solid #f5c6c6;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;">🗑️ Delete</button></td></tr>`).join('')}</tbody></table>`;
+}
 
-async function checkProductLimit() {
-  const plan = (currentUser.plan || 'free').toLowerCase();
-  const limit = PLAN_LIMITS[plan] || 5;
-
-  const { data } = await supabaseClient
-    .from('products')
-    .select('id', { count: 'exact' })
-    .eq('supplier_id', currentUser.id);
-
-  const count = data ? data.length : 0;
-
-  if (count >= limit) {
-    const planName = plan.charAt(0).toUpperCase() + plan.slice(1);
-    apShowAlert(
-      `⚠️ You have reached your ${planName} plan limit of ${limit} products. ` +
-      `Upgrade your plan to list more products!`,
-      'error'
-    );
-    return false;
-  }
+async function checkProductLimit(){
+  const plan=(currentUser.plan||'free').toLowerCase();
+  const limit=PLAN_LIMITS[plan]||5;
+  const{data}=await supabaseClient.from('products').select('id',{count:'exact'}).eq('supplier_id',currentUser.id);
+  const count=data?data.length:0;
+  if(count>=limit){apShowAlert(`⚠️ You have reached your ${plan} plan limit of ${limit} products. Upgrade to list more!`,'error');return false;}
   return true;
 }
 
 async function apSaveProduct(status){
-  const name = document.getElementById('ap-name').value.trim();
-  const cat = document.getElementById('ap-category').value;
-  const desc = document.getElementById('ap-desc').value.trim();
-  const price = document.getElementById('ap-price').value;
-  const moq = document.getElementById('ap-moq').value;
-  const wa = document.getElementById('ap-whatsapp').value.trim();
-  if(!name) return apShowAlert('Enter Product Name!');
-  if(!cat) return apShowAlert('Select Category!');
-  if(!desc) return apShowAlert('Enter Description!');
-  if(!price) return apShowAlert('Enter Price!');
-  if(!moq) return apShowAlert('Enter MOQ!');
-  if(!wa) return apShowAlert('Enter WhatsApp number!');
-
-  const editId = document.getElementById('ap-edit-id').value;
-  const isEdit = editId !== '';
-  // Check product limit for new products only
-  const isNewProduct = !document.getElementById('ap-publish-btn').dataset.editId;
-  if (isNewProduct) {
-    const withinLimit = await checkProductLimit();
-    if (!withinLimit) return;
-  }
-
-  const btn = document.getElementById('ap-publish-btn');
-  btn.disabled = true;
-  btn.textContent = isEdit ? 'Updating...' : 'Publishing...';
-
-  const u = JSON.parse(localStorage.getItem('grs_user')||'{}');
-  const data = {
-    supplier_id: u.id, supplier_name: u.business||u.name,
-    name, category: cat, brand: document.getElementById('ap-brand').value.trim(),
-    description: desc, price: parseFloat(price),
-    price_unit: document.getElementById('ap-unit').value,
-    moq: parseInt(moq), availability: document.getElementById('ap-availability').value,
-    delivery_time: document.getElementById('ap-delivery').value,
-    shipping: document.getElementById('ap-shipping').value,
-    whatsapp: wa, photos: JSON.stringify(apPhotos),
-    variations: JSON.stringify(getVariations()),
-    image_url: apPhotos.length > 0 ? apPhotos[0] : null,
-    status, location: u.city||u.state||'India',
-    city: u.city||'',
-    state: u.state||'',
-    supplier_name: u.business_name||'',
-    mobile: u.mobile||'',
-  };
-
-  try {
+  const name=document.getElementById('ap-name').value.trim();
+  const cat=document.getElementById('ap-category').value;
+  const desc=document.getElementById('ap-desc').value.trim();
+  const price=document.getElementById('ap-price').value;
+  const moq=document.getElementById('ap-moq').value;
+  const wa=document.getElementById('ap-whatsapp').value.trim();
+  if(!name)return apShowAlert('Enter Product Name!');
+  if(!cat)return apShowAlert('Select Category!');
+  if(!desc)return apShowAlert('Enter Description!');
+  if(!price)return apShowAlert('Enter Price!');
+  if(!moq)return apShowAlert('Enter MOQ!');
+  if(!wa)return apShowAlert('Enter WhatsApp number!');
+  const editId=document.getElementById('ap-edit-id').value;
+  const isEdit=editId!=='';
+  if(!isEdit){const ok=await checkProductLimit();if(!ok)return;}
+  const btn=document.getElementById('ap-publish-btn');
+  btn.disabled=true;btn.textContent=isEdit?'Updating...':'Publishing...';
+  const u=JSON.parse(localStorage.getItem('grs_user')||'{}');
+  const data={supplier_id:u.id,supplier_name:u.business||u.name,name,category:cat,brand:document.getElementById('ap-brand').value.trim(),description:desc,price:parseFloat(price),price_unit:document.getElementById('ap-unit').value,moq:parseInt(moq),availability:document.getElementById('ap-availability').value,delivery_time:document.getElementById('ap-delivery').value,shipping:document.getElementById('ap-shipping').value,whatsapp:wa,photos:JSON.stringify(apPhotos),variations:JSON.stringify(getVariations()),image_url:apPhotos.length>0?apPhotos[0]:null,status,location:u.city||u.state||'India',city:u.city||'',state:u.state||'',mobile:u.mobile||''};
+  try{
     let error;
-    if(isEdit){
-      // UPDATE existing product
-      const res = await supabaseClient.from('products').update(data).eq('id', editId);
-      error = res.error;
-    } else {
-      // INSERT new product
-      const res = await supabaseClient.from('products').insert([data]);
-      error = res.error;
-    }
-    if(error){ apShowAlert('Error: '+error.message); btn.disabled=false; btn.textContent= isEdit?'✅ Update Product':'🌿 Publish Product'; return; }
-    apShowAlert(isEdit ? '✅ Product updated successfully!' : '✅ Product published!', 'success');
-    btn.disabled=false;
-    apCancelEdit();
-    setTimeout(()=>{ showSection('products', null); loadMyProducts(); }, 1500);
-  } catch(e){ apShowAlert('Something went wrong!'); btn.disabled=false; btn.textContent=isEdit?'✅ Update Product':'🌿 Publish Product'; }
+    if(isEdit){const res=await supabaseClient.from('products').update(data).eq('id',editId);error=res.error;}
+    else{const res=await supabaseClient.from('products').insert([data]);error=res.error;}
+    if(error){apShowAlert('Error: '+error.message);btn.disabled=false;btn.textContent=isEdit?'✅ Update Product':'🌿 Publish Product';return;}
+    apShowAlert(isEdit?'✅ Product updated!':'✅ Product published!','success');
+    btn.disabled=false;apCancelEdit();
+    setTimeout(()=>{showSection('products',null);loadMyProducts();},1500);
+  }catch(e){apShowAlert('Something went wrong!');btn.disabled=false;btn.textContent=isEdit?'✅ Update Product':'🌿 Publish Product';}
 }
 
-// Fill form with product data for editing
 function editProduct(p){
-  document.getElementById('ap-edit-id').value = p.id;
-  document.getElementById('ap-name').value = p.name || '';
-  document.getElementById('ap-category').value = p.category || '';
-  document.getElementById('ap-desc').value = p.description || '';
-  document.getElementById('ap-price').value = p.price || '';
-  document.getElementById('ap-moq').value = p.moq || '';
-  document.getElementById('ap-whatsapp').value = p.whatsapp || '';
-  document.getElementById('ap-brand').value = p.brand || '';
-  document.getElementById('ap-unit').value = p.price_unit || 'per unit';
-  document.getElementById('ap-availability').value = p.availability || 'in_stock';
-  document.getElementById('ap-delivery').value = p.delivery_time || '3-7 days';
-  document.getElementById('ap-shipping').value = p.shipping || 'Pan India';
-  // Show edit mode banner and update button label
-  document.getElementById('ap-edit-banner').style.display = 'block';
-  document.getElementById('ap-publish-btn').textContent = '✅ Update Product';
-  document.getElementById('ap-draft-btn').style.display = 'none';
-  // Load existing photos
-  try { apPhotos = JSON.parse(p.photos || '[]'); } catch(e){ apPhotos = p.image_url ? [p.image_url] : []; }
-  apRenderPhotos();
-  // Navigate to the add-product section
-  showSection('add-product', null);
-  window.scrollTo({top:0, behavior:'smooth'});
+  document.getElementById('ap-edit-id').value=p.id;
+  document.getElementById('ap-name').value=p.name||'';
+  document.getElementById('ap-category').value=p.category||'';
+  document.getElementById('ap-desc').value=p.description||'';
+  document.getElementById('ap-price').value=p.price||'';
+  document.getElementById('ap-moq').value=p.moq||'';
+  document.getElementById('ap-whatsapp').value=p.whatsapp||'';
+  document.getElementById('ap-brand').value=p.brand||'';
+  document.getElementById('ap-unit').value=p.price_unit||'per unit';
+  document.getElementById('ap-availability').value=p.availability||'in_stock';
+  document.getElementById('ap-delivery').value=p.delivery_time||'3-7 days';
+  document.getElementById('ap-shipping').value=p.shipping||'Pan India';
+  document.getElementById('ap-edit-banner').style.display='block';
+  document.getElementById('ap-publish-btn').textContent='✅ Update Product';
+  document.getElementById('ap-draft-btn').style.display='none';
+  try{apPhotos=JSON.parse(p.photos||'[]');}catch(e){apPhotos=p.image_url?[p.image_url]:[];}
+  apRenderPhotos();showSection('add-product',null);window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Cancel edit — reset form back to add mode
 function apCancelEdit(){
-  document.getElementById('ap-edit-id').value = '';
-  document.getElementById('ap-edit-banner').style.display = 'none';
-  document.getElementById('ap-publish-btn').textContent = '🌿 Publish Product';
-  document.getElementById('ap-draft-btn').style.display = 'inline-flex';
-  ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
-  apPhotos=[]; apCerts=[]; clearVariations();
-  try{ apRenderPhotos(); }catch(e){}
+  document.getElementById('ap-edit-id').value='';
+  document.getElementById('ap-edit-banner').style.display='none';
+  document.getElementById('ap-publish-btn').textContent='🌿 Publish Product';
+  document.getElementById('ap-draft-btn').style.display='inline-flex';
+  ['ap-name','ap-category','ap-desc','ap-price','ap-moq','ap-whatsapp','ap-brand'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  apPhotos=[];clearVariations();try{apRenderPhotos();}catch(e){}
 }
 
-// Delete a product with confirmation
-async function deleteProduct(id, name){
-  if(!confirm(`Are you sure you want to delete "${name}"?\n\nThis cannot be undone.`)) return;
-  try {
-    const { error } = await supabaseClient.from('products').delete().eq('id', id);
-    if(error){ alert('Error deleting: ' + error.message); return; }
-    loadMyProducts();
-  } catch(e){ alert('Something went wrong!'); }
+async function deleteProduct(id,name){
+  if(!confirm(`Delete "${name}"? Cannot be undone.`))return;
+  try{const{error}=await supabaseClient.from('products').delete().eq('id',id);if(error){alert('Error: '+error.message);return;}loadMyProducts();}catch(e){alert('Something went wrong!');}
 }
 
-
-// ═══════════════════════════════════════════════════
-// BULK PRODUCT LISTING
-// ═══════════════════════════════════════════════════
-var bulkRowCount = 0;
-
-function setListingMode(mode) {
-  var singleForm = document.querySelector('#section-add-product .card');
-  var publishBtn = document.getElementById('ap-publish-btn');
-  var bulkSection = document.getElementById('bulkSection');
-  var modeSingleBtn = document.getElementById('modeSingleBtn');
-  var modeBulkBtn = document.getElementById('modeBulkBtn');
-  var bulkLabel = document.getElementById('bulkCountLabel');
-
-  if (mode === 'bulk') {
-    // Hide single form fields except toggle
-    document.querySelectorAll('#section-add-product > .card').forEach(function(c){ c.style.display = 'none'; });
-    if (publishBtn) publishBtn.style.display = 'none';
-    bulkSection.style.display = 'block';
-    modeBulkBtn.style.background = '#2d7a3a';
-    modeBulkBtn.style.color = 'white';
-    modeSingleBtn.style.background = '#e8f5e2';
-    modeSingleBtn.style.color = '#2d7a3a';
-    bulkLabel.style.display = 'inline';
-    if (bulkRowCount === 0) {
-      addBulkRow();
-      addBulkRow();
-      addBulkRow();
-    }
-  } else {
-    document.querySelectorAll('#section-add-product > .card').forEach(function(c){ c.style.display = ''; });
-    if (publishBtn) publishBtn.style.display = '';
-    bulkSection.style.display = 'none';
-    modeSingleBtn.style.background = '#2d7a3a';
-    modeSingleBtn.style.color = 'white';
-    modeBulkBtn.style.background = '#e8f5e2';
-    modeBulkBtn.style.color = '#2d7a3a';
-    bulkLabel.style.display = 'none';
-  }
+// ══════════════════════════════════
+// PHOTO UPLOAD
+// ══════════════════════════════════
+function apOpenUpload(){
+  if(apPhotos.length>=5){apShowAlert('Max 5 photos!');return;}
+  cloudinary.openUploadWidget({cloudName:AP_CLOUD,uploadPreset:AP_PRESET,sources:['local','camera'],multiple:true,maxFiles:5-apPhotos.length,maxFileSize:5000000,clientAllowedFormats:['jpg','jpeg','png','webp'],cropping:false},function(err,result){if(!err&&result&&result.event==='success'){apPhotos.push(result.info.secure_url);apRenderPhotos();}});
 }
 
-function addBulkRow() {
-  bulkRowCount++;
-  var n = bulkRowCount;
-  var container = document.getElementById('bulkProductRows');
-  var label = document.getElementById('bulkCountLabel');
-  if (label) label.textContent = bulkRowCount + ' products ready';
-
-  var row = document.createElement('div');
-  row.id = 'bulkRow_' + n;
-  row.style.cssText = 'background:white;border-radius:12px;padding:16px;margin-bottom:12px;border:1.5px solid #e8f0e8;';
-  row.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">' +
-    '<span style="font-size:13px;font-weight:700;color:#1a4a24;">📦 Product ' + n + '</span>' +
-    '<button onclick="removeBulkRow(' + n + ')" style="background:none;border:none;color:#e74c3c;font-size:18px;cursor:pointer;">✕</button>' +
-    '</div>' +
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">' +
-    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Name *</label>' +
-    '<input type="text" id="bulk-name-' + n + '" placeholder="e.g. Bamboo Lamp Shade" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Description</label>' +
-    '<textarea id="bulk-desc-' + n + '" placeholder="Brief product description..." style="width:100%;height:60px;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:inherit;"></textarea></div>' +
-    '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Price (₹)</label>' +
-    '<input type="number" id="bulk-price-' + n + '" placeholder="0.00" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">MOQ</label>' +
-    '<input type="number" id="bulk-moq-' + n + '" placeholder="e.g. 50" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Unit</label>' +
-    '<input type="text" id="bulk-unit-' + n + '" placeholder="e.g. per piece" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Variations (Optional) <span style="font-weight:400;font-size:10px;">e.g. Small|200, Medium|250, Large|300</span></label>' +
-    '<input type="text" id="bulk-variations-' + n + '" placeholder="Small|200, Medium|250, Large|300" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div>' +
-    '<div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Photo</label>' +
-    '<div style="display:flex;align-items:center;gap:10px;">' +
-    '<button type="button" onclick="bulkUploadPhoto(' + n + ')" style="padding:9px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📷 Upload Photo</button>' +
-    '<span id="bulk-img-preview-' + n + '" style="font-size:12px;color:#7a9a74;">No photo yet</span>' +
-    '<input type="hidden" id="bulk-img-' + n + '" value=""/>' +
-    '</div></div>' +
-    '</div>';
-  container.appendChild(row);
+function apRenderPhotos(){
+  const p=document.getElementById('ap-photos-preview');
+  const c=document.getElementById('ap-photo-count');
+  if(!p)return;
+  p.innerHTML='';
+  apPhotos.forEach((url,i)=>{const w=document.createElement('div');w.style.cssText='position:relative;display:inline-block;';w.innerHTML='<img src="'+url+'" style="width:80px;height:80px;border-radius:8px;object-fit:cover;border:2px solid #a8d8a0;"/><button onclick="apRemovePhoto('+i+')" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#c62828;color:white;border-radius:50%;font-size:10px;border:none;cursor:pointer;font-weight:700;">x</button>';p.appendChild(w);});
+  if(c)c.textContent=apPhotos.length>0?apPhotos.length+'/5 photos uploaded':'';
 }
 
-function removeBulkRow(n) {
-  var row = document.getElementById('bulkRow_' + n);
-  if (row) row.remove();
-  var label = document.getElementById('bulkCountLabel');
-  if (label) {
-    var remaining = document.querySelectorAll('#bulkProductRows > div').length;
-    label.textContent = remaining + ' products ready';
-  }
+function apRemovePhoto(i){apPhotos.splice(i,1);apRenderPhotos();}
+
+function apShowAlert(msg,type){
+  const b=document.getElementById('ap-alert');if(!b)return;
+  b.textContent=msg;b.style.display='block';
+  b.style.background=type==='success'?'#e8f5e2':'#fce4ec';
+  b.style.color=type==='success'?'#2d7a3a':'#c62828';
+  setTimeout(()=>b.style.display='none',5000);
 }
 
-async function publishAllBulk() {
-  var cat = document.getElementById('bulk-category').value;
-  var brand = document.getElementById('bulk-brand').value.trim();
-  var avail = document.getElementById('bulk-availability').value;
-  var delivery = document.getElementById('bulk-delivery').value.trim();
-  var shipping = document.getElementById('bulk-shipping').value.trim();
-
-  if (!cat) { showBulkAlert('Please select a category!', 'error'); return; }
-
-  // Get user supplier info
-  var userStr = localStorage.getItem('grs_user') || sessionStorage.getItem('grs_user');
-  var u = userStr ? JSON.parse(userStr) : {};
-
-  // Collect all product rows
-  var rows = document.querySelectorAll('#bulkProductRows > div');
-  var products = [];
-  var errors = [];
-
-  rows.forEach(function(row) {
-    var id = row.id.replace('bulkRow_', '');
-    var name = (document.getElementById('bulk-name-' + id) || {}).value;
-    if (!name || !name.trim()) return; // Skip empty rows
-
-    var desc = (document.getElementById('bulk-desc-' + id) || {}).value || '';
-    var price = parseFloat((document.getElementById('bulk-price-' + id) || {}).value) || null;
-    var moq = parseInt((document.getElementById('bulk-moq-' + id) || {}).value) || null;
-    var unit = (document.getElementById('bulk-unit-' + id) || {}).value || '';
-    var img = (document.getElementById('bulk-img-' + id) || {}).value || '';
-
-    // Parse variations from "Name|Price, Name|Price" format
-    var varInput = (document.getElementById('bulk-variations-' + id) || {}).value || '';
-    var parsedVars = [];
-    if (varInput.trim()) {
-      varInput.split(',').forEach(function(v) {
-        var parts = v.trim().split('|');
-        if (parts[0]) parsedVars.push({ name: parts[0].trim(), price: parseFloat(parts[1]) || 0 });
-      });
-    }
-
-    products.push({
-      name: name.trim(),
-      category: cat,
-      brand: brand,
-      description: desc.trim(),
-      price: price,
-      moq: moq,
-      price_unit: unit,
-      availability: avail,
-      delivery_time: delivery,
-      shipping: shipping,
-      image_url: img || null,
-      variations: parsedVars.length ? JSON.stringify(parsedVars) : '[]',
-      supplier_id: u.id || null,
-      supplier_name: u.business_name || '',
-      city: u.city || '',
-      state: u.state || '',
-      mobile: u.mobile || '',
-      location: u.city || u.state || 'India',
-      status: 'active',
-      created_at: new Date().toISOString()
-    });
-  });
-
-  if (products.length === 0) {
-    showBulkAlert('Please add at least one product with a name!', 'error');
-    return;
-  }
-
-  // Check product limit
-  var plan = (currentUser.plan || 'free').toLowerCase();
-  var limit = PLAN_LIMITS[plan] || 5;
-  var { data: existing } = await supabaseClient
-    .from('products').select('id').eq('supplier_id', currentUser.id);
-  var currentCount = existing ? existing.length : 0;
-  var remaining = limit - currentCount;
-
-  if (remaining <= 0) {
-    showBulkAlert('You have reached your ' + plan + ' plan limit of ' + limit + ' products. Please upgrade to list more!', 'error');
-    return;
-  }
-  if (products.length > remaining) {
-    showBulkAlert('You can only add ' + remaining + ' more product(s) on your ' + plan + ' plan. Please reduce your list or upgrade!', 'error');
-    return;
-  }
-
-  var btn = document.getElementById('bulkPublishBtn');
-  btn.disabled = true;
-  btn.textContent = 'Publishing ' + products.length + ' products...';
-
-  try {
-    var res = await supabaseClient.from('products').insert(products);
-    if (res.error) {
-      showBulkAlert('Error: ' + res.error.message, 'error');
-    } else {
-      showBulkAlert('✅ ' + products.length + ' products published successfully!', 'success');
-      // Clear all rows
-      document.getElementById('bulkProductRows').innerHTML = '';
-      bulkRowCount = 0;
-      document.getElementById('bulk-category').value = '';
-      document.getElementById('bulk-brand').value = '';
-      document.getElementById('bulkCountLabel').textContent = '0 products ready';
-      // Add fresh rows
-      addBulkRow(); addBulkRow(); addBulkRow();
-      // Reload products list
-      if (typeof loadDashboardData === 'function') loadDashboardData();
-    }
-  } catch(e) {
-    showBulkAlert('Error: ' + e.message, 'error');
-  }
-  btn.disabled = false;
-  btn.textContent = '🌿 Publish All Products';
-}
-
-function showBulkAlert(msg, type) {
-  var el = document.getElementById('bulkAlert');
-  if (!el) return;
-  el.style.display = 'block';
-  el.style.background = type === 'success' ? '#e8f5e2' : '#fce4ec';
-  el.style.color = type === 'success' ? '#2d7a3a' : '#c62828';
-  el.textContent = msg;
-  setTimeout(function(){ el.style.display = 'none'; }, 5000);
-}
-
-
-function bulkUploadPhoto(n) {
-  if (!window.cloudinary) {
-    alert('Upload widget not ready. Please refresh the page.');
-    return;
-  }
-  cloudinary.openUploadWidget({
-    cloudName: 'dvbaciabk',
-    uploadPreset: 'grs_products',
-    sources: ['local', 'camera'],
-    multiple: false,
-    maxFiles: 1,
-    maxFileSize: 5000000,
-    clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
-    cropping: false,
-  }, function(err, result) {
-    if (!err && result && result.event === 'success') {
-      var url = result.info.secure_url;
-      var hiddenInput = document.getElementById('bulk-img-' + n);
-      if (hiddenInput) hiddenInput.value = url;
-      var preview = document.getElementById('bulk-img-preview-' + n);
-      if (preview) {
-        preview.innerHTML = '<img src="' + url + '" style="height:40px;width:40px;object-fit:cover;border-radius:6px;margin-right:6px;"/> <span style="color:#2d7a3a;font-weight:600;">✅ Uploaded!</span>';
-      }
-    }
-  });
-}
-
-
-// ═══════════════════════════════════════════════════
-// PRODUCT VARIATIONS
-// ═══════════════════════════════════════════════════
-var varCount = 0;
-
-function addVariation() {
-  varCount++;
-  var n = varCount;
-  var container = document.getElementById('variationsContainer');
-  var div = document.createElement('div');
-  div.id = 'var_' + n;
-  div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;';
-  div.innerHTML =
-    '<input type="text" placeholder="Name (e.g. Small)" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-name-'+n+'"/>' +
-    '<input type="number" placeholder="Price ₹" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-price-'+n+'"/>' +
-    '<input type="number" placeholder="Stock qty" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-stock-'+n+'"/>' +
-    '<button type="button" onclick="removeVariation('+n+')" style="padding:8px;background:#fce4ec;color:#c62828;border:none;border-radius:8px;cursor:pointer;font-size:14px;">✕</button>';
+// ══════════════════════════════════
+// VARIATIONS
+// ══════════════════════════════════
+function addVariation(){
+  varCount++;const n=varCount;
+  const container=document.getElementById('variationsContainer');
+  const div=document.createElement('div');
+  div.id='var_'+n;div.style.cssText='display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;';
+  div.innerHTML='<input type="text" placeholder="Name (e.g. Small)" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-name-'+n+'"/><input type="number" placeholder="Price ₹" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-price-'+n+'"/><input type="number" placeholder="Stock qty" style="padding:8px 10px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:12px;outline:none;" id="var-stock-'+n+'"/><button type="button" onclick="removeVariation('+n+')" style="padding:8px;background:#fce4ec;color:#c62828;border:none;border-radius:8px;cursor:pointer;font-size:14px;">✕</button>';
   container.appendChild(div);
 }
 
-function removeVariation(n) {
-  var el = document.getElementById('var_' + n);
-  if (el) el.remove();
-}
+function removeVariation(n){const el=document.getElementById('var_'+n);if(el)el.remove();}
 
-function getVariations() {
-  var vars = [];
-  var container = document.getElementById('variationsContainer');
-  if (!container) return vars;
-  var rows = container.querySelectorAll('[id^="var_"]');
-  rows.forEach(function(row) {
-    var n = row.id.replace('var_', '');
-    var name = document.getElementById('var-name-'+n);
-    var price = document.getElementById('var-price-'+n);
-    var stock = document.getElementById('var-stock-'+n);
-    if (name && name.value.trim()) {
-      vars.push({
-        name: name.value.trim(),
-        price: parseFloat(price && price.value) || 0,
-        stock: parseInt(stock && stock.value) || 0
-      });
-    }
-  });
+function getVariations(){
+  const vars=[];const container=document.getElementById('variationsContainer');if(!container)return vars;
+  container.querySelectorAll('[id^="var_"]').forEach(row=>{const n=row.id.replace('var_','');const name=document.getElementById('var-name-'+n);const price=document.getElementById('var-price-'+n);const stock=document.getElementById('var-stock-'+n);if(name&&name.value.trim())vars.push({name:name.value.trim(),price:parseFloat(price&&price.value)||0,stock:parseInt(stock&&stock.value)||0});});
   return vars;
 }
 
-function clearVariations() {
-  var container = document.getElementById('variationsContainer');
-  if (container) {
-    var rows = container.querySelectorAll('[id^="var_"]');
-    rows.forEach(function(r){ r.remove(); });
-  }
-  varCount = 0;
+function clearVariations(){
+  const container=document.getElementById('variationsContainer');
+  if(container){container.querySelectorAll('[id^="var_"]').forEach(r=>r.remove());}
+  varCount=0;
 }
 
+// ══════════════════════════════════
+// BULK LISTING
+// ══════════════════════════════════
+function setListingMode(mode){
+  const cards=document.querySelectorAll('#section-add-product > .card');
+  const publishBtn=document.getElementById('ap-publish-btn');
+  const bulkSection=document.getElementById('bulkSection');
+  const draftBtn=document.getElementById('ap-draft-btn');
+  const label=document.getElementById('bulkCountLabel');
+  if(mode==='bulk'){
+    cards.forEach(c=>c.style.display='none');
+    if(publishBtn)publishBtn.style.display='none';
+    if(draftBtn)draftBtn.style.display='none';
+    bulkSection.style.display='block';
+    document.getElementById('modeBulkBtn').style.background='#2d7a3a';document.getElementById('modeBulkBtn').style.color='white';
+    document.getElementById('modeSingleBtn').style.background='#e8f5e2';document.getElementById('modeSingleBtn').style.color='#2d7a3a';
+    if(label)label.style.display='inline';
+    if(bulkRowCount===0){addBulkRow();addBulkRow();addBulkRow();}
+  } else {
+    cards.forEach(c=>c.style.display='');
+    if(publishBtn)publishBtn.style.display='';if(draftBtn)draftBtn.style.display='';
+    bulkSection.style.display='none';
+    document.getElementById('modeSingleBtn').style.background='#2d7a3a';document.getElementById('modeSingleBtn').style.color='white';
+    document.getElementById('modeBulkBtn').style.background='#e8f5e2';document.getElementById('modeBulkBtn').style.color='#2d7a3a';
+    if(label)label.style.display='none';
+  }
+}
+
+function addBulkRow(){
+  bulkRowCount++;const n=bulkRowCount;
+  const container=document.getElementById('bulkProductRows');
+  const label=document.getElementById('bulkCountLabel');
+  if(label)label.textContent=document.querySelectorAll('#bulkProductRows > div').length+1+' products ready';
+  const row=document.createElement('div');
+  row.id='bulkRow_'+n;row.style.cssText='background:white;border-radius:12px;padding:16px;margin-bottom:12px;border:1.5px solid #e8f0e8;';
+  row.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><span style="font-size:13px;font-weight:700;color:#1a4a24;">📦 Product '+n+'</span><button onclick="removeBulkRow('+n+')" style="background:none;border:none;color:#e74c3c;font-size:18px;cursor:pointer;">✕</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Name *</label><input type="text" id="bulk-name-'+n+'" placeholder="e.g. Bamboo Lamp Shade" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div><div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Description</label><textarea id="bulk-desc-'+n+'" placeholder="Brief description..." style="width:100%;height:60px;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:inherit;"></textarea></div><div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Price (₹)</label><input type="number" id="bulk-price-'+n+'" placeholder="0.00" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div><div><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">MOQ</label><input type="number" id="bulk-moq-'+n+'" placeholder="e.g. 50" style="width:100%;padding:10px 12px;border:1.5px solid #d4e8cc;border-radius:8px;font-size:13px;outline:none;"/></div><div style="grid-column:span 2"><label style="font-size:11px;font-weight:700;text-transform:uppercase;color:#4a6645;display:block;margin-bottom:6px;">Product Photo</label><div style="display:flex;align-items:center;gap:10px;"><button type="button" onclick="bulkUploadPhoto('+n+')" style="padding:9px 16px;background:#e8f5e2;color:#2d7a3a;border:1.5px solid #a8d8a0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">📷 Upload Photo</button><span id="bulk-img-preview-'+n+'" style="font-size:12px;color:#7a9a74;">No photo yet</span><input type="hidden" id="bulk-img-'+n+'" value=""/></div></div></div>';
+  container.appendChild(row);
+}
+
+function removeBulkRow(n){const row=document.getElementById('bulkRow_'+n);if(row)row.remove();}
+
+function bulkUploadPhoto(n){
+  if(!window.cloudinary){alert('Upload not ready.');return;}
+  cloudinary.openUploadWidget({cloudName:'dvbaciabk',uploadPreset:'grs_products',sources:['local','camera'],multiple:false,maxFiles:1,maxFileSize:5000000,clientAllowedFormats:['jpg','jpeg','png','webp'],cropping:false},function(err,result){if(!err&&result&&result.event==='success'){const url=result.info.secure_url;const hi=document.getElementById('bulk-img-'+n);if(hi)hi.value=url;const pv=document.getElementById('bulk-img-preview-'+n);if(pv)pv.innerHTML='<img src="'+url+'" style="height:40px;width:40px;object-fit:cover;border-radius:6px;margin-right:6px;"/> <span style="color:#2d7a3a;font-weight:600;">✅ Uploaded!</span>';}});
+}
+
+async function publishAllBulk(){
+  const cat=document.getElementById('bulk-category').value;
+  if(!cat){showBulkAlert('Please select a category!','error');return;}
+  const u=JSON.parse(localStorage.getItem('grs_user')||'{}');
+  const rows=document.querySelectorAll('#bulkProductRows > div');
+  const products=[];
+  rows.forEach(row=>{
+    const id=row.id.replace('bulkRow_','');
+    const name=(document.getElementById('bulk-name-'+id)||{}).value;
+    if(!name||!name.trim())return;
+    const img=(document.getElementById('bulk-img-'+id)||{}).value||'';
+    products.push({name:name.trim(),category:cat,brand:document.getElementById('bulk-brand').value.trim(),description:(document.getElementById('bulk-desc-'+id)||{}).value||'',price:parseFloat((document.getElementById('bulk-price-'+id)||{}).value)||null,moq:parseInt((document.getElementById('bulk-moq-'+id)||{}).value)||null,availability:document.getElementById('bulk-availability').value,delivery_time:document.getElementById('bulk-delivery').value.trim(),shipping:document.getElementById('bulk-shipping').value.trim(),image_url:img||null,variations:'[]',supplier_id:u.id||null,supplier_name:u.business_name||'',city:u.city||'',state:u.state||'',mobile:u.mobile||'',location:u.city||u.state||'India',status:'active',created_at:new Date().toISOString()});
+  });
+  if(products.length===0){showBulkAlert('Please add at least one product!','error');return;}
+  const plan=(currentUser.plan||'free').toLowerCase();
+  const limit=PLAN_LIMITS[plan]||5;
+  const{data:existing}=await supabaseClient.from('products').select('id').eq('supplier_id',currentUser.id);
+  const remaining=limit-(existing?existing.length:0);
+  if(remaining<=0){showBulkAlert('Plan limit reached. Please upgrade!','error');return;}
+  if(products.length>remaining){showBulkAlert('You can only add '+remaining+' more product(s). Reduce or upgrade!','error');return;}
+  const btn=document.getElementById('bulkPublishBtn');btn.disabled=true;btn.textContent='Publishing '+products.length+' products...';
+  try{
+    const res=await supabaseClient.from('products').insert(products);
+    if(res.error){showBulkAlert('Error: '+res.error.message,'error');}
+    else{showBulkAlert('✅ '+products.length+' products published!','success');document.getElementById('bulkProductRows').innerHTML='';bulkRowCount=0;addBulkRow();addBulkRow();addBulkRow();loadMyProducts();}
+  }catch(e){showBulkAlert('Error: '+e.message,'error');}
+  btn.disabled=false;btn.textContent='🌿 Publish All Products';
+}
+
+function showBulkAlert(msg,type){
+  const el=document.getElementById('bulkAlert');if(!el)return;
+  el.style.display='block';el.style.background=type==='success'?'#e8f5e2':'#fce4ec';el.style.color=type==='success'?'#2d7a3a':'#c62828';el.textContent=msg;
+  setTimeout(()=>el.style.display='none',5000);
+}
+
+// ══════════════════════════════════
+// PROFILE
+// ══════════════════════════════════
+async function loadProfileForm(){
+  const u=currentUser;
+  const setVal=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||'';};
+  setVal('bp-business',u.business);setVal('bp-owner',u.name);setVal('bp-mobile',u.mobile);setVal('bp-city',u.city);setVal('bp-state',u.state);setVal('bp-category',u.category);
+  try{
+    const{data}=await supabaseClient.from('suppliers').select('*').eq('id',u.id);
+    if(data&&data.length>0){
+      const s=data[0];
+      setVal('bp-description',s.description);setVal('bp-website',s.website);setVal('bp-email',s.email);
+      setVal('bp-instagram',s.instagram);setVal('bp-linkedin',s.linkedin);setVal('bp-youtube',s.youtube);setVal('bp-facebook',s.facebook);
+    }
+  }catch(e){}
+  const bioUrl='https://www.greenrootssmart.com/store?id='+u.id;
+  const banner=document.getElementById('bioPageBanner');const urlEl=document.getElementById('bioPageUrl');
+  if(banner)banner.style.display='block';if(urlEl)urlEl.textContent=bioUrl;
+  // Load logo
+  await loadSupplierLogo();
+}
+
+function copyBioLink(){const bioUrl='https://www.greenrootssmart.com/store?id='+currentUser.id;navigator.clipboard.writeText(bioUrl).then(()=>{const btn=event.target;btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='📋 Copy',2000);});}
+function openBioPage(){window.open('https://www.greenrootssmart.com/store?id='+currentUser.id,'_blank');}
+
+async function saveProfile(){
+  const updates={business_name:document.getElementById('bp-business').value.trim(),owner_name:document.getElementById('bp-owner').value.trim(),mobile:document.getElementById('bp-mobile').value.trim(),city:document.getElementById('bp-city').value.trim(),state:document.getElementById('bp-state').value.trim(),category:document.getElementById('bp-category').value.trim(),description:document.getElementById('bp-description').value.trim(),website:document.getElementById('bp-website').value.trim(),email:document.getElementById('bp-email').value.trim(),instagram:document.getElementById('bp-instagram').value.trim(),linkedin:document.getElementById('bp-linkedin').value.trim(),youtube:document.getElementById('bp-youtube').value.trim(),facebook:document.getElementById('bp-facebook').value.trim()};
+  const{error}=await supabaseClient.from('suppliers').update(updates).eq('id',currentUser.id);
+  const msg=document.getElementById('bp-msg');
+  if(error){msg.style.display='block';msg.style.background='#fce4ec';msg.style.color='#c62828';msg.textContent='Error: '+error.message;}
+  else{msg.style.display='block';msg.style.background='#e8f5e2';msg.style.color='#2d7a3a';msg.textContent='✅ Profile updated! 🌿';currentUser.business=updates.business_name;currentUser.name=updates.owner_name;localStorage.setItem('grs_user',JSON.stringify(currentUser));}
+  setTimeout(()=>msg.style.display='none',4000);
+}
+
+// ══════════════════════════════════
+// SERVICES
+// ══════════════════════════════════
+async function addService(){
+  const name=document.getElementById('svc-name').value.trim();
+  const cat=document.getElementById('svc-cat').value;
+  const desc=document.getElementById('svc-desc').value.trim();
+  const phone=document.getElementById('svc-phone').value.trim();
+  if(!name||!cat||!desc){showSvcMsg('Please fill service name, category and description!','error');return;}
+  const btn=event.target;btn.textContent='Saving...';btn.disabled=true;
+  const{error}=await supabaseClient.from('service_providers').insert([{service_name:name,category:cat,description:desc,phone:phone||currentUser.mobile||'',company:document.getElementById('svc-company').value.trim()||currentUser.business||'',city:document.getElementById('svc-city').value.trim()||currentUser.city||'',state:currentUser.state||'',availability:document.getElementById('svc-avail').value,status:'active',verified:false,supplier_id:currentUser.id}]);
+  if(error){showSvcMsg('Error: '+error.message,'error');}
+  else{showSvcMsg('✅ Service listed!','success');['svc-name','svc-company','svc-phone','svc-city','svc-desc'].forEach(id=>document.getElementById(id).value='');document.getElementById('svc-cat').value='';loadMyServices();}
+  btn.textContent='🔧 List My Service';btn.disabled=false;
+}
+
+function showSvcMsg(msg,type){const el=document.getElementById('svc-msg');el.style.display='block';el.style.background=type==='success'?'#e8f5e2':'#fce4ec';el.style.color=type==='success'?'#2d7a3a':'#c62828';el.textContent=msg;setTimeout(()=>el.style.display='none',5000);}
+
+async function loadMyServices(){
+  if(!currentUser)return;
+  const{data}=await supabaseClient.from('service_providers').select('*').eq('supplier_id',currentUser.id).order('created_at',{ascending:false});
+  const list=document.getElementById('myServicesList');const count=document.getElementById('svcCount');
+  if(!data||data.length===0){if(list)list.innerHTML='<p style="color:var(--light);font-size:13px;padding:20px 0">No services listed yet! 🔧</p>';if(count)count.textContent='0 services';return;}
+  if(count)count.textContent=data.length+' service'+(data.length!==1?'s':'');
+  if(list)list.innerHTML=data.map(s=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0f4f0;"><div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--dark)">${s.service_name}</div><div style="font-size:12px;color:var(--light);margin-top:2px">${s.category} · ${s.city||''} · ${s.availability==='available'?'🟢 Available':s.availability==='busy'?'🟡 Busy':'🔴 Booked'}</div></div><div style="display:flex;gap:8px;margin-left:16px;"><button onclick="deleteSvc('${s.id}')" style="padding:6px 12px;background:#fce4ec;color:#c62828;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑️ Delete</button></div></div>`).join('');
+}
+
+async function deleteSvc(id){if(!confirm('Delete this service?'))return;await supabaseClient.from('service_providers').delete().eq('id',id);loadMyServices();}
+
+// ══════════════════════════════════
+// VERIFICATION
+// ══════════════════════════════════
+const CONDUCT_PLEDGES=['My products are genuinely eco-friendly — no greenwashing','All product descriptions are honest and accurate','I will respond to buyer enquiries within 48 hours','I will not list non-eco products on GRS','I accept GRS may revoke verification if I violate these rules'];
+
+async function loadVerificationSection(){
+  loadVerifStatus();
+  const cc=document.getElementById('conduct-checks');
+  if(cc)cc.innerHTML=CONDUCT_PLEDGES.map(p=>`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;"><span style="color:#52b043;font-size:14px;flex-shrink:0;">✅</span><span style="font-size:12px;color:var(--mid);">${p}</span></div>`).join('');
+  selectLevel('bronze');
+}
+
+async function loadVerifStatus(){
+  try{
+    const{data}=await supabaseClient.from('verifications').select('*').eq('supplier_id',currentUser.id).order('applied_at',{ascending:false}).limit(1);
+    const card=document.getElementById('verif-status-card');
+    if(!data||!data.length){card.innerHTML='<div style="background:#fff3e0;border:1.5px solid #ffcc02;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;"><div style="font-size:28px;">🏅</div><div><div style="font-size:13px;font-weight:700;color:#e65100;">Not Verified Yet</div><div style="font-size:12px;color:#888;">Fill the form below and apply for your GRS Verified badge!</div></div></div>';document.getElementById('verif-nav-badge').style.display='inline-block';return;}
+    const v=data[0];
+    const statusColor=v.status==='approved'?'#e8f5e2':v.status==='rejected'?'#fce4ec':'#fff3e0';
+    const statusTextColor=v.status==='approved'?'#2d7a3a':v.status==='rejected'?'#c62828':'#e65100';
+    const statusIcon=v.status==='approved'?(v.level==='gold'?'🥇':v.level==='silver'?'🥈':'🥉'):v.status==='rejected'?'❌':'⏳';
+    const statusText=v.status==='approved'?'🎉 You are GRS Verified!':v.status==='rejected'?'Application Rejected':'Application Under Review';
+    card.innerHTML=`<div style="background:${statusColor};border-radius:12px;padding:16px 18px;"><div style="display:flex;align-items:center;gap:12px;"><div style="font-size:36px;">${statusIcon}</div><div><div style="font-size:14px;font-weight:700;color:${statusTextColor};">${statusText}</div><div style="font-size:12px;color:#666;">${v.status==='approved'?'Congratulations! Share your bio page proudly.':v.status==='rejected'?'Please reapply with correct documents.':'Our team will review within 48 hours.'}</div></div></div></div>`;
+    if(v.status==='approved'){document.getElementById('verif-apply-form').style.display='none';document.getElementById('verif-nav-badge').style.display='none';}
+  }catch(e){console.error('Verif error:',e);}
+}
+
+function vfCertTypeChange(val){
+  const nw=document.getElementById('vf-cert-name-wrap');const uw=document.getElementById('vf-cert-upload-wrap');
+  if(val==='none'){if(nw)nw.style.display='none';if(uw)uw.style.display='none';}
+  else{if(nw)nw.style.display='block';if(uw)uw.style.display='block';}
+}
+
+function selectLevel(level){
+  vfLevel=level;
+  document.querySelectorAll('.vf-level-btn').forEach(btn=>{const l=btn.getAttribute('data-level');btn.style.transform=l===level?'scale(1.05)':'scale(1)';btn.style.boxShadow=l===level?'0 4px 16px rgba(45,122,58,0.2)':'none';});
+  const info={bronze:'🥉 Bronze — GST + Product Photo + Code of Conduct',silver:'🥈 Silver — All Bronze + Eco Certification',gold:'🥇 Gold — All Silver + References + Video Call'};
+  const el=document.getElementById('vf-selected-level');if(el)el.textContent=info[level]||'';
+}
+
+function vfUpload(type){
+  if(!window.cloudinary)return vfShowAlert('Upload not ready.','error');
+  const widget=cloudinary.createUploadWidget({cloudName:'dvbaciabk',uploadPreset:'grs_products',sources:['local'],multiple:false,clientAllowedFormats:['jpg','png','pdf','jpeg'],maxFileSize:5000000},(_,result)=>{
+    if(result.event==='success'){
+      const url=result.info.secure_url;
+      if(type==='gst'){vfGstUrl=url;document.getElementById('vf-gst-preview').innerHTML='✅ Uploaded <a href="'+url+'" target="_blank" style="color:var(--g2)">View</a>';}
+      if(type==='product'){vfProductUrl=url;document.getElementById('vf-product-preview').innerHTML='✅ Uploaded <a href="'+url+'" target="_blank" style="color:var(--g2)">View</a>';}
+      if(type==='cert'){vfCertUrl=url;document.getElementById('vf-cert-preview').innerHTML='✅ Uploaded <a href="'+url+'" target="_blank" style="color:var(--g2)">View</a>';}
+    }
+  });widget.open();
+}
+
+function vfShowAlert(msg,type='error'){const el=document.getElementById('vf-alert');if(!el)return;el.style.display='block';el.style.background=type==='success'?'#e8f5e2':'#fce4ec';el.style.color=type==='success'?'#2d7a3a':'#c62828';el.textContent=msg;if(type!=='success')setTimeout(()=>el.style.display='none',5000);}
+
+async function submitVerification(){
+  const gst=document.getElementById('vf-gst')?.value.trim();
+  const regType=document.getElementById('vf-reg-type')?.value;
+  const productName=document.getElementById('vf-product-name')?.value.trim();
+  const ecoReason=document.getElementById('vf-eco-reason')?.value.trim();
+  const supplyReach=document.getElementById('vf-supply-reach')?.value;
+  const moq=document.getElementById('vf-moq')?.value.trim();
+  const pledge=document.getElementById('vf-pledge')?.checked;
+  if(!gst)return vfShowAlert('Please enter your GST number!');
+  if(!regType)return vfShowAlert('Please select registration type!');
+  if(!vfGstUrl)return vfShowAlert('Please upload your business document!');
+  if(!productName)return vfShowAlert('Please enter your main product name!');
+  if(!ecoReason)return vfShowAlert('Please explain why your product is eco-friendly!');
+  if(!vfProductUrl)return vfShowAlert('Please upload a product photo!');
+  if(!supplyReach)return vfShowAlert('Please select your supply reach!');
+  if(!moq)return vfShowAlert('Please enter your minimum order quantity!');
+  if(!pledge)return vfShowAlert('Please agree to the GRS Eco Code of Conduct!');
+  if((vfLevel==='silver'||vfLevel==='gold')&&document.getElementById('vf-cert-type')?.value==='none')return vfShowAlert('Silver and Gold require eco certification.');
+  const btn=document.getElementById('vf-submit-btn');btn.disabled=true;btn.textContent='Submitting...';
+  const data={supplier_id:currentUser.id,supplier_name:currentUser.business,category:currentUser.category,level:vfLevel,gst_number:gst,reg_type:regType,gst_doc_url:vfGstUrl,product_name:productName,eco_reason:ecoReason,product_photo_url:vfProductUrl,cert_type:document.getElementById('vf-cert-type')?.value||'none',cert_name:document.getElementById('vf-cert-name')?.value||'',cert_doc_url:vfCertUrl||null,supply_reach:supplyReach,moq,delivery_time:document.getElementById('vf-delivery')?.value||'',response_time:document.getElementById('vf-response')?.value||'',code_signed:true,status:'pending',applied_at:new Date().toISOString()};
+  try{
+    const{error}=await supabaseClient.from('verifications').insert([data]);
+    if(error){vfShowAlert('Error: '+error.message);btn.disabled=false;btn.textContent='🏆 Submit Verification Application';return;}
+    vfShowAlert('🎉 Application submitted! Review within 48 hours.','success');btn.textContent='✅ Application Submitted!';
+    setTimeout(()=>loadVerifStatus(),2000);
+  }catch(e){vfShowAlert('Something went wrong.');btn.disabled=false;btn.textContent='🏆 Submit Verification Application';}
+}
+
+// ══════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════
+const sections=['overview','enquiries','products','add-product','analytics','verification','profile','reviews','settings','services'];
+const titles={'overview':['Dashboard Overview',''],'enquiries':['My Enquiries','Manage buyer enquiries.'],'products':['My Products','Manage your listings.'],'add-product':['Add New Product','Add a new eco product.'],'analytics':['Analytics','Track performance.'],'verification':['GRS Verification','Apply for your verified badge.'],'profile':['Business Profile','Manage your details.'],'reviews':['Reviews','See buyer reviews.'],'settings':['Settings','Account settings.'],'services':['My Services','Manage your services.']};
+
+function showSection(name,el){
+  sections.forEach(s=>{const sec=document.getElementById('section-'+s);if(sec)sec.style.display='none';});
+  const sec=document.getElementById('section-'+name);if(sec)sec.style.display='block';
+  document.querySelectorAll('.nav-item').forEach(item=>item.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('pageTitle').textContent=titles[name][0];
+  if(name!=='overview')document.getElementById('pageSubtitle').textContent=titles[name][1];
+  if(window.innerWidth<=900){const sb=document.querySelector('.sidebar');const bd=document.getElementById('sidebarBackdrop');if(sb&&bd&&sb.classList.contains('open')){sb.classList.remove('open');bd.classList.remove('show');}}
+  if(name==='profile')loadProfileForm();
+  if(name==='verification')loadVerificationSection();
+}
+
+function toggleSidebar(){const sb=document.querySelector('.sidebar');const bd=document.getElementById('sidebarBackdrop');if(sb&&bd){sb.classList.toggle('open');bd.classList.toggle('show');}}
+async function doLogout(){localStorage.removeItem('grs_user');window.location.href='/';}
+
+function getTimeAgo(dateStr){
+  const diff=Date.now()-new Date(dateStr).getTime();
+  const mins=Math.floor(diff/60000);const hrs=Math.floor(mins/60);const days=Math.floor(hrs/24);
+  if(days>0)return days+' day'+(days>1?'s':'')+' ago';
+  if(hrs>0)return hrs+' hr'+(hrs>1?'s':'')+' ago';
+  return mins+' min ago';
+}
+
+window.onload=initDashboard;
 </script>
 </body>
 </html>

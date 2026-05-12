@@ -43,7 +43,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.98);backdrop
 .grs-card{background:white;border-radius:16px;padding:22px;border:1.5px solid #e8f0e8;box-shadow:0 2px 10px rgba(0,0,0,0.04);transition:all 0.3s;}
 .grs-card:hover{border-color:var(--g4);box-shadow:0 8px 24px rgba(45,122,58,0.1);transform:translateY(-3px);}
 .card-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.card-avatar{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+
+/* LOGO STYLES */
+.card-logo-img{width:52px;height:52px;border-radius:12px;object-fit:cover;border:2px solid var(--g4);flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.card-avatar{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;}
+
 .card-name{font-size:15px;font-weight:700;color:var(--dark);line-height:1.3;}
 .card-sub{font-size:12px;color:var(--light);margin-top:2px;}
 .card-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;flex-shrink:0;}
@@ -87,8 +91,10 @@ footer a{color:#a0c8a0;}
     <div><div class="logo-text">Green Roots <span>Smart</span></div></div>
   </a>
   <ul class="nav-links">
-    <li><a href="/">Home</a></li><li><a href="/supplier-profile">Suppliers</a></li>
-    <li><a href="/services">Services</a></li><li><a href="/products">Products</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/supplier-profile">Suppliers</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/products">Products</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
   <div class="nav-btns">
@@ -99,6 +105,7 @@ footer a{color:#a0c8a0;}
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
+
 <div id="mobnav" style="display:none;background:white;border-bottom:1px solid #d4e8cc;padding:16px 5%;">
   <a href="/" style="display:block;padding:10px;color:var(--dark);font-size:14px;">🏠 Home</a>
   <a href="/supplier-profile" style="display:block;padding:10px;color:var(--dark);font-size:14px;">🏪 Suppliers</a>
@@ -209,39 +216,39 @@ footer a{color:#a0c8a0;}
 </footer>
 
 <script>
-var SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-var SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
-var db = supabase.createClient(SURL, SKEY);
-var catColors = ['#e8f5e2','#fff9c4','#e0f7fa','#fce4ec','#e3f2fd','#f3e5f5','#fff8e1','#efebe9','#e8eaf6','#e8f5e9'];
-var allSuppliers = [];
-var currentEnqTarget = '';
+var SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+var SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+var db=supabase.createClient(SURL,SKEY);
+var catColors=['#e8f5e2','#fff9c4','#e0f7fa','#fce4ec','#e3f2fd','#f3e5f5','#fff8e1','#efebe9','#e8eaf6','#e8f5e9'];
+var allSuppliers=[];
+var currentEnqTarget='';
 
-function cleanCat(s){ return (s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase(); }
+function cleanCat(s){return(s||'').replace(/[^\x00-\x7F]/g,'').trim().toLowerCase();}
 
 async function loadSuppliers(){
   try{
-    var res = await db.from('suppliers').select('*').order('created_at',{ascending:false}).limit(1000);
-    if(res.error){ console.error('DB error:',res.error); return; }
-    allSuppliers = res.data || [];
-    document.getElementById('totalSup').textContent = allSuppliers.length+'+';
-    document.getElementById('activeSup').textContent = allSuppliers.filter(function(s){return !s.manually_added||s.claimed;}).length+'+';
-    var up = new URLSearchParams(window.location.search);
-    if(up.get('category')) document.getElementById('catFilter').value = up.get('category');
-    if(up.get('state')) document.getElementById('stateFilter').value = up.get('state');
+    var res=await db.from('suppliers').select('*').order('created_at',{ascending:false}).limit(1000);
+    if(res.error){console.error('DB error:',res.error);return;}
+    allSuppliers=res.data||[];
+    document.getElementById('totalSup').textContent=allSuppliers.length+'+';
+    document.getElementById('activeSup').textContent=allSuppliers.filter(function(s){return !s.manually_added||s.claimed;}).length+'+';
+    var up=new URLSearchParams(window.location.search);
+    if(up.get('category'))document.getElementById('catFilter').value=up.get('category');
+    if(up.get('state'))document.getElementById('stateFilter').value=up.get('state');
     doSearch();
   }catch(e){
     console.error('Load error:',e);
-    document.getElementById('suppliersGrid').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><h3>Could not load</h3><p>Please refresh</p></div>';
+    document.getElementById('suppliersGrid').innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><h3>Could not load</h3><p>Please refresh</p></div>';
   }
 }
 
 function doSearch(){
-  var q = document.getElementById('searchInput').value.trim().toLowerCase();
-  var cat = document.getElementById('catFilter').value;
-  var state = document.getElementById('stateFilter').value.toLowerCase();
-  var f = allSuppliers;
-  if(q) f = f.filter(function(s){
-    return (s.business_name||'').toLowerCase().includes(q)||
+  var q=document.getElementById('searchInput').value.trim().toLowerCase();
+  var cat=document.getElementById('catFilter').value;
+  var state=document.getElementById('stateFilter').value.toLowerCase();
+  var f=allSuppliers;
+  if(q)f=f.filter(function(s){
+    return(s.business_name||'').toLowerCase().includes(q)||
            (s.owner_name||'').toLowerCase().includes(q)||
            (s.category||'').toLowerCase().includes(q)||
            (s.city||'').toLowerCase().includes(q)||
@@ -249,17 +256,17 @@ function doSearch(){
            (s.location||'').toLowerCase().includes(q)||
            (s.description||'').toLowerCase().includes(q);
   });
-  if(cat) f = f.filter(function(s){ return cleanCat(s.category)===cleanCat(cat)||(s.category||'').trim()===cat.trim(); });
-  if(state) f = f.filter(function(s){
+  if(cat)f=f.filter(function(s){return cleanCat(s.category)===cleanCat(cat)||(s.category||'').trim()===cat.trim();});
+  if(state)f=f.filter(function(s){
     var h=(s.state||'').length>0||(s.city||'').length>0||(s.location||'').length>0;
-    if(!h) return true;
-    return (s.state||'').toLowerCase().includes(state)||(s.city||'').toLowerCase().includes(state)||(s.location||'').toLowerCase().includes(state);
+    if(!h)return true;
+    return(s.state||'').toLowerCase().includes(state)||(s.city||'').toLowerCase().includes(state)||(s.location||'').toLowerCase().includes(state);
   });
   renderSuppliers(f);
 }
 
 function renderSuppliers(list){
-  var g = document.getElementById('suppliersGrid');
+  var g=document.getElementById('suppliersGrid');
   if(!list||!list.length){
     g.innerHTML='<div class="empty"><div class="empty-icon">🌿</div><h3>No suppliers found</h3><p>Try a different search or category</p></div>';
     return;
@@ -269,6 +276,21 @@ function renderSuppliers(list){
     var s=list[i];
     var init=(s.business_name||'GS').split(' ').map(function(n){return n[0];}).join('').toUpperCase().slice(0,2);
     var col=catColors[i%catColors.length];
+
+    // ── LOGO vs INITIALS ──────────────────────────────────
+    var avatarHtml='';
+    if(s.logo_url){
+      // Show real logo image with initials fallback
+      avatarHtml=
+        '<img src="'+s.logo_url+'" alt="'+init+'" class="card-logo-img" '+
+        'onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'"/>'+
+        '<div class="card-avatar" style="background:'+col+';color:var(--g1);display:none;">'+init+'</div>';
+    } else {
+      // No logo — show coloured initials
+      avatarHtml='<div class="card-avatar" style="background:'+col+';color:var(--g1);">'+init+'</div>';
+    }
+    // ─────────────────────────────────────────────────────
+
     var wa=(s.mobile||'').replace(/\D/g,'');
     var manual=s.manually_added&&!s.claimed;
     var loc=[s.city,s.state].filter(Boolean).join(', ')||s.location||'India';
@@ -288,14 +310,16 @@ function renderSuppliers(list){
     }
     var click=manual?'void(0)':"window.location.href='/supplier-detail?id="+s.id+"'";
     var cur=manual?'default':'pointer';
+
     h+='<div class="grs-card" style="cursor:'+cur+'" onclick="'+click+'">';
-    h+='<div class="card-head"><div class="card-avatar" style="background:'+col+';color:var(--g1)">'+init+'</div>';
-    h+='<div style="flex:1"><div class="card-name">'+(s.business_name||'Eco Supplier')+'</div><div class="card-sub">'+(s.category||'Eco Products')+'</div></div>'+badge+'</div>';
+    h+='<div class="card-head">'+avatarHtml;
+    h+='<div style="flex:1"><div class="card-name">'+(s.business_name||'Eco Supplier')+'</div>';
+    h+='<div class="card-sub">'+(s.category||'Eco Products')+'</div></div>'+badge+'</div>';
     h+='<div class="card-loc">📍 '+loc+'</div>';
-    if(s.description) h+='<div class="card-desc">'+s.description+'</div>';
+    if(s.description)h+='<div class="card-desc">'+s.description+'</div>';
     h+='<div class="card-tags"><span class="card-tag">'+(s.category||'Eco')+'</span>';
-    if(s.business_type) h+='<span class="card-tag" style="background:#e3f2fd;color:#1565c0;">'+s.business_type+'</span>';
-    if(s.plan==='pro') h+='<span class="card-tag">⭐ Pro</span>';
+    if(s.business_type)h+='<span class="card-tag" style="background:#e3f2fd;color:#1565c0;">'+s.business_type+'</span>';
+    if(s.plan==='pro')h+='<span class="card-tag">⭐ Pro</span>';
     h+='</div>';
     h+='<div class="card-footer"><span class="card-hint">'+(manual?'👆 This your business?':'🌿 GRS Listed')+'</span>';
     h+='<div class="card-btns">'+btns+'</div></div></div>';
@@ -314,12 +338,22 @@ async function submitEnquiry(){
   if(!m){showAlert('Please enter your mobile!');return;}
   var btn=document.getElementById('enqBtn');btn.disabled=true;btn.textContent='Sending...';
   try{
-    await db.from('enquiries').insert([{buyer_name:n,buyer_mobile:m,buyer_email:document.getElementById('enqEmail').value.trim(),supplier_name:currentEnqTarget,product_name:'Enquiry — '+currentEnqTarget,message:document.getElementById('enqMsg').value.trim(),enquiry_type:'Supplier Page Enquiry',status:'new',created_at:new Date().toISOString()}]);
+    await db.from('enquiries').insert([{
+      buyer_name:n,buyer_mobile:m,
+      buyer_email:document.getElementById('enqEmail').value.trim(),
+      supplier_name:currentEnqTarget,
+      product_name:'Enquiry — '+currentEnqTarget,
+      message:document.getElementById('enqMsg').value.trim(),
+      enquiry_type:'Supplier Page Enquiry',
+      status:'new',
+      created_at:new Date().toISOString()
+    }]);
     showToast('✅ Enquiry sent!');closeModal();
     ['enqName','enqMobile','enqEmail','enqMsg'].forEach(function(id){document.getElementById(id).value='';});
   }catch(e){showAlert('Error. Try WhatsApp directly.');}
   btn.disabled=false;btn.textContent='Send Enquiry 🌿';
 }
+
 function showAlert(m){var e=document.getElementById('modalAlert');e.style.display='block';e.textContent=m;setTimeout(function(){e.style.display='none';},4000);}
 function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(function(){t.style.display='none';},3500);}
 
