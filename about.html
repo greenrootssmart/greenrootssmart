@@ -4,7 +4,6 @@
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/dvbaciabk/image/upload/w_64,h_64,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg"/>
-
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>About Us — Green Roots Smart | India's First Eco B2B Marketplace</title>
@@ -31,23 +30,41 @@
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 6%;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--g1);text-decoration:none;}
-.logo span{color:var(--g3);}
-.nav-links{display:flex;gap:24px;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--mid);font-size:14px;font-weight:500;}
-.nav-links a:hover,.nav-links a.active{color:var(--g2);font-weight:600;}
-.nav-btns{display:flex;gap:10px;}
-.btn-out{padding:8px 18px;border-radius:8px;border:1.5px solid var(--g2);background:transparent;color:var(--g2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:none;}
-.btn-pri{padding:8px 18px;border-radius:8px;border:none;background:var(--g2);color:white;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;text-decoration:none;}
+.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
+.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.grs-logo img{height:40px;width:auto;object-fit:contain;}
+.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
+.grs-logo-text span{color:#52b043;}
+.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
+.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
+.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
+.grs-dropdown{position:relative;}
+.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
+.grs-dropdown-btn svg{transition:transform 0.2s;}
+.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
+.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
+.grs-dropdown:hover .grs-dropdown-menu{display:block;}
+.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
+.grs-dropdown-item:hover{background:#e8f5e2;}
+.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
+.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
+.grs-coming{opacity:0.5;pointer-events:none;}
+.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
+.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
+.grs-btns{display:flex;align-items:center;gap:8px;}
+.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.grs-btn-out:hover{background:#e8f5e2;}
+.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
+.grs-btn-pri:hover{background:#1a4a24;}
+.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
+.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
+@media(max-width:900px){.grs-links{display:none;}.grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}.grs-mobile-menu{display:block;}}
 
 /* HERO */
 .hero{background:linear-gradient(160deg,var(--g1),var(--g2));padding:64px 6%;color:white;text-align:center;position:relative;overflow:hidden;}
-/* Left decorative tree image */
-.hero-deco-left{position:absolute;left:0;bottom:0;width:220px;height:100%;object-fit:cover;object-position:right center;opacity:0.18;pointer-events:none;mix-blend-mode:luminosity;}
-/* Right decorative tree image */
-.hero-deco-right{position:absolute;right:0;bottom:0;width:220px;height:100%;object-fit:cover;object-position:left center;opacity:0.18;pointer-events:none;mix-blend-mode:luminosity;}
-/* SVG leaf decorations as fallback */
 .hero-leaf-left{position:absolute;left:0;bottom:0;width:200px;height:100%;pointer-events:none;opacity:0.12;}
 .hero-leaf-right{position:absolute;right:0;bottom:0;width:200px;height:100%;pointer-events:none;opacity:0.12;transform:scaleX(-1);}
 .hero-content{position:relative;z-index:1;}
@@ -55,8 +72,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop
 .hero h1{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;margin-bottom:16px;line-height:1.2;}
 .hero h1 span{color:#a8e090;}
 .hero p{font-size:16px;color:rgba(255,255,255,0.85);max-width:580px;margin:0 auto 40px;line-height:1.7;}
-
-/* STATS */
 .stats-row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}
 .stat-item{text-align:center;}
 .stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:white;}
@@ -78,14 +93,17 @@ nav{position:sticky;top:0;z-index:100;background:rgba(247,249,242,0.97);backdrop
 .mission-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--g1);margin-bottom:10px;}
 .mission-card p{font-size:13px;color:var(--mid);line-height:1.7;}
 
-/* FOUNDER */
-.founder-card{background:white;border-radius:24px;padding:48px;border:1.5px solid #e8f0e8;box-shadow:0 4px 20px rgba(0,0,0,0.06);display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;margin-top:36px;}
-.founder-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--g3),var(--g1));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:white;flex-shrink:0;}
+/* FOUNDER — updated with real photo */
+.founder-card{background:white;border-radius:24px;padding:48px;border:1.5px solid #e8f0e8;box-shadow:0 4px 20px rgba(0,0,0,0.06);display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start;margin-top:36px;}
+.founder-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0;}
+.founder-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid var(--g4);box-shadow:0 8px 32px rgba(45,122,58,0.18);}
+.founder-photo-name{font-size:12px;font-weight:700;color:var(--g2);text-align:center;letter-spacing:0.3px;}
+.founder-photo-title{font-size:11px;color:var(--light);text-align:center;margin-top:2px;}
 .founder-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--g1);margin-bottom:4px;}
 .founder-role{font-size:14px;font-weight:600;color:var(--g3);margin-bottom:16px;}
 .founder-bio{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:20px;}
 .founder-quote{background:var(--g5);border-left:4px solid var(--g3);border-radius:0 12px 12px 0;padding:16px 20px;font-size:14px;color:var(--g1);font-style:italic;line-height:1.7;margin-bottom:20px;}
-.founder-links{display:flex;gap:12px;}
+.founder-links{display:flex;gap:12px;flex-wrap:wrap;}
 .founder-link{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;}
 .link-li{background:#0077b5;color:white;}
 .link-wa{background:#25D366;color:white;}
@@ -121,6 +139,7 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;margin-left:12px;}
 @media(max-width:768px){
   .mission-grid{grid-template-columns:1fr;}
   .founder-card{grid-template-columns:1fr;text-align:center;}
+  .founder-photo-wrap{margin:0 auto;}
   .founder-links{justify-content:center;}
   .goals-grid{grid-template-columns:1fr;}
   .hero h1{font-size:28px;}
@@ -128,57 +147,17 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;margin-left:12px;}
   .stat-div{display:none;}
 }
 @media(max-width:600px){
-  .stats-row{flex-direction:column; gap:24px;}
-  .rev-btns{flex-direction:column; gap:12px;}
-  .founder-links{flex-direction:column; gap:10px;}
+  .stats-row{flex-direction:column;gap:24px;}
+  .rev-btns{flex-direction:column;gap:12px;}
+  .founder-links{flex-direction:column;gap:10px;}
+  .founder-card{padding:28px 20px;}
 }
 </style>
 </head>
 <body>
 
-<!-- GRS HEADER — paste this in all pages replacing existing nav -->
-<style>
-.grs-nav{position:sticky;top:0;z-index:1000;background:rgba(247,249,242,0.98);backdrop-filter:blur(16px);border-bottom:1px solid #d4e8cc;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Sans',sans-serif;}
-.grs-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.grs-logo img{height:40px;width:auto;object-fit:contain;}
-.grs-logo-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1a4a24;line-height:1.2;}
-.grs-logo-text span{color:#52b043;}
-.grs-logo-sub{font-size:9px;color:#7a9a74;font-weight:500;letter-spacing:0.5px;}
-.grs-links{display:flex;align-items:center;gap:4px;list-style:none;}
-.grs-links a{text-decoration:none;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
-.grs-links a:hover,.grs-links a.active{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown{position:relative;}
-.grs-dropdown-btn{background:none;border:none;cursor:pointer;color:#4a6645;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
-.grs-dropdown-btn:hover{color:#2d7a3a;background:#e8f5e2;}
-.grs-dropdown-btn svg{transition:transform 0.2s;}
-.grs-dropdown:hover .grs-dropdown-btn svg{transform:rotate(180deg);}
-.grs-dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;background:white;border:1.5px solid #d4e8cc;border-radius:14px;padding:8px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,0.1);z-index:1000;}
-.grs-dropdown:hover .grs-dropdown-menu{display:block;}
-.grs-dropdown-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1a4a24;font-size:13px;font-weight:500;transition:all 0.2s;white-space:nowrap;}
-.grs-dropdown-item:hover{background:#e8f5e2;}
-.grs-dropdown-item .di-icon{font-size:20px;width:32px;height:32px;background:#e8f5e2;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.grs-dropdown-item .di-text{}
-.grs-dropdown-item .di-title{font-weight:600;font-size:13px;color:#1a4a24;}
-.grs-dropdown-item .di-sub{font-size:11px;color:#7a9a74;margin-top:1px;}
-.grs-coming{opacity:0.5;pointer-events:none;}
-.grs-badge{background:#e8f5e2;color:#2d7a3a;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:4px;letter-spacing:0.5px;}
-.grs-divider{height:1px;background:#f0f4f0;margin:6px 0;}
-.grs-btns{display:flex;align-items:center;gap:8px;}
-.grs-btn-out{padding:7px 16px;border-radius:8px;border:1.5px solid #2d7a3a;background:transparent;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-out:hover{background:#e8f5e2;}
-.grs-btn-pri{padding:7px 16px;border-radius:8px;border:none;background:#2d7a3a;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all 0.2s;}
-.grs-btn-pri:hover{background:#1a4a24;}
-.grs-btn-claim{padding:7px 14px;border-radius:8px;border:1.5px solid #a8d8a0;background:#f0faf0;color:#2d7a3a;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;}
-.grs-mobile-menu{display:none;cursor:pointer;background:none;border:none;padding:4px;}
-@media(max-width:900px){
-  .grs-links{display:none;}
-  .grs-btns .grs-btn-claim,.grs-btns .grs-btn-out{display:none;}
-  .grs-mobile-menu{display:block;}
-}
-</style>
-
+<!-- NAV -->
 <nav class="grs-nav">
-  <!-- LOGO -->
   <a href="/" class="grs-logo">
     <img src="https://res.cloudinary.com/dvbaciabk/image/upload/w_120,h_40,c_fit,q_auto,f_auto/v1773899367/logo_jsry2v.jpg" alt="GRS Logo"/>
     <div>
@@ -186,70 +165,44 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;margin-left:12px;}
       <div class="grs-logo-sub">INDIA'S FIRST ECO B2B MARKETPLACE</div>
     </div>
   </a>
-
-  <!-- NAV LINKS -->
   <ul class="grs-links">
     <li><a href="/">Home</a></li>
-
-    <!-- BROWSE DROPDOWN -->
     <li class="grs-dropdown">
-      <button class="grs-dropdown-btn">
-        Browse
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+      <button class="grs-dropdown-btn">Browse
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#4a6645" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
       <div class="grs-dropdown-menu">
         <a href="/supplier-profile" class="grs-dropdown-item">
           <div class="di-icon">🏪</div>
-          <div class="di-text">
-            <div class="di-title">Suppliers</div>
-            <div class="di-sub">Browse verified eco suppliers</div>
-          </div>
+          <div class="di-text"><div class="di-title">Suppliers</div><div class="di-sub">Browse verified eco suppliers</div></div>
         </a>
         <a href="/services" class="grs-dropdown-item">
           <div class="di-icon">🔧</div>
-          <div class="di-text">
-            <div class="di-title">Service Providers</div>
-            <div class="di-sub">Find eco service experts</div>
-          </div>
+          <div class="di-text"><div class="di-title">Service Providers</div><div class="di-sub">Find eco service experts</div></div>
         </a>
         <div class="grs-divider"></div>
         <div class="grs-dropdown-item grs-coming">
           <div class="di-icon">💼</div>
-          <div class="di-text">
-            <div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Green jobs & careers</div>
-          </div>
+          <div class="di-text"><div class="di-title">Jobs <span class="grs-badge">COMING SOON</span></div><div class="di-sub">Green jobs & careers</div></div>
         </div>
         <div class="grs-dropdown-item grs-coming">
           <div class="di-icon">🎓</div>
-          <div class="di-text">
-            <div class="di-title">Education <span class="grs-badge">COMING SOON</span></div>
-            <div class="di-sub">Eco learning & courses</div>
-          </div>
+          <div class="di-text"><div class="di-title">Education <span class="grs-badge">COMING SOON</span></div><div class="di-sub">Eco learning & courses</div></div>
         </div>
       </div>
     </li>
-
     <li><a href="/products">Products</a></li>
     <li><a href="/services">Services</a></li>
     <li><a href="/contact">Contact Us</a></li>
-    <li><a href="/about">About Us</a></li>
+    <li><a href="/about" class="active">About Us</a></li>
   </ul>
-
-  <!-- RIGHT BUTTONS -->
   <div class="grs-btns">
     <a href="/claim-profile" class="grs-btn-claim">🌿 Claim Profile</a>
     <a href="/login" class="grs-btn-out">Login</a>
     <a href="/register" class="grs-btn-pri">List Business</a>
   </div>
-
-  <!-- MOBILE MENU -->
   <button class="grs-mobile-menu" onclick="toggleMobileMenu()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/>
-    </svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="#2d7a3a" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 </nav>
 
@@ -269,43 +222,18 @@ footer a{color:var(--g4);text-decoration:none;font-size:12px;margin-left:12px;}
   </div>
 </div>
 
-<script>
-function toggleMobileMenu() {
-  var m = document.getElementById('grs-mobile-nav');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-</script>
-
-
 <!-- HERO -->
 <div class="hero">
-
-  <!-- LEFT DECORATIVE TREE SVG -->
   <svg class="hero-leaf-left" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">
-    <!-- Tree trunk -->
     <rect x="90" y="280" width="18" height="120" rx="9" fill="white"/>
-    <!-- Main branches -->
     <ellipse cx="100" cy="220" rx="55" ry="75" fill="white"/>
     <ellipse cx="58" cy="260" rx="38" ry="52" fill="white"/>
     <ellipse cx="142" cy="255" rx="35" ry="50" fill="white"/>
-    <!-- Small leaves scattered -->
     <ellipse cx="30" cy="200" rx="22" ry="30" fill="white" opacity="0.7"/>
     <ellipse cx="165" cy="210" rx="20" ry="28" fill="white" opacity="0.7"/>
     <ellipse cx="80" cy="150" rx="25" ry="35" fill="white" opacity="0.8"/>
     <ellipse cx="125" cy="160" rx="22" ry="30" fill="white" opacity="0.8"/>
-    <!-- Tiny accent leaves -->
-    <ellipse cx="15" cy="240" rx="14" ry="20" fill="white" opacity="0.5"/>
-    <ellipse cx="180" cy="240" rx="13" ry="18" fill="white" opacity="0.5"/>
-    <ellipse cx="60" cy="130" rx="16" ry="22" fill="white" opacity="0.6"/>
-    <!-- Ground grass blades -->
-    <path d="M40 400 Q35 370 50 350 Q55 370 60 400Z" fill="white" opacity="0.4"/>
-    <path d="M70 400 Q65 365 80 342 Q85 365 88 400Z" fill="white" opacity="0.4"/>
-    <path d="M110 400 Q108 375 118 355 Q122 375 125 400Z" fill="white" opacity="0.4"/>
-    <path d="M140 400 Q136 368 150 348 Q155 368 158 400Z" fill="white" opacity="0.4"/>
-    <path d="M168 400 Q165 378 175 362 Q178 378 180 400Z" fill="white" opacity="0.4"/>
   </svg>
-
-  <!-- RIGHT DECORATIVE TREE SVG (mirrored) -->
   <svg class="hero-leaf-right" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">
     <rect x="90" y="280" width="18" height="120" rx="9" fill="white"/>
     <ellipse cx="100" cy="220" rx="55" ry="75" fill="white"/>
@@ -315,49 +243,26 @@ function toggleMobileMenu() {
     <ellipse cx="165" cy="210" rx="20" ry="28" fill="white" opacity="0.7"/>
     <ellipse cx="80" cy="150" rx="25" ry="35" fill="white" opacity="0.8"/>
     <ellipse cx="125" cy="160" rx="22" ry="30" fill="white" opacity="0.8"/>
-    <ellipse cx="15" cy="240" rx="14" ry="20" fill="white" opacity="0.5"/>
-    <ellipse cx="180" cy="240" rx="13" ry="18" fill="white" opacity="0.5"/>
-    <ellipse cx="60" cy="130" rx="16" ry="22" fill="white" opacity="0.6"/>
-    <path d="M40 400 Q35 370 50 350 Q55 370 60 400Z" fill="white" opacity="0.4"/>
-    <path d="M70 400 Q65 365 80 342 Q85 365 88 400Z" fill="white" opacity="0.4"/>
-    <path d="M110 400 Q108 375 118 355 Q122 375 125 400Z" fill="white" opacity="0.4"/>
-    <path d="M140 400 Q136 368 150 348 Q155 368 158 400Z" fill="white" opacity="0.4"/>
-    <path d="M168 400 Q165 378 175 362 Q178 378 180 400Z" fill="white" opacity="0.4"/>
   </svg>
-
-  <!-- CENTRE CONTENT -->
   <div class="hero-content">
     <div class="hero-badge">🌿 India's First Eco B2B Marketplace</div>
     <h1>Building India's <span>Greenest</span><br/>B2B Marketplace</h1>
     <p>We believe every business has the power to go green. Green Roots Smart connects eco-friendly suppliers with buyers across India — making sustainable trade simple, trusted and powerful.</p>
     <div class="stats-row">
-      <div class="stat-item">
-        <div class="stat-num">2026</div>
-        <div class="stat-lbl">Founded</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">2026</div><div class="stat-lbl">Founded</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item">
-        <div class="stat-num" id="statSup">8+</div>
-        <div class="stat-lbl">Eco Suppliers</div>
-      </div>
+      <div class="stat-item"><div class="stat-num" id="statSup">8+</div><div class="stat-lbl">Eco Suppliers</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item">
-        <div class="stat-num">21+</div>
-        <div class="stat-lbl">Categories</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">21+</div><div class="stat-lbl">Categories</div></div>
       <div class="stat-div"></div>
-      <div class="stat-item">
-        <div class="stat-num">Pan India</div>
-        <div class="stat-lbl">Coverage</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">Pan India</div><div class="stat-lbl">Coverage</div></div>
     </div>
   </div>
-
 </div>
 
 <div class="main">
 
-  <!-- OUR MISSION -->
+  <!-- MISSION -->
   <div class="section">
     <div class="sec-label">What We Stand For</div>
     <h2 class="sec-title">Our Mission & Values</h2>
@@ -376,18 +281,31 @@ function toggleMobileMenu() {
       <div class="mission-card">
         <div class="mission-icon">🚀</div>
         <h3>Empower Green Business</h3>
-        <p>We give eco suppliers the tools, visibility and connections they need to grow. From free listings to global reach — we help green businesses thrive.</p>
+        <p>We give eco suppliers the tools, visibility and connections they need to grow. From free listings to direct buyer enquiries — we help green businesses thrive.</p>
       </div>
     </div>
   </div>
 
-  <!-- FOUNDER -->
+  <!-- FOUNDER — REAL PHOTO -->
   <div class="section">
     <div class="sec-label">The Team</div>
     <h2 class="sec-title">Meet Our Founder</h2>
     <p class="sec-sub">The person behind India's first eco B2B marketplace.</p>
     <div class="founder-card">
-      <div class="founder-avatar">D</div>
+
+      <!-- PHOTO COLUMN -->
+      <div class="founder-photo-wrap">
+        <img
+          src="https://res.cloudinary.com/dvbaciabk/image/upload/w_320,h_320,c_fill,g_face,q_auto,f_auto/v1778553687/Copilot_20260511_201753_ochmm7.png"
+          alt="Dinesh Chennamallan — Founder & CEO, Green Roots Smart"
+          class="founder-photo"
+          onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Dinesh+Chennamallan&background=2d7a3a&color=fff&size=160&font-size=0.4&bold=true';"
+        />
+        <div class="founder-photo-name">Dinesh Chennamallan</div>
+        <div class="founder-photo-title">Founder & CEO</div>
+      </div>
+
+      <!-- TEXT COLUMN -->
       <div>
         <div class="founder-name">Dinesh Chennamallan</div>
         <div class="founder-role">Founder & CEO — Green Roots Smart</div>
@@ -399,10 +317,11 @@ function toggleMobileMenu() {
           <a href="https://www.instagram.com/greenrootsmart/" target="_blank" class="founder-link link-ig">📸 Instagram</a>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- OUR GOALS -->
+  <!-- GOALS -->
   <div class="section">
     <div class="sec-label">Where We're Going</div>
     <h2 class="sec-title">Our Goals</h2>
@@ -414,7 +333,7 @@ function toggleMobileMenu() {
           <div class="goal-year">Goal by 2026</div>
           <div class="goal-title">1,000 Eco Suppliers</div>
           <div class="goal-desc">Onboard 1,000 verified eco-friendly suppliers across all green categories — from solar to organic farming to eco packaging.</div>
-          <div class="goal-progress"><div class="goal-bar" style="width:0.2%"></div></div>
+          <div class="goal-progress"><div class="goal-bar" style="width:1%"></div></div>
         </div>
       </div>
       <div class="goal-card">
@@ -431,7 +350,7 @@ function toggleMobileMenu() {
         <div>
           <div class="goal-year">Goal by 2026</div>
           <div class="goal-title">50+ Product Categories</div>
-          <div class="goal-desc">Expand from 10 to 50+ eco product categories — covering every aspect of sustainable business from green chemistry to eco textiles.</div>
+          <div class="goal-desc">Expand from 21 to 50+ eco product categories — covering every aspect of sustainable business from green chemistry to eco textiles.</div>
           <div class="goal-progress"><div class="goal-bar" style="width:20%"></div></div>
         </div>
       </div>
@@ -478,19 +397,18 @@ function toggleMobileMenu() {
 </footer>
 
 <script>
-const SURL = 'https://qrwhsygcblgbibogiecm.supabase.co';
-const SKEY = 'sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+function toggleMobileMenu(){var m=document.getElementById('grs-mobile-nav');m.style.display=m.style.display==='none'?'block':'none';}
 
-async function loadStats() {
-  try {
-    const r = await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&select=id`, {
-      headers: { 'apikey': SKEY, 'Authorization': `Bearer ${SKEY}` }
-    });
-    const data = await r.json();
-    const count = Array.isArray(data) ? data.length : 0;
-    const el = document.getElementById('statSup');
-    if(el) el.textContent = count > 0 ? count + '+' : '2+';
-  } catch(e) {}
+const SURL='https://qrwhsygcblgbibogiecm.supabase.co';
+const SKEY='sb_publishable_lBwSxrqJbAV4owK0nQfvXg_Bo2L0OKB';
+async function loadStats(){
+  try{
+    const r=await fetch(`${SURL}/rest/v1/suppliers?status=eq.active&select=id`,{headers:{'apikey':SKEY,'Authorization':`Bearer ${SKEY}`}});
+    const data=await r.json();
+    const count=Array.isArray(data)?data.length:0;
+    const el=document.getElementById('statSup');
+    if(el)el.textContent=count>0?count+'+':'8+';
+  }catch(e){}
 }
 loadStats();
 </script>
